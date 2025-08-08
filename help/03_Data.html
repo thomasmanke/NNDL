@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Thomas Manke">
+<meta name="dcterms.date" content="2025-08-03">
+
+<title>Lecture Title - Data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Lecture Title</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../general/Overview.html" rel="" target=""><i class="bi bi-menu-up" role="img">
+</i> 
+ <span class="menu-text">Overview</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-lectures" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+      <i class="bi bi-book" role="img">
+</i> 
+ <span class="menu-text">Lectures</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-lectures">    
+        <li>
+    <a class="dropdown-item" href="../lectures/01_MachineLearning/index.html" rel="" target="">
+ <span class="dropdown-text">01 Machine Learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lectures/02_NeuralNetworks/index.html" rel="" target="">
+ <span class="dropdown-text">02 Neural Networks</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lectures/03_ConvolutionalNeuralNetworks/index.html" rel="" target="">
+ <span class="dropdown-text">03 Convolutional Neural Networks</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lectures/04_GenerativeModels/index.html" rel="" target="">
+ <span class="dropdown-text">04 Generative Models</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../homework/index.html" rel="" target=""><i class="bi bi-list-task" role="img">
+</i> 
+ <span class="menu-text">Homework</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../projects/index.html" rel="" target=""><i class="bi bi-bricks" role="img">
+</i> 
+ <span class="menu-text">Projects</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../help/index.html" rel="" target=""><i class="bi bi-question-circle" role="img">
+</i> 
+ <span class="menu-text">Help</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../general/Chalkboard.html" rel="" target=""><i class="bi bi-clipboard-fill" role="img">
+</i> 
+ <span class="menu-text">Chalkboard</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/thomasmanke/" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#famous-datasets" id="toc-famous-datasets" class="nav-link active" data-scroll-target="#famous-datasets">Famous Datasets</a></li>
+  <li><a href="#platforms" id="toc-platforms" class="nav-link" data-scroll-target="#platforms">Platforms</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Data</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Thomas Manke </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 3, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="famous-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="famous-datasets">Famous Datasets</h2>
+<section id="images" class="level3">
+<h3 class="anchored" data-anchor-id="images">Images</h3>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Dataset</th>
+<th>Year</th>
+<th># Samples</th>
+<th>Features per sample</th>
+<th>Approx. Size</th>
+<th>Authors / Creators</th>
+<th>Primary Source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>MNIST</strong></td>
+<td>~1998‑1999 (released)</td>
+<td>60 000 train + 10 000 test = 70 000 images</td>
+<td>28×28 gray‑scale pixels (784 features)</td>
+<td>~50 MB (<a href="https://registry.opendata.aws/?utm_source=chatgpt.com" title="Registry of Open Data on AWS">WIRED</a>, <a href="https://www.interviewquery.com/p/free-datasets?utm_source=chatgpt.com" title="50+ Free Datasets for Data Analysis Projects in 2025">Wikipedia</a>)</td>
+<td>Yann LeCun, C. Cortes, C. Burges (via NIST) (<a href="https://www.interviewquery.com/p/free-datasets?utm_source=chatgpt.com" title="50+ Free Datasets for Data Analysis Projects in 2025">Wikipedia</a>, <a href="https://www.wired.com/beyond-the-beyond/2020/02/datasets-deep-learning?utm_source=chatgpt.com" title="Datasets for deep learning">lri.fr</a>)</td>
+<td>yann.lecun.com/exdb/mnist/</td>
+</tr>
+<tr class="even">
+<td><strong>Fashion‑MNIST</strong></td>
+<td>2017</td>
+<td>60 000 train + 10 000 test = 70 000 images</td>
+<td>28×28 gray‑scale (784 features)</td>
+<td>~30 MB (<a href="https://en.wikipedia.org/wiki/Alzheimer%27s_Disease_Neuroimaging_Initiative?utm_source=chatgpt.com" title="Alzheimer's Disease Neuroimaging Initiative">Wikipedia</a>, <a href="https://en.wikipedia.org/wiki/UK_Biobank?utm_source=chatgpt.com" title="UK Biobank">arXiv</a>)</td>
+<td>Han Xiao, Kashif Rasul, Roland Vollgraf (Zalando) (<a href="https://en.wikipedia.org/wiki/UK_Biobank?utm_source=chatgpt.com" title="UK Biobank">arXiv</a>)</td>
+<td>arXiv:1708.07747</td>
+</tr>
+<tr class="odd">
+<td><strong>CIFAR‑10</strong></td>
+<td>2009</td>
+<td>50 000 train + 10 000 test = 60 000 images</td>
+<td>32×32 color images (3×32×32 = 3 072 features)</td>
+<td>~170 MB (<a href="https://github.com/awesomedata/awesome-public-datasets?utm_source=chatgpt.com" title="awesomedata/awesome-public-datasets">Wikipedia</a>, <a href="https://en.wikipedia.org/wiki/European_Genome-phenome_Archive?utm_source=chatgpt.com" title="European Genome-phenome Archive">Analytics Vidhya</a>, <a href="https://registry.opendata.aws/?utm_source=chatgpt.com" title="Registry of Open Data on AWS">WIRED</a>)</td>
+<td>Alex Krizhevsky, Vinod Nair, Geoffrey Hinton (<a href="https://en.wikipedia.org/wiki/German_Human_Genome-Phenome_Archive?utm_source=chatgpt.com" title="German Human Genome-Phenome Archive">Medium</a>, <a href="https://github.com/awesomedata/awesome-public-datasets?utm_source=chatgpt.com" title="awesomedata/awesome-public-datasets">Wikipedia</a>)</td>
+<td>cris.toronto.edu/~kriz/cifar.html</td>
+</tr>
+<tr class="even">
+<td><strong>MS‑COCO</strong></td>
+<td>2014</td>
+<td>~330 000 images (~200 000 annotated) → 1.5 M object instances</td>
+<td>3‑channel images with bounding boxes, segmentation masks, captions</td>
+<td>~25 GB (37 GB in TF DS format) (<a href="https://registry.opendata.aws/?utm_source=chatgpt.com" title="Registry of Open Data on AWS">WIRED</a>, <a href="https://en.wikipedia.org/wiki/The_Cancer_Imaging_Archive?utm_source=chatgpt.com" title="The Cancer Imaging Archive">Ultralytics Docs</a>, <a href="https://arxiv.org/abs/1901.07042?utm_source=chatgpt.com" title="MIMIC-CXR-JPG, a large publicly available database of labeled chest radiographs">TensorFlow</a>)</td>
+<td>Tsung‑Yi Lin, Maire, Belongie, Bourdev, Girshick, Hays, Perona, Ramanan, Zitnick &amp; Dollár (<a href="https://arxiv.org/abs/1901.07031?utm_source=chatgpt.com" title="CheXpert: A Large Chest Radiograph Dataset with Uncertainty Labels and Expert Comparison">arXiv</a>, <a href="https://en.wikipedia.org/wiki/The_Cancer_Imaging_Archive?utm_source=chatgpt.com" title="The Cancer Imaging Archive">Ultralytics Docs</a>)</td>
+<td>arXiv:1405.0312 / cocodataset.org</td>
+</tr>
+<tr class="odd">
+<td><strong>VisualQA</strong></td>
+<td>~2015</td>
+<td>~265 000 images (derived from COCO) with ~800 000 QA pairs</td>
+<td>Image paired with question and answer text features</td>
+<td>~25 GB (<a href="https://registry.opendata.aws/?utm_source=chatgpt.com" title="Registry of Open Data on AWS">WIRED</a>)</td>
+<td>Antol et al.&nbsp;(Visual Question Answering team)</td>
+<td>visualqa.org (Refer arXiv paper)</td>
+</tr>
+<tr class="even">
+<td><strong>ImageNet‑1K (ILSVRC)</strong></td>
+<td>2009</td>
+<td>1 281 167 train + 50 000 validation + 100 000 test = ~1.43 M images</td>
+<td>High‑res RGB images (often resized to 256×256)</td>
+<td>~150 GB (~130 GB compressed) (<a href="https://arxiv.org/abs/2110.14795?utm_source=chatgpt.com" title="MedMNIST v2 -- A large-scale lightweight benchmark for 2D and 3D biomedical image classification">Wikipedia</a>, <a href="https://encord.com/blog/best-free-datasets-for-healthcare/?utm_source=chatgpt.com" title="Top 10 Free Healthcare Datasets for Computer Vision">TensorFlow</a>, <a href="https://docs.ultralytics.com/datasets/classify/imagenet/?utm_source=chatgpt.com" title="ImageNet Dataset">Ultralytics Docs</a>)</td>
+<td>Jia Deng, Li Fei‑Fei, et al.&nbsp;(ImageNet team) (<a href="https://arxiv.org/abs/2110.14795?utm_source=chatgpt.com" title="MedMNIST v2 -- A large-scale lightweight benchmark for 2D and 3D biomedical image classification">Wikipedia</a>, <a href="https://www.image-net.org/static_files/papers/imagenet_cvpr09.pdf?utm_source=chatgpt.com" title="ImageNet: A Large-Scale Hierarchical Image Database">image-net.org</a>)</td>
+<td>Deng et al.&nbsp;CVPR 2009 paper / image‑net.org</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="natural-language-processing-nlp" class="level3">
+<h3 class="anchored" data-anchor-id="natural-language-processing-nlp">Natural Language Processing (NLP)</h3>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Dataset</th>
+<th>Year</th>
+<th>Samples</th>
+<th>Features per Sample</th>
+<th>Size</th>
+<th>Authors / Source</th>
+<th>Primary Link</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Penn Treebank (PTB)</strong></td>
+<td>1993</td>
+<td>~4.5M words (WSJ corpus)</td>
+<td>Words, POS tags, parse trees</td>
+<td>~10 MB</td>
+<td>Marcus et al.&nbsp;(UPenn)</td>
+<td><a href="https://catalog.ldc.upenn.edu/LDC99T42">LDC</a></td>
+</tr>
+<tr class="even">
+<td><strong>Wikipedia Dumps</strong></td>
+<td>Ongoing</td>
+<td>Billions of tokens</td>
+<td>Articles, sections, tokens</td>
+<td>Hundreds of GB</td>
+<td>Wikimedia Foundation</td>
+<td><a href="https://dumps.wikimedia.org/">dumps.wikimedia.org</a></td>
+</tr>
+<tr class="odd">
+<td><strong>BookCorpus</strong></td>
+<td>2015</td>
+<td>~11K books</td>
+<td>Long-form text</td>
+<td>~6 GB</td>
+<td>Zhu et al.&nbsp;(Toronto)</td>
+<td><a href="https://huggingface.co/datasets/bookcorpus">Link</a></td>
+</tr>
+<tr class="even">
+<td><strong>Common Crawl</strong></td>
+<td>Ongoing</td>
+<td>Billions of pages</td>
+<td>Raw web text</td>
+<td>&gt;100 TB</td>
+<td>Common Crawl Foundation</td>
+<td><a href="https://commoncrawl.org">commoncrawl.org</a></td>
+</tr>
+<tr class="odd">
+<td><strong>GLUE Benchmark</strong></td>
+<td>2018</td>
+<td>9 tasks, 1.5M samples</td>
+<td>Varies per task (sentences, pairs)</td>
+<td>~0.7 GB</td>
+<td>Wang et al.&nbsp;(NYU et al.)</td>
+<td><a href="https://gluebenchmark.com">gluebenchmark.com</a></td>
+</tr>
+<tr class="even">
+<td><strong>SQuAD v2</strong></td>
+<td>2018</td>
+<td>100K+ Q&amp;A pairs</td>
+<td>Paragraph + Question</td>
+<td>~2 GB</td>
+<td>Rajpurkar et al.&nbsp;(Stanford)</td>
+<td><a href="https://rajpurkar.github.io/SQuAD-explorer/">rajpurkar.github.io/SQuAD-explorer</a></td>
+</tr>
+<tr class="odd">
+<td><strong>Wikitext-103</strong></td>
+<td>2017</td>
+<td>103M tokens</td>
+<td>Clean Wikipedia articles</td>
+<td>~500 MB</td>
+<td>Salesforce Research</td>
+<td><a href="https://huggingface.co/datasets/wikitext">Huggingface</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="audio-speech" class="level3">
+<h3 class="anchored" data-anchor-id="audio-speech">Audio / Speech</h3>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Dataset</th>
+<th>Year</th>
+<th>Samples</th>
+<th>Features per Sample</th>
+<th>Size</th>
+<th>Authors / Source</th>
+<th>Primary Link</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>LibriSpeech</strong></td>
+<td>2015</td>
+<td>~1 000 hours</td>
+<td>Audio (16 kHz) + text transcripts</td>
+<td>~60 GB</td>
+<td>Vassil Panayotov (CMU)</td>
+<td><a href="https://www.openslr.org/12">openslr.org/12</a></td>
+</tr>
+<tr class="even">
+<td><strong>VoxCeleb 1/2</strong></td>
+<td>2017–18</td>
+<td>~7K speakers</td>
+<td>Speech + speaker ID</td>
+<td>~150 GB</td>
+<td>Univ. of Oxford (Arsha Nagrani et al.)</td>
+<td><a href="http://www.robots.ox.ac.uk/~vgg/data/voxceleb/">www.robots.ox.ac.uk</a></td>
+</tr>
+<tr class="odd">
+<td><strong>TED-LIUM 3</strong></td>
+<td>2018</td>
+<td>452 hours (TED talks)</td>
+<td>Audio + subtitles/transcripts</td>
+<td>~30 GB</td>
+<td>LIUM / Univ. of Le Mans</td>
+<td><a href="https://www.openslr.org/51">openslr.org/51</a></td>
+</tr>
+<tr class="even">
+<td><strong>Common Voice</strong></td>
+<td>Ongoing</td>
+<td>~25K+ speakers</td>
+<td>Crowdsourced voice clips</td>
+<td>&gt;100 GB</td>
+<td>Mozilla Foundation</td>
+<td><a href="https://commonvoice.mozilla.org/en/datasets">commonvoice.mozilla.org</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="multimodal-text-image-audio-video" class="level3">
+<h3 class="anchored" data-anchor-id="multimodal-text-image-audio-video">Multimodal (Text + Image + Audio + Video)</h3>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Dataset</th>
+<th>Year</th>
+<th>Samples</th>
+<th>Modalities</th>
+<th>Size</th>
+<th>Authors / Source</th>
+<th>Primary Link</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>CLIP (LAION-400M)</strong></td>
+<td>2021</td>
+<td>400M image–text pairs</td>
+<td>Image + caption</td>
+<td>~250 GB</td>
+<td>LAION community</td>
+<td><a href="https://laion.ai">laion.ai</a></td>
+</tr>
+<tr class="even">
+<td><strong>HowTo100M</strong></td>
+<td>2019</td>
+<td>136M video clips</td>
+<td>Video + narration (YouTube)</td>
+<td>~1.5 TB</td>
+<td>D. Miech et al.</td>
+<td><a href="https://www.di.ens.fr/willow/research/howto100m/">ht100m.github.io</a></td>
+</tr>
+<tr class="odd">
+<td><strong>YouCook2</strong></td>
+<td>2018</td>
+<td>2K cooking videos</td>
+<td>Video + subtitle captions</td>
+<td>~50 GB</td>
+<td>Zhou et al.&nbsp;(Georgia Tech)</td>
+<td><a href="http://youcook2.eecs.umich.edu/">YouCook2</a></td>
+</tr>
+<tr class="even">
+<td><strong>VQA (VisualQA)</strong></td>
+<td>2015</td>
+<td>265K images + 800K QA pairs</td>
+<td>Image + Question + Answer</td>
+<td>~25 GB</td>
+<td>Antol et al.</td>
+<td><a href="https://visualqa.org/">visualqa.org</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="platforms" class="level2">
+<h2 class="anchored" data-anchor-id="platforms">Platforms</h2>
+<table class="table">
+<thead>
+<tr class="header">
+<th><strong>Repository / Platform</strong></th>
+<th><strong>Primary Dataset Link</strong></th>
+<th><strong>Categories Covered</strong></th>
+<th><strong># of Datasets (approx.)</strong></th>
+<th><strong>Total Size (approx.)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Hugging Face Datasets</strong></td>
+<td><a href="https://huggingface.co/datasets">huggingface.co/datasets</a></td>
+<td>NLP, vision, audio, multimodal</td>
+<td>Thousands</td>
+<td>Tens of TB</td>
+</tr>
+<tr class="even">
+<td><strong>Papers with Code – Datasets</strong></td>
+<td><a href="https://paperswithcode.com/datasets">paperswithcode.com/datasets</a></td>
+<td>NLP, vision, audio, tabular, RL, etc.</td>
+<td>~2,000+</td>
+<td>Variable</td>
+</tr>
+<tr class="odd">
+<td><strong>Registry of Open Data on AWS</strong></td>
+<td><a href="https://registry.opendata.aws">registry.opendata.aws</a></td>
+<td>Genomics, earth science, satellite, healthcare</td>
+<td>Many hundreds</td>
+<td>Hundreds of TB (including genomics &amp; satellite) (<a href="https://registry.opendata.aws/?utm_source=chatgpt.com" title="Registry of Open Data on AWS">registry.opendata.aws</a>, <a href="https://www.interviewquery.com/p/free-datasets?utm_source=chatgpt.com" title="50+ Free Datasets for Data Analysis Projects in 2025">Interview Query</a>, <a href="https://www.wired.com/beyond-the-beyond/2020/02/datasets-deep-learning?utm_source=chatgpt.com" title="Datasets for deep learning">WIRED</a>, <a href="https://en.wikipedia.org/wiki/Alzheimer%27s_Disease_Neuroimaging_Initiative?utm_source=chatgpt.com" title="Alzheimer's Disease Neuroimaging Initiative">Wikipedia</a>, <a href="https://en.wikipedia.org/wiki/UK_Biobank?utm_source=chatgpt.com" title="UK Biobank">Wikipedia</a>)</td>
+</tr>
+<tr class="even">
+<td><strong>Awesome Public Datasets (GitHub)</strong></td>
+<td><a href="https://github.com/awesomedata/awesome-public-datasets">github.com/awesomedata/awesome-public-datasets</a></td>
+<td>Curated lists across topics—including genomics, medical, climate</td>
+<td>Hundreds (topics)</td>
+<td>Varies (<a href="https://github.com/awesomedata/awesome-public-datasets?utm_source=chatgpt.com" title="awesomedata/awesome-public-datasets">GitHub</a>)</td>
+</tr>
+<tr class="odd">
+<td><strong>European Genome‑phenome Archive (EGA)</strong></td>
+<td><a href="https://ega-archive.org">ega-archive.org</a></td>
+<td>Human genomics &amp; phenotypic clinical data</td>
+<td>~4,500 studies from 1,000+ institutions (<a href="https://en.wikipedia.org/wiki/European_Genome-phenome_Archive?utm_source=chatgpt.com" title="European Genome-phenome Archive">Wikipedia</a>)</td>
+<td>Tens to hundreds of PB (multi‑petabyte scale)</td>
+</tr>
+<tr class="even">
+<td><strong>German Human Genome‑Phenome Archive (GHGA)</strong></td>
+<td><a href="https://data.ghga.de">data.ghga.de</a></td>
+<td>Human omics data (genome, proteome, phenotype)</td>
+<td>National German infra (~hundreds) (<a href="https://en.wikipedia.org/wiki/German_Human_Genome-Phenome_Archive?utm_source=chatgpt.com" title="German Human Genome-Phenome Archive">Wikipedia</a>)</td>
+<td>多‑petabyte scale under FAIR governance</td>
+</tr>
+<tr class="odd">
+<td><strong>The Cancer Imaging Archive (TCIA)</strong></td>
+<td><a href="https://www.cancerimagingarchive.net">cancerimagingarchive.net</a></td>
+<td>Medical imaging (cancer CT, MRI, PET)</td>
+<td>Hundreds of collections; millions of images (<a href="https://en.wikipedia.org/wiki/The_Cancer_Imaging_Archive?utm_source=chatgpt.com" title="The Cancer Imaging Archive">Wikipedia</a>)</td>
+<td>Tens/hundreds of TB</td>
+</tr>
+<tr class="even">
+<td><strong>MIMIC‑CXR‑JPG</strong> (via MIMIC‑CXR)</td>
+<td><a href="https://mimic-cxr.org">mimic‑cxr.org</a></td>
+<td>Chest X‑ray radiographs with labels</td>
+<td>~377,110 images (227,827 studies) (<a href="https://arxiv.org/abs/1901.07042?utm_source=chatgpt.com" title="MIMIC-CXR-JPG, a large publicly available database of labeled chest radiographs">arXiv</a>)</td>
+<td>~100s of GB</td>
+</tr>
+<tr class="odd">
+<td><strong>CheXpert (Stanford)</strong></td>
+<td><a href="https://stanfordmlgroup.github.io/competitions/chexpert">stanfordmlgroup.github.io/competitions/chexpert</a></td>
+<td>Chest radiographs with automated labels</td>
+<td>224,316 images (65,240 patients) (<a href="https://arxiv.org/abs/1901.07031?utm_source=chatgpt.com" title="CheXpert: A Large Chest Radiograph Dataset with Uncertainty Labels and Expert Comparison">arXiv</a>)</td>
+<td>~100s of GB</td>
+</tr>
+<tr class="even">
+<td><strong>MedMNIST v2</strong></td>
+<td><a href="https://medmnist.com">medmnist.com</a></td>
+<td>Biomedical images (2D/3D small‑scale)</td>
+<td>~718K images across 18 tasks (<a href="https://arxiv.org/abs/2110.14795?utm_source=chatgpt.com" title="MedMNIST v2 -- A large-scale lightweight benchmark for 2D and 3D biomedical image classification">arXiv</a>)</td>
+<td>Tens of GB</td>
+</tr>
+<tr class="odd">
+<td><strong>MedPix</strong> (NLM / NIH)</td>
+<td><a href="https://medpix.nlm.nih.gov">nlm.nih.gov/medpix</a></td>
+<td>Medical imaging cases across specialties</td>
+<td>~59,000 images (12,000 patients) (<a href="https://encord.com/blog/best-free-datasets-for-healthcare/?utm_source=chatgpt.com" title="Top 10 Free Healthcare Datasets for Computer Vision">Encord</a>)</td>
+<td>Several GB</td>
+</tr>
+</tbody>
+</table>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Data"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">draft:</span><span class="co"> true</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## Famous Datasets</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">### Images</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>| Dataset                  | Year                   | # Samples                                                            | Features per sample                                                | Approx. Size                                                                               | Authors / Creators                                                                                                             | Primary Source                              |</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>| ------------------------ | ---------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------- |</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>| **MNIST**                | \~1998‑1999 (released) | 60 000 train + 10 000 test = 70 000 images                           | 28×28 gray‑scale pixels (784 features)                             | \~50 MB (<span class="co">[</span><span class="ot">WIRED</span><span class="co">][1]</span>, <span class="co">[</span><span class="ot">Wikipedia</span><span class="co">][2]</span>)                                                       | Yann LeCun, C. Cortes, C. Burges (via NIST) (<span class="co">[</span><span class="ot">Wikipedia</span><span class="co">][2]</span>, <span class="co">[</span><span class="ot">lri.fr</span><span class="co">][3]</span>)                                                      | yann.lecun.com/exdb/mnist/                  |</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>| **Fashion‑MNIST**        | 2017                   | 60 000 train + 10 000 test = 70 000 images                           | 28×28 gray‑scale (784 features)                                    | \~30 MB (<span class="co">[</span><span class="ot">Wikipedia</span><span class="co">][4]</span>, <span class="co">[</span><span class="ot">arXiv</span><span class="co">][5]</span>)                                                       | Han Xiao, Kashif Rasul, Roland Vollgraf (Zalando) (<span class="co">[</span><span class="ot">arXiv</span><span class="co">][5]</span>)                                                                 | arXiv:1708.07747                            |</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>| **CIFAR‑10**             | 2009                   | 50 000 train + 10 000 test = 60 000 images                           | 32×32 color images (3×32×32 = 3 072 features)                      | \~170 MB (<span class="co">[</span><span class="ot">Wikipedia</span><span class="co">][6]</span>, <span class="co">[</span><span class="ot">Analytics Vidhya</span><span class="co">][7]</span>, <span class="co">[</span><span class="ot">WIRED</span><span class="co">][1]</span>)                               | Alex Krizhevsky, Vinod Nair, Geoffrey Hinton (<span class="co">[</span><span class="ot">Medium</span><span class="co">][8]</span>, <span class="co">[</span><span class="ot">Wikipedia</span><span class="co">][6]</span>)                                                     | cris.toronto.edu/\~kriz/cifar.html          |</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>| **MS‑COCO**              | 2014                   | \~330 000 images (\~200 000 annotated) → 1.5 M object instances      | 3‑channel images with bounding boxes, segmentation masks, captions | \~25 GB (37 GB in TF DS format) (<span class="co">[</span><span class="ot">WIRED</span><span class="co">][1]</span>, <span class="co">[</span><span class="ot">Ultralytics Docs</span><span class="co">][9]</span>, <span class="co">[</span><span class="ot">TensorFlow</span><span class="co">][10]</span>)      | Tsung‑Yi Lin, Maire, Belongie, Bourdev, Girshick, Hays, Perona, Ramanan, Zitnick &amp; Dollár (<span class="co">[</span><span class="ot">arXiv</span><span class="co">][11]</span>, <span class="co">[</span><span class="ot">Ultralytics Docs</span><span class="co">][9]</span>) | arXiv:1405.0312 / cocodataset.org           |</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>| **VisualQA**             | \~2015                 | \~265 000 images (derived from COCO) with \~800 000 QA pairs         | Image paired with question and answer text features                | \~25 GB (<span class="co">[</span><span class="ot">WIRED</span><span class="co">][1]</span>)                                                                       | Antol et al. (Visual Question Answering team)                                                                                  | visualqa.org (Refer arXiv paper)            |</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>| **ImageNet‑1K (ILSVRC)** | 2009                   | 1 281 167 train + 50 000 validation + 100 000 test = \~1.43 M images | High‑res RGB images (often resized to 256×256)                     | \~150 GB (\~130 GB compressed) (<span class="co">[</span><span class="ot">Wikipedia</span><span class="co">][12]</span>, <span class="co">[</span><span class="ot">TensorFlow</span><span class="co">][13]</span>, <span class="co">[</span><span class="ot">Ultralytics Docs</span><span class="co">][14]</span>) | Jia Deng, Li Fei‑Fei, et al. (ImageNet team) (<span class="co">[</span><span class="ot">Wikipedia</span><span class="co">][12]</span>, <span class="co">[</span><span class="ot">image-net.org</span><span class="co">][15]</span>)                                            | Deng et al. CVPR 2009 paper / image‑net.org |</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ot">[1]: https://www.wired.com/beyond-the-beyond/2020/02/datasets-deep-learning?utm_source=chatgpt.com "Datasets for deep learning"</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ot">[2]: https://en.wikipedia.org/wiki/MNIST_database?utm_source=chatgpt.com "MNIST database"</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ot">[3]: https://www.lri.fr/~marc/Master2/MNIST_doc.pdf?utm_source=chatgpt.com "THE MNIST DATABASE of handwritten digits"</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ot">[4]: https://en.wikipedia.org/wiki/Fashion_MNIST?utm_source=chatgpt.com "Fashion MNIST"</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="ot">[5]: https://arxiv.org/abs/1708.07747?utm_source=chatgpt.com "Fashion-MNIST: a Novel Image Dataset for Benchmarking Machine Learning Algorithms"</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="ot">[6]: https://en.wikipedia.org/wiki/CIFAR-10?utm_source=chatgpt.com "CIFAR-10"</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ot">[7]: https://www.analyticsvidhya.com/blog/2022/09/how-to-classify-the-images-of-the-cifar-10-dataset-using-cnn/?utm_source=chatgpt.com "How to Classify the Images of the Cifar-10 Dataset using ..."</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ot">[8]: https://medium.com/kaggle-blog/convolutional-nets-and-cifar-10-an-interview-with-yann-lecun-2ffe8f9ee3d6?utm_source=chatgpt.com "Convolutional Nets and CIFAR-10: An Interview with Yann ..."</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ot">[9]: https://docs.ultralytics.com/datasets/detect/coco/?utm_source=chatgpt.com "COCO Dataset"</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ot">[10]: https://www.tensorflow.org/datasets/catalog/coco?utm_source=chatgpt.com "coco bookmark_border - Datasets"</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ot">[11]: https://arxiv.org/abs/1405.0312?utm_source=chatgpt.com "Microsoft COCO: Common Objects in Context"</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ot">[12]: https://en.wikipedia.org/wiki/ImageNet?utm_source=chatgpt.com "ImageNet"</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ot">[13]: https://www.tensorflow.org/datasets/catalog/imagenet2012?utm_source=chatgpt.com "imagenet2012 - Datasets"</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ot">[14]: https://docs.ultralytics.com/datasets/classify/imagenet/?utm_source=chatgpt.com "ImageNet Dataset"</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ot">[15]: https://www.image-net.org/static_files/papers/imagenet_cvpr09.pdf?utm_source=chatgpt.com "ImageNet: A Large-Scale Hierarchical Image Database"</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="fu">### Natural Language Processing (NLP)</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>| Dataset           | Year | Samples             | Features per Sample           | Size         | Authors / Source                             | Primary Link |</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>|-------------------|------|---------------------|--------------------------------|--------------|----------------------------------------------|--------------|</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>| **Penn Treebank (PTB)** | 1993 | ~4.5M words (WSJ corpus) | Words, POS tags, parse trees      | ~10 MB       | Marcus et al. (UPenn)                        | <span class="co">[</span><span class="ot">LDC</span><span class="co">](https://catalog.ldc.upenn.edu/LDC99T42)</span> |</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>| **Wikipedia Dumps** | Ongoing | Billions of tokens       | Articles, sections, tokens         | Hundreds of GB | Wikimedia Foundation                         | <span class="co">[</span><span class="ot">dumps.wikimedia.org</span><span class="co">](https://dumps.wikimedia.org/)</span> |</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>| **BookCorpus**    | 2015 | ~11K books           | Long-form text                  | ~6 GB        | Zhu et al. (Toronto)                         | <span class="co">[</span><span class="ot">Link</span><span class="co">](https://huggingface.co/datasets/bookcorpus)</span> |</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>| **Common Crawl**  | Ongoing | Billions of pages         | Raw web text                     | &gt;100 TB      | Common Crawl Foundation                      | <span class="co">[</span><span class="ot">commoncrawl.org</span><span class="co">](https://commoncrawl.org)</span> |</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>| **GLUE Benchmark**| 2018 | 9 tasks, 1.5M samples | Varies per task (sentences, pairs) | ~0.7 GB      | Wang et al. (NYU et al.)                     | <span class="co">[</span><span class="ot">gluebenchmark.com</span><span class="co">](https://gluebenchmark.com)</span> |</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>| **SQuAD v2**      | 2018 | 100K+ Q&amp;A pairs      | Paragraph + Question            | ~2 GB        | Rajpurkar et al. (Stanford)                  | <span class="co">[</span><span class="ot">rajpurkar.github.io/SQuAD-explorer</span><span class="co">](https://rajpurkar.github.io/SQuAD-explorer/)</span> |</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>| **Wikitext-103**  | 2017 | 103M tokens          | Clean Wikipedia articles        | ~500 MB      | Salesforce Research                         | <span class="co">[</span><span class="ot">Huggingface</span><span class="co">](https://huggingface.co/datasets/wikitext)</span> |</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="fu">### Audio / Speech</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>| Dataset           | Year | Samples             | Features per Sample           | Size         | Authors / Source                             | Primary Link |</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>|-------------------|------|---------------------|--------------------------------|--------------|----------------------------------------------|--------------|</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>| **LibriSpeech**   | 2015 | ~1 000 hours         | Audio (16 kHz) + text transcripts | ~60 GB       | Vassil Panayotov (CMU)                       | <span class="co">[</span><span class="ot">openslr.org/12</span><span class="co">](https://www.openslr.org/12)</span> |</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>| **VoxCeleb 1/2**  | 2017–18 | ~7K speakers       | Speech + speaker ID            | ~150 GB      | Univ. of Oxford (Arsha Nagrani et al.)       | <span class="co">[</span><span class="ot">www.robots.ox.ac.uk</span><span class="co">](http://www.robots.ox.ac.uk/~vgg/data/voxceleb/)</span> |</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>| **TED-LIUM 3**    | 2018 | 452 hours (TED talks) | Audio + subtitles/transcripts | ~30 GB       | LIUM / Univ. of Le Mans                      | <span class="co">[</span><span class="ot">openslr.org/51</span><span class="co">](https://www.openslr.org/51)</span> |</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>| **Common Voice** | Ongoing | ~25K+ speakers     | Crowdsourced voice clips       | &gt;100 GB      | Mozilla Foundation                          | <span class="co">[</span><span class="ot">commonvoice.mozilla.org</span><span class="co">](https://commonvoice.mozilla.org/en/datasets)</span> |</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="fu">### Multimodal (Text + Image + Audio + Video)</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>| Dataset            | Year | Samples             | Modalities                     | Size        | Authors / Source              | Primary Link |</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>|--------------------|------|---------------------|--------------------------------|-------------|-------------------------------|--------------|</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>| **CLIP (LAION-400M)** | 2021 | 400M image–text pairs | Image + caption                | ~250 GB     | LAION community              | <span class="co">[</span><span class="ot">laion.ai</span><span class="co">](https://laion.ai)</span> |</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>| **HowTo100M**       | 2019 | 136M video clips     | Video + narration (YouTube)    | ~1.5 TB     | D. Miech et al.               | <span class="co">[</span><span class="ot">ht100m.github.io</span><span class="co">](https://www.di.ens.fr/willow/research/howto100m/)</span> |</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>| **YouCook2**        | 2018 | 2K cooking videos    | Video + subtitle captions      | ~50 GB      | Zhou et al. (Georgia Tech)   | <span class="co">[</span><span class="ot">YouCook2</span><span class="co">](http://youcook2.eecs.umich.edu/)</span> |</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>| **VQA (VisualQA)**  | 2015 | 265K images + 800K QA pairs | Image + Question + Answer | ~25 GB     | Antol et al.                  | <span class="co">[</span><span class="ot">visualqa.org</span><span class="co">](https://visualqa.org/)</span> |</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="fu">## Platforms</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>| **Repository / Platform**                      | **Primary Dataset Link**                                                                                   | **Categories Covered**                                           | **# of Datasets (approx.)**                                  | **Total Size (approx.)**                                                                                                                       |</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>| ---------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>| **Hugging Face Datasets**                      | <span class="co">[</span><span class="ot">huggingface.co/datasets</span><span class="co">](https://huggingface.co/datasets)</span>                                                 | NLP, vision, audio, multimodal                                   | Thousands                                                    | Tens of TB                                                                                                                                     |</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>| **Papers with Code – Datasets**                | <span class="co">[</span><span class="ot">paperswithcode.com/datasets</span><span class="co">](https://paperswithcode.com/datasets)</span>                                         | NLP, vision, audio, tabular, RL, etc.                            | \~2,000+                                                     | Variable                                                                                                                                       |</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>| **Registry of Open Data on AWS**               | <span class="co">[</span><span class="ot">registry.opendata.aws</span><span class="co">](https://registry.opendata.aws)</span>                                                     | Genomics, earth science, satellite, healthcare                   | Many hundreds                                                | Hundreds of TB (including genomics &amp; satellite) (<span class="co">[</span><span class="ot">registry.opendata.aws</span><span class="co">][1]</span>, <span class="co">[</span><span class="ot">Interview Query</span><span class="co">][2]</span>, <span class="co">[</span><span class="ot">WIRED</span><span class="co">][3]</span>, <span class="co">[</span><span class="ot">Wikipedia</span><span class="co">][4]</span>, <span class="co">[</span><span class="ot">Wikipedia</span><span class="co">][5]</span>) |</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>| **Awesome Public Datasets (GitHub)**           | <span class="co">[</span><span class="ot">github.com/awesomedata/awesome-public-datasets</span><span class="co">](https://github.com/awesomedata/awesome-public-datasets)</span>   | Curated lists across topics—including genomics, medical, climate | Hundreds (topics)                                            | Varies                                       (<span class="co">[</span><span class="ot">GitHub</span><span class="co">][6]</span>)                                                                                     |</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>| **European Genome‑phenome Archive (EGA)**      | <span class="co">[</span><span class="ot">ega-archive.org</span><span class="co">](https://ega-archive.org)</span>                                                                 | Human genomics &amp; phenotypic clinical data                        | \~4,500 studies from 1,000+ institutions (<span class="co">[</span><span class="ot">Wikipedia</span><span class="co">][7]</span>)    | Tens to hundreds of PB (multi‑petabyte scale)                                                                                                  |</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>| **German Human Genome‑Phenome Archive (GHGA)** | <span class="co">[</span><span class="ot">data.ghga.de</span><span class="co">](https://data.ghga.de)</span>                                                                       | Human omics data (genome, proteome, phenotype)                   | National German infra (\~hundreds) (<span class="co">[</span><span class="ot">Wikipedia</span><span class="co">][8]</span>)          | 多‑petabyte scale under FAIR governance                                                                                                         |</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>| **The Cancer Imaging Archive (TCIA)**          | <span class="co">[</span><span class="ot">cancerimagingarchive.net</span><span class="co">](https://www.cancerimagingarchive.net)</span>                                           | Medical imaging (cancer CT, MRI, PET)                            | Hundreds of collections; millions of images (<span class="co">[</span><span class="ot">Wikipedia</span><span class="co">][9]</span>) | Tens/hundreds of TB                                                                                                                            |</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>| **MIMIC‑CXR‑JPG** (via MIMIC‑CXR)              | <span class="co">[</span><span class="ot">mimic‑cxr.org</span><span class="co">](https://mimic-cxr.org)</span>                                                                     | Chest X‑ray radiographs with labels                              | \~377,110 images (227,827 studies) (<span class="co">[</span><span class="ot">arXiv</span><span class="co">][10]</span>)             | \~100s of GB                                                                                                                                   |</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>| **CheXpert (Stanford)**                        | <span class="co">[</span><span class="ot">stanfordmlgroup.github.io/competitions/chexpert</span><span class="co">](https://stanfordmlgroup.github.io/competitions/chexpert)</span> | Chest radiographs with automated labels                          | 224,316 images (65,240 patients) (<span class="co">[</span><span class="ot">arXiv</span><span class="co">][11]</span>)               | \~100s of GB                                                                                                                                   |</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>| **MedMNIST v2**                                | <span class="co">[</span><span class="ot">medmnist.com</span><span class="co">](https://medmnist.com)</span>                                                                       | Biomedical images (2D/3D small‑scale)                            | \~718K images across 18 tasks (<span class="co">[</span><span class="ot">arXiv</span><span class="co">][12]</span>)                  | Tens of GB                                                                                                                                     |</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>| **MedPix** (NLM / NIH)                         | <span class="co">[</span><span class="ot">nlm.nih.gov/medpix</span><span class="co">](https://medpix.nlm.nih.gov)</span>                                                           | Medical imaging cases across specialties                         | \~59,000 images (12,000 patients) (<span class="co">[</span><span class="ot">Encord</span><span class="co">][13]</span>)             | Several GB                                                                                                                                     |</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="ot">[1]: https://registry.opendata.aws/?utm_source=chatgpt.com "Registry of Open Data on AWS"</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="ot">[2]: https://www.interviewquery.com/p/free-datasets?utm_source=chatgpt.com "50+ Free Datasets for Data Analysis Projects in 2025"</span></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="ot">[3]: https://www.wired.com/beyond-the-beyond/2020/02/datasets-deep-learning?utm_source=chatgpt.com "Datasets for deep learning"</span></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="ot">[4]: https://en.wikipedia.org/wiki/Alzheimer%27s_Disease_Neuroimaging_Initiative?utm_source=chatgpt.com "Alzheimer's Disease Neuroimaging Initiative"</span></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a><span class="ot">[5]: https://en.wikipedia.org/wiki/UK_Biobank?utm_source=chatgpt.com "UK Biobank"</span></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="ot">[6]: https://github.com/awesomedata/awesome-public-datasets?utm_source=chatgpt.com "awesomedata/awesome-public-datasets"</span></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="ot">[7]: https://en.wikipedia.org/wiki/European_Genome-phenome_Archive?utm_source=chatgpt.com "European Genome-phenome Archive"</span></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="ot">[8]: https://en.wikipedia.org/wiki/German_Human_Genome-Phenome_Archive?utm_source=chatgpt.com "German Human Genome-Phenome Archive"</span></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="ot">[9]: https://en.wikipedia.org/wiki/The_Cancer_Imaging_Archive?utm_source=chatgpt.com "The Cancer Imaging Archive"</span></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="ot">[10]: https://arxiv.org/abs/1901.07042?utm_source=chatgpt.com "MIMIC-CXR-JPG, a large publicly available database of labeled chest radiographs"</span></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a><span class="ot">[11]: https://arxiv.org/abs/1901.07031?utm_source=chatgpt.com "CheXpert: A Large Chest Radiograph Dataset with Uncertainty Labels and Expert Comparison"</span></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="ot">[12]: https://arxiv.org/abs/2110.14795?utm_source=chatgpt.com "MedMNIST v2 -- A large-scale lightweight benchmark for 2D and 3D biomedical image classification"</span></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="ot">[13]: https://encord.com/blog/best-free-datasets-for-healthcare/?utm_source=chatgpt.com "Top 10 Free Healthcare Datasets for Computer Vision"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Made with Quatro<br>
+</div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../general/about.html">About</a>
+  </li>  
+</ul>
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/thomasmanke/blog">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

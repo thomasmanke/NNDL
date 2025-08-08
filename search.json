@@ -1,0 +1,919 @@
+[
+  {
+    "objectID": "help/03_Pytorch.html",
+    "href": "help/03_Pytorch.html",
+    "title": "Frameworks",
+    "section": "",
+    "text": "two different modes for training and evaluation\n\n\n\n\n\n\n\n\nFeature\nmodel.train() (Training Mode)\nmodel.eval() (Evaluation Mode)\n\n\n\n\nDropout\nRandomly disables neurons (adds noise)\nAll neurons active (no dropout)\n\n\nBatchNorm\nUses current batch stats (mean/var)\nUses running (saved) stats\n\n\nGradient Tracking\nYes\nUse with torch.no_grad() to disable\n\n\nWhen to use\nDuring training loop\nDuring validation/testing/inference\n\n\n\nTypical use:\n\n\nCode\n# Training\nmodel.train()\nfor epoch in range(n_epochs):\n    optimizer.zero_grad() # reset gradients (do not accumulate)\n    output = model(x)     # forward path x -&gt; output\n    loss = criterion(output, y) # loss calculation\n    loss.backward()       # backward path L -&gt; x (gradient calc)\n    optimizer.step()      # update parm = parm - learning_rate * grad\n\n    # print loss\n    if(epoch % 20 == 0):\n        print('epoch {}, loss {}'.format(epoch, loss.data))\n\n# Evaluation (Validation or Test or Prediction)\nmodel.eval()\n# disable grad calculation for speed\nwith torch.no_grad():\n    val_output = model(x_val)\n    val_loss = criterion(val_output, y_val)"
+  },
+  {
+    "objectID": "help/03_Pytorch.html#model.train-vs.-model.eval",
+    "href": "help/03_Pytorch.html#model.train-vs.-model.eval",
+    "title": "Frameworks",
+    "section": "",
+    "text": "two different modes for training and evaluation\n\n\n\n\n\n\n\n\nFeature\nmodel.train() (Training Mode)\nmodel.eval() (Evaluation Mode)\n\n\n\n\nDropout\nRandomly disables neurons (adds noise)\nAll neurons active (no dropout)\n\n\nBatchNorm\nUses current batch stats (mean/var)\nUses running (saved) stats\n\n\nGradient Tracking\nYes\nUse with torch.no_grad() to disable\n\n\nWhen to use\nDuring training loop\nDuring validation/testing/inference\n\n\n\nTypical use:\n\n\nCode\n# Training\nmodel.train()\nfor epoch in range(n_epochs):\n    optimizer.zero_grad() # reset gradients (do not accumulate)\n    output = model(x)     # forward path x -&gt; output\n    loss = criterion(output, y) # loss calculation\n    loss.backward()       # backward path L -&gt; x (gradient calc)\n    optimizer.step()      # update parm = parm - learning_rate * grad\n\n    # print loss\n    if(epoch % 20 == 0):\n        print('epoch {}, loss {}'.format(epoch, loss.data))\n\n# Evaluation (Validation or Test or Prediction)\nmodel.eval()\n# disable grad calculation for speed\nwith torch.no_grad():\n    val_output = model(x_val)\n    val_loss = criterion(val_output, y_val)"
+  },
+  {
+    "objectID": "help/03_Pytorch.html#saving-models",
+    "href": "help/03_Pytorch.html#saving-models",
+    "title": "Frameworks",
+    "section": "Saving models",
+    "text": "Saving models\n\n\nCode\nsave_dir = \"checkpoints\"\nos.makedirs(save_dir, exist_ok=True)\n\n# 1. only saves state_dict, need to know model class\ntorch.save(model.state_dict(), os.path.join(save_dir, \"model.pt\"))\n\nmodel = nn.Sequential(nn.Linear(10, 5), nn.ReLU(), nn.Linear(5, 2))\nmodel.load_state_dict(torch.load(\"checkpoints/model.pt\"))\nmodel.eval()\n\n# 2. save full model. Warning not portable across pytorch versions!!! \ntorch.save(model, os.path.join(save_dir, \"full_model.pth\"))\nmodel = torch.load(\"checkpoints/full_model.pth\")"
+  },
+  {
+    "objectID": "help/03_Pytorch.html#saving-histories",
+    "href": "help/03_Pytorch.html#saving-histories",
+    "title": "Frameworks",
+    "section": "Saving histories",
+    "text": "Saving histories\n\n\nCode\n# 1. npz format (most general and robust)\nnp.savez(os.path.join(save_dir, \"loss_history.npz\"),\n         train=train_losses, val=val_losses)\n\ndata = np.load(\"checkpoints/loss_history.npz\")\ntrain_losses = data[\"train\"]\nval_losses = data[\"val\"]\n\n# 2. pickle format (more flexible less portable)\nwith open(os.path.join(save_dir, \"loss_history.pkl\"), \"wb\") as f:\n    pickle.dump({\"train\": train_losses, \"val\": val_losses}, f)\n\nwith open(\"checkpoints/loss_history.pkl\", \"rb\") as f:\n    losses = pickle.load(f)\ntrain_losses = losses[\"train\"]\nval_losses = losses[\"val\"]"
+  },
+  {
+    "objectID": "help/03_Pytorch.html#saving-everything",
+    "href": "help/03_Pytorch.html#saving-everything",
+    "title": "Frameworks",
+    "section": "Saving Everything",
+    "text": "Saving Everything\n\n\nCode\ntorch.save({\n    'model_state': model.state_dict(),\n    'optimizer_state': optimizer.state_dict(),\n    'train_losses': train_losses,\n    'val_losses': val_losses,\n}, os.path.join(save_dir, \"checkpoint_all.pt\"))\n\ncheckpoint = torch.load(\"checkpoints/checkpoint_all.pt\")\nmodel.load_state_dict(checkpoint['model_state'])\noptimizer.load_state_dict(checkpoint['optimizer_state'])\ntrain_losses = checkpoint['train_losses']\nval_losses = checkpoint['val_losses']"
+  },
+  {
+    "objectID": "help/03_Pytorch.html#automatic-differentiation",
+    "href": "help/03_Pytorch.html#automatic-differentiation",
+    "title": "Frameworks",
+    "section": "Automatic Differentiation",
+    "text": "Automatic Differentiation\nhttps://docs.pytorch.org/tutorials/beginner/basics/autogradqs_tutorial.html"
+  },
+  {
+    "objectID": "help/03_Pytorch.html#tensorboard",
+    "href": "help/03_Pytorch.html#tensorboard",
+    "title": "Frameworks",
+    "section": "Tensorboard",
+    "text": "Tensorboard\n\n\nCode\nfrom torch.utils.tensorboard import SummaryWriter\n\n# default `log_dir` is \"runs\" - we'll be more specific here\nwriter = SummaryWriter('log_dir/mnist_experiment')\n\n\n\n\nCode\nwriter.add_graph(model)\nwriter.close()"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/index.html",
+    "href": "lectures/02_NeuralNetworks/index.html",
+    "title": "02 Neural Networks",
+    "section": "",
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\nFrameworks\n\n\n\n\n\n\nThomas Manke\n\n\nAug 7, 2025\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/index.html",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/index.html",
+    "title": "03 Convolutional Neural Networks",
+    "section": "",
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\nFrameworks\n\n\n\n\n\n\nThomas Manke\n\n\nAug 8, 2025\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "lectures/04_GenerativeModels/index.html",
+    "href": "lectures/04_GenerativeModels/index.html",
+    "title": "04 Generative Models",
+    "section": "",
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\nVAE\n\n\n\n\n\n\nThomas Manke\n\n\nAug 7, 2025\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/ANN_001_Intro.html",
+    "href": "lectures/01_MachineLearning/ANN_001_Intro.html",
+    "title": "What is Machine Learning ?",
+    "section": "",
+    "text": "How do we recognize (“label”) images?\nCan we write a program to do the same?\n\n\n\n\n“The principal difficulty … lay in the fact of there being too much evidence. What was vital was overlaid and hidden by what was irrelevant. Of all the facts which were presented to us we had to pick just those which we deemed to be essential, and then piece them together in their order, so as to reconstruct this very remarkable chain of events.” Sherlock Holmes (The Naval treaty, 1893)\n\n\nQuiz (5 min): A simpler challenge: Find the rule \\(y = f(x, \\beta)\\) for x and y below\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nx = np.array([-1,  0, 1, 2, 3, 4])     # Data\ny = np.array([-3, -1, 1, 3, 5, 7])     # Answer\n\n\nNotice: a more realistic scenario would allow for errors: \\(y = f(x, \\beta) + \\epsilon\\)"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/ANN_001_Intro.html#ai-quest",
+    "href": "lectures/01_MachineLearning/ANN_001_Intro.html#ai-quest",
+    "title": "What is Machine Learning ?",
+    "section": "",
+    "text": "How do we recognize (“label”) images?\nCan we write a program to do the same?\n\n\n\n\n“The principal difficulty … lay in the fact of there being too much evidence. What was vital was overlaid and hidden by what was irrelevant. Of all the facts which were presented to us we had to pick just those which we deemed to be essential, and then piece them together in their order, so as to reconstruct this very remarkable chain of events.” Sherlock Holmes (The Naval treaty, 1893)\n\n\nQuiz (5 min): A simpler challenge: Find the rule \\(y = f(x, \\beta)\\) for x and y below\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nx = np.array([-1,  0, 1, 2, 3, 4])     # Data\ny = np.array([-3, -1, 1, 3, 5, 7])     # Answer\n\n\nNotice: a more realistic scenario would allow for errors: \\(y = f(x, \\beta) + \\epsilon\\)"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/ANN_001_Intro.html#a-paradigm-shift",
+    "href": "lectures/01_MachineLearning/ANN_001_Intro.html#a-paradigm-shift",
+    "title": "What is Machine Learning ?",
+    "section": "A paradigm shift",
+    "text": "A paradigm shift\n\nClassical Programming: Rules (f) + Data (X) –&gt; Answers (Y)\n\nMachine Learning: Answers (Y) + Data (X) –&gt; Rules (f)"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/ANN_001_Intro.html#the-linear-regression-way-gauss-1809",
+    "href": "lectures/01_MachineLearning/ANN_001_Intro.html#the-linear-regression-way-gauss-1809",
+    "title": "What is Machine Learning ?",
+    "section": "The linear regression way (Gauss 1809)",
+    "text": "The linear regression way (Gauss 1809)\n\nModel Definition\nlinear model \\[f(x | a,b) = a  + b x\\]\n\n\nParameters\n\\[\\theta = (a,b)\\]\n\n\nA goal\nOrdinary Least Squares \\[\\underset{\\theta}{\\mbox{argmin}} \\sum_i (y_i - f(x_i|\\theta))^2 \\longrightarrow \\hat{\\theta}\\]\n\nsolving the goal = fitting = training = learning = parameter estimation = (linear) regression\nreturns optimal parameters \\(\\hat{\\theta} \\to (a,b) = (-1,2)\\)\nfor linear models: fast and analytical solution !!\nsynonymous terms: loss function = cost function = objective function = …\n\n\n\nPredictions\nrun best model for new values, e.g. \\(x= (10, -40, \\ldots)\\)\n\n\nCode\nx_new = np.array([10, -40])\ny_new = -1 + 2.0*np.array(x_new)\nprint('predictions: ', x_new, \"-&gt;\", y_new)"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/ANN_001_Intro.html#the-python-way-sklearn-2013",
+    "href": "lectures/01_MachineLearning/ANN_001_Intro.html#the-python-way-sklearn-2013",
+    "title": "What is Machine Learning ?",
+    "section": "The Python way (sklearn: 2013)",
+    "text": "The Python way (sklearn: 2013)\nThe modeling steps: - define the data - define the model - fit - evaluate - predict\n\n\nCode\nfrom sklearn import linear_model\nfrom sklearn.metrics import mean_squared_error\n\nlm = linear_model.LinearRegression()  # define model\nxr = x.reshape(-1,1)                  # define data (+restructuring for specific tool) \n\nlm.fit(xr, y)                         # fit c.f. R: lm(Y ~ X)\n\n# report fit\nprint('Fitted Parameters       ', lm.intercept_, lm.coef_)\n\nyp = lm.predict(xr)                   # prediction\nMSE= mean_squared_error(y, yp)        # evaluate fit. other scores: R2=lm.score(xr, y)\nprint('Mean Squared Error:     ', MSE)\n\n# predict y for some new x\nx_new=np.array([10, -40])\ny_new = lm.predict(x_new.reshape(-1,1))\n\nprint('predictions:   ', y_new)"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/ANN_001_Intro.html#the-tensorflowkeras-way-2025",
+    "href": "lectures/01_MachineLearning/ANN_001_Intro.html#the-tensorflowkeras-way-2025",
+    "title": "What is Machine Learning ?",
+    "section": "The Tensorflow/Keras way (2025)",
+    "text": "The Tensorflow/Keras way (2025)\n\n\nCode\nimport tensorflow as tf\nprint('tf version:',tf.__version__)\n\n# define model - the \"black box\"\nmodel = tf.keras.Sequential()\nmodel.add( tf.keras.layers.Dense(units=1, input_shape=[1]) )\n\n# define optimization and loss\nmodel.compile(optimizer='sgd', loss='mean_squared_error') \n\n# fit model ###\nfit_history = model.fit(x,y, epochs=100, verbose=0)       \n\n # report fit ####\nprint('Fitted Parameters             ', model.trainable_variables)\nprint('Mean Squared Error (loss):    ', fit_history.history['loss'][-1])\n\n# make predictions ####\nx_new = [ 10.0 , -40.0 ]\ny_new = model.predict(x_new)\ny_ana = -1 + 2.0*np.array(x_new)\n\nprint('analytical: ', y_ana)\nprint('numerical:  ', y_new)"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/ANN_001_Intro.html#dont-panic",
+    "href": "lectures/01_MachineLearning/ANN_001_Intro.html#dont-panic",
+    "title": "What is Machine Learning ?",
+    "section": "Don’t Panic !",
+    "text": "Don’t Panic !\nNotice: - tensorflow supports generic modeling steps: define model, define loss function, fit model, predict. - the most cryptic (and the most flexible!) part is the definition of the “black box”. We will spend much more time with this - so don’t panic. - There are many alternative frameworks: pyTorch, Caffe2, … In this course we use the high-level API Keras rather than Tensorflow directly. - tensorflow has new data structures that need to get used to: e.g. fitted_parameters - tensorflow model predictions appear less accurate (and slower) for this task of linear regression. This is because they have been obtained from an iterative approach (epcohs). In contrast, sklearn:LinearRegression() uses fast analytical tools (specific for linear regression) under the hood. - Tthe tensorflow approach is more generic and extends to much more complex models - The iteration can be monitored by the loss function (MSE) to assess convergence\n\n\nCode\nplt.figure()\nplt.plot(fit_history.history['loss'][1:])\nplt.title('model loss')\nplt.ylabel('loss')\nplt.xlabel('epoch')\nplt.show()\n\n\nTask (10 min): Play with the new toy !\n\nThe model is fitted iteratively (iterations = epochs) to reduce some loss function (here: mean_squared error MSE).\nChange the number of epochs and/or the new data points \\(x\\_new\\). Observe the different results.\nYou may also activate the verbose function to see some progress reporting"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture02_ml_basics.html",
+    "href": "lectures/01_MachineLearning/lecture02_ml_basics.html",
+    "title": "",
+    "section": "",
+    "text": "Code"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture02_ml_basics.html#overview",
+    "href": "lectures/01_MachineLearning/lecture02_ml_basics.html#overview",
+    "title": "",
+    "section": "Overview",
+    "text": "Overview\nThis lecture covers the fundamental concepts of machine learning, focusing on function fitting from data, the critical importance of generalization, and the mathematical foundations underlying modern ML approaches."
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture02_ml_basics.html#core-concepts",
+    "href": "lectures/01_MachineLearning/lecture02_ml_basics.html#core-concepts",
+    "title": "",
+    "section": "Core Concepts",
+    "text": "Core Concepts\n\nMachine Learning as Function Fitting\nMachine learning is primarily about finding model parameters (Θ) that minimize a loss function, which measures the discrepancy between predicted and true labels.\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.metrics import mean_squared_error\nimport torch\nimport torch.nn as nn\n\n# Generate synthetic data for demonstration\nnp.random.seed(42)\nX = np.linspace(0, 10, 100).reshape(-1, 1)\ny = 2 * X.squeeze() + 1 + np.random.normal(0, 1, 100)  # y = 2x + 1 + noise\n\n# Split data into train/validation/test sets\nX_temp, X_test, y_temp, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\nX_train, X_val, y_train, y_val = train_test_split(X_temp, y_temp, test_size=0.25, random_state=42)\n\nprint(f\"Training set size: {len(X_train)} (60%)\")\nprint(f\"Validation set size: {len(X_val)} (20%)\")\nprint(f\"Test set size: {len(X_test)} (20%)\")\n\n\nData Splitting Strategy\nThe golden rule: Test data should only be used once for final evaluation!\ndef demonstrate_data_splitting():\n    \"\"\"Demonstrate proper data splitting for ML\"\"\"\n    total_samples = 1000\n    \n    # Typical split ratios\n    train_ratio = 0.6\n    val_ratio = 0.2\n    test_ratio = 0.2\n    \n    train_size = int(total_samples * train_ratio)\n    val_size = int(total_samples * val_ratio)\n    test_size = total_samples - train_size - val_size\n    \n    print(\"Data Splitting Strategy:\")\n    print(f\"Training: {train_size} samples ({train_ratio*100}%) - Learn model parameters\")\n    print(f\"Validation: {val_size} samples ({val_ratio*100}%) - Tune hyperparameters\")\n    print(f\"Test: {test_size} samples ({test_ratio*100}%) - Final evaluation (use only once!)\")\n    \n    return train_size, val_size, test_size\n\ndemonstrate_data_splitting()"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture02_ml_basics.html#supervised-vs-unsupervised-learning",
+    "href": "lectures/01_MachineLearning/lecture02_ml_basics.html#supervised-vs-unsupervised-learning",
+    "title": "",
+    "section": "Supervised vs Unsupervised Learning",
+    "text": "Supervised vs Unsupervised Learning\n\nSupervised Learning Example\n# K-Nearest Neighbors implementation\nfrom sklearn.neighbors import KNeighborsClassifier\nfrom sklearn.datasets import make_classification\nfrom sklearn.metrics import accuracy_score\n\n# Generate classification dataset\nX_class, y_class = make_classification(n_samples=300, n_features=2, n_redundant=0, \n                                      n_informative=2, n_clusters_per_class=1, random_state=42)\n\nX_train_c, X_test_c, y_train_c, y_test_c = train_test_split(X_class, y_class, test_size=0.3, random_state=42)\n\n# Compare different distance metrics\ndef compare_knn_distances():\n    \"\"\"Compare L1 (Manhattan) vs L2 (Euclidean) distance in KNN\"\"\"\n    \n    # L1 Distance (Manhattan): sum(|x_i - c_i|)\n    knn_l1 = KNeighborsClassifier(n_neighbors=5, metric='manhattan')\n    knn_l1.fit(X_train_c, y_train_c)\n    pred_l1 = knn_l1.predict(X_test_c)\n    acc_l1 = accuracy_score(y_test_c, pred_l1)\n    \n    # L2 Distance (Euclidean): sqrt(sum((x_i - c_i)^2))\n    knn_l2 = KNeighborsClassifier(n_neighbors=5, metric='euclidean')\n    knn_l2.fit(X_train_c, y_train_c)\n    pred_l2 = knn_l2.predict(X_test_c)\n    acc_l2 = accuracy_score(y_test_c, pred_l2)\n    \n    print(f\"KNN with L1 (Manhattan) distance: {acc_l1:.3f} accuracy\")\n    print(f\"KNN with L2 (Euclidean) distance: {acc_l2:.3f} accuracy\")\n    \n    return acc_l1, acc_l2\n\ncompare_knn_distances()\n\n\nUnsupervised Learning Example\nfrom sklearn.cluster import KMeans\nimport matplotlib.pyplot as plt\n\ndef demonstrate_clustering():\n    \"\"\"Demonstrate unsupervised learning with K-means clustering\"\"\"\n    \n    # Generate data without using labels\n    X_unlabeled = X_class  # Use features but ignore labels\n    \n    # Apply K-means clustering\n    kmeans = KMeans(n_clusters=2, random_state=42)\n    cluster_labels = kmeans.fit_predict(X_unlabeled)\n    \n    # Visualize results\n    plt.figure(figsize=(12, 4))\n    \n    plt.subplot(1, 3, 1)\n    plt.scatter(X_unlabeled[:, 0], X_unlabeled[:, 1], c=y_class, cmap='viridis')\n    plt.title('True Labels (Supervised)')\n    plt.xlabel('Feature 1')\n    plt.ylabel('Feature 2')\n    \n    plt.subplot(1, 3, 2)\n    plt.scatter(X_unlabeled[:, 0], X_unlabeled[:, 1], c=cluster_labels, cmap='viridis')\n    plt.title('K-means Clusters (Unsupervised)')\n    plt.xlabel('Feature 1')\n    \n    plt.subplot(1, 3, 3)\n    plt.scatter(X_unlabeled[:, 0], X_unlabeled[:, 1], c='gray', alpha=0.6)\n    plt.title('Raw Data (No Labels)')\n    plt.xlabel('Feature 1')\n    \n    plt.tight_layout()\n    plt.show()\n\n# demonstrate_clustering()  # Uncomment to run"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture02_ml_basics.html#linear-regression-deep-dive",
+    "href": "lectures/01_MachineLearning/lecture02_ml_basics.html#linear-regression-deep-dive",
+    "title": "",
+    "section": "Linear Regression Deep Dive",
+    "text": "Linear Regression Deep Dive\n\nMathematical Foundation\nThe linear regression model: Ŷ = Θ₀ + Σ(Θⱼ × xᵢⱼ)\nclass LinearRegressionFromScratch:\n    \"\"\"Implement linear regression from scratch to understand the math\"\"\"\n    \n    def __init__(self):\n        self.weights = None\n        self.bias = None\n    \n    def fit(self, X, y):\n        \"\"\"Analytical solution: Θ* = (X^T * X)^(-1) * X^T * y\"\"\"\n        # Add bias term (intercept)\n        X_with_bias = np.column_stack([np.ones(X.shape[0]), X])\n        \n        # Analytical solution using normal equation\n        XtX = X_with_bias.T @ X_with_bias\n        Xty = X_with_bias.T @ y\n        \n        # Solve: (X^T X) θ = X^T y\n        theta = np.linalg.solve(XtX, Xty)\n        \n        self.bias = theta[0]\n        self.weights = theta[1:]\n        \n        print(f\"Learned parameters - Bias: {self.bias:.3f}, Weights: {self.weights}\")\n    \n    def predict(self, X):\n        \"\"\"Make predictions using learned parameters\"\"\"\n        return self.bias + X @ self.weights\n    \n    def compute_loss(self, X, y):\n        \"\"\"Compute L2 (quadratic) loss: ||ŷ - y||²\"\"\"\n        y_pred = self.predict(X)\n        loss = np.mean((y_pred - y) ** 2)\n        return loss\n\n# Demonstrate custom linear regression\ncustom_lr = LinearRegressionFromScratch()\ncustom_lr.fit(X_train, y_train)\n\n# Compare with sklearn\nsklearn_lr = LinearRegression()\nsklearn_lr.fit(X_train, y_train)\n\nprint(f\"\\nComparison:\")\nprint(f\"Custom implementation - Bias: {custom_lr.bias:.3f}, Weight: {custom_lr.weights[0]:.3f}\")\nprint(f\"Sklearn implementation - Bias: {sklearn_lr.intercept_:.3f}, Weight: {sklearn_lr.coef_[0]:.3f}\")\n\n\nHandling Outliers: L1 vs L2 Loss\ndef compare_loss_functions():\n    \"\"\"Compare L1 vs L2 loss sensitivity to outliers\"\"\"\n    \n    # Create data with outliers\n    X_outlier = np.linspace(0, 10, 50).reshape(-1, 1)\n    y_clean = 2 * X_outlier.squeeze() + 1\n    y_outlier = y_clean.copy()\n    \n    # Add some outliers\n    outlier_indices = [10, 20, 30]\n    y_outlier[outlier_indices] += np.array([15, -12, 18])\n    \n    # L2 Loss (sensitive to outliers)\n    lr_l2 = LinearRegression()\n    lr_l2.fit(X_outlier, y_outlier)\n    \n    # L1 Loss (more robust to outliers) - using SGDRegressor with L1 loss\n    from sklearn.linear_model import SGDRegressor\n    lr_l1 = SGDRegressor(loss='epsilon_insensitive', epsilon=0.1, random_state=42)\n    lr_l1.fit(X_outlier, y_outlier)\n    \n    # Visualize\n    plt.figure(figsize=(12, 4))\n    \n    plt.subplot(1, 2, 1)\n    plt.scatter(X_outlier, y_outlier, alpha=0.7)\n    plt.scatter(X_outlier[outlier_indices], y_outlier[outlier_indices], color='red', s=100, label='Outliers')\n    plt.plot(X_outlier, lr_l2.predict(X_outlier), 'g-', label='L2 Loss (Least Squares)', linewidth=2)\n    plt.plot(X_outlier, 2 * X_outlier.squeeze() + 1, 'k--', label='True Function', alpha=0.7)\n    plt.title('L2 Loss - Sensitive to Outliers')\n    plt.legend()\n    \n    plt.subplot(1, 2, 2)\n    plt.scatter(X_outlier, y_outlier, alpha=0.7)\n    plt.scatter(X_outlier[outlier_indices], y_outlier[outlier_indices], color='red', s=100, label='Outliers')\n    plt.plot(X_outlier, lr_l1.predict(X_outlier), 'orange', label='L1-like Loss', linewidth=2)\n    plt.plot(X_outlier, 2 * X_outlier.squeeze() + 1, 'k--', label='True Function', alpha=0.7)\n    plt.title('L1-like Loss - More Robust')\n    plt.legend()\n    \n    plt.tight_layout()\n    plt.show()\n\n# compare_loss_functions()  # Uncomment to run"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture02_ml_basics.html#common-challenges-and-solutions",
+    "href": "lectures/01_MachineLearning/lecture02_ml_basics.html#common-challenges-and-solutions",
+    "title": "",
+    "section": "Common Challenges and Solutions",
+    "text": "Common Challenges and Solutions\n\nChallenge 1: Overfitting\ndef demonstrate_overfitting():\n    \"\"\"Show overfitting with polynomial features\"\"\"\n    from sklearn.preprocessing import PolynomialFeatures\n    from sklearn.pipeline import Pipeline\n    \n    # Generate simple dataset\n    X_simple = np.linspace(0, 1, 20).reshape(-1, 1)\n    y_simple = np.sin(2 * np.pi * X_simple).ravel() + np.random.normal(0, 0.1, 20)\n    \n    # Test different polynomial degrees\n    degrees = [1, 3, 15]\n    \n    plt.figure(figsize=(15, 4))\n    \n    for i, degree in enumerate(degrees):\n        plt.subplot(1, 3, i+1)\n        \n        # Create polynomial features\n        poly_reg = Pipeline([\n            ('poly', PolynomialFeatures(degree=degree)),\n            ('linear', LinearRegression())\n        ])\n        \n        poly_reg.fit(X_simple, y_simple)\n        \n        # Plot results\n        X_plot = np.linspace(0, 1, 100).reshape(-1, 1)\n        y_plot = poly_reg.predict(X_plot)\n        \n        plt.scatter(X_simple, y_simple, alpha=0.7, label='Training Data')\n        plt.plot(X_plot, y_plot, 'r-', linewidth=2, label=f'Degree {degree}')\n        plt.plot(X_plot, np.sin(2 * np.pi * X_plot).ravel(), 'g--', alpha=0.7, label='True Function')\n        \n        # Calculate training error\n        train_error = mean_squared_error(y_simple, poly_reg.predict(X_simple))\n        plt.title(f'Degree {degree}\\nTrain MSE: {train_error:.4f}')\n        plt.legend()\n    \n    plt.tight_layout()\n    plt.show()\n\n# demonstrate_overfitting()  # Uncomment to run\n\n\nChallenge 2: Domain Shift\ndef simulate_domain_shift():\n    \"\"\"Simulate domain shift problem\"\"\"\n    \n    # Training domain: clean, controlled conditions\n    X_train_domain = np.random.normal(0, 1, (200, 2))\n    y_train_domain = (X_train_domain[:, 0] + X_train_domain[:, 1] &gt; 0).astype(int)\n    \n    # Test domain: different distribution (shifted mean)\n    X_test_domain = np.random.normal(1.5, 1, (100, 2))  # Shifted distribution\n    y_test_domain = (X_test_domain[:, 0] + X_test_domain[:, 1] &gt; 0).astype(int)\n    \n    # Train model on first domain\n    from sklearn.linear_model import LogisticRegression\n    clf = LogisticRegression()\n    clf.fit(X_train_domain, y_train_domain)\n    \n    # Evaluate on both domains\n    train_acc = clf.score(X_train_domain, y_train_domain)\n    test_acc = clf.score(X_test_domain, y_test_domain)\n    \n    print(\"Domain Shift Example:\")\n    print(f\"Training domain accuracy: {train_acc:.3f}\")\n    print(f\"Test domain accuracy: {test_acc:.3f}\")\n    print(f\"Performance drop due to domain shift: {train_acc - test_acc:.3f}\")\n    \n    return train_acc, test_acc\n\nsimulate_domain_shift()"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture02_ml_basics.html#summary",
+    "href": "lectures/01_MachineLearning/lecture02_ml_basics.html#summary",
+    "title": "",
+    "section": "Summary",
+    "text": "Summary\nThis lecture established the fundamental principles of machine learning:\n\nCore Paradigm: ML is function fitting from data to minimize prediction errors\nGeneralization: The ultimate goal is performance on unseen data, not training data\nData Splitting: Proper train/validation/test splits are crucial for honest evaluation\nMathematical Foundation: Understanding loss functions, optimization objectives, and analytical solutions\nRobustness: Different loss functions have different sensitivities to outliers\nCommon Pitfalls: Overfitting, domain shift, and improper evaluation practices"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture02_ml_basics.html#homework-assignments",
+    "href": "lectures/01_MachineLearning/lecture02_ml_basics.html#homework-assignments",
+    "title": "",
+    "section": "Homework Assignments",
+    "text": "Homework Assignments\n\nTask 1: Implement Basic Algorithms\n\nCode K-Nearest Neighbors from scratch (without sklearn)\nImplement both L1 and L2 distance metrics\nCompare performance on a dataset of your choice\nAnalyze when each distance metric might be preferred\n\n\n\nTask 2: Linear Regression Analysis\n\nGenerate synthetic data with known ground truth\nAdd different levels of noise and outliers\nCompare L1 vs L2 loss performance\nImplement gradient descent to solve linear regression (compare with analytical solution)\n\n\n\nTask 3: Overfitting Investigation\n\nCreate a polynomial regression model with varying degrees\nPlot training vs validation error curves\nIdentify the optimal degree that balances bias and variance\nDiscuss the bias-variance tradeoff in your findings\n\n\n\nTask 4: Data Splitting Experiments\n\nImplement different data splitting strategies\nShow how using test data during development leads to overly optimistic results\nExperiment with different train/val/test ratios\nDiscuss the impact of dataset size on splitting strategy\n\n\n\nTask 5: Real-World Dataset Analysis\n\nChoose a real dataset (from sklearn.datasets or online)\nApply proper train/val/test splitting\nHandle missing values and outliers appropriately\nCompare multiple algorithms and report honest performance estimates\nDiscuss potential domain shift issues for deployment\n\n\n\nTask 6: Mathematical Derivation\n\nDerive the analytical solution for linear regression from first principles\nShow why the normal equation (X^T X)^(-1) X^T y gives the optimal solution\nDiscuss when this analytical approach might fail (hint: matrix invertibility)\nImplement both analytical and iterative solutions and compare their results"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/DataScience.html",
+    "href": "lectures/01_MachineLearning/DataScience.html",
+    "title": "Data Science with R",
+    "section": "",
+    "text": "speech recognition\nmachine translation\nimage segmentation\ncancer diagnosis\ngame playing (role of chess in AI) - human will never win another game\nimage captioning: man with dog - “story telling”\ndata generation: fake faces\nwhat is in the black box"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/DataScience.html#neural-networks-power-ai",
+    "href": "lectures/01_MachineLearning/DataScience.html#neural-networks-power-ai",
+    "title": "Data Science with R",
+    "section": "",
+    "text": "speech recognition\nmachine translation\nimage segmentation\ncancer diagnosis\ngame playing (role of chess in AI) - human will never win another game\nimage captioning: man with dog - “story telling”\ndata generation: fake faces\nwhat is in the black box"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/DataScience.html#biological",
+    "href": "lectures/01_MachineLearning/DataScience.html#biological",
+    "title": "Data Science with R",
+    "section": "Biological",
+    "text": "Biological\n\nbrain neural networks: information is in connections neurons connected by directed links (synapses) Alexander Bain: Mind and Body (Connectionism, 1873)\ninformation is in the whole not the individual neuron (whole is greater than the sum of parts )\ndentrites -&gt; neuron -&gt; axon (neurons don’t divide)\nMcCulloch and Pitts model (1941): Excitory and inhibitory synapse (c.f gene expression) –&gt; Boolean logic\nHebbian learning: Neurons that fire together wire together (doesn’t saturate, unbounded)\nRosenblatt (1958): Perceptron (represent any Boolean circuit and perform any logic) “will be to able to walk, talk, see, write, reproduce itself and be conscious of it’s existence” (NYT 8.7.1959) provided learning algorithm (changing weights) –&gt; cannot do XOR\n\nMulti-layer perceptron can do XOR\n\nMLP are universal Boolean functions\nMLP are universal classifiers\nMLP are universal function approximations\nbut single hidden-layer MLP maybe exponential wide –&gt; increase depth\ndeep networks are more expressive (need fewer neurons for same approximation errors )\noutput depends on strength of input\nconnections can be learned\nBain assumed 1 M neurons ~ 5bn connections –&gt; 200k acquisitions (–&gt; need many more! gave up idea in 1903, brain too complex)\n2025: 80bn neurons, 100tn connection\nvon Neumann: processor (hardware) distinct from program and data (don’t need to change machine if you need to change the program)\nconnectionist machines (neural network): architecture is the program. program is in connection. all knowledge what the machine can do is stored in connections if you want to change the program you need to change the machine –&gt; emulate on von Neumann machines"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/DataScience.html#why-data-science",
+    "href": "lectures/01_MachineLearning/DataScience.html#why-data-science",
+    "title": "Data Science with R",
+    "section": "Why Data Science ?",
+    "text": "Why Data Science ?"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/DataScience.html#data-science-tasks",
+    "href": "lectures/01_MachineLearning/DataScience.html#data-science-tasks",
+    "title": "Data Science with R",
+    "section": "Data Science Tasks",
+    "text": "Data Science Tasks\n\nHave a question !\n\n\n\n\n\n\n\nLecture Goals and Modules\n\n\n\n\nData Acquisition\nData Preparation — Cleaning and Transformations\nData Exploration — Visualization and Feature Selection\nData Modeling — Data Reduction & Machine Learning\nData Presentation and Communication\n\n\n\n\n\n\nData Science flow (from Hadley Wickham)."
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/DataScience.html#common-challenges-languages-and-jargon",
+    "href": "lectures/01_MachineLearning/DataScience.html#common-challenges-languages-and-jargon",
+    "title": "Data Science with R",
+    "section": "Common Challenges: Languages and Jargon",
+    "text": "Common Challenges: Languages and Jargon\n\nDomain Expertise\nStatistics & Math\nProgramming\nDirty Data"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/DataScience.html#why-r",
+    "href": "lectures/01_MachineLearning/DataScience.html#why-r",
+    "title": "Data Science with R",
+    "section": "Why R ?",
+    "text": "Why R ?"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/DataScience.html#posit.cloud",
+    "href": "lectures/01_MachineLearning/DataScience.html#posit.cloud",
+    "title": "Data Science with R",
+    "section": "posit.cloud",
+    "text": "posit.cloud\nTask: Login at https://posit.cloud/\nCheckpoints:\n\nworkspaces: determine resource and permissions (private, DS)\ncontent: different projects (RStudio sessions, Lecture Material, …)\naccess: private, workspace members, all\nprojects: type, owner, access, settings"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/DataScience.html#start-rstudio-session",
+    "href": "lectures/01_MachineLearning/DataScience.html#start-rstudio-session",
+    "title": "Data Science with R",
+    "section": "Start RStudio session",
+    "text": "Start RStudio session\nTask: Create a “New Project”\n\n… New RStudio Project (basic session)\n… from Template (pre-installed packages –&gt; e.g. “DataScienceTemplate”)\n\n\nRstudio interface\n\nPanels: Console, Source, Environment, Files/Plots/Help\nFiles: Projects and Working directories\nConsole: for interactive tests\nSource: open scripts or markdown files\nEnvironment: data objects (save and delete)\nHistory: efficient access to past commands\nR version: sessionInfo() and dependencies\nCustomization: Efficiency and short-keys (“Tools &gt; Keyboard Shortcuts”)\n\n\n\nR Packages\nPackages bring specific tools and new functionality to R.\nTheir installation can be a long and cumbersome process. It depends on the package version, the version of R, and your operating system.\nTherefore this course will take place in a unified setting of a cloud service, where many packages are already pre-installed.\nA popular package repository is CRAN with more than 20,000 available packages: https://cran.r-project.org/\nTake note of the R-version and sessionInfo().\n\n\nR help\nWelcome to lifelong learning! Some useful starting points are here:\n\n?function, ??keyword\nonline courses: Software Carpentry\nQuick-R\nRstudio &gt; Help &gt; Cheat Sheets &gt; …"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/DataScience.html#references-and-thanks",
+    "href": "lectures/01_MachineLearning/DataScience.html#references-and-thanks",
+    "title": "Data Science with R",
+    "section": "References and Thanks",
+    "text": "References and Thanks\n\nR Introduction: from MPI-IE\nR for Data Science"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture01_intro.html",
+    "href": "lectures/01_MachineLearning/lecture01_intro.html",
+    "title": "01: Introduction",
+    "section": "",
+    "text": "This lecture introduces the “Introduction to Deep Learning” class at TUM, exploring the revolutionary impact of deep neural networks on artificial intelligence and their endless applications across society."
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture01_intro.html#overview",
+    "href": "lectures/01_MachineLearning/lecture01_intro.html#overview",
+    "title": "01: Introduction",
+    "section": "",
+    "text": "This lecture introduces the “Introduction to Deep Learning” class at TUM, exploring the revolutionary impact of deep neural networks on artificial intelligence and their endless applications across society."
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture01_intro.html#key-historical-milestones",
+    "href": "lectures/01_MachineLearning/lecture01_intro.html#key-historical-milestones",
+    "title": "01: Introduction",
+    "section": "Key Historical Milestones",
+    "text": "Key Historical Milestones\n\nThe AlexNet Breakthrough (2012)\nThe AlexNet breakthrough by Alex Krizhevsky and collaborators marked the beginning of the deep learning revolution. Using deep neural networks for image classification, they reduced error rates from 26 mistakes (best computer vision algorithms in 2011) to 16.4 mistakes, while humans averaged 5 mistakes.\n\n\nNobel Prize Recognition (2023)\nJohn Hopfield and Geoffrey Hinton received the Nobel Prize in Physics for their pioneering work on neural networks - a field that was considered “completely dead” in the late 1990s."
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture01_intro.html#deep-neural-networks-fundamentals",
+    "href": "lectures/01_MachineLearning/lecture01_intro.html#deep-neural-networks-fundamentals",
+    "title": "01: Introduction",
+    "section": "Deep Neural Networks Fundamentals",
+    "text": "Deep Neural Networks Fundamentals\nDeep neural networks are systems “very much inspired by the human brain,” where visual information is processed through several layers of neurons. They learn hierarchical representations from raw data.\n\nCode Example: Basic Neural Network Structure\n\n\nCode\nimport torch\nimport torch.nn as nn\nimport torchvision\nimport torchvision.transforms as transforms\nimport matplotlib.pyplot as plt\n\n# Define a simple deep neural network\nclass SimpleNet(nn.Module):\n    def __init__(self, input_size, hidden_size, num_classes):\n        super(SimpleNet, self).__init__()\n        self.fc1 = nn.Linear(input_size, hidden_size)\n        self.relu = nn.ReLU()\n        self.fc2 = nn.Linear(hidden_size, hidden_size)\n        self.fc3 = nn.Linear(hidden_size, num_classes)\n        \n    def forward(self, x):\n        x = x.view(x.size(0), -1)  # Flatten the input\n        x = self.relu(self.fc1(x))\n        x = self.relu(self.fc2(x))\n        x = self.fc3(x)\n        return x\n\n# Create a simple network for MNIST-like classification\nmodel = SimpleNet(784, 128, 10)  # 28x28 input, 128 hidden units, 10 classes\nprint(f\"Model architecture:\\n{model}\")\nprint(f\"Total parameters: {sum(p.numel() for p in model.parameters())}\")\n\n\nModel architecture:\nSimpleNet(\n  (fc1): Linear(in_features=784, out_features=128, bias=True)\n  (relu): ReLU()\n  (fc2): Linear(in_features=128, out_features=128, bias=True)\n  (fc3): Linear(in_features=128, out_features=10, bias=True)\n)\nTotal parameters: 118282\n\n\n\n\nComparing Classical vs Deep Learning Approaches\n# Classical computer vision approach (conceptual)\ndef classical_approach(image):\n    # Hand-engineered features\n    sift_features = extract_sift_features(image)\n    surf_features = extract_surf_features(image)\n    hog_features = extract_hog_features(image)\n    \n    # Combine features\n    features = combine_features(sift_features, surf_features, hog_features)\n    \n    # Use traditional classifier\n    prediction = svm_classifier.predict(features)\n    return prediction\n\n# Deep learning approach\ndef deep_learning_approach(image):\n    # End-to-end learning - features learned automatically\n    with torch.no_grad():\n        prediction = model(image)\n    return prediction"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture01_intro.html#historical-context-and-evolution",
+    "href": "lectures/01_MachineLearning/lecture01_intro.html#historical-context-and-evolution",
+    "title": "01: Introduction",
+    "section": "Historical Context and Evolution",
+    "text": "Historical Context and Evolution\n\nEarly Foundations\n\nMcCulloch and Pitts (1940s): Conceived connected “neurons” as threshold units\nPerceptron (1950s): Introduced learnable weights and the learning paradigm\nHubel and Wiesel (1950s-1981): Discovered how neurons respond to directional edges\n\n\n\nComputer Vision Beginnings\n\n1960s: Computer vision research began with the goal of mimicking human visual systems\nSeymour Papert’s Summer Vision Project (1966): Ambitious but failed attempt to solve computer vision in one summer\n\n\n\nPre-Deep Learning Era\nClassical computer vision relied on: - Hand-engineered feature descriptors (SIFT, SURF, HOG) - Support Vector Machines - Simple neural networks"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture01_intro.html#modern-applications-and-impact",
+    "href": "lectures/01_MachineLearning/lecture01_intro.html#modern-applications-and-impact",
+    "title": "01: Introduction",
+    "section": "Modern Applications and Impact",
+    "text": "Modern Applications and Impact\n\nCurrent Applications\n# Example: Medical imaging application\nclass MedicalImageClassifier(nn.Module):\n    def __init__(self):\n        super().__init__()\n        # Use a pre-trained CNN backbone\n        self.backbone = torchvision.models.resnet50(pretrained=True)\n        self.backbone.fc = nn.Linear(2048, 2)  # Binary classification: healthy/disease\n        \n    def forward(self, x):\n        return self.backbone(x)\n\n# Applications include:\n# - Tuberculosis screening from X-ray imagery\n# - Cancer detection in medical scans\n# - Protein structure prediction (influenced AlphaFold)\n\n\nResearch Impact\n\nCVPR Conference: Now gathers over 10,000 researchers annually\nMunich Center for Machine Learning (MCML): One of six German National AI centers\nCitation Impact: AlexNet paper has over 160,000 citations"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture01_intro.html#key-challenges-and-future-outlook",
+    "href": "lectures/01_MachineLearning/lecture01_intro.html#key-challenges-and-future-outlook",
+    "title": "01: Introduction",
+    "section": "Key Challenges and Future Outlook",
+    "text": "Key Challenges and Future Outlook\n\nCurrent Challenges\n\nUncertainty in AI Decisions: Need to quantify confidence in predictions\nComputing Resources: High GPU costs challenge academic research\nExplainable AI: Making complex decisions transparent\nEnergy Consumption: Training large models requires massive energy\n\n\n\nCode Example: Uncertainty Estimation\nimport torch.nn.functional as F\n\ndef predict_with_uncertainty(model, x, num_samples=100):\n    \"\"\"Monte Carlo method for uncertainty estimation\"\"\"\n    model.train()  # Enable dropout for uncertainty\n    predictions = []\n    \n    for _ in range(num_samples):\n        with torch.no_grad():\n            pred = F.softmax(model(x), dim=1)\n            predictions.append(pred)\n    \n    predictions = torch.stack(predictions)\n    mean_pred = predictions.mean(dim=0)\n    uncertainty = predictions.var(dim=0)\n    \n    return mean_pred, uncertainty\n\n# Example usage\n# mean_prediction, prediction_uncertainty = predict_with_uncertainty(model, test_image)"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture01_intro.html#summary",
+    "href": "lectures/01_MachineLearning/lecture01_intro.html#summary",
+    "title": "01: Introduction",
+    "section": "Summary",
+    "text": "Summary\nThis introductory lecture establishes the foundation for understanding deep learning’s revolutionary impact on AI. Key takeaways include:\n\nHistorical Significance: AlexNet (2012) sparked the deep learning revolution\nBiological Inspiration: Neural networks mimic brain-like processing\nParadigm Shift: From hand-engineered features to end-to-end learning\nWidespread Impact: Applications across medicine, robotics, and beyond\nOngoing Challenges: Uncertainty, explainability, and computational costs"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture01_intro.html#homework-assignments",
+    "href": "lectures/01_MachineLearning/lecture01_intro.html#homework-assignments",
+    "title": "01: Introduction",
+    "section": "Homework Assignments",
+    "text": "Homework Assignments\n\nTask 1: Historical Research\nResearch and write a 500-word essay on one of the following topics: - The evolution from perceptrons to modern deep networks - The role of ImageNet in the deep learning revolution - Compare classical computer vision methods with deep learning approaches\n\n\nTask 2: Simple Implementation\n\nImplement a basic neural network using PyTorch for MNIST digit classification\nCompare its performance with a classical machine learning approach (e.g., SVM with HOG features)\nVisualize the learned features in the first layer\n\n\n\nTask 3: Literature Review\n\nRead the original AlexNet paper (Krizhevsky et al., 2012)\nIdentify three key innovations that made AlexNet successful\nExplain how these innovations address specific challenges in deep learning\n\n\n\nTask 4: Current Applications\n\nChoose a specific application domain (medical imaging, autonomous driving, etc.)\nResearch how deep learning is currently being applied in this domain\nIdentify remaining challenges and potential future developments\n\n\n\nTask 5: Ethical Considerations\nWrite a short reflection (300 words) on: - The societal implications of AI becoming increasingly powerful - Potential risks and benefits of widespread AI adoption - Your thoughts on ensuring responsible AI development"
+  },
+  {
+    "objectID": "homework/traditional_ml_to_generative.html#define-class-label",
+    "href": "homework/traditional_ml_to_generative.html#define-class-label",
+    "title": "Machine Learning cycle",
+    "section": "2. Define class label",
+    "text": "2. Define class label"
+  },
+  {
+    "objectID": "homework/traditional_ml_to_generative.html#visualize-px",
+    "href": "homework/traditional_ml_to_generative.html#visualize-px",
+    "title": "Machine Learning cycle",
+    "section": "3. Visualize p(x)",
+    "text": "3. Visualize p(x)\n\n\nCode\nplt.hist(x, bins=40, density=True, alpha=0.6, label=\"p(x) empirical\")\nplt.title(\"Complicated marginal p(x)\")\nplt.xlabel(\"x\")\nplt.ylabel(\"density\")\nplt.legend()\nplt.show()\n\nplt.scatter(y, x, c=y, cmap=\"coolwarm\", alpha=0.6)\nplt.xlabel(\"x\")\nplt.ylabel(\"latent z (true)\")\nplt.title(\"GMM clustering of x\")\nplt.show()"
+  },
+  {
+    "objectID": "homework/traditional_ml_to_generative.html#unsupervised-clustering-gmm",
+    "href": "homework/traditional_ml_to_generative.html#unsupervised-clustering-gmm",
+    "title": "Machine Learning cycle",
+    "section": "4. Unsupervised clustering (GMM)",
+    "text": "4. Unsupervised clustering (GMM)\n\n\nCode\nfrom sklearn.mixture import GaussianMixture\n\ngmm = GaussianMixture(n_components=2).fit(X)\nclusters = gmm.predict(X)\n\nplt.scatter(x, z, c=clusters, cmap=\"coolwarm\", alpha=0.6)\nplt.xlabel(\"x\")\nplt.ylabel(\"latent z (true)\")\nplt.title(\"GMM clustering of x\")\nplt.show()"
+  },
+  {
+    "objectID": "homework/traditional_ml_to_generative.html#supervised-logistic-regression",
+    "href": "homework/traditional_ml_to_generative.html#supervised-logistic-regression",
+    "title": "Machine Learning cycle",
+    "section": "5. Supervised logistic regression",
+    "text": "5. Supervised logistic regression\n\n\nCode\nfrom sklearn.linear_model import LogisticRegression\nfrom sklearn.model_selection import train_test_split\n\nX_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y)\nclf = LogisticRegression().fit(X_train, y_train) # claim: y ~ f(X)\ny_pred = clf.predict(X_test)\ny_prob = clf.predict_proba(X_test)[:, 1]"
+  },
+  {
+    "objectID": "homework/traditional_ml_to_generative.html#evaluation-classification-report-and-roc-curve",
+    "href": "homework/traditional_ml_to_generative.html#evaluation-classification-report-and-roc-curve",
+    "title": "Machine Learning cycle",
+    "section": "6. Evaluation (classification report and ROC curve)",
+    "text": "6. Evaluation (classification report and ROC curve)\n\n\nCode\nfrom sklearn.metrics import classification_report, roc_curve, auc\n\nprint(classification_report(y_test, y_pred))\n\nfpr, tpr, _ = roc_curve(y_test, y_prob)\nplt.plot(fpr, tpr, label=f\"AUC = {auc(fpr, tpr):.2f}\")\nplt.plot([0, 1], [0, 1], 'k--')\nplt.xlabel(\"False Positive Rate\")\nplt.ylabel(\"True Positive Rate\")\nplt.title(\"ROC curve\")\nplt.legend()\nplt.show()\n\n\n              precision    recall  f1-score   support\n\n           0       0.86      0.82      0.84       131\n           1       0.82      0.86      0.84       119\n\n    accuracy                           0.84       250\n   macro avg       0.84      0.84      0.84       250\nweighted avg       0.84      0.84      0.84       250"
+  },
+  {
+    "objectID": "homework/traditional_ml_to_generative.html#feature-interpretation-logistic-coefficients",
+    "href": "homework/traditional_ml_to_generative.html#feature-interpretation-logistic-coefficients",
+    "title": "Machine Learning cycle",
+    "section": "7. Feature interpretation (logistic coefficients)",
+    "text": "7. Feature interpretation (logistic coefficients)\n\n\nCode\nprint(f\"Logistic coef: {clf.coef_}, intercept: {clf.intercept_}\")\n\n\nLogistic coef: [[2.79935385]], intercept: [-0.11812327]"
+  },
+  {
+    "objectID": "homework/traditional_ml_to_generative.html#approximate-inverse-estimate-z-from-x",
+    "href": "homework/traditional_ml_to_generative.html#approximate-inverse-estimate-z-from-x",
+    "title": "Machine Learning cycle",
+    "section": "8. Approximate inverse: estimate z from x",
+    "text": "8. Approximate inverse: estimate z from x\n\n\nCode\nfrom scipy.stats import norm, rankdata\n\n# Empirical CDF of x\nranks = rankdata(x)\nempirical_cdf = ranks / (len(x) + 1)\nz_hat = norm.ppf(empirical_cdf)\n\n# Compare distribution\nplt.hist(z_hat, bins=40, density=True, alpha=0.6, label=\"z_hat ~ N(0,1)\")\nx_vals = np.linspace(-3, 3, 200)\nplt.plot(x_vals, norm.pdf(x_vals), 'k--', label=\"True N(0,1)\")\nplt.legend()\nplt.title(\"Transformed variable z_hat from x\")\nplt.show()\n\n\n\n\n\n\n\nCode\nfrom sklearn.preprocessing import PolynomialFeatures\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.pipeline import make_pipeline\n\nmodel = make_pipeline(PolynomialFeatures(degree=10), LinearRegression())\nmodel.fit(z_hat.reshape(-1, 1), x)\n\nz_test = np.linspace(-3, 3, 300)\nx_pred = model.predict(z_test.reshape(-1, 1))\n\nplt.plot(z_test, x_pred, label=\"Learned g(z)\")\nplt.scatter(z, x, alpha=0.2, s=10, label=\"True (z, x)\")\nplt.xlabel(\"z\")\nplt.ylabel(\"x\")\nplt.title(\"Learned inverse mapping z → x\")\nplt.legend()\nplt.show()"
+  },
+  {
+    "objectID": "homework/traditional_ml_to_generative.html#generate-new-data-using-z-n0-1",
+    "href": "homework/traditional_ml_to_generative.html#generate-new-data-using-z-n0-1",
+    "title": "Machine Learning cycle",
+    "section": "9. Generate new data using z ~ N(0, 1)",
+    "text": "9. Generate new data using z ~ N(0, 1)\n\n\nCode\nz_new = np.random.normal(0, 1, 500)\nepsilon_new = np.random.normal(0, 0.1, 500)\nx_gen = np.sin(3 * z_new) + 0.3 * z_new + epsilon_new\n\nplt.hist(x_gen, bins=40, density=True, alpha=0.6, label=\"Generated x from z\")\nplt.hist(x, bins=40, density=True, alpha=0.4, label=\"Original x\")\nplt.legend()\nplt.title(\"Compare p(x) and generated samples\")\nplt.show()"
+  },
+  {
+    "objectID": "homework/traditional_ml_to_generative.html#summary",
+    "href": "homework/traditional_ml_to_generative.html#summary",
+    "title": "Machine Learning cycle",
+    "section": "10. Summary",
+    "text": "10. Summary\nThis example shows how a nonlinear, complex distribution p(x) can be constructed from a simple latent variable z ~ N(0,1). Without any neural networks, we explored: - Clustering with GMM - Binary classification with logistic regression - Evaluation and interpretability - Latent space approximation and data generation\nThis prepares the stage for introducing Autoencoders, VAEs, and GANs.\n\n\n\n\n\n\n\n\nConcept\nTraditional Method\nMapping to Deep Learning\n\n\n\n\nLatent variable z\nN(0,1)\nLatent code\n\n\nComplex p(x)\nsin(3z) + noise\nGenerator network\n\n\nInverse mapping x → z\nRidge regression\nEncoder network\n\n\nDimensionality reduction\nPCA, GMM\nAutoencoder\n\n\np(z) → x\ndeterministic function\nDecoder or GAN generator\n\n\nLearning p(x)\nKDE or histograms\nLikelihood via VAE, GANs\n\n\nSupervised y\nLogistic regression\nClassifier layer"
+  },
+  {
+    "objectID": "homework/01_MNIST.html",
+    "href": "homework/01_MNIST.html",
+    "title": "01 Homework",
+    "section": "",
+    "text": "Reference:\n\nhttps://www.kaggle.com/code/kanncaa1/pytorch-tutorial-for-deep-learning-lovers\n\nRun a classification on the MNIST data with\n\nA simple logistic (10 classes)\nA three layer NN (128, 128, 128, 10) with ReLU\nA CNN\n\ncompare the accuracies on a test data"
+  },
+  {
+    "objectID": "homework/01_MNIST.html#task",
+    "href": "homework/01_MNIST.html#task",
+    "title": "01 Homework",
+    "section": "",
+    "text": "Reference:\n\nhttps://www.kaggle.com/code/kanncaa1/pytorch-tutorial-for-deep-learning-lovers\n\nRun a classification on the MNIST data with\n\nA simple logistic (10 classes)\nA three layer NN (128, 128, 128, 10) with ReLU\nA CNN\n\ncompare the accuracies on a test data"
+  },
+  {
+    "objectID": "homework/01_MNIST.html#packages",
+    "href": "homework/01_MNIST.html#packages",
+    "title": "01 Homework",
+    "section": "Packages",
+    "text": "Packages"
+  },
+  {
+    "objectID": "homework/01_MNIST.html#data",
+    "href": "homework/01_MNIST.html#data",
+    "title": "01 Homework",
+    "section": "Data",
+    "text": "Data\nVerify mean and std"
+  },
+  {
+    "objectID": "homework/01_MNIST.html#model-definition",
+    "href": "homework/01_MNIST.html#model-definition",
+    "title": "01 Homework",
+    "section": "Model Definition",
+    "text": "Model Definition"
+  },
+  {
+    "objectID": "homework/01_MNIST.html#parameters",
+    "href": "homework/01_MNIST.html#parameters",
+    "title": "01 Homework",
+    "section": "Parameters",
+    "text": "Parameters"
+  },
+  {
+    "objectID": "homework/01_MNIST.html#define-traing-loop",
+    "href": "homework/01_MNIST.html#define-traing-loop",
+    "title": "01 Homework",
+    "section": "Define Traing Loop",
+    "text": "Define Traing Loop"
+  },
+  {
+    "objectID": "homework/01_MNIST.html#run-training",
+    "href": "homework/01_MNIST.html#run-training",
+    "title": "01 Homework",
+    "section": "Run Training",
+    "text": "Run Training"
+  },
+  {
+    "objectID": "projects/01_MachineLearning.html",
+    "href": "projects/01_MachineLearning.html",
+    "title": "",
+    "section": "",
+    "text": "Code"
+  },
+  {
+    "objectID": "projects/01_MachineLearning.html#task",
+    "href": "projects/01_MachineLearning.html#task",
+    "title": "",
+    "section": "Task",
+    "text": "Task\nThis project gives a practical introduction to the key challenges in machine learning and data analysis. Upon successful completion you should be able to conduct such analysis tasks independently, discuss related problems and answer the following questions\n\nTools: what are common tools, software packages and mechanisms to ensure reproducibility of analyses\nData: Describe the common problems in data loading, processing and transformations\nunsupervised analysis: understand the objective and describe methods of data clustering and dimensional reduction\nsupervised analysis: What is a loss function and what are the differences between linear regression and logistic regression\nmodel training: Define a model both theoretically and practically How is a model defined\nmodel predictions: Understand how to obtain model predictions and explain how to test and evaluate models\ndata reporting: report your data analysis and summarize it in a concise and executable document (notebook)"
+  },
+  {
+    "objectID": "projects/01_MachineLearning.html#data-sets",
+    "href": "projects/01_MachineLearning.html#data-sets",
+    "title": "",
+    "section": "Data Sets",
+    "text": "Data Sets\nThe data sets below are heavily used in machine learning. They also have the advantage of being easily accessible and highly standardized\n\n\n\nID\nLink\ntarget variable\n\n\n\n\n1\niris data\nSpecies\n\n\n2\ngapminder\nlifeExpectancy\n\n\n3\nwine\nwine quality.\n\n\n4\nbreast cancer\ncancer status\n\n\n5\ntitanic\nsurvival\n\n\n6\npick your own\n\n\n\n\nhello"
+  },
+  {
+    "objectID": "general/Overview.html#description",
+    "href": "general/Overview.html#description",
+    "title": "Neural Networks and Deep Learning",
+    "section": "Description",
+    "text": "Description"
+  },
+  {
+    "objectID": "general/Overview.html#objectives",
+    "href": "general/Overview.html#objectives",
+    "title": "Neural Networks and Deep Learning",
+    "section": "Objectives",
+    "text": "Objectives\nUpon successful completion of this course, you will\n\nunderstand the key concepts and challenges of neural networks\nbe proficient in common software solutions for deep learning (pytorch)\nbe able to define, train and evaluate your own models\nhave completed 4 concrete data analysis projects and provide reproducible code\nhave worked in teams and presented your work\nwant to learn more and deeper …"
+  },
+  {
+    "objectID": "general/Overview.html#content",
+    "href": "general/Overview.html#content",
+    "title": "Neural Networks and Deep Learning",
+    "section": "Content",
+    "text": "Content\nMachine Learning\nNeuronal Networks\nConvolutional Network\nBeyond classification (segmentation)\nGenerative Networks\nNLP and Large Language Models\n\nto myself"
+  },
+  {
+    "objectID": "general/Overview.html#prerequisites",
+    "href": "general/Overview.html#prerequisites",
+    "title": "Neural Networks and Deep Learning",
+    "section": "Prerequisites",
+    "text": "Prerequisites\n\nCuriosity & Determination\nMathe 3. Programmierung 3 (Python nuetzlich)"
+  },
+  {
+    "objectID": "general/Overview.html#format",
+    "href": "general/Overview.html#format",
+    "title": "Neural Networks and Deep Learning",
+    "section": "Format",
+    "text": "Format\nThe course comprises the following blocks (with the estimated time effort)\n\nLectures: (16x 2h) will provide an introduction and overview\nProjects (4 x 12h): 4 larger practical tasks (homework assignments) that are solved in teams of 2-3 students. Each team will submit a fully documented and executable notebook per project.\nTutorials: (16 x 2h): weekly tutorials will focus on practical implementations and the review of lecture material. Up to 2 teams will present their project solutions (~30 min / team).\nExams:"
+  },
+  {
+    "objectID": "general/Overview.html#times-and-locations",
+    "href": "general/Overview.html#times-and-locations",
+    "title": "Neural Networks and Deep Learning",
+    "section": "Times and Locations",
+    "text": "Times and Locations\n\n\n\nFormat\nTimes\nLocation\nInstructor\n\n\n\n\nLectures\n\n\nT. Manke\n\n\nTutorials\n\n\nT. Manke\n\n\nExam"
+  },
+  {
+    "objectID": "general/Overview.html#evaluation",
+    "href": "general/Overview.html#evaluation",
+    "title": "Neural Networks and Deep Learning",
+    "section": "Evaluation",
+    "text": "Evaluation\n\nLectures: Presence (15%+15% rule) & Participation\nProject Submissions (32 P). Completed projects are submitted as single jupyter noteboooks and are evaluated per team. Notebooks have to be fully documented to explain both the analysis goals and the code. They should clearly state software dependencies and be fully executable.\nProject Presentations (18 P). Presentation and submission of a reproducible data analysis project in an executable markdown format.\nExam (50 P): this will be a written exam with conceptual questions, including multiple choice and short essays."
+  },
+  {
+    "objectID": "general/Overview.html#materials-and-references",
+    "href": "general/Overview.html#materials-and-references",
+    "title": "Neural Networks and Deep Learning",
+    "section": "Materials and References",
+    "text": "Materials and References\n\nRef1: Link1\nRef2: Link2"
+  },
+  {
+    "objectID": "projects/index.html",
+    "href": "projects/index.html",
+    "title": "Projects",
+    "section": "",
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\nTask\n\n\n\n\n\n\nThomas Manke\n\n\nAug 8, 2025\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "homework/index.html",
+    "href": "homework/index.html",
+    "title": "Homework",
+    "section": "",
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n01 Homework\n\n\n\n\n\n\nThomas Manke\n\n\nAug 8, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n01 Autoencoder\n\n\n\n\n\n\nThomas Manke\n\n\nAug 7, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nMachine Learning cycle\n\n\n\n\n\n\nThomas Manke\n\n\nAug 7, 2025\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "homework/04_Autoencoder.html",
+    "href": "homework/04_Autoencoder.html",
+    "title": "01 Autoencoder",
+    "section": "",
+    "text": "Data Download: Obtain both train and test data for the MNIST data set of handwritten digits from torchvision.datasets\nData Massage: For numerical efficiency use pytorch dataloaders and split the dataset into train, test and validation. Check data values and if normalization is required.\nModel Definition: Define a simple autoencoder (model1) with 4 layers to reduce dimensions: 728 -&gt; 128 -&gt; 64 -&gt; 16 -&gt; 3 count dimensions and parameters\nGoal and Strategy: Define a loss function and a suitable optimizer\nModel Training: Train the model and track the following parameters for each epochs\n\n\nloss and validation loss\ntraining images, latent representations, reconstructred images\n\n\nModel Evaluation:\n\n\nplot traing and validation loss.\nFor the best model calculate loss on. test data\ncompare several real images and compare to their reconstruction\n\n\nLatent Assessment: Compare the latent representation of images with the PCA embedding\n\n\nhow much variability is encoded by the first 3 components of PCA(X) compared to PCA(Z)\n\n\n\nData Generation: For a given image, generate new images by changing selected latent variable in PCA space or latent space.\noptional: replace the simple autoencoder model1 by a neural network with 3 convolutional layers (model2)\n\n\ncount parameters and compare to model1\ncompare learning curves with model1\n\n\nexplore what happens if you reduce the size of the data set"
+  },
+  {
+    "objectID": "homework/04_Autoencoder.html#tasks",
+    "href": "homework/04_Autoencoder.html#tasks",
+    "title": "01 Autoencoder",
+    "section": "",
+    "text": "Data Download: Obtain both train and test data for the MNIST data set of handwritten digits from torchvision.datasets\nData Massage: For numerical efficiency use pytorch dataloaders and split the dataset into train, test and validation. Check data values and if normalization is required.\nModel Definition: Define a simple autoencoder (model1) with 4 layers to reduce dimensions: 728 -&gt; 128 -&gt; 64 -&gt; 16 -&gt; 3 count dimensions and parameters\nGoal and Strategy: Define a loss function and a suitable optimizer\nModel Training: Train the model and track the following parameters for each epochs\n\n\nloss and validation loss\ntraining images, latent representations, reconstructred images\n\n\nModel Evaluation:\n\n\nplot traing and validation loss.\nFor the best model calculate loss on. test data\ncompare several real images and compare to their reconstruction\n\n\nLatent Assessment: Compare the latent representation of images with the PCA embedding\n\n\nhow much variability is encoded by the first 3 components of PCA(X) compared to PCA(Z)\n\n\n\nData Generation: For a given image, generate new images by changing selected latent variable in PCA space or latent space.\noptional: replace the simple autoencoder model1 by a neural network with 3 convolutional layers (model2)\n\n\ncount parameters and compare to model1\ncompare learning curves with model1\n\n\nexplore what happens if you reduce the size of the data set"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture04_optimization.html",
+    "href": "lectures/01_MachineLearning/lecture04_optimization.html",
+    "title": "",
+    "section": "",
+    "text": "Code"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture04_optimization.html#overview",
+    "href": "lectures/01_MachineLearning/lecture04_optimization.html#overview",
+    "title": "",
+    "section": "Overview",
+    "text": "Overview\nThis lecture focuses on the mathematical foundations of neural network training, covering gradient descent optimization, the backpropagation algorithm, and the challenges of optimizing non-convex loss functions in high-dimensional spaces."
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture04_optimization.html#loss-functions-and-optimization-objectives",
+    "href": "lectures/01_MachineLearning/lecture04_optimization.html#loss-functions-and-optimization-objectives",
+    "title": "",
+    "section": "Loss Functions and Optimization Objectives",
+    "text": "Loss Functions and Optimization Objectives\nThe primary goal of neural network training is to find optimal parameters Θ* that minimize the loss function L(Θ).\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport torch\nimport torch.nn as nn\nimport torch.optim as optim\nfrom mpl_toolkits.mplot3d import Axes3D\n\ndef visualize_loss_landscapes():\n    \"\"\"Visualize different types of loss landscapes\"\"\"\n    \n    # Create 2D parameter space for visualization\n    x = np.linspace(-3, 3, 100)\n    y = np.linspace(-3, 3, 100)\n    X, Y = np.meshgrid(x, y)\n    \n    # Convex function (bowl-shaped)\n    Z_convex = X**2 + Y**2\n    \n    # Non-convex function with multiple minima\n    Z_nonconvex = np.sin(X) * np.cos(Y) + 0.1 * (X**2 + Y**2)\n    \n    # Saddle point function\n    Z_saddle = X**2 - Y**2\n    \n    fig = plt.figure(figsize=(15, 5))\n    \n    # Plot convex surface\n    ax1 = fig.add_subplot(131, projection='3d')\n    ax1.plot_surface(X, Y, Z_convex, cmap='viridis', alpha=0.7)\n    ax1.set_title('Convex Loss (Single Global Minimum)')\n    ax1.set_xlabel('Parameter 1')\n    ax1.set_ylabel('Parameter 2')\n    ax1.set_zlabel('Loss')\n    \n    # Plot non-convex surface\n    ax2 = fig.add_subplot(132, projection='3d')\n    ax2.plot_surface(X, Y, Z_nonconvex, cmap='viridis', alpha=0.7)\n    ax2.set_title('Non-convex Loss (Multiple Local Minima)')\n    ax2.set_xlabel('Parameter 1')\n    ax2.set_ylabel('Parameter 2')\n    \n    # Plot saddle point\n    ax3 = fig.add_subplot(133, projection='3d')\n    ax3.plot_surface(X, Y, Z_saddle, cmap='viridis', alpha=0.7)\n    ax3.set_title('Saddle Point')\n    ax3.set_xlabel('Parameter 1')\n    ax3.set_ylabel('Parameter 2')\n    \n    plt.tight_layout()\n    plt.show()\n    \n    print(\"Loss Landscape Types:\")\n    print(\"1. Convex: Single global minimum, gradient descent guaranteed to find it\")\n    print(\"2. Non-convex: Multiple local minima, gradient descent finds local minimum\")\n    print(\"3. Saddle Point: Minimum in one direction, maximum in another\")\n\n# visualize_loss_landscapes()  # Uncomment to run"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture04_optimization.html#gradient-descent-fundamentals",
+    "href": "lectures/01_MachineLearning/lecture04_optimization.html#gradient-descent-fundamentals",
+    "title": "",
+    "section": "Gradient Descent Fundamentals",
+    "text": "Gradient Descent Fundamentals\nclass GradientDescentOptimizer:\n    \"\"\"Implement gradient descent from scratch\"\"\"\n    \n    def __init__(self, learning_rate=0.01):\n        self.lr = learning_rate\n        self.loss_history = []\n        self.param_history = []\n    \n    def quadratic_function(self, x, y):\n        \"\"\"Simple quadratic function: f(x,y) = x² + y²\"\"\"\n        return x**2 + y**2\n    \n    def gradient_quadratic(self, x, y):\n        \"\"\"Gradient of quadratic function: ∇f = [2x, 2y]\"\"\"\n        return np.array([2*x, 2*y])\n    \n    def rosenbrock_function(self, x, y, a=1, b=100):\n        \"\"\"Rosenbrock function: challenging non-convex optimization problem\"\"\"\n        return (a - x)**2 + b * (y - x**2)**2\n    \n    def gradient_rosenbrock(self, x, y, a=1, b=100):\n        \"\"\"Gradient of Rosenbrock function\"\"\"\n        dx = -2*(a - x) - 4*b*x*(y - x**2)\n        dy = 2*b*(y - x**2)\n        return np.array([dx, dy])\n    \n    def optimize(self, initial_params, max_iterations=1000, function_type='quadratic'):\n        \"\"\"Run gradient descent optimization\"\"\"\n        \n        params = np.array(initial_params, dtype=float)\n        self.param_history = [params.copy()]\n        self.loss_history = []\n        \n        for i in range(max_iterations):\n            # Compute loss and gradient\n            if function_type == 'quadratic':\n                loss = self.quadratic_function(params[0], params[1])\n                gradient = self.gradient_quadratic(params[0], params[1])\n            elif function_type == 'rosenbrock':\n                loss = self.rosenbrock_function(params[0], params[1])\n                gradient = self.gradient_rosenbrock(params[0], params[1])\n            \n            self.loss_history.append(loss)\n            \n            # Gradient descent update: θ = θ - α∇L(θ)\n            params = params - self.lr * gradient\n            self.param_history.append(params.copy())\n            \n            # Print progress\n            if i % 100 == 0 or i &lt; 10:\n                print(f\"Iteration {i:3d}: Loss = {loss:.6f}, \"\n                      f\"Params = [{params[0]:.4f}, {params[1]:.4f}], \"\n                      f\"Gradient norm = {np.linalg.norm(gradient):.6f}\")\n            \n            # Check for convergence\n            if np.linalg.norm(gradient) &lt; 1e-6:\n                print(f\"Converged at iteration {i}\")\n                break\n        \n        return params, self.loss_history, self.param_history\n\ndef demonstrate_gradient_descent():\n    \"\"\"Demonstrate gradient descent on different functions\"\"\"\n    \n    print(\"Gradient Descent Demonstration\")\n    print(\"=\" * 50)\n    \n    # Test on quadratic function\n    print(\"\\n1. Quadratic Function (Convex)\")\n    print(\"-\" * 30)\n    optimizer1 = GradientDescentOptimizer(learning_rate=0.1)\n    final_params1, losses1, params_hist1 = optimizer1.optimize(\n        initial_params=[2.0, 2.0], function_type='quadratic'\n    )\n    \n    # Test on Rosenbrock function (harder optimization problem)\n    print(\"\\n2. Rosenbrock Function (Non-convex)\")\n    print(\"-\" * 30)\n    optimizer2 = GradientDescentOptimizer(learning_rate=0.001)\n    final_params2, losses2, params_hist2 = optimizer2.optimize(\n        initial_params=[-1.0, 1.0], max_iterations=5000, function_type='rosenbrock'\n    )\n    \n    # Plot optimization paths\n    fig, axes = plt.subplots(1, 2, figsize=(15, 6))\n    \n    # Quadratic function contour\n    x = np.linspace(-3, 3, 100)\n    y = np.linspace(-3, 3, 100)\n    X, Y = np.meshgrid(x, y)\n    Z1 = X**2 + Y**2\n    \n    axes[0].contour(X, Y, Z1, levels=20, alpha=0.6)\n    params_hist1 = np.array(params_hist1)\n    axes[0].plot(params_hist1[:, 0], params_hist1[:, 1], 'ro-', markersize=3, linewidth=1)\n    axes[0].set_title('Gradient Descent on Quadratic Function')\n    axes[0].set_xlabel('Parameter 1')\n    axes[0].set_ylabel('Parameter 2')\n    axes[0].grid(True, alpha=0.3)\n    \n    # Rosenbrock function contour\n    x = np.linspace(-2, 2, 100)\n    y = np.linspace(-1, 3, 100)\n    X, Y = np.meshgrid(x, y)\n    Z2 = (1 - X)**2 + 100 * (Y - X**2)**2\n    \n    axes[1].contour(X, Y, Z2, levels=np.logspace(0, 3, 20), alpha=0.6)\n    params_hist2 = np.array(params_hist2)\n    axes[1].plot(params_hist2[:, 0], params_hist2[:, 1], 'ro-', markersize=2, linewidth=1)\n    axes[1].set_title('Gradient Descent on Rosenbrock Function')\n    axes[1].set_xlabel('Parameter 1')\n    axes[1].set_ylabel('Parameter 2')\n    axes[1].grid(True, alpha=0.3)\n    \n    plt.tight_layout()\n    plt.show()\n\ndemonstrate_gradient_descent()"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture04_optimization.html#learning-rate-analysis",
+    "href": "lectures/01_MachineLearning/lecture04_optimization.html#learning-rate-analysis",
+    "title": "",
+    "section": "Learning Rate Analysis",
+    "text": "Learning Rate Analysis\ndef analyze_learning_rates():\n    \"\"\"Analyze the effect of different learning rates\"\"\"\n    \n    learning_rates = [0.001, 0.01, 0.1, 0.5, 1.0, 1.5]\n    \n    plt.figure(figsize=(15, 10))\n    \n    for i, lr in enumerate(learning_rates):\n        optimizer = GradientDescentOptimizer(learning_rate=lr)\n        _, losses, _ = optimizer.optimize(\n            initial_params=[2.0, 2.0], \n            max_iterations=50, \n            function_type='quadratic'\n        )\n        \n        plt.subplot(2, 3, i+1)\n        plt.plot(losses, 'b-', linewidth=2)\n        plt.title(f'Learning Rate = {lr}')\n        plt.xlabel('Iteration')\n        plt.ylabel('Loss')\n        plt.grid(True, alpha=0.3)\n        plt.yscale('log')\n        \n        # Analyze convergence behavior\n        if lr &lt;= 0.1:\n            behavior = \"Stable convergence\"\n        elif lr &lt;= 0.5:\n            behavior = \"Fast convergence\"\n        elif lr &lt;= 1.0:\n            behavior = \"Oscillatory\"\n        else:\n            behavior = \"Divergent\"\n        \n        plt.text(0.5, 0.8, behavior, transform=plt.gca().transAxes, \n                bbox=dict(boxstyle=\"round,pad=0.3\", facecolor=\"yellow\", alpha=0.7))\n    \n    plt.tight_layout()\n    plt.show()\n    \n    print(\"Learning Rate Effects:\")\n    print(\"• Too small (≤0.01): Slow but stable convergence\")\n    print(\"• Optimal (0.1): Fast and stable convergence\") \n    print(\"• Too large (≥1.0): Oscillations or divergence\")\n\n# analyze_learning_rates()  # Uncomment to run"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture04_optimization.html#backpropagation-algorithm",
+    "href": "lectures/01_MachineLearning/lecture04_optimization.html#backpropagation-algorithm",
+    "title": "",
+    "section": "Backpropagation Algorithm",
+    "text": "Backpropagation Algorithm\nclass SimpleNeuralNetwork:\n    \"\"\"Implement a simple neural network with manual backpropagation\"\"\"\n    \n    def __init__(self, input_size, hidden_size, output_size):\n        # Initialize weights randomly\n        self.W1 = np.random.randn(input_size, hidden_size) * 0.1\n        self.b1 = np.zeros((1, hidden_size))\n        self.W2 = np.random.randn(hidden_size, output_size) * 0.1\n        self.b2 = np.zeros((1, output_size))\n        \n        # Store intermediate values for backprop\n        self.z1 = None\n        self.a1 = None\n        self.z2 = None\n        self.a2 = None\n        \n    def sigmoid(self, x):\n        \"\"\"Sigmoid activation function\"\"\"\n        return 1 / (1 + np.exp(-np.clip(x, -250, 250)))\n    \n\n\n\n:::{#quarto-navigation-envelope .hidden}\n[Lecture Title]{.hidden render-id=\"quarto-int-sidebar-title\"}\n[Lecture Title]{.hidden render-id=\"quarto-int-navbar-title\"}\n[Overview]{.hidden render-id=\"quarto-int-navbar:Overview\"}\n[/general/Overview.html]{.hidden render-id=\"quarto-int-navbar:/general/Overview.html\"}\n[Lectures]{.hidden render-id=\"quarto-int-navbar:Lectures\"}\n[01 Machine Learning]{.hidden render-id=\"quarto-int-navbar:01 Machine Learning\"}\n[/lectures/01_MachineLearning/index.html]{.hidden render-id=\"quarto-int-navbar:/lectures/01_MachineLearning/index.html\"}\n[02 Neural Networks]{.hidden render-id=\"quarto-int-navbar:02 Neural Networks\"}\n[/lectures/02_NeuralNetworks/index.html]{.hidden render-id=\"quarto-int-navbar:/lectures/02_NeuralNetworks/index.html\"}\n[03 Convolutional Neural Networks]{.hidden render-id=\"quarto-int-navbar:03 Convolutional Neural Networks\"}\n[/lectures/03_ConvolutionalNeuralNetworks/index.html]{.hidden render-id=\"quarto-int-navbar:/lectures/03_ConvolutionalNeuralNetworks/index.html\"}\n[04 Generative Models]{.hidden render-id=\"quarto-int-navbar:04 Generative Models\"}\n[/lectures/04_GenerativeModels/index.html]{.hidden render-id=\"quarto-int-navbar:/lectures/04_GenerativeModels/index.html\"}\n[Homework]{.hidden render-id=\"quarto-int-navbar:Homework\"}\n[/homework/index.html]{.hidden render-id=\"quarto-int-navbar:/homework/index.html\"}\n[Projects]{.hidden render-id=\"quarto-int-navbar:Projects\"}\n[/projects/index.html]{.hidden render-id=\"quarto-int-navbar:/projects/index.html\"}\n[Help]{.hidden render-id=\"quarto-int-navbar:Help\"}\n[/help/index.html]{.hidden render-id=\"quarto-int-navbar:/help/index.html\"}\n[Chalkboard]{.hidden render-id=\"quarto-int-navbar:Chalkboard\"}\n[/general/Chalkboard.html]{.hidden render-id=\"quarto-int-navbar:/general/Chalkboard.html\"}\n[https://github.com/thomasmanke/]{.hidden render-id=\"quarto-int-navbar:https://github.com/thomasmanke/\"}\n[Made with Quatro   \n]{.hidden render-id=\"footer-left\"}\n[About]{.hidden render-id=\"footer-center-/general/about.html\"}\n:::\n\n\n\n:::{#quarto-meta-markdown .hidden}\n[]{.hidden render-id=\"quarto-twittercardtitle\"}\n[]{.hidden render-id=\"quarto-ogcardtitle\"}\n[Lecture Title]{.hidden render-id=\"quarto-metasitename\"}\n[]{.hidden render-id=\"quarto-twittercarddesc\"}\n[]{.hidden render-id=\"quarto-ogcardddesc\"}\n:::\n\n\n\n\n&lt;!-- --&gt;\n\n::: {.quarto-embedded-source-code}\n```````````````````{.markdown shortcodes=\"false\"}\n# Lecture 04: Optimization and Backpropagation\n\n## Overview\n\nThis lecture focuses on the mathematical foundations of neural network training, covering gradient descent optimization, the backpropagation algorithm, and the challenges of optimizing non-convex loss functions in high-dimensional spaces.\n\n## Loss Functions and Optimization Objectives\n\nThe primary goal of neural network training is to find optimal parameters Θ* that minimize the loss function L(Θ).\n\n```python\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport torch\nimport torch.nn as nn\nimport torch.optim as optim\nfrom mpl_toolkits.mplot3d import Axes3D\n\ndef visualize_loss_landscapes():\n    \"\"\"Visualize different types of loss landscapes\"\"\"\n    \n    # Create 2D parameter space for visualization\n    x = np.linspace(-3, 3, 100)\n    y = np.linspace(-3, 3, 100)\n    X, Y = np.meshgrid(x, y)\n    \n    # Convex function (bowl-shaped)\n    Z_convex = X**2 + Y**2\n    \n    # Non-convex function with multiple minima\n    Z_nonconvex = np.sin(X) * np.cos(Y) + 0.1 * (X**2 + Y**2)\n    \n    # Saddle point function\n    Z_saddle = X**2 - Y**2\n    \n    fig = plt.figure(figsize=(15, 5))\n    \n    # Plot convex surface\n    ax1 = fig.add_subplot(131, projection='3d')\n    ax1.plot_surface(X, Y, Z_convex, cmap='viridis', alpha=0.7)\n    ax1.set_title('Convex Loss (Single Global Minimum)')\n    ax1.set_xlabel('Parameter 1')\n    ax1.set_ylabel('Parameter 2')\n    ax1.set_zlabel('Loss')\n    \n    # Plot non-convex surface\n    ax2 = fig.add_subplot(132, projection='3d')\n    ax2.plot_surface(X, Y, Z_nonconvex, cmap='viridis', alpha=0.7)\n    ax2.set_title('Non-convex Loss (Multiple Local Minima)')\n    ax2.set_xlabel('Parameter 1')\n    ax2.set_ylabel('Parameter 2')\n    \n    # Plot saddle point\n    ax3 = fig.add_subplot(133, projection='3d')\n    ax3.plot_surface(X, Y, Z_saddle, cmap='viridis', alpha=0.7)\n    ax3.set_title('Saddle Point')\n    ax3.set_xlabel('Parameter 1')\n    ax3.set_ylabel('Parameter 2')\n    \n    plt.tight_layout()\n    plt.show()\n    \n    print(\"Loss Landscape Types:\")\n    print(\"1. Convex: Single global minimum, gradient descent guaranteed to find it\")\n    print(\"2. Non-convex: Multiple local minima, gradient descent finds local minimum\")\n    print(\"3. Saddle Point: Minimum in one direction, maximum in another\")\n\n# visualize_loss_landscapes()  # Uncomment to run"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture04_optimization.html#gradient-descent-fundamentals-1",
+    "href": "lectures/01_MachineLearning/lecture04_optimization.html#gradient-descent-fundamentals-1",
+    "title": "",
+    "section": "Gradient Descent Fundamentals",
+    "text": "Gradient Descent Fundamentals\nclass GradientDescentOptimizer:\n    \"\"\"Implement gradient descent from scratch\"\"\"\n    \n    def __init__(self, learning_rate=0.01):\n        self.lr = learning_rate\n        self.loss_history = []\n        self.param_history = []\n    \n    def quadratic_function(self, x, y):\n        \"\"\"Simple quadratic function: f(x,y) = x² + y²\"\"\"\n        return x**2 + y**2\n    \n    def gradient_quadratic(self, x, y):\n        \"\"\"Gradient of quadratic function: ∇f = [2x, 2y]\"\"\"\n        return np.array([2*x, 2*y])\n    \n    def rosenbrock_function(self, x, y, a=1, b=100):\n        \"\"\"Rosenbrock function: challenging non-convex optimization problem\"\"\"\n        return (a - x)**2 + b * (y - x**2)**2\n    \n    def gradient_rosenbrock(self, x, y, a=1, b=100):\n        \"\"\"Gradient of Rosenbrock function\"\"\"\n        dx = -2*(a - x) - 4*b*x*(y - x**2)\n        dy = 2*b*(y - x**2)\n        return np.array([dx, dy])\n    \n    def optimize(self, initial_params, max_iterations=1000, function_type='quadratic'):\n        \"\"\"Run gradient descent optimization\"\"\"\n        \n        params = np.array(initial_params, dtype=float)\n        self.param_history = [params.copy()]\n        self.loss_history = []\n        \n        for i in range(max_iterations):\n            # Compute loss and gradient\n            if function_type == 'quadratic':\n                loss = self.quadratic_function(params[0], params[1])\n                gradient = self.gradient_quadratic(params[0], params[1])\n            elif function_type == 'rosenbrock':\n                loss = self.rosenbrock_function(params[0], params[1])\n                gradient = self.gradient_rosenbrock(params[0], params[1])\n            \n            self.loss_history.append(loss)\n            \n            # Gradient descent update: θ = θ - α∇L(θ)\n            params = params - self.lr * gradient\n            self.param_history.append(params.copy())\n            \n            # Print progress\n            if i % 100 == 0 or i &lt; 10:\n                print(f\"Iteration {i:3d}: Loss = {loss:.6f}, \"\n                      f\"Params = [{params[0]:.4f}, {params[1]:.4f}], \"\n                      f\"Gradient norm = {np.linalg.norm(gradient):.6f}\")\n            \n            # Check for convergence\n            if np.linalg.norm(gradient) &lt; 1e-6:\n                print(f\"Converged at iteration {i}\")\n                break\n        \n        return params, self.loss_history, self.param_history\n\ndef demonstrate_gradient_descent():\n    \"\"\"Demonstrate gradient descent on different functions\"\"\"\n    \n    print(\"Gradient Descent Demonstration\")\n    print(\"=\" * 50)\n    \n    # Test on quadratic function\n    print(\"\\n1. Quadratic Function (Convex)\")\n    print(\"-\" * 30)\n    optimizer1 = GradientDescentOptimizer(learning_rate=0.1)\n    final_params1, losses1, params_hist1 = optimizer1.optimize(\n        initial_params=[2.0, 2.0], function_type='quadratic'\n    )\n    \n    # Test on Rosenbrock function (harder optimization problem)\n    print(\"\\n2. Rosenbrock Function (Non-convex)\")\n    print(\"-\" * 30)\n    optimizer2 = GradientDescentOptimizer(learning_rate=0.001)\n    final_params2, losses2, params_hist2 = optimizer2.optimize(\n        initial_params=[-1.0, 1.0], max_iterations=5000, function_type='rosenbrock'\n    )\n    \n    # Plot optimization paths\n    fig, axes = plt.subplots(1, 2, figsize=(15, 6))\n    \n    # Quadratic function contour\n    x = np.linspace(-3, 3, 100)\n    y = np.linspace(-3, 3, 100)\n    X, Y = np.meshgrid(x, y)\n    Z1 = X**2 + Y**2\n    \n    axes[0].contour(X, Y, Z1, levels=20, alpha=0.6)\n    params_hist1 = np.array(params_hist1)\n    axes[0].plot(params_hist1[:, 0], params_hist1[:, 1], 'ro-', markersize=3, linewidth=1)\n    axes[0].set_title('Gradient Descent on Quadratic Function')\n    axes[0].set_xlabel('Parameter 1')\n    axes[0].set_ylabel('Parameter 2')\n    axes[0].grid(True, alpha=0.3)\n    \n    # Rosenbrock function contour\n    x = np.linspace(-2, 2, 100)\n    y = np.linspace(-1, 3, 100)\n    X, Y = np.meshgrid(x, y)\n    Z2 = (1 - X)**2 + 100 * (Y - X**2)**2\n    \n    axes[1].contour(X, Y, Z2, levels=np.logspace(0, 3, 20), alpha=0.6)\n    params_hist2 = np.array(params_hist2)\n    axes[1].plot(params_hist2[:, 0], params_hist2[:, 1], 'ro-', markersize=2, linewidth=1)\n    axes[1].set_title('Gradient Descent on Rosenbrock Function')\n    axes[1].set_xlabel('Parameter 1')\n    axes[1].set_ylabel('Parameter 2')\n    axes[1].grid(True, alpha=0.3)\n    \n    plt.tight_layout()\n    plt.show()\n\ndemonstrate_gradient_descent()"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture04_optimization.html#learning-rate-analysis-1",
+    "href": "lectures/01_MachineLearning/lecture04_optimization.html#learning-rate-analysis-1",
+    "title": "",
+    "section": "Learning Rate Analysis",
+    "text": "Learning Rate Analysis\ndef analyze_learning_rates():\n    \"\"\"Analyze the effect of different learning rates\"\"\"\n    \n    learning_rates = [0.001, 0.01, 0.1, 0.5, 1.0, 1.5]\n    \n    plt.figure(figsize=(15, 10))\n    \n    for i, lr in enumerate(learning_rates):\n        optimizer = GradientDescentOptimizer(learning_rate=lr)\n        _, losses, _ = optimizer.optimize(\n            initial_params=[2.0, 2.0], \n            max_iterations=50, \n            function_type='quadratic'\n        )\n        \n        plt.subplot(2, 3, i+1)\n        plt.plot(losses, 'b-', linewidth=2)\n        plt.title(f'Learning Rate = {lr}')\n        plt.xlabel('Iteration')\n        plt.ylabel('Loss')\n        plt.grid(True, alpha=0.3)\n        plt.yscale('log')\n        \n        # Analyze convergence behavior\n        if lr &lt;= 0.1:\n            behavior = \"Stable convergence\"\n        elif lr &lt;= 0.5:\n            behavior = \"Fast convergence\"\n        elif lr &lt;= 1.0:\n            behavior = \"Oscillatory\"\n        else:\n            behavior = \"Divergent\"\n        \n        plt.text(0.5, 0.8, behavior, transform=plt.gca().transAxes, \n                bbox=dict(boxstyle=\"round,pad=0.3\", facecolor=\"yellow\", alpha=0.7))\n    \n    plt.tight_layout()\n    plt.show()\n    \n    print(\"Learning Rate Effects:\")\n    print(\"• Too small (≤0.01): Slow but stable convergence\")\n    print(\"• Optimal (0.1): Fast and stable convergence\") \n    print(\"• Too large (≥1.0): Oscillations or divergence\")\n\n# analyze_learning_rates()  # Uncomment to run"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture04_optimization.html#backpropagation-algorithm-1",
+    "href": "lectures/01_MachineLearning/lecture04_optimization.html#backpropagation-algorithm-1",
+    "title": "",
+    "section": "Backpropagation Algorithm",
+    "text": "Backpropagation Algorithm\nclass SimpleNeuralNetwork:\n    \"\"\"Implement a simple neural network with manual backpropagation\"\"\"\n    \n    def __init__(self, input_size, hidden_size, output_size):\n        # Initialize weights randomly\n        self.W1 = np.random.randn(input_size, hidden_size) * 0.1\n        self.b1 = np.zeros((1, hidden_size))\n        self.W2 = np.random.randn(hidden_size, output_size) * 0.1\n        self.b2 = np.zeros((1, output_size))\n        \n        # Store intermediate values for backprop\n        self.z1 = None\n        self.a1 = None\n        self.z2 = None\n        self.a2 = None\n        \n    def sigmoid(self, x):\n        \"\"\"Sigmoid activation function\"\"\"\n        return 1 / (1 + np.exp(-np.clip(x, -250, 250)))\n    \n:::"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/index.html",
+    "href": "lectures/01_MachineLearning/index.html",
+    "title": "01 Machine Learning",
+    "section": "",
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\nLinear Regression\n\n\n\nlinear regression\n\n\nlm\n\n\n\n\n\n\n\nThomas Manke\n\n\nAug 2, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nWhat is Machine Learning ?\n\n\n\n\n\n\nThomas Manke\n\n\nAug 2, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nData Science with R\n\n\n\nData Science\n\n\n\n\n\n\n\nThomas Manke\n\n\nJul 6, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n01: Introduction\n\n\n\n\n\n\nThomas Manke\n\n\nAug 3, 2025\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture03_neural_networks.html",
+    "href": "lectures/01_MachineLearning/lecture03_neural_networks.html",
+    "title": "",
+    "section": "",
+    "text": "Code"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture03_neural_networks.html#overview",
+    "href": "lectures/01_MachineLearning/lecture03_neural_networks.html#overview",
+    "title": "",
+    "section": "Overview",
+    "text": "Overview\nThis lecture bridges classical machine learning with neural networks, introducing Maximum Likelihood Estimation (MLE) as a principled framework for deriving loss functions, and exploring how neural networks extend beyond linear models through non-linear activation functions."
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture03_neural_networks.html#maximum-likelihood-estimation-mle",
+    "href": "lectures/01_MachineLearning/lecture03_neural_networks.html#maximum-likelihood-estimation-mle",
+    "title": "",
+    "section": "Maximum Likelihood Estimation (MLE)",
+    "text": "Maximum Likelihood Estimation (MLE)\nMLE provides a principled way to derive loss functions by maximizing the probability of observing the training data under our model assumptions.\n\nMathematical Foundation\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport torch\nimport torch.nn as nn\nimport torch.optim as optim\nfrom scipy import stats\nimport seaborn as sns\n\ndef demonstrate_mle_gaussian():\n    \"\"\"Demonstrate MLE for Gaussian distribution leading to L2 loss\"\"\"\n    \n    # Generate synthetic data\n    np.random.seed(42)\n    true_mean = 5.0\n    true_std = 2.0\n    n_samples = 100\n    \n    data = np.random.normal(true_mean, true_std, n_samples)\n    \n    # MLE for Gaussian parameters\n    mle_mean = np.mean(data)\n    mle_std = np.std(data, ddof=1)  # Unbiased estimator\n    \n    print(\"MLE Demonstration:\")\n    print(f\"True parameters: μ={true_mean}, σ={true_std}\")\n    print(f\"MLE estimates: μ={mle_mean:.3f}, σ={mle_std:.3f}\")\n    \n    # Show how MLE connects to L2 loss\n    def negative_log_likelihood(predictions, targets, sigma=1.0):\n        \"\"\"Negative log-likelihood for Gaussian assumption\"\"\"\n        # -log p(y|x) = -log(1/√(2πσ²)) - (y-ŷ)²/(2σ²)\n        # Minimizing NLL ≡ minimizing (y-ŷ)² (L2 loss)\n        return 0.5 * np.sum((predictions - targets)**2) / (sigma**2)\n    \n    # Demonstrate connection\n    predictions = np.array([4.8, 5.2, 4.9])\n    targets = np.array([5.0, 5.0, 5.0])\n    \n    nll = negative_log_likelihood(predictions, targets)\n    l2_loss = 0.5 * np.sum((predictions - targets)**2)\n    \n    print(f\"\\nConnection between MLE and L2 loss:\")\n    print(f\"Negative Log-Likelihood: {nll:.4f}\")\n    print(f\"L2 Loss: {l2_loss:.4f}\")\n    print(\"They are equivalent when σ=1!\")\n\ndemonstrate_mle_gaussian()\n\n\nFrom Linear to Logistic Regression\nclass LogisticRegressionFromScratch:\n    \"\"\"Implement logistic regression to understand sigmoid and cross-entropy\"\"\"\n    \n    def __init__(self, learning_rate=0.01, max_iterations=1000):\n        self.lr = learning_rate\n        self.max_iter = max_iterations\n        self.weights = None\n        self.bias = None\n        \n    def sigmoid(self, z):\n        \"\"\"Sigmoid function: σ(z) = 1/(1 + exp(-z))\"\"\"\n        # Clip z to prevent overflow\n        z = np.clip(z, -250, 250)\n        return 1 / (1 + np.exp(-z))\n    \n    def fit(self, X, y):\n        \"\"\"Train using gradient descent on cross-entropy loss\"\"\"\n        n_samples, n_features = X.shape\n        \n        # Initialize parameters\n        self.weights = np.zeros(n_features)\n        self.bias = 0\n        \n        # Store loss history\n        losses = []\n        \n        for i in range(self.max_iter):\n            # Forward pass\n            z = X @ self.weights + self.bias\n            y_pred = self.sigmoid(z)\n            \n            # Binary cross-entropy loss\n            # L = -Σ[y*log(ŷ) + (1-y)*log(1-ŷ)]\n            epsilon = 1e-15  # Prevent log(0)\n            y_pred = np.clip(y_pred, epsilon, 1 - epsilon)\n            loss = -np.mean(y * np.log(y_pred) + (1 - y) * np.log(1 - y_pred))\n            losses.append(loss)\n            \n            # Gradients\n            dw = (1/n_samples) * X.T @ (y_pred - y)\n            db = (1/n_samples) * np.sum(y_pred - y)\n            \n            # Update parameters\n            self.weights -= self.lr * dw\n            self.bias -= self.lr * db\n            \n            if i % 100 == 0:\n                print(f\"Iteration {i}, Loss: {loss:.4f}\")\n        \n        return losses\n    \n    def predict_proba(self, X):\n        \"\"\"Return probabilities\"\"\"\n        z = X @ self.weights + self.bias\n        return self.sigmoid(z)\n    \n    def predict(self, X):\n        \"\"\"Return binary predictions\"\"\"\n        return (self.predict_proba(X) &gt;= 0.5).astype(int)\n\n# Demonstrate logistic regression\nfrom sklearn.datasets import make_classification\n\nX_class, y_class = make_classification(n_samples=1000, n_features=2, n_redundant=0, \n                                      n_informative=2, n_clusters_per_class=1, random_state=42)\n\n# Train custom logistic regression\ncustom_lr = LogisticRegressionFromScratch(learning_rate=0.1, max_iterations=1000)\nlosses = custom_lr.fit(X_class, y_class)\n\n# Compare with sklearn\nfrom sklearn.linear_model import LogisticRegression\nsklearn_lr = LogisticRegression()\nsklearn_lr.fit(X_class, y_class)\n\nprint(f\"\\nAccuracy comparison:\")\nprint(f\"Custom implementation: {np.mean(custom_lr.predict(X_class) == y_class):.3f}\")\nprint(f\"Sklearn implementation: {sklearn_lr.score(X_class, y_class):.3f}\")"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/lecture03_neural_networks.html#neural-networks-beyond-linear-models",
+    "href": "lectures/01_MachineLearning/lecture03_neural_networks.html#neural-networks-beyond-linear-models",
+    "title": "",
+    "section": "Neural Networks: Beyond Linear Models",
+    "text": "Neural Networks: Beyond Linear Models\n\nThe Power of Non-linearity"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/01_LinearRegression.html",
+    "href": "lectures/01_MachineLearning/01_LinearRegression.html",
+    "title": "Linear Regression",
+    "section": "",
+    "text": "Code\nlibrary(tidyverse)\nlibrary(pheatmap)\nlibrary(patchwork)  # combine plots\n\nsource(\"misc/convenience_functions.R\")"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/01_LinearRegression.html#software-first",
+    "href": "lectures/01_MachineLearning/01_LinearRegression.html#software-first",
+    "title": "Linear Regression",
+    "section": "",
+    "text": "Code\nlibrary(tidyverse)\nlibrary(pheatmap)\nlibrary(patchwork)  # combine plots\n\nsource(\"misc/convenience_functions.R\")"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/01_LinearRegression.html#recap-correlations-in-iris-data",
+    "href": "lectures/01_MachineLearning/01_LinearRegression.html#recap-correlations-in-iris-data",
+    "title": "Linear Regression",
+    "section": "Recap: Correlations in Iris Data",
+    "text": "Recap: Correlations in Iris Data\n\n\nCode\niris %&gt;%\n  select(-Species) %&gt;%\n  plot(col=iris$Species, lower.panel=NULL) # remember how colour assignment works"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/01_LinearRegression.html#models",
+    "href": "lectures/01_MachineLearning/01_LinearRegression.html#models",
+    "title": "Linear Regression",
+    "section": "Models",
+    "text": "Models\nGoal: Use some variables in the data to predict others.\nJargon Alert: “predictors” (“independent variables”, \\(X\\)) predict “responses” (“dependent variables”, \\(Y\\)).\nAbundance (of Models and Software): Linear Regression, Logistic Regression, (Deep) Neural Networks, …\nCausality Alert: a good, complex, deep or even perfect model does not mean that we found a causal connection \\(X \\to Y\\)."
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/01_LinearRegression.html#linear-regression-simplicity-first",
+    "href": "lectures/01_MachineLearning/01_LinearRegression.html#linear-regression-simplicity-first",
+    "title": "Linear Regression",
+    "section": "Linear Regression: Simplicity First",
+    "text": "Linear Regression: Simplicity First\n\n\nCode\np &lt;- iris %&gt;% \n  ggplot(aes(x=Petal.Length, y=Petal.Width, colour = Species)) + \n  geom_point()\np\n\n\n\n\n\n\nMathematical Goal\nModel \\(y_i\\) as a linear function of \\(x_i\\)\n\\[\n\\begin{array}{ll}\ny_i &= f(x_i, \\theta) + \\epsilon_i = \\theta_0 + \\theta_1 x_i +  \\epsilon_i ~~~~~~~~~~ i = 1 \\ldots n \\\\\n\\epsilon_i &\\sim N(0, \\sigma^2)\n\\end{array}\n\\]\nand in matrix form (also for multiple variables)\n\n\n\nMatrix form of linear regression\n\n\n\\[\nY = X \\theta + \\epsilon\n\\]\n\n\nResidual Sum of Squares (error)\nFor \\(n\\) data points, choose parameter vector \\(\\theta\\) by ordinary least squares:\n\\[\nRSS(\\theta) = \\sum_{i=1}^{n} (y_i - f(x_i, \\theta))^2 = \\sum_i \\epsilon_i^2 = \\epsilon^T \\epsilon \\to min\n\\]\n\n\nCode\nset.seed(42)\nxr &lt;- seq(-3, 3, by=0.1)  \n\n# Generate parameter combinations and linear functions over xr\nresult &lt;- params_func(5, pr=c(-2,2,-2,2,0,0), xr=xr)\n\n# Create xy-plot\nplot_xy &lt;- result$func %&gt;%\n  ggplot(aes(x = x, y = y, color = point)) +\n  geom_line() +\n  labs(title = \"X-Y Space: Linear Functions\") +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\n# Create parameter space plot\nplot_param &lt;- result$params %&gt;%\n  ggplot(aes(x = beta0, y = beta1, color = point)) +\n  geom_point(size = 2) +\n  labs(title = \"Parameter Space: Models\", x = \"β0\", y = \"β1\") +\n  xlim(-5, 5) +  ylim(-5, 5) + \n  theme_minimal() +\n  theme(legend.position = \"none\")\n\n# generate data from quadratic function with one parameter combination + noise\n# for a range of x values in xr\nres &lt;- params_func(1, pr=c(1,1,2,2,0.5,0.5), xr=xr)\ndata &lt;- res$func %&gt;% mutate(yd = y + rnorm( n() ))\n\n# plot data\nplot_data &lt;- ggplot(data, aes(x = x, y = yd)) +\n  geom_point(alpha=0.3) +                                       # data\n  geom_line(aes(y = y), linetype = \"dashed\") +                  # true function\n  geom_smooth(method='lm', formula='y~x', colour=\"lightblue\") + # best linear fit\n  labs(title = \"X-Y Space: Sampled Data\", x=\"x\", y=\"y\") +\n  theme_minimal()\n\n# calculate Residual Sum of Squares for each combinations (beta0, beta1) in grid\nbeta0_seq &lt;- seq(-5, 5, length.out = 100)\nbeta1_seq &lt;- seq(-5, 5, length.out = 100)\ngrid &lt;- expand_grid(beta0 = beta0_seq, beta1 = beta1_seq) %&gt;%\n  mutate(RSS = map2_dbl(beta0, beta1, function(b0, b1) {\n    sum((data$yd - (b0 + b1 * xr))^2)\n  }))\n\n# Plot RSS + contour\nplot_rss &lt;- ggplot(grid, aes(x = beta0, y = beta1, z = RSS)) +\n  geom_tile(aes(fill = RSS)) +  geom_contour(color = \"grey\") +  \n  scale_fill_gradient(low = \"lightblue\", high = \"red\") +\n  labs(title = \"Parameter Space: RSS Contours\", x = \"β0\", y = \"β1\") + \n  theme_minimal() +\n  theme(legend.position = \"none\")\n\nplot_xy + plot_param + plot_data + plot_rss + plot_layout(ncol = 2)\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n\nEach parameter combination corresponds to a specific (linear) model\nSome models have lower RSS (= “cost” = “loss”)\neven the “best” model may be wrong\n“all models are wrong, some are useful”\n\n\n\n\n\nMathematical Solution\nFor linear regression, \\(f(x,\\theta) =X \\theta\\), there is an explicit formula for the parameters \\(\\hat \\theta\\) and \\(\\hat \\sigma\\)\n\\[\n\\begin{array}{ll}\n\\hat {\\theta} &= (X^TX)^{-1} X^T Y\\\\\n\\hat {\\sigma}^2 &= \\epsilon^T \\epsilon / (n-p) = RSS /(n-p)\n\\end{array}\n\\]\n\n\nStatistical Analysis\nRemaining sampling fluctuation around \\(\\hat y\\) (measured by \\(\\hat \\sigma\\)) also induced uncertainties in the parameter estimate (error propagation)\n\\[\nCov(\\theta) = \\hat \\sigma (X^TX)^{-1}\n\\]\nGiven sampling fluctuations, and the corresponding uncertainty in the parameter estimate, we want to quantify our surprise for \\(\\hat {\\theta} \\ne 0\\) assuming that \\(\\theta=0\\). This can be done by a confidence interval\n\\[\n\\hat {\\theta} \\pm c \\cdot \\sigma_\\theta\n\\] There choice for \\(c\\) is arbitrary and it corresponds to our desired level of confidence that the “true” parameter \\(\\theta\\) is contained within this interval (\\(c=1.96\\) is a popular choice).\nOften we are interested if the confidence interval contains zero (no dependence). The p-value denotes the probability that zero is outside the region, even if the true value \\(\\theta=0\\)\n\n\nPractical Solution\nThis is very easy in R: lm()\n\n\nCode\n# fit a linear model\nmodel &lt;- lm(Petal.Width ~ Petal.Length, data=iris)  \nmodel\n\n\n\nCall:\nlm(formula = Petal.Width ~ Petal.Length, data = iris)\n\nCoefficients:\n (Intercept)  Petal.Length  \n     -0.3631        0.4158  \n\n\n\n\n\n\n\n\nTask: Reporting the model\n\n\n\n\nUnderstand the output of model %&gt;% summary\nWhat class is the object model?\nWhich other methods are available to access the model object?\nExplore some of the methods: ?confint()\n\n\n\n\n\nCode\nmodel %&gt;% summary\n\n\n\nCall:\nlm(formula = Petal.Width ~ Petal.Length, data = iris)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-0.56515 -0.12358 -0.01898  0.13288  0.64272 \n\nCoefficients:\n              Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  -0.363076   0.039762  -9.131  4.7e-16 ***\nPetal.Length  0.415755   0.009582  43.387  &lt; 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.2065 on 148 degrees of freedom\nMultiple R-squared:  0.9271,    Adjusted R-squared:  0.9266 \nF-statistic:  1882 on 1 and 148 DF,  p-value: &lt; 2.2e-16\n\n\n\n\n\n\n\n\nNotice\n\n\n\n\nsummary() behaves differently for model objects (than data frame)\ngood fit because:\n\nslope \\(\\ne 0\\)\nlarge coefficient of determination \\(R^2\\)\nlarge F-statistics (small \\(P\\)-value)\nvisualization\n\n\n\n\nTotal Sum of Squares (Mean-only Model):\n\\[\nTSS = \\sum_i(y_i - \\bar y)^2\n\\]\nFraction of variation explained by new model (\\(R^2\\)):\n\\[\nR^2 = \\frac{TSS-RSS}{TSS} = 1 - \\frac{RSS}{TSS} = 1 - \\frac{\\sum_i(y_i - \\hat y_i)^2}{\\sum_i(y_i-\\bar{y})^2}\n\\]\nF-statistics \\[\nF = \\frac{(TSS-RSS)/(p-1)}{RSS/(n-p)}  \n\\]\n\n\nResiduals\nThe linear regression has minimzed the residual sum of squares \\(RSS\\). Below I visualize (in red) the remaining residual errors as deviations of the fitted line from the true data. I also compare it to the mean model where no dependency on X=Petal.Length is used.\n\n\nCode\nmu = iris$Petal.Width %&gt;% mean\n\np1 &lt;- iris %&gt;%\n  mutate(mean = mu) %&gt;%\n  ggplot(aes(x = 0, y = Petal.Width)) +\n  geom_point() +\n  geom_hline(yintercept=mu, colour=\"blue\") +\n  geom_segment(aes(xend = 0, yend = mean), color = \"red\") + \n  theme(\n    axis.title.x = element_blank(), \n    axis.text.x = element_blank(), \n    axis.ticks.x = element_blank()) +\n  ggtitle('Mean Model')\n\n\np2 &lt;- iris %&gt;%\n  mutate(predicted = predict(model, iris),\n         residuals = residuals(model)\n         ) %&gt;%\n  ggplot(aes(x = Petal.Length, y = Petal.Width)) +\n  geom_point() +\n  geom_line(aes(y=predicted), color=\"blue\") +\n  geom_segment(aes(xend = Petal.Length, yend = predicted), color = \"red\") +  \n  ggtitle('Linear Model: Residual Sum of Squares')\n\np1 + p2 + plot_layout(widths = c(1, 3))\n\n\n\n\n\nTask:\nPlot the histogram of the residuals"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/01_LinearRegression.html#predictions",
+    "href": "lectures/01_MachineLearning/01_LinearRegression.html#predictions",
+    "title": "Linear Regression",
+    "section": "Predictions",
+    "text": "Predictions\n\nwith confidence intervals\nUncertainties in model parameters become uncertainties in prediction:\n\n\nCode\n# if newdata=NULL it will be set to the training data\npred &lt;-predict(model, newdata=iris, interval = 'confidence' , level = 0.82)\npred %&gt;% head\n\n\n        fit       lwr       upr\n1 0.2189821 0.1810040 0.2569601\n2 0.2189821 0.1810040 0.2569601\n3 0.1774065 0.1383862 0.2164268\n4 0.2605576 0.2236061 0.2975091\n5 0.2189821 0.1810040 0.2569601\n6 0.3437087 0.3087576 0.3786598\n\n\nQuestion: What is meant by those numbers?\nLet’s add the upper and lower values to the plot.\n\n\nCode\np + \n  geom_line(aes(y=pred[,'lwr']), colour=1) + \n  geom_line(aes(y=pred[,'upr']), colour=1)\n\n\n\n\n\n\n\n\n\n\n\nNotice\n\n\n\n\nthe x-values are unchanged since the ‘predictions’ where done for the same samples as for the original plot p (defined above). But we have to redefine the new y-values in the aesthetics aes(y=...).\nI also overwrote the species-specific colours (and the implicit grouping of data). Setting colour=1 (=black) ensures that there will be global fit lines over all samples (rather than grouped lines by species) - try to remove (colour=1)\n\n\n\nA similar result could also be achieved more easily with the geom_smooth() method from ggplot2.\n\n\nCode\np + \n  geom_smooth(method=\"lm\", se=TRUE, level=0.95, colour=\"darkgrey\")\n\n\n\n\n\n\n\n\n\n\n\nNotice\n\n\n\n\nWe model the expected mean and the confidence interval denotes the “standard deviation” of the mean, not the variability in the data\nWe have implicitly grouped the data by assigning colour to the different species (in the aesthetics of plot \\(p\\)). Per default, the geom_smooth will operate on all groups separately, unless we overwrite the colour (here: black). Remove this parameter and observed the effect\nThere are other methods to smooth the data, e.g. loess)\n\n\n\n\n\nPrediction Intervals\nThe variation of the data is clearly larger than suggested by the confidence interval shown above.\nIt is important to remember that in our example there are two components of variations:\n\\[\n||Y - \\bar{Y}||^2 = ||Y-\\hat{Y}||^2 + ||\\hat{Y} - \\bar{Y}||^2\n\\]\n\nthe variance explained by the linear model: \\(||\\hat{Y} - \\bar{Y}||^2\\) where \\(\\hat{Y} = X \\hat \\theta\\). In this context errors in \\(\\hat \\theta\\) will induce errors in Petal.Width.\nthe unexplained variance \\(||Y-\\hat{Y}||^2 = ||\\epsilon||^2\\) that remains unaccounted but where \\(\\epsilon = (Y-\\hat{Y}) \\propto N(0,\\sigma^2)\\)\n\nTo visualize the full prediction interval we can use the following approach that modifies the parameters within the predict function:\n\n\nCode\npred &lt;-predict(model, newdata=iris, interval = 'prediction' , level = 0.893)\n\ncbind(iris, pred) %&gt;%\n  ggplot(aes(x=Petal.Length)) + \n  geom_point(aes(y = Petal.Width, colour=Species)) +\n  geom_ribbon(aes(ymin = lwr, ymax = upr), alpha = 0.2) +\n  geom_line(aes(y = fit)) +\n  ggtitle('Prediction Interval')\n\n\n\n\n\nNotice: The prediction interval covers the broader variability of the data. But as with the confidence interval, the level can be set at will. A common but arbitrary choice is 0.95\nReference:\n\nhttps://rstudio-pubs-static.s3.amazonaws.com/7024_e3a68a9b35454e74abfe15b621c50502.html\n\n\n\n\n\n\n\nPredictions with Linear Algebra\n\n\n\n\n\n\nSome Equations\nThe confidence interval denotes the range within which we expect the expected means to lie \\(\\hat y(x) = E[y(x)]\\).\nThe prediction interval also includes the residual variance \\(\\sigma^2\\)\n\\[\n\\begin{array}{ll}\n\\hat y & = X\\theta \\\\\nCov(\\hat \\theta) &= \\sigma^2 (X^TX)^{-1} \\\\\nCov(\\hat y) &= X \\cdot Cov(\\hat \\theta) \\cdot X^T = \\sigma^2 X(X^TX)^{-1} X^T \\\\\nSE(\\hat y) &= \\sqrt{diag(Cov(\\hat y))} \\\\\nCI:  & \\hat{y} \\pm ~t_{n-2} \\cdot SE(\\hat{y}) \\\\\nPI:  & \\hat{y}  \\pm ~t_{n-2} \\cdot \\sqrt{SE(\\hat{y}) + \\sigma^2}\n\\end{array}\n\\]\n\n\nTranslating to R\n\n\nCode\n# variance of residuals\nsig2 &lt;- sum(model$residuals^2) / model$df.residual \n\nX = model.matrix(model)                 # model matrix of data\nX %&gt;% pheatmap(cluster_rows=F, cluster_cols=F, show_rownames=F, main=\"Model Matrix X\")\n\n\n\n\n\nCode\ntheta_hat = model$coefficients # best parameters\nyhat = X %*% theta_hat         # predictions\n\ncov_theta = sig2 * solve(t(X) %*% X)  # covariance matrix of coefficient (slope & intercept are correlated)\ncov_theta %&gt;% pheatmap(cluster_rows=F, cluster_cols=F, show_rownames=F, main=\"Cov(theta)\")\n\n\n\n\n\nCode\ncov_yhat = X %*% cov_theta %*% t(X) # covariance matrix of predictions\ncov_yhat %&gt;% pheatmap(cluster_rows=F, cluster_cols=F, \n  show_rownames=F, show_colnames=F, main = \"Cov(yhat)\")\n\n\n\n\n\nCode\nsig2_yhat &lt;- diag(cov_yhat)     # variance of predictions, diagonal\n\ndata.frame(\n  x=iris$Petal.Length,\n  y=iris$Petal.Width,\n  yhat=yhat,\n  sd_CI=1.96*sqrt(sig2_yhat),\n  sd_PI=1.96*sqrt(sig2_yhat + sig2)\n) %&gt;%\n  ggplot(aes(x=x, y=yhat)) + \n  geom_point(aes(y=y)) +\n  geom_line() + \n  geom_ribbon(aes(ymin = yhat - sd_CI, ymax = yhat + sd_CI), alpha = 0.2) +\n  geom_ribbon(aes(ymin = yhat - sd_PI, ymax = yhat + sd_PI), alpha = 0.2)\n\n\n\n\n\n\n\n\n\n\n\nPredicting Outside\nRegardless of prediction or confidence intervals, be careful when predicting (and interpreting) beyond the data range\n\n\nCode\nmodel &lt;- lm(Petal.Width ~ Petal.Length, data=iris)                    # just in case we forgot\nnew_data &lt;- data.frame(Petal.Length = seq(0, 10, 0.1))                # create new data\npred &lt;- predict(model, newdata = new_data, interval = \"prediction\")   # + prediction interval (default)\npred &lt;- pred %&gt;% as.data.frame %&gt;% mutate(Petal.Length=new_data$Petal.Length) # add Petal.Length \n\nggplot(data=iris, aes(x = Petal.Length)) +\n  geom_point(aes(y = Petal.Width)) +\n  geom_smooth(aes(y = Petal.Width), method = \"lm\", formula = y ~ x) +   # CI from geom_smooth\n  geom_ribbon(data = pred, aes(ymin = lwr, ymax = upr), alpha = 0.2) +  # PI from pred\n  theme_minimal() +\n  labs(title = \"Hic sunt dracones\")"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/01_LinearRegression.html#poor-models",
+    "href": "lectures/01_MachineLearning/01_LinearRegression.html#poor-models",
+    "title": "Linear Regression",
+    "section": "Poor Models",
+    "text": "Poor Models\nJust replace “Petal” with “Sepal”\n\n\nCode\nmodel_poor &lt;- lm(Sepal.Width ~ Sepal.Length, data=iris)   \nplot(Sepal.Width ~ Sepal.Length, data=iris, col=Species)  \nabline(model_poor, lwd=3, lty=2)    \n\n\n\n\n\nCode\nconfint(model_poor)                     # estimated slope is indistinguishable from zero\n\n\n                  2.5 %     97.5 %\n(Intercept)   2.9178767 3.92001694\nSepal.Length -0.1467928 0.02302323\n\n\nCode\nsummary(model_poor)\n\n\n\nCall:\nlm(formula = Sepal.Width ~ Sepal.Length, data = iris)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-1.1095 -0.2454 -0.0167  0.2763  1.3338 \n\nCoefficients:\n             Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)   3.41895    0.25356   13.48   &lt;2e-16 ***\nSepal.Length -0.06188    0.04297   -1.44    0.152    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.4343 on 148 degrees of freedom\nMultiple R-squared:  0.01382,   Adjusted R-squared:  0.007159 \nF-statistic: 2.074 on 1 and 148 DF,  p-value: 0.1519\n\n\nInterpretation:\n\nslope is not significantly distinct from 0.\n\\(R^2 \\approx 0\\)\nmodel does not account for much of the observed variation.\nF-statistics is not significantly larger than 1\n\nTask: Use the above template to make predictions for the new poor model."
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/01_LinearRegression.html#factorial-variables-as-predictors",
+    "href": "lectures/01_MachineLearning/01_LinearRegression.html#factorial-variables-as-predictors",
+    "title": "Linear Regression",
+    "section": "Factorial variables as predictors",
+    "text": "Factorial variables as predictors\nIn the iris example the “Species” variable is a factorial (categorical) variable with 3 levels. Other typical examples: different experimental conditions or treatments.\n\n\nCode\nplot(Petal.Width ~ Species, data=iris)\n\n\n\n\n\nCode\nfit=lm(Petal.Width ~ Species, data=iris)\nsummary(fit)\n\n\n\nCall:\nlm(formula = Petal.Width ~ Species, data = iris)\n\nResiduals:\n   Min     1Q Median     3Q    Max \n-0.626 -0.126 -0.026  0.154  0.474 \n\nCoefficients:\n                  Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)        0.24600    0.02894    8.50 1.96e-14 ***\nSpeciesversicolor  1.08000    0.04093   26.39  &lt; 2e-16 ***\nSpeciesvirginica   1.78000    0.04093   43.49  &lt; 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.2047 on 147 degrees of freedom\nMultiple R-squared:  0.9289,    Adjusted R-squared:  0.9279 \nF-statistic:   960 on 2 and 147 DF,  p-value: &lt; 2.2e-16\n\n\nInterpretation:\n\n“setosa” (1st species) has mean Petal.Width=0.246(29) - reference baseline\n“versicolor” (2nd species) has mean Petal.Width = Petal.Width(setosa) + 1.08(4)\n“virginica” (3rd species) has mean Petal.Width = Petal.Width(setosa) + 1.78(4)\n\n\nInside the Model Matrix (optional)\nAlso for factorial predictors, linear regression can be understood as solving a matrix equation\n\\[\ny = X\\theta\n\\]\nBut the definition of the design matrix (model matrix) \\(X\\) is not unique and corresponds to an user-defined encoding of the factor levels.\n\n\nCode\n# indicator matrix\nmodel.matrix( ~ 0 + Species, data=iris) %&gt;% head\n\n\n  Speciessetosa Speciesversicolor Speciesvirginica\n1             1                 0                0\n2             1                 0                0\n3             1                 0                0\n4             1                 0                0\n5             1                 0                0\n6             1                 0                0\n\n\nNotice that this does not depend on the left-side of the equation.\nTask: Add the numeric variable “Sepal.Length” to the formula and observe how the model.matrix changes\n\n\nCode\nset.seed(42)\nmodel.matrix( ~ 0 + Species + Petal.Width, data=iris) %&gt;% \n  as.data.frame() %&gt;%\n  sample_n(5)\n\n\nOther equivalent encodings are possible and they correspond to some reversible transformations of \\(X\\)\n\\[\ny = X A A^{-1} \\theta = \\tilde{X} \\tilde{\\theta}\n\\]\nA particularly common alternative is the so-called “intercept encoding”, in which one level serves as reference (the intercept).\n\n\nCode\n# intercept encoding (default)\nmodel.matrix( Petal.Width ~ 1 + Species, data=iris) %&gt;% head \n\n\n  (Intercept) Speciesversicolor Speciesvirginica\n1           1                 0                0\n2           1                 0                0\n3           1                 0                0\n4           1                 0                0\n5           1                 0                0\n6           1                 0                0\n\n\nCode\n# same as Petal.Width ~ Species\n\n\nNotice\n\nThe interpretation of coefficients depends on the choice of encoding\nModel matrices can also be defined for multiple factors and level combinations (e.g. Species, Country). Such encodings will have as many columns as level combinations.\nThe default encoding of a factor can also be inspected (and redefined) using the contrasts function, but this is beyond this course, and it can get quite involved. See for example: https://cran.r-project.org/web/packages/codingMatrices/vignettes/codingMatrices.pdf\n\n\n\nCode\niris$Species %&gt;% contrasts\n\n\n           versicolor virginica\nsetosa              0         0\nversicolor          1         0\nvirginica           0         1"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/01_LinearRegression.html#model-comparisons",
+    "href": "lectures/01_MachineLearning/01_LinearRegression.html#model-comparisons",
+    "title": "Linear Regression",
+    "section": "Model Comparisons",
+    "text": "Model Comparisons\nModes can have different degree of complexity (different number of explanatory variables). Determine residual standard error sigma for different fits with various complexity\n\n\nCode\n# A list of formulae\nformula_list = list(\n  Petal.Width ~ Petal.Length,                 # as before (single variable)\n  Petal.Width ~ Petal.Length + Sepal.Length,  # function of more than one variable\n  Petal.Width ~ Species,                      # function of categorical variables\n  Petal.Width ~ .                             # function of all other variable (numerical and categorical)\n)\n\nsig=c()\nfor (f in formula_list) {\n  fit = lm(f, data=iris)\n  sig = c(sig, sigma(fit))\n  print(paste(sigma(fit), format(f)))\n}\n\n\n[1] \"0.206484348913609 Petal.Width ~ Petal.Length\"\n[1] \"0.204445704742963 Petal.Width ~ Petal.Length + Sepal.Length\"\n[1] \"0.204650024805914 Petal.Width ~ Species\"\n[1] \"0.166615943019283 Petal.Width ~ .\"\n\n\nCode\n# more concise loop using lapply/sapply\n# sig = sapply(lapply(formula_list, lm, data=iris), sigma)\n\nop=par(no.readonly=TRUE) \npar(mar=c(4,20,2,2))\nbarplot(sig ~ format(formula_list), horiz=TRUE, las=2, ylab=\"\", xlab=\"sigma\")\n\n\n\n\n\nCode\npar(op)     # reset graphical parameters\n\n\n… more complex models tend to have smaller residual standard error (overfitting?)"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/01_LinearRegression.html#model-checking-diagnostic-plots",
+    "href": "lectures/01_MachineLearning/01_LinearRegression.html#model-checking-diagnostic-plots",
+    "title": "Linear Regression",
+    "section": "Model Checking: Diagnostic Plots",
+    "text": "Model Checking: Diagnostic Plots\n“fit” is a large object of the lm-class which contains also lots of diagnostic informmation. Notice how the behaviour of “plot” changes.\n\n\nCode\nfit=lm(Petal.Width ~ ., data=iris)\nop=par(no.readonly=TRUE)   # safe only resettable graphical parameters, avoids many warnings\npar(mfrow=c(2,2))          # change graphical parameters: 2x2 images on device\nplot(fit,col=iris$Species) # four plots rather than one\n\n\n\n\n\nCode\npar(op)                    # reset graphical parameters\n\n\nmore examples: here\nLinear models \\(y_i=\\theta_0 + \\theta_1 x_i + \\epsilon_i\\) make certain assumptions (\\(\\epsilon_i \\propto N(0,\\sigma^2)\\))\n\nresiduals \\(\\epsilon_i\\) are independent from each other (non-linear patterns?)\nresiduals are normally distributed\nhave equal variance \\(\\sigma^2\\) (“homoscedasticity”)\nno outliers (large residuals) or observations with strong influence on fit"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/01_LinearRegression.html#review",
+    "href": "lectures/01_MachineLearning/01_LinearRegression.html#review",
+    "title": "Linear Regression",
+    "section": "Review",
+    "text": "Review\n\ndependencies between variable can often be modeled\nlinear model lm(): fitting, summary and interpretation\nlinear models with numerical and factorial variables\nlinear models may not be appropriate\nmodel comparisons"
+  },
+  {
+    "objectID": "lectures/04_GenerativeModels/01_Intro.html",
+    "href": "lectures/04_GenerativeModels/01_Intro.html",
+    "title": "",
+    "section": "",
+    "text": "Code\nPlato’s cave analogy with shadows is misleading: reality is lower-dim than observations"
+  },
+  {
+    "objectID": "lectures/04_GenerativeModels/01_Intro.html#vae",
+    "href": "lectures/04_GenerativeModels/01_Intro.html#vae",
+    "title": "",
+    "section": "VAE",
+    "text": "VAE\n\nautoencoder may not have good structure in latent\nidea: map x –&gt; distribution parameters (mu, sigma), z ~ N(mu, sigma)\nencoder (inference network) q(z|x)\ndecoder (generative network) p(x|z)\n\nSteps: - encode x -&gt; mu,sigma z ~ q(z|x) = N(mu(x), sigma(x)) - sample z ~ N(mu,sigma) - decode z: x’ ~ p(x|z)\nLoss = E_x[log p(x|z)] + D(q(z|x) p(z))\nProblem: non-deterministic sampling does not allow for backpropagation\n\nparametrization trick\n\n\nDrug discovery\n\nlong process: discovery -&gt; pre-clinical (animal model) -&gt; trials (phase 1-3)\ngenerate molecules: smiles (string of arbitrary lenght) -&gt; one-hot encoding\nRNN so to run on different\ncitation: gomez-bombarelli 2018\ndata set: 108k molecules from QM9, 250k molecules from ZINC DB"
+  },
+  {
+    "objectID": "lectures/04_GenerativeModels/01_Intro.html#gan",
+    "href": "lectures/04_GenerativeModels/01_Intro.html#gan",
+    "title": "",
+    "section": "GAN ()",
+    "text": "GAN ()\n\nHistory\nRationale, solves which challenges\nMin-Max Game\n\n\nChallenges\n\nno single loss; min. max –&gt; no clear\ncan overtrain, performance degradation, don’t run GAN for too long\nobjective evaluation: no reliable metric, inspection of facial images (subjective)\n\n\n\nApplications\n\nMedGAN generate synthetic data EHR (privacy concern)\ntraditional methods\n\nde-identification is possible (genomics)\nindependent dimensional wise sampling does not capture correlations between features\n\nEvaluation on synthetic data\n\nfeature-wise probability distribution ~ real data\nclassifier of feature given all others –&gt; performance similar\n\nOutlook"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/001_CNN.html",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/001_CNN.html",
+    "title": "Frameworks",
+    "section": "",
+    "text": "neural networks: layers of neurons connected by weight\nin each neuron: weights + bias + non-lenar activation function\noptimization: gradient descent, SGD , momentum, ADAM\nbackprogation: gradients with chain rule on computational graph\ntechnical: vanishing gradients –&gt; batch norm, weight initialization\noverfitting and generalization: data augmentation, regularization (L2, dropout)"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/001_CNN.html#review",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/001_CNN.html#review",
+    "title": "Frameworks",
+    "section": "",
+    "text": "neural networks: layers of neurons connected by weight\nin each neuron: weights + bias + non-lenar activation function\noptimization: gradient descent, SGD , momentum, ADAM\nbackprogation: gradients with chain rule on computational graph\ntechnical: vanishing gradients –&gt; batch norm, weight initialization\noverfitting and generalization: data augmentation, regularization (L2, dropout)"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/001_CNN.html#why-not-add-more-layers",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/001_CNN.html#why-not-add-more-layers",
+    "title": "Frameworks",
+    "section": "Why not add more layers",
+    "text": "Why not add more layers\n\nNN with one hidden layer are universal function approximators\notpimization hard: finding parameters to give optimal decision boundary (for classification)\nno structure; just brute force\nblack boxes: parameter interpretation\nperformance palteau\n\n–&gt; more structure: CNN, RNN, Transformers –&gt; from classifiers to generators"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/001_CNN.html#problem",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/001_CNN.html#problem",
+    "title": "Frameworks",
+    "section": "Problem:",
+    "text": "Problem:\nfully connected layers: input(1000 x 1000 x 3 pixels) –&gt; 1 hidden layer(1000 neurons) –&gt; 3 billion parameters\nrestrict capacity of each layer –&gt; weight sharing\ninvariance assumption: should not matter where feature is\nCNN: start point for subsequence task - classification - object localization (bounding box) - object detection (multiple bounding boxes) - instance segmentation (point-wise classification)"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/001_CNN.html#what-are-convolutions",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/001_CNN.html#what-are-convolutions",
+    "title": "Frameworks",
+    "section": "What are convolutions?",
+    "text": "What are convolutions?\n\n1D\n–&gt; i2DL\n\n\n2D\n–&gt; i2DL"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/001_CNN.html#cnn-architecture",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/001_CNN.html#cnn-architecture",
+    "title": "Frameworks",
+    "section": "CNN Architecture",
+    "text": "CNN Architecture\n\nNN: pass 1-D vectors from layer to layer\nCNN: match network to spatial structure (2D images)\n\nkeep input 2-D (actually: CxWxH) –&gt; also arrange neurons in 2-D (actually DxWxH)\n\nNumber of outputs from Convolutional Layer\n\\[\nN_{out} = \\frac{N_{in} - F + 2P}{S} + 1\n\\]\nNotice\n\n\\((N_{in} - F + 2P)/S\\) has to be integer for this to work properly.\n\n\n\nNumbers and Memory\n\n2-layer conv\n\n\n\n\n\n\n\n\n\n\n\n\nLayer\nOutput Shape\nParam Formula\n#Outputs\n#Params\nParam Mem (MB)\nOut Mem (MB)\n\n\n\n\nInput\n(1, 3, 224, 224)\n—\n150,528\n0\n0.00\n0.60\n\n\nConv1\n(1, 64, 224, 224)\n3×3×3×64 + 64\n3,211,264\n1,792\n0.01\n12.84\n\n\nMaxPool\n(1, 64, 112, 112)\n—\n802,816\n0\n0.00\n3.21\n\n\nConv2\n(1, 64, 112, 112)\n3×3×64×64 + 64\n802,816\n36,928\n0.15\n3.21\n\n\nFlatten\n(1, 802816)\n—\n802,816\n0\n0.00\n3.21\n\n\nFC\n(1, 10)\n802816×10 + 10\n10\n8,028,170\n32.11\n0.00\n\n\nTotal\n—\n—\n—\n8,066,890\n32.27\n23.07\n\n\n\n\n\nVggNet (2014)\n\n\n\n\n\n\n\n\n\n\n\n\nLayer\nOutput Shape\nParam Formula\n#Outputs\n#Params\nParam Mem (MB)\nOutput Mem (MB)\n\n\n\n\nInput\n224×224×3\n—\n150,528\n0\n0.00\n0.60\n\n\nConv1_1\n224×224×64\n3×3×3×64 + 64\n3,211,264\n1,792\n0.01\n12.84\n\n\nConv1_2\n224×224×64\n3×3×64×64 + 64\n3,211,264\n36,928\n0.15\n12.84\n\n\nMaxPool1\n112×112×64\n—\n802,816\n0\n0.00\n3.21\n\n\nConv2_1\n112×112×128\n3×3×64×128 + 128\n1,605,632\n73,856\n0.30\n6.42\n\n\nConv2_2\n112×112×128\n3×3×128×128 + 128\n1,605,632\n147,584\n0.59\n6.42\n\n\nMaxPool2\n56×56×128\n—\n401,408\n0\n0.00\n1.61\n\n\nConv3_1\n56×56×256\n3×3×128×256 + 256\n802,816\n295,168\n1.18\n3.21\n\n\nConv3_2\n56×56×256\n3×3×256×256 + 256\n802,816\n590,080\n2.36\n3.21\n\n\nConv3_3\n56×56×256\n3×3×256×256 + 256\n802,816\n590,080\n2.36\n3.21\n\n\nMaxPool3\n28×28×256\n—\n200,704\n0\n0.00\n0.80\n\n\nConv4_1\n28×28×512\n3×3×256×512 + 512\n401,408\n1,180,160\n4.72\n1.61\n\n\nConv4_2\n28×28×512\n3×3×512×512 + 512\n401,408\n2,359,808\n9.44\n1.61\n\n\nConv4_3\n28×28×512\n3×3×512×512 + 512\n401,408\n2,359,808\n9.44\n1.61\n\n\nMaxPool4\n14×14×512\n—\n100,352\n0\n0.00\n0.40\n\n\nConv5_1\n14×14×512\n3×3×512×512 + 512\n100,352\n2,359,808\n9.44\n0.40\n\n\nConv5_2\n14×14×512\n3×3×512×512 + 512\n100,352\n2,359,808\n9.44\n0.40\n\n\nConv5_3\n14×14×512\n3×3×512×512 + 512\n100,352\n2,359,808\n9.44\n0.40\n\n\nMaxPool5\n7×7×512\n—\n25,088\n0\n0.00\n0.10\n\n\nFC_1\n4096\n7×7×512×4096 + 4096\n4,096\n102,764,544\n411.06\n0.02\n\n\nFC_2\n4096\n4096×4096 + 4096\n4,096\n16,781,312\n67.13\n0.02\n\n\nFC_3\n1000\n4096×1000 + 1000\n1,000\n4,097,000\n16.39\n0.00\n\n\nTotal\n—\n—\n—\n138M+\n564 MB\n~77 MB\n\n\n\nNotice\n\nmemory and compute in early layers, parameters in last layer\nnumbers can more than double when the gradients are calculated + caching\nmaintain also multiple images (batch normalization)\n\n\n\nPython Implementation\nDefine Model:\n\n\nCode\nimport torch\nimport torch.nn as nn\nimport torchvision.models as models\nimport numpy as np\n\nclass my_model(nn.Module):\n    \"\"\" \n    My simple Convolutional Network\n    input shape: [,3,224,224] \n    output shape: [,10]\n    \"\"\"\n    def __init__(self):\n        super().__init__()\n        self.conv1 = nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1)\n        self.pool = nn.MaxPool2d(kernel_size=2, stride=2)\n        self.conv2 = nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=1)\n        self.flatten = nn.Flatten()\n        self.fc = nn.Linear(112 * 112 * 64, 10)\n\n    def forward(self, x):\n        x = self.conv1(x)\n        x = self.pool(x)\n        x = self.conv2(x)\n        x = self.flatten(x) \n        x = self.fc(x)\n        return x\n\n\nNotice that each model has a defined input shape (e.g. [,3,224,224]) and a defined output (e.g [,10]). The inner layers should work such that the dimensions match.\nIdeally we also define pre-processing steps and transformers to adjust those dimensions when other data is provided.\nEmploy Model:\n\n\nCode\nmodel = my_model()\n#model = models.vgg16() # precompiled model from torchvision.models\n\n\nGet parameter dimensions\n\n\nCode\n# number and shapes of parameters can be obtained directly from model\n# there is also a package that could do the same\n# pip install torchsummary --&gt; torchsummary.summary(model, input_shape) \nfor name, layer in model.named_modules():\n    num_params = sum(p.numel() for p in layer.parameters())\n    print(f\"{layer.__class__.__name__:12} {num_params}\")\n\n# shapes of parameters: notice that we have weights and biases\nfor name, parameter in model.named_parameters():\n    print(name, parameter.shape)\n\n\nmy_model     8066890\nConv2d       1792\nMaxPool2d    0\nConv2d       36928\nFlatten      0\nLinear       8028170\nconv1.weight torch.Size([64, 3, 3, 3])\nconv1.bias torch.Size([64])\nconv2.weight torch.Size([64, 64, 3, 3])\nconv2.bias torch.Size([64])\nfc.weight torch.Size([10, 802816])\nfc.bias torch.Size([10])\n\n\nNotice that the number and shapes of parameters can be obtained directly from the model.\nIn contrast, the output sizes of each layer will depend on the dimension of the input data and can only be done at execution (forward pass)\nBelow I show how to use, hooks that allow for efficient manipulation of the forward path, such that all quantities of interest can be tracked. Here I will track the shapes\nDefine Hook\n\n\nCode\ndef describe_model_forward(model, input_tensor):\n    \"\"\" \n    describe_model_forward collects information on the shapes of parameters and outputs \n    on each computational layer of a neural network\n    \"\"\"\n    layer_info = []\n    hooks = []\n\n    # define a \"hook\" function that can be passed to the model\n    # and evaluate as each layer is run in the foward path\n    def register_hook(module):\n        def hook(module, input, output):\n            name = module.__class__.__name__\n            # assumption: output of model is single tensor\n            output_shape = tuple(output.shape)\n            param_shapes = [tuple(p.shape) for p in module.parameters() if p.requires_grad]\n\n            layer_info.append((name, output_shape, param_shapes))\n\n        # add hook to computational layers (not containers Sequential, ModuleList)\n        # Warning: layer and module is ALMOST synonymous, but modules may also be container of layers\n        # here we exclude them conditionally\n        # This was trial and error. I'm not sure if this exlcusion list is exhaustive in general\n        if not isinstance(module, nn.Sequential) and not isinstance(module, nn.ModuleList):\n            hooks.append(module.register_forward_hook(hook))\n\n    # Recursively add register_hook() function to each computational layer\n    model.apply(register_hook)\n\n    # Run forward pass\n    with torch.no_grad():\n        _ = model(input_tensor)\n\n    # Remove hooks to clean memory\n    for h in hooks:\n        h.remove()\n\n    return layer_info\n\n\nCollect Layer Information\n\n\nCode\nmodel = models.vgg16()\n# Define Data\nx = torch.randn(16, 3, 224, 224) # fake data ~ batch of images\n\n# Run forward path and collect information\nlayer_info = describe_model_forward(model, x)\n\n# Print out information\nfor (name, out_shape, param_shape) in layer_info:\n    # assume that there is always an output shape\n    n_out = int(np.prod(out_shape))\n    n_params = 0\n    # parameters shape maybe empty (e.g ReLU --&gt; 0 params)\n    if len(param_shape) == 2:\n        n_weights = np.prod(param_shape[0])\n        n_bias = np.prod(param_shape[1])\n        n_params = int(n_weights + n_bias)\n\n    print(f\"Layer {name:&lt;14} \\\n        output: {str(out_shape):&lt;25} {n_out:&lt;10,}\\\n        Parameters: {str(param_shape):&lt;15} {n_params:,}\"\n    )\n\n\nLayer Conv2d                 output: (16, 64, 224, 224)        51,380,224        Parameters: [(64, 3, 3, 3), (64,)] 1,792\nLayer ReLU                   output: (16, 64, 224, 224)        51,380,224        Parameters: []              0\nLayer Conv2d                 output: (16, 64, 224, 224)        51,380,224        Parameters: [(64, 64, 3, 3), (64,)] 36,928\nLayer ReLU                   output: (16, 64, 224, 224)        51,380,224        Parameters: []              0\nLayer MaxPool2d              output: (16, 64, 112, 112)        12,845,056        Parameters: []              0\nLayer Conv2d                 output: (16, 128, 112, 112)       25,690,112        Parameters: [(128, 64, 3, 3), (128,)] 73,856\nLayer ReLU                   output: (16, 128, 112, 112)       25,690,112        Parameters: []              0\nLayer Conv2d                 output: (16, 128, 112, 112)       25,690,112        Parameters: [(128, 128, 3, 3), (128,)] 147,584\nLayer ReLU                   output: (16, 128, 112, 112)       25,690,112        Parameters: []              0\nLayer MaxPool2d              output: (16, 128, 56, 56)         6,422,528         Parameters: []              0\nLayer Conv2d                 output: (16, 256, 56, 56)         12,845,056        Parameters: [(256, 128, 3, 3), (256,)] 295,168\nLayer ReLU                   output: (16, 256, 56, 56)         12,845,056        Parameters: []              0\nLayer Conv2d                 output: (16, 256, 56, 56)         12,845,056        Parameters: [(256, 256, 3, 3), (256,)] 590,080\nLayer ReLU                   output: (16, 256, 56, 56)         12,845,056        Parameters: []              0\nLayer Conv2d                 output: (16, 256, 56, 56)         12,845,056        Parameters: [(256, 256, 3, 3), (256,)] 590,080\nLayer ReLU                   output: (16, 256, 56, 56)         12,845,056        Parameters: []              0\nLayer MaxPool2d              output: (16, 256, 28, 28)         3,211,264         Parameters: []              0\nLayer Conv2d                 output: (16, 512, 28, 28)         6,422,528         Parameters: [(512, 256, 3, 3), (512,)] 1,180,160\nLayer ReLU                   output: (16, 512, 28, 28)         6,422,528         Parameters: []              0\nLayer Conv2d                 output: (16, 512, 28, 28)         6,422,528         Parameters: [(512, 512, 3, 3), (512,)] 2,359,808\nLayer ReLU                   output: (16, 512, 28, 28)         6,422,528         Parameters: []              0\nLayer Conv2d                 output: (16, 512, 28, 28)         6,422,528         Parameters: [(512, 512, 3, 3), (512,)] 2,359,808\nLayer ReLU                   output: (16, 512, 28, 28)         6,422,528         Parameters: []              0\nLayer MaxPool2d              output: (16, 512, 14, 14)         1,605,632         Parameters: []              0\nLayer Conv2d                 output: (16, 512, 14, 14)         1,605,632         Parameters: [(512, 512, 3, 3), (512,)] 2,359,808\nLayer ReLU                   output: (16, 512, 14, 14)         1,605,632         Parameters: []              0\nLayer Conv2d                 output: (16, 512, 14, 14)         1,605,632         Parameters: [(512, 512, 3, 3), (512,)] 2,359,808\nLayer ReLU                   output: (16, 512, 14, 14)         1,605,632         Parameters: []              0\nLayer Conv2d                 output: (16, 512, 14, 14)         1,605,632         Parameters: [(512, 512, 3, 3), (512,)] 2,359,808\nLayer ReLU                   output: (16, 512, 14, 14)         1,605,632         Parameters: []              0\nLayer MaxPool2d              output: (16, 512, 7, 7)           401,408           Parameters: []              0\nLayer AdaptiveAvgPool2d         output: (16, 512, 7, 7)           401,408           Parameters: []              0\nLayer Linear                 output: (16, 4096)                65,536            Parameters: [(4096, 25088), (4096,)] 102,764,544\nLayer ReLU                   output: (16, 4096)                65,536            Parameters: []              0\nLayer Dropout                output: (16, 4096)                65,536            Parameters: []              0\nLayer Linear                 output: (16, 4096)                65,536            Parameters: [(4096, 4096), (4096,)] 16,781,312\nLayer ReLU                   output: (16, 4096)                65,536            Parameters: []              0\nLayer Dropout                output: (16, 4096)                65,536            Parameters: []              0\nLayer Linear                 output: (16, 1000)                16,000            Parameters: [(1000, 4096), (1000,)] 4,097,000\nLayer VGG                    output: (16, 1000)                16,000            Parameters: [(64, 3, 3, 3), (64,), (64, 64, 3, 3), (64,), (128, 64, 3, 3), (128,), (128, 128, 3, 3), (128,), (256, 128, 3, 3), (256,), (256, 256, 3, 3), (256,), (256, 256, 3, 3), (256,), (512, 256, 3, 3), (512,), (512, 512, 3, 3), (512,), (512, 512, 3, 3), (512,), (512, 512, 3, 3), (512,), (512, 512, 3, 3), (512,), (512, 512, 3, 3), (512,), (4096, 25088), (4096,), (4096, 4096), (4096,), (1000, 4096), (1000,)] 0\n\n\n\n\n\nHabits and Recommendations\n\nuse input size \\(LxL = 2^n\\) (e.g. 512)\nuse stride \\(S=1\\)\nuse padding \\(P= (F-1)/2\\) to retain input size –&gt; multiple CONV layers\npooling: \\(F=2 S=2\\) (size reduction: \\(LxL --&gt; L/2xL/2\\) !!! - aggressive reduction,"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/001_CNN.html#illustration",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/001_CNN.html#illustration",
+    "title": "Frameworks",
+    "section": "Illustration:",
+    "text": "Illustration:\nhttps://cs.stanford.edu/people/karpathy/convnetjs/demo/cifar10.html"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/001_CNN.html#summary",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/001_CNN.html#summary",
+    "title": "Frameworks",
+    "section": "Summary",
+    "text": "Summary\n\n\n\nExample from VGGNet. Image from A. Karpathy"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/neural_networks.html",
+    "href": "lectures/02_NeuralNetworks/neural_networks.html",
+    "title": "Frameworks",
+    "section": "",
+    "text": "!!!! Double-check !!!!\n\n\n\nYear\nTask Type\nTool / Model\nCompany / Author(s)\nArchitecture / Highlights\nPublication / Link\nCitations (approx.)\nParameters\n\n\n\n\n1997\nSequence Modeling (RNN)\nLSTM\nHochreiter & Schmidhuber\nGated RNN with Constant Error Carousel\nNeural Computation (1997)\n130,000\n?\n\n\n2013\nGenerative Modeling\nVAE\nKingma & Welling\nProbabilistic autoencoder with latent space\narXiv (2013)\n47,000\n?\n\n\n2014\nImage Classification\nVGG-16\nSimonyan & Zisserman (Oxford)\nDeep ConvNet (16 layers)\narXiv (2014)\n—\n138M\n\n\n2015\nImage Classification\nResNet-50\nHe et al. (Microsoft)\nResidual CNN (skip connections)\narXiv (2015)\n280,000\n?\n\n\n2017\nText-to-Speech (TTS)\nTacotron 2\nGoogle\nSeq2Seq + attention + vocoder\nTacotron 2 (2017)\n2,500\n?\n\n\n2019\nText Classification\nBERT\nGoogle\nBidirectional Transformer (encoder)\nACL (2019)\n141,000\n110M / 340M\n\n\n2020\nText Generation\nGPT-3\nOpenAI\nDecoder-only Transformer (autoregressive)\narXiv (2020)\n51,000\n175B\n\n\n2020\nTranslation (Text2Text)\nT5\nGoogle\nEncoder–Decoder Transformer\nT5 (2020)\n10,000\n220M\n\n\n2020\nImage Classification\nViT\nGoogle\nTransformer over patch embeddings\nViT (2020)\n6,000\n86M\n\n\n2020\nObject Detection\nDETR\nMeta (Facebook)\nTransformer + CNN backbone\nDETR (2020)\n2,000\n?\n\n\n2021\nImage Generation\nDALL·E\nOpenAI\nTransformer + discrete VAE + CLIP\nOpenAI (2021)\n—\n12B\n\n\n2021\nImage Segmentation\nSegFormer\nNvidia\nTransformer-based segmentation architecture\nSegFormer (2021)\n500\n?\n\n\n2022\nSpeech-to-Text (ASR)\nWhisper\nOpenAI\nTransformer-based seq2seq with CTC\nWhisper (2022)\n5,700\n?\n\n\n2022\nImage-to-Text (Caption)\nBLIP\nSalesforce\nVision–language encoder–decoder\nBLIP (2022)\n300\n?\n\n\n2022\nVideo Generation\nImagen Video\nGoogle Research\nCascade of video diffusion models with super-resolution\nImagen Video (2022)\n—\n?\n\n\n2023\nVideo Generation\nVideoPoet\nGoogle Research\nDecoder-only autoregressive Transformer (multimodal)\nVideoPoet (2023)\n—\n?\n\n\n2024\nVideo Generation\nVeo 2\nGoogle DeepMind\n4K, cinematographic control, improved physics\nVeo 2 (2024)\n—\n?\n\n\n2025\nVideo Generation\nVeo 3\nGoogle DeepMind\nAdds synchronized audio (dialogue, SFX, ambience)\nVeo 3 (2025)\n—\n?\n\n\n\n\n\n\nmore parameters\nacademic \\(\\to\\) industry\nopen \\(\\to\\) closed\npapers \\(\\to\\) money\nmulti-modal"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/neural_networks.html#a-short-history-of-nn",
+    "href": "lectures/02_NeuralNetworks/neural_networks.html#a-short-history-of-nn",
+    "title": "Frameworks",
+    "section": "",
+    "text": "!!!! Double-check !!!!\n\n\n\nYear\nTask Type\nTool / Model\nCompany / Author(s)\nArchitecture / Highlights\nPublication / Link\nCitations (approx.)\nParameters\n\n\n\n\n1997\nSequence Modeling (RNN)\nLSTM\nHochreiter & Schmidhuber\nGated RNN with Constant Error Carousel\nNeural Computation (1997)\n130,000\n?\n\n\n2013\nGenerative Modeling\nVAE\nKingma & Welling\nProbabilistic autoencoder with latent space\narXiv (2013)\n47,000\n?\n\n\n2014\nImage Classification\nVGG-16\nSimonyan & Zisserman (Oxford)\nDeep ConvNet (16 layers)\narXiv (2014)\n—\n138M\n\n\n2015\nImage Classification\nResNet-50\nHe et al. (Microsoft)\nResidual CNN (skip connections)\narXiv (2015)\n280,000\n?\n\n\n2017\nText-to-Speech (TTS)\nTacotron 2\nGoogle\nSeq2Seq + attention + vocoder\nTacotron 2 (2017)\n2,500\n?\n\n\n2019\nText Classification\nBERT\nGoogle\nBidirectional Transformer (encoder)\nACL (2019)\n141,000\n110M / 340M\n\n\n2020\nText Generation\nGPT-3\nOpenAI\nDecoder-only Transformer (autoregressive)\narXiv (2020)\n51,000\n175B\n\n\n2020\nTranslation (Text2Text)\nT5\nGoogle\nEncoder–Decoder Transformer\nT5 (2020)\n10,000\n220M\n\n\n2020\nImage Classification\nViT\nGoogle\nTransformer over patch embeddings\nViT (2020)\n6,000\n86M\n\n\n2020\nObject Detection\nDETR\nMeta (Facebook)\nTransformer + CNN backbone\nDETR (2020)\n2,000\n?\n\n\n2021\nImage Generation\nDALL·E\nOpenAI\nTransformer + discrete VAE + CLIP\nOpenAI (2021)\n—\n12B\n\n\n2021\nImage Segmentation\nSegFormer\nNvidia\nTransformer-based segmentation architecture\nSegFormer (2021)\n500\n?\n\n\n2022\nSpeech-to-Text (ASR)\nWhisper\nOpenAI\nTransformer-based seq2seq with CTC\nWhisper (2022)\n5,700\n?\n\n\n2022\nImage-to-Text (Caption)\nBLIP\nSalesforce\nVision–language encoder–decoder\nBLIP (2022)\n300\n?\n\n\n2022\nVideo Generation\nImagen Video\nGoogle Research\nCascade of video diffusion models with super-resolution\nImagen Video (2022)\n—\n?\n\n\n2023\nVideo Generation\nVideoPoet\nGoogle Research\nDecoder-only autoregressive Transformer (multimodal)\nVideoPoet (2023)\n—\n?\n\n\n2024\nVideo Generation\nVeo 2\nGoogle DeepMind\n4K, cinematographic control, improved physics\nVeo 2 (2024)\n—\n?\n\n\n2025\nVideo Generation\nVeo 3\nGoogle DeepMind\nAdds synchronized audio (dialogue, SFX, ambience)\nVeo 3 (2025)\n—\n?\n\n\n\n\n\n\nmore parameters\nacademic \\(\\to\\) industry\nopen \\(\\to\\) closed\npapers \\(\\to\\) money\nmulti-modal"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/neural_networks.html#loss-function",
+    "href": "lectures/02_NeuralNetworks/neural_networks.html#loss-function",
+    "title": "Frameworks",
+    "section": "Loss function",
+    "text": "Loss function\n\nthe objective of neural network"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/neural_networks.html#initialistion",
+    "href": "lectures/02_NeuralNetworks/neural_networks.html#initialistion",
+    "title": "Frameworks",
+    "section": "Initialistion",
+    "text": "Initialistion\n\ndifferent initialization can lead to different (local) optima in non-convex landscapes\navoid vanishing/exploding gradients\nXavier Initialization (for tanh): \\(Var(w) = 1/n\\)\nKaiming Initialization (for ReLU); \\(Var(w) = 2/n\\)"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/neural_networks.html#activations-functions",
+    "href": "lectures/02_NeuralNetworks/neural_networks.html#activations-functions",
+    "title": "Frameworks",
+    "section": "Activations Functions",
+    "text": "Activations Functions\nAim: introduce non-linearity Problem: saturation and vanishing gradients –&gt; no learning ### tanh\n\nzero-centered\n\n\nReLU\n\n\nSoftmax:\n- interprete output as prob with $\\sum p_i = 1$\n- sees all neurons\n- log-sum trick\n\n$$\n\\log\\sum_i e^{x_i} = x^\\ast + \\log \\sum_i e^{x_i - x^\\ast}\n$$\n\n\nSummary\n\n\n\n\n\n\n\n\n\nActivation Function\nTypical Use\nAdvantages\nDisadvantages\n\n\n\n\nSigmoid\nBinary classification output (logistic regression); hidden units (rarely used now)\n- Smooth output between 0 and 1  - Interpretable as probability\n- Vanishing gradients  - Saturates at extremes  - Not zero-centered\n\n\nTanh\nHidden units in older networks; similar to sigmoid but zero-centered\n- Outputs between -1 and 1  - Zero-centered\n- Still suffers from vanishing gradients  - Saturates for large inputs\n\n\nReLU\nDefault for hidden layers\n- Computationally efficient  - Avoids vanishing gradients for positive inputs  - Sparse activations\n- “Dying ReLU” problem: neurons can output 0 permanently  - Not zero-centered\n\n\nLeaky ReLU\nHidden layers (especially when ReLU is too brittle)\n- Fixes dying ReLU by allowing small gradient when input &lt; 0\n- Slope for negative part is a hyperparameter  - Still not zero-centered\n\n\nSoftmax\nOutput layer for multi-class classification\n- Converts raw scores to probabilities  - Highlights strongest class\n- Not useful for hidden layers  - Sensitive to outliers  - Can be numerically unstable (requires log-sum-exp trick)"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/neural_networks.html#data-preprocessing",
+    "href": "lectures/02_NeuralNetworks/neural_networks.html#data-preprocessing",
+    "title": "Frameworks",
+    "section": "Data Preprocessing",
+    "text": "Data Preprocessing\n\nsplitting\ntransformation & normalization"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/neural_networks.html#data-augmentation",
+    "href": "lectures/02_NeuralNetworks/neural_networks.html#data-augmentation",
+    "title": "Frameworks",
+    "section": "Data Augmentation",
+    "text": "Data Augmentation\n\nembedd into ML workflow\nidentify symmetries (invariances): shift, rotate, scale, crop, brightness\naugment only training data\naugment all samples of the training data in same proportions"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/neural_networks.html#regualarization",
+    "href": "lectures/02_NeuralNetworks/neural_networks.html#regualarization",
+    "title": "Frameworks",
+    "section": "Regualarization",
+    "text": "Regualarization\n\nL2 regularization\n\\[\n\\theta_{k+1} = \\theta_k - \\epsilon \\nabla_\\theta f(\\theta_k) - \\lambda \\theta_k\n\\]\n\npenalizes large parameters\nfavors more even distribution\nimproves generalization, every neuron contributes\n\n\n\nweight decay\n\\[\n\\theta_{k+1} = (1-\\lambda) \\theta_k - \\alpha \\nabla_\\theta f(\\theta_k)\n\\]\nlooks equivalent to L2 norm (for GD), but not for Adam optimizer (momentum) ### data augmentation\n\n\nEarly stopping\n\n\nbagging and ensemble methods\n\nmassive effort for marginal gains (1-2%)\nensemble: train \\(k\\) different models and pool/average\nbagging: use \\(k\\) different data sets\nquantify uncertainty\n\n\n\nDropout\n\ndisable random set of neurons temporarily (20-50%)\nensemble of smaller network within a big one\nreduced network capacity; makes it harder to optimize/minimize loss -&gt; increase training time\nforce all neurons to act –&gt; creates robustness\nredundant representations\nhuman neurons are not reliable!\nmodel.train vs model.eval –&gt; normalize differently\nMonte-Carlo dropout also at inference (p=0.1 - 0.2) run inference multiple times to put confidence estimates on final layer and interpret softmax really probabilistically\nreliable AI: important for doctors\n\n\\[\nz = x. \\theta^T \\to E_{train}[z] = p E_{test}[z]\n\\]\n\n\nBatch Norm\n\nbring activations closer to 0\n\n\n\nOther norms\n\n\n\nWu and He, ECCV 2018"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/neural_networks.html#interpreting-loss-curves",
+    "href": "lectures/02_NeuralNetworks/neural_networks.html#interpreting-loss-curves",
+    "title": "Frameworks",
+    "section": "Interpreting Loss curves",
+    "text": "Interpreting Loss curves\n–&gt; Andrew NG"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/neural_networks.html#key-challenges",
+    "href": "lectures/02_NeuralNetworks/neural_networks.html#key-challenges",
+    "title": "Frameworks",
+    "section": "Key Challenges",
+    "text": "Key Challenges\n\nFinding Optimal Solutions\nVanishing/Exploding Gradients\nOverfitting\n\nWhen comparing model performance, compare data + data processing + optimization strategy + model"
+  },
+  {
+    "objectID": "lectures/05_LargeLanguageModels/index.html",
+    "href": "lectures/05_LargeLanguageModels/index.html",
+    "title": "05 Large Language Models",
+    "section": "",
+    "text": "No matching items"
+  },
+  {
+    "objectID": "help/01_Frameworks.html",
+    "href": "help/01_Frameworks.html",
+    "title": "Frameworks",
+    "section": "",
+    "text": "Machine Learning and Deep-Learning have been powered by a number of frameworks to simplify all modeling steps:\nHere we review 3 popular frameworks: scikit-learn, pytorch, keras/tensorflow (not an exhaustive list)\nRemember the simple example from the lecture. The goal is to predict \\(Y\\) from \\(X\\): \\(X \\to Y\\)\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nx = np.array([-1,  0, 1, 2, 3, 4])     # Data x\ny = np.array([-3, -1, 1, 3, 5, 7])     # Answer y"
+  },
+  {
+    "objectID": "help/01_Frameworks.html#the-pythonic-way-sklearn-2007",
+    "href": "help/01_Frameworks.html#the-pythonic-way-sklearn-2007",
+    "title": "Frameworks",
+    "section": "The Pythonic way (sklearn: 2007++)",
+    "text": "The Pythonic way (sklearn: 2007++)\n\npythonic ML-alternative to R\ndesigned for small datasets (in-memory)\nno GPU support\n\n\n\nCode\nimport sklearn\nfrom sklearn import linear_model\nfrom sklearn.metrics import mean_squared_error\nprint('sklearn version:', sklearn.__version__)\n\nlm = linear_model.LinearRegression()  # define model\nxr = x.reshape(-1,1)                  # reshape data for tool (samples as rows) --&gt; x[:, np.newaxis]\nlm.fit(xr, y)                         # fit c.f. R: lm(Y ~ X)\n\n# report fit\nprint(f\"Fitted Parameters {lm.intercept_}, {lm.coef_}\")\n\nyp = lm.predict(xr)                   # prediction\nMSE= mean_squared_error(y, yp)        # evaluate fit. other scores: R2=lm.score(xr, y)\nprint(f\"Mean Squared Error: {MSE}\")\n\n# predict y for some new x\nx_new=np.array([10, -40])\ny_new = lm.predict(x_new.reshape(-1,1))\n\nprint(f\"predictions:  {y_new}\")\n\n\nsklearn version: 1.7.1\nFitted Parameters -1.0, [2.]\nMean Squared Error: 0.0\npredictions:  [ 19. -81.]"
+  },
+  {
+    "objectID": "help/01_Frameworks.html#the-tensorflowkeras-way",
+    "href": "help/01_Frameworks.html#the-tensorflowkeras-way",
+    "title": "Frameworks",
+    "section": "The Tensorflow/Keras way",
+    "text": "The Tensorflow/Keras way\n\nTensorflow (Google Brain 2015): very complex\nKeras (F. Chollet 2015): user-friendly frontend to TF & other frameworks\nTF2. merged TF & Keras\nstrength: enterprise solutions & integration with Google Cloud/TPU\n\n\n\nCode\nimport tensorflow as tf\nprint('tf version:',tf.__version__)\n\n# define model - the \"black box\"\nmodel = tf.keras.Sequential()\nmodel.add(tf.keras.Input(shape=(1,))) # define input shape\nmodel.add(tf.keras.layers.Dense(units=1))\n\n# define optimization and loss\nmodel.compile(optimizer='sgd', loss='mean_squared_error') \n\n# fit model\nfit_history = model.fit(x,y, epochs=100, verbose=0)       \n\n# report fit\nprint('Fitted Parameters             ', model.trainable_variables)\nprint('Mean Squared Error (loss):    ', fit_history.history['loss'][-1])\n\n# make predictions\nx_new = np.array([ 10.0 , -40.0 ])\ny_new = model.predict(x_new)\ny_ana = -1 + 2.0*np.array(x_new)\n\nprint('analytical: ', y_ana)\nprint('numerical:  ', y_new.flatten())\n\n\ntf version: 2.18.0\nFitted Parameters              [&lt;Variable path=sequential/dense/kernel, shape=(1, 1), dtype=float32, value=[[1.8004906]]&gt;, &lt;Variable path=sequential/dense/bias, shape=(1,), dtype=float32, value=[-0.381505]&gt;]\nMean Squared Error (loss):     0.22257517278194427\n1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 14ms/step\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 21ms/step\nanalytical:  [ 19. -81.]\nnumerical:   [ 17.623402 -72.40113 ]"
+  },
+  {
+    "objectID": "help/01_Frameworks.html#pytorch-facebook-2017",
+    "href": "help/01_Frameworks.html#pytorch-facebook-2017",
+    "title": "Frameworks",
+    "section": "PyTorch (Facebook 2017)",
+    "text": "PyTorch (Facebook 2017)\n\npythonic alternative to Tensorflow 1.x\ndefault choice in AI research and community\nbacked by Linux Foundation\n\n\n\nCode\nimport torch\nimport torch.nn as nn\nimport torch.optim as optim\nprint('torch version:', torch.__version__)\n\n# Convert data to PyTorch tensors \n# define dtype and reshape to column vectors (c.f np.reshape())\nx_tensor = torch.tensor(x, dtype=torch.float32).view(-1, 1)\ny_tensor = torch.tensor(y, dtype=torch.float32).view(-1, 1)\n\n# Define Model\nmodel = torch.nn.Sequential(\n    torch.nn.Linear(1, 1)  # input dim = 1, output dim = 1\n)\n\n# Define Loss\ncriterion = torch.nn.MSELoss()\n# Choose optimizer\noptimizer = torch.optim.SGD(model.parameters(), lr=0.01)\n\n# Fit model (explicit loop over epochs)\nloss_history = []\nfor epoch in range(100):\n   # put model in train mode (behaviour of nn.Dropout and nn.BatchNorm)\n    model.train()\n\n    # Forward pass\n    outputs = model(x_tensor)\n    # Calculate loss\n    loss = criterion(outputs, y_tensor)\n    # add loss to history\n    loss_history.append(loss.item())\n\n    # Backward pass\n    optimizer.zero_grad() # set .grad attribute in nn.Parameter to zero\n    loss.backward()  # backpropagation: calculate gradients and store in .grad\n    optimizer.step() # update parameters: parm = parm - lr*parm.grad\n\n# Report best fit - convert to torch tensor to numpy\nfor name, param in model.named_parameters():\n    print(f\"{name}: {param.data.numpy().flatten()}\")\n\n# report last (=best?) loss from history\nprint(\"Mean Squared Error (loss):\", loss_history[-1])\n\n# make predictions\nx_new = np.array([10.0, -40.0])\nx_new_tensor = torch.tensor(x_new, dtype=torch.float32).view(-1, 1)\ny_new = model(x_new_tensor).detach().numpy()\n\ny_ana = -1 + 2.0 * np.array(x_new)\n\nprint(\"analytical: \", y_ana)\nprint(\"numerical:  \", y_new.flatten())\n\n\ntorch version: 2.6.0\n0.weight: [1.8945413]\n0.bias: [-0.67309207]\nMean Squared Error (loss): 0.06218147650361061\nanalytical:  [ 19. -81.]\nnumerical:   [ 18.27232 -76.45474]"
+  },
+  {
+    "objectID": "help/01_Frameworks.html#dont-panic",
+    "href": "help/01_Frameworks.html#dont-panic",
+    "title": "Frameworks",
+    "section": "Don’t Panic !",
+    "text": "Don’t Panic !"
+  },
+  {
+    "objectID": "help/01_Frameworks.html#notice",
+    "href": "help/01_Frameworks.html#notice",
+    "title": "Frameworks",
+    "section": "Notice:",
+    "text": "Notice:\n\nthe most cryptic (and the most flexible!) part is the definition of the model “black box”and the fitting process: the epoch loop. We will spend more time with this and this will become clearer.\nBoth Tensorflow and Pytorch have their own data structures tensors.\nmodel predictions appear less accurate (and slower) for this simple task of linear regression. This is because they have been obtained from an iterative approach (epochs).\nIn contrast; sklearn:LinearRegression() uses fast analytical tools (specific for linear regression) under the hood.\nThe iterative approach is more generic and extends to much more complex models\nThe iteration can be monitored by the loss function (MSE) to assess convergence\n\n\n\nCode\nplt.figure()\nplt.plot(fit_history.history['loss'][1:])\nplt.plot(loss_history)\nplt.title('model loss')\nplt.ylabel('loss')\nplt.xlabel('epoch')\nplt.show()"
+  },
+  {
+    "objectID": "help/01_Frameworks.html#summary-table",
+    "href": "help/01_Frameworks.html#summary-table",
+    "title": "Frameworks",
+    "section": "Summary Table",
+    "text": "Summary Table\n\n\n\n\n\n\n\n\n\nFeature\nScikit-learn\nTensorFlow (TF)\nPyTorch\n\n\n\n\nInitial Release\n2010\n2015\n2017\n\n\nDeveloper\nINRIA, open-source community\nGoogle Brain\nFacebook AI Research (FAIR)\n\n\nLanguage\nPython (NumPy, SciPy)\nPython + C++ backend\nPython + C++ backend\n\n\nPrimary Use\nClassical ML\nDeep Learning + Production Pipelines\nDeep Learning + R&D\n\n\nModel Types\nTrees, SVMs, Linear Models, etc.\nNeural Networks\nNeural Networks\n\n\nGPU Support\n❌ No\n✅ Yes\n✅ Yes\n\n\nEase of Use\n✅ Very simple API\n⚠️ Steep TF1.x; better in TF2.x\n✅ Pythonic and intuitive\n\n\nCommunity Focus\nData Science / ML practitioners\nCloud, deployment, industry\nResearch, academia, experimental models\n\n\nIntegration\nPandas, NumPy, matplotlib\nTF Hub, TF Lite, Google Cloud\nHuggingFace, FastAI, Lightning\n\n\nGovernance\nCommunity-led (INRIA)\nGoogle\nLinux Foundation (since 2022)"
+  },
+  {
+    "objectID": "help/index.html",
+    "href": "help/index.html",
+    "title": "Projects",
+    "section": "",
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\nFrameworks\n\n\n\n\n\n\nThomas Manke\n\n\nAug 2, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nFrameworks\n\n\n\n\n\n\nThomas Manke\n\n\nAug 3, 2025\n\n\n\n\n\n\n\n\nNo matching items"
+  }
+]
