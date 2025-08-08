@@ -18,17 +18,17 @@
     ]
   },
   {
-    "listing": "/projects/index.html",
+    "listing": "/homework/index.html",
     "items": [
-      "/projects/01_MachineLearning.html"
+      "/homework/02_MNIST.html",
+      "/homework/04_Autoencoder.html",
+      "/homework/traditional_ml_to_generative.html"
     ]
   },
   {
-    "listing": "/homework/index.html",
+    "listing": "/projects/index.html",
     "items": [
-      "/homework/01_MNIST.html",
-      "/homework/04_Autoencoder.html",
-      "/homework/traditional_ml_to_generative.html"
+      "/projects/01_MachineLearning.html"
     ]
   },
   {
