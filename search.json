@@ -371,32 +371,11 @@
     "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n01 Homework\n\n\n\n\n\n\nThomas Manke\n\n\nAug 8, 2025\n\n\n\n\n\n\n\n\n\n\n\n01 Autoencoder\n\n\n\n\n\n\nThomas Manke\n\n\nAug 7, 2025\n\n\n\n\n\n\n\n\n\n\n\nMachine Learning cycle\n\n\n\n\n\n\nThomas Manke\n\n\nAug 8, 2025\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "projects/01_MachineLearning.html",
-    "href": "projects/01_MachineLearning.html",
-    "title": "",
+    "objectID": "projects/index.html",
+    "href": "projects/index.html",
+    "title": "Projects",
     "section": "",
-    "text": "Code"
-  },
-  {
-    "objectID": "projects/01_MachineLearning.html#task",
-    "href": "projects/01_MachineLearning.html#task",
-    "title": "",
-    "section": "Task",
-    "text": "Task\nThis project gives a practical introduction to the key challenges in machine learning and data analysis. Upon successful completion you should be able to conduct such analysis tasks independently, discuss related problems and answer the following questions\n\nTools: what are common tools, software packages and mechanisms to ensure reproducibility of analyses\nData: Describe the common problems in data loading, processing and transformations\nunsupervised analysis: understand the objective and describe methods of data clustering and dimensional reduction\nsupervised analysis: What is a loss function and what are the differences between linear regression and logistic regression\nmodel training: Define a model both theoretically and practically How is a model defined\nmodel predictions: Understand how to obtain model predictions and explain how to test and evaluate models\ndata reporting: report your data analysis and summarize it in a concise and executable document (notebook)"
-  },
-  {
-    "objectID": "projects/01_MachineLearning.html#data-sets",
-    "href": "projects/01_MachineLearning.html#data-sets",
-    "title": "",
-    "section": "Data Sets",
-    "text": "Data Sets\nThe data sets below are heavily used in machine learning. They also have the advantage of being easily accessible and highly standardized\n\n\n\nID\nLink\ntarget variable\n\n\n\n\n1\niris data\nSpecies\n\n\n2\ngapminder\nlifeExpectancy\n\n\n3\nwine\nwine quality.\n\n\n4\nbreast cancer\ncancer status\n\n\n5\ntitanic\nsurvival\n\n\n6\npick your own\n\n\n\n\nhello"
-  },
-  {
-    "objectID": "general/Overview.html#description",
-    "href": "general/Overview.html#description",
-    "title": "Neural Networks and Deep Learning",
-    "section": "Description",
-    "text": "Description"
+    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\nTask\n\n\n\n\n\n\nThomas Manke\n\n\nAug 8, 2025\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "general/Overview.html#objectives",
@@ -410,7 +389,7 @@
     "href": "general/Overview.html#content",
     "title": "Neural Networks and Deep Learning",
     "section": "Content",
-    "text": "Content\nMachine Learning\nNeuronal Networks\nConvolutional Network\nBeyond classification (segmentation)\nGenerative Networks\nNLP and Large Language Models\n\nto myself"
+    "text": "Content\n\nMachine Learning\n\n\nNeuronal Networks\n\n\nConvolutional Network\n\n\nBeyond classification (segmentation)\n\n\nGenerative Networks\n\n\nNLP and Large Language Models\n\nto myself"
   },
   {
     "objectID": "general/Overview.html#prerequisites",
@@ -448,11 +427,74 @@
     "text": "Materials and References\n\nRef1: Link1\nRef2: Link2"
   },
   {
-    "objectID": "projects/index.html",
-    "href": "projects/index.html",
-    "title": "Projects",
+    "objectID": "projects/01_MachineLearning.html",
+    "href": "projects/01_MachineLearning.html",
+    "title": "",
     "section": "",
-    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\nTask\n\n\n\n\n\n\nThomas Manke\n\n\nAug 8, 2025\n\n\n\n\n\n\nNo matching items"
+    "text": "Code"
+  },
+  {
+    "objectID": "projects/01_MachineLearning.html#task",
+    "href": "projects/01_MachineLearning.html#task",
+    "title": "",
+    "section": "Task",
+    "text": "Task\nThis project gives a practical introduction to the key challenges in machine learning and data analysis. Upon successful completion you should be able to conduct such analysis tasks independently, discuss related problems and answer the following questions\n\nTools: what are common tools, software packages and mechanisms to ensure reproducibility of analyses\nData: Describe the common problems in data loading, processing and transformations\nunsupervised analysis: understand the objective and describe methods of data clustering and dimensional reduction\nsupervised analysis: What is a loss function and what are the differences between linear regression and logistic regression\nmodel training: Define a model both theoretically and practically How is a model defined\nmodel predictions: Understand how to obtain model predictions and explain how to test and evaluate models\ndata reporting: report your data analysis and summarize it in a concise and executable document (notebook)"
+  },
+  {
+    "objectID": "projects/01_MachineLearning.html#data-sets",
+    "href": "projects/01_MachineLearning.html#data-sets",
+    "title": "",
+    "section": "Data Sets",
+    "text": "Data Sets\nThe data sets below are heavily used in machine learning. They also have the advantage of being easily accessible and highly standardized\n\n\n\nID\nLink\ntarget variable\n\n\n\n\n1\niris data\nSpecies\n\n\n2\ngapminder\nlifeExpectancy\n\n\n3\nwine\nwine quality.\n\n\n4\nbreast cancer\ncancer status\n\n\n5\ntitanic\nsurvival\n\n\n6\npick your own\n\n\n\n\nhello"
+  },
+  {
+    "objectID": "index.html#objectives",
+    "href": "index.html#objectives",
+    "title": "Neural Networks and Deep Learning",
+    "section": "",
+    "text": "Upon successful completion of this course, you will\n\nunderstand the key concepts and challenges of neural networks\nbe proficient in common software solutions for deep learning (pytorch)\nbe able to define, train and evaluate your own models\nhave completed 4 concrete data analysis projects and provide reproducible code\nhave worked in teams and presented your work\nwant to learn more and deeper …"
+  },
+  {
+    "objectID": "index.html#content",
+    "href": "index.html#content",
+    "title": "Neural Networks and Deep Learning",
+    "section": "Content",
+    "text": "Content\n\nMachine Learning (shallow)\nNeural Networks (deep)\nConvolutional Networks\nGenerative Networks"
+  },
+  {
+    "objectID": "index.html#prerequisites",
+    "href": "index.html#prerequisites",
+    "title": "Neural Networks and Deep Learning",
+    "section": "Prerequisites",
+    "text": "Prerequisites\n\nCuriosity & Determination\nMathe 3. Programmierung 3 (Python nuetzlich)"
+  },
+  {
+    "objectID": "index.html#format",
+    "href": "index.html#format",
+    "title": "Neural Networks and Deep Learning",
+    "section": "Format",
+    "text": "Format\nThe course comprises the following blocks (with the estimated time effort)\n\nLectures: (16x 2h) will provide an introduction and overview\nProjects (4 x 12h): 4 larger assignments that are solved in teams of 2-3 students. Each team will submit a fully documented and executable notebook per project.\nTutorials: (16 x 2h): weekly tutorials will focus on practical implementations and the review of lecture material. Up to 2 teams will present their project solutions (~30 min / team)."
+  },
+  {
+    "objectID": "index.html#times-and-locations",
+    "href": "index.html#times-and-locations",
+    "title": "Neural Networks and Deep Learning",
+    "section": "Times and Locations",
+    "text": "Times and Locations\n\n\n\nFormat\nTimes\nLocation\nInstructor\n\n\n\n\nLectures\n\n\nT. Manke\n\n\nTutorials\n\n\nT. Manke\n\n\nExam"
+  },
+  {
+    "objectID": "index.html#evaluation",
+    "href": "index.html#evaluation",
+    "title": "Neural Networks and Deep Learning",
+    "section": "Evaluation",
+    "text": "Evaluation\n\nLectures: Presence (15%+15% rule) & Participation\nProject Submissions (32 P). Completed projects are submitted as single jupyter noteboooks and are evaluated per team. Notebooks have to be fully documented to explain both the analysis goals and the code. They should clearly state software dependencies and be fully executable.\nProject Presentations (18 P). Presentation and submission of a reproducible data analysis project in an executable markdown format.\nExam (50 P): this will be a written individual exam with conceptual questions, including multiple choice and short essays."
+  },
+  {
+    "objectID": "index.html#materials-and-references",
+    "href": "index.html#materials-and-references",
+    "title": "Neural Networks and Deep Learning",
+    "section": "Materials and References",
+    "text": "Materials and References\n\nGoodfellow\nhuggingface\npytorch"
   },
   {
     "objectID": "homework/traditional_ml_to_generative.html#define-class-label",
@@ -571,7 +613,7 @@
     "href": "lectures/01_MachineLearning/lecture04_optimization.html#backpropagation-algorithm",
     "title": "",
     "section": "Backpropagation Algorithm",
-    "text": "Backpropagation Algorithm\nclass SimpleNeuralNetwork:\n    \"\"\"Implement a simple neural network with manual backpropagation\"\"\"\n    \n    def __init__(self, input_size, hidden_size, output_size):\n        # Initialize weights randomly\n        self.W1 = np.random.randn(input_size, hidden_size) * 0.1\n        self.b1 = np.zeros((1, hidden_size))\n        self.W2 = np.random.randn(hidden_size, output_size) * 0.1\n        self.b2 = np.zeros((1, output_size))\n        \n        # Store intermediate values for backprop\n        self.z1 = None\n        self.a1 = None\n        self.z2 = None\n        self.a2 = None\n        \n    def sigmoid(self, x):\n        \"\"\"Sigmoid activation function\"\"\"\n        return 1 / (1 + np.exp(-np.clip(x, -250, 250)))\n    \n\n\n\n:::{#quarto-navigation-envelope .hidden}\n[Neural Networks and Deep Learning]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1zaWRlYmFyLXRpdGxl\"}\n[Neural Networks and Deep Learning]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXItdGl0bGU=\"}\n[Overview]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6T3ZlcnZpZXc=\"}\n[/general/Overview.html]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6L2dlbmVyYWwvT3ZlcnZpZXcuaHRtbA==\"}\n[Lectures]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6TGVjdHVyZXM=\"}\n[01 Machine Learning]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6MDEgTWFjaGluZSBMZWFybmluZw==\"}\n[/lectures/01_MachineLearning/index.html]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6L2xlY3R1cmVzLzAxX01hY2hpbmVMZWFybmluZy9pbmRleC5odG1s\"}\n[02 Neural Networks]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6MDIgTmV1cmFsIE5ldHdvcmtz\"}\n[/lectures/02_NeuralNetworks/index.html]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6L2xlY3R1cmVzLzAyX05ldXJhbE5ldHdvcmtzL2luZGV4Lmh0bWw=\"}\n[03 Convolutional Neural Networks]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6MDMgQ29udm9sdXRpb25hbCBOZXVyYWwgTmV0d29ya3M=\"}\n[/lectures/03_ConvolutionalNeuralNetworks/index.html]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6L2xlY3R1cmVzLzAzX0NvbnZvbHV0aW9uYWxOZXVyYWxOZXR3b3Jrcy9pbmRleC5odG1s\"}\n[04 Generative Models]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6MDQgR2VuZXJhdGl2ZSBNb2RlbHM=\"}\n[/lectures/04_GenerativeModels/index.html]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6L2xlY3R1cmVzLzA0X0dlbmVyYXRpdmVNb2RlbHMvaW5kZXguaHRtbA==\"}\n[Homework]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6SG9tZXdvcms=\"}\n[/homework/index.html]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6L2hvbWV3b3JrL2luZGV4Lmh0bWw=\"}\n[Projects]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6UHJvamVjdHM=\"}\n[/projects/index.html]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6L3Byb2plY3RzL2luZGV4Lmh0bWw=\"}\n[Help]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6SGVscA==\"}\n[/help/index.html]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6L2hlbHAvaW5kZXguaHRtbA==\"}\n[Chalkboard]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6Q2hhbGtib2FyZA==\"}\n[/general/Chalkboard.html]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6L2dlbmVyYWwvQ2hhbGtib2FyZC5odG1s\"}\n[https://github.com/thomasmanke/]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6aHR0cHM6Ly9naXRodWIuY29tL3Rob21hc21hbmtlLw==\"}\n\n:::{.hidden .quarto-markdown-envelope-contents render-id=\"Zm9vdGVyLWxlZnQ=\"}\nMade with Quatro   \n\n:::\n\n\n:::{.hidden .quarto-markdown-envelope-contents render-id=\"Zm9vdGVyLWNlbnRlci0vZ2VuZXJhbC9hYm91dC5odG1s\"}\nAbout\n:::\n\n:::\n\n\n\n:::{#quarto-meta-markdown .hidden}\n[Neural Networks and Deep Learning]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLW1ldGF0aXRsZQ==\"}\n[Neural Networks and Deep Learning]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLXR3aXR0ZXJjYXJkdGl0bGU=\"}\n[Neural Networks and Deep Learning]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLW9nY2FyZHRpdGxl\"}\n[Neural Networks and Deep Learning]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLW1ldGFzaXRlbmFtZQ==\"}\n[]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLXR3aXR0ZXJjYXJkZGVzYw==\"}\n[]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLW9nY2FyZGRkZXNj\"}\n:::\n\n\n\n\n&lt;!-- --&gt;\n\n::: {.quarto-embedded-source-code}\n```````````````````{.markdown shortcodes=\"false\"}\n# Lecture 04: Optimization and Backpropagation\n\n## Overview\n\nThis lecture focuses on the mathematical foundations of neural network training, covering gradient descent optimization, the backpropagation algorithm, and the challenges of optimizing non-convex loss functions in high-dimensional spaces.\n\n## Loss Functions and Optimization Objectives\n\nThe primary goal of neural network training is to find optimal parameters Θ* that minimize the loss function L(Θ).\n\n```python\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport torch\nimport torch.nn as nn\nimport torch.optim as optim\nfrom mpl_toolkits.mplot3d import Axes3D\n\ndef visualize_loss_landscapes():\n    \"\"\"Visualize different types of loss landscapes\"\"\"\n    \n    # Create 2D parameter space for visualization\n    x = np.linspace(-3, 3, 100)\n    y = np.linspace(-3, 3, 100)\n    X, Y = np.meshgrid(x, y)\n    \n    # Convex function (bowl-shaped)\n    Z_convex = X**2 + Y**2\n    \n    # Non-convex function with multiple minima\n    Z_nonconvex = np.sin(X) * np.cos(Y) + 0.1 * (X**2 + Y**2)\n    \n    # Saddle point function\n    Z_saddle = X**2 - Y**2\n    \n    fig = plt.figure(figsize=(15, 5))\n    \n    # Plot convex surface\n    ax1 = fig.add_subplot(131, projection='3d')\n    ax1.plot_surface(X, Y, Z_convex, cmap='viridis', alpha=0.7)\n    ax1.set_title('Convex Loss (Single Global Minimum)')\n    ax1.set_xlabel('Parameter 1')\n    ax1.set_ylabel('Parameter 2')\n    ax1.set_zlabel('Loss')\n    \n    # Plot non-convex surface\n    ax2 = fig.add_subplot(132, projection='3d')\n    ax2.plot_surface(X, Y, Z_nonconvex, cmap='viridis', alpha=0.7)\n    ax2.set_title('Non-convex Loss (Multiple Local Minima)')\n    ax2.set_xlabel('Parameter 1')\n    ax2.set_ylabel('Parameter 2')\n    \n    # Plot saddle point\n    ax3 = fig.add_subplot(133, projection='3d')\n    ax3.plot_surface(X, Y, Z_saddle, cmap='viridis', alpha=0.7)\n    ax3.set_title('Saddle Point')\n    ax3.set_xlabel('Parameter 1')\n    ax3.set_ylabel('Parameter 2')\n    \n    plt.tight_layout()\n    plt.show()\n    \n    print(\"Loss Landscape Types:\")\n    print(\"1. Convex: Single global minimum, gradient descent guaranteed to find it\")\n    print(\"2. Non-convex: Multiple local minima, gradient descent finds local minimum\")\n    print(\"3. Saddle Point: Minimum in one direction, maximum in another\")\n\n# visualize_loss_landscapes()  # Uncomment to run"
+    "text": "Backpropagation Algorithm\nclass SimpleNeuralNetwork:\n    \"\"\"Implement a simple neural network with manual backpropagation\"\"\"\n    \n    def __init__(self, input_size, hidden_size, output_size):\n        # Initialize weights randomly\n        self.W1 = np.random.randn(input_size, hidden_size) * 0.1\n        self.b1 = np.zeros((1, hidden_size))\n        self.W2 = np.random.randn(hidden_size, output_size) * 0.1\n        self.b2 = np.zeros((1, output_size))\n        \n        # Store intermediate values for backprop\n        self.z1 = None\n        self.a1 = None\n        self.z2 = None\n        self.a2 = None\n        \n    def sigmoid(self, x):\n        \"\"\"Sigmoid activation function\"\"\"\n        return 1 / (1 + np.exp(-np.clip(x, -250, 250)))\n    \n\n\n\n:::{#quarto-navigation-envelope .hidden}\n[Neural Networks and Deep Learning]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1zaWRlYmFyLXRpdGxl\"}\n[Neural Networks and Deep Learning]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXItdGl0bGU=\"}\n[Overview]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6T3ZlcnZpZXc=\"}\n[/general/Overview.html]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6L2dlbmVyYWwvT3ZlcnZpZXcuaHRtbA==\"}\n[Lectures]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6TGVjdHVyZXM=\"}\n[01 Machine Learning]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6MDEgTWFjaGluZSBMZWFybmluZw==\"}\n[/lectures/01_MachineLearning/index.html]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6L2xlY3R1cmVzLzAxX01hY2hpbmVMZWFybmluZy9pbmRleC5odG1s\"}\n[02 Neural Networks]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6MDIgTmV1cmFsIE5ldHdvcmtz\"}\n[/lectures/02_NeuralNetworks/index.html]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6L2xlY3R1cmVzLzAyX05ldXJhbE5ldHdvcmtzL2luZGV4Lmh0bWw=\"}\n[03 Convolutional Neural Networks]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6MDMgQ29udm9sdXRpb25hbCBOZXVyYWwgTmV0d29ya3M=\"}\n[/lectures/03_ConvolutionalNeuralNetworks/index.html]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6L2xlY3R1cmVzLzAzX0NvbnZvbHV0aW9uYWxOZXVyYWxOZXR3b3Jrcy9pbmRleC5odG1s\"}\n[04 Generative Models]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6MDQgR2VuZXJhdGl2ZSBNb2RlbHM=\"}\n[/lectures/04_GenerativeModels/index.html]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6L2xlY3R1cmVzLzA0X0dlbmVyYXRpdmVNb2RlbHMvaW5kZXguaHRtbA==\"}\n[Homework]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6SG9tZXdvcms=\"}\n[/homework/index.html]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6L2hvbWV3b3JrL2luZGV4Lmh0bWw=\"}\n[Projects]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6UHJvamVjdHM=\"}\n[/projects/index.html]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6L3Byb2plY3RzL2luZGV4Lmh0bWw=\"}\n[Help]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6SGVscA==\"}\n[/help/index.html]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6L2hlbHAvaW5kZXguaHRtbA==\"}\n[Chalkboard]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6Q2hhbGtib2FyZA==\"}\n[/general/Chalkboard.html]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6L2dlbmVyYWwvQ2hhbGtib2FyZC5odG1s\"}\n[https://github.com/thomasmanke/]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLWludC1uYXZiYXI6aHR0cHM6Ly9naXRodWIuY29tL3Rob21hc21hbmtlLw==\"}\n\n:::{.hidden .quarto-markdown-envelope-contents render-id=\"Zm9vdGVyLWxlZnQ=\"}\nMade with Quatro   \n\n:::\n\n\n:::{.hidden .quarto-markdown-envelope-contents render-id=\"Zm9vdGVyLWNlbnRlci0vZ2VuZXJhbC9hYm91dC5odG1s\"}\nAbout\n:::\n\n:::\n\n\n\n:::{#quarto-meta-markdown .hidden}\n[Neural Networks and Deep Learning]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLW1ldGF0aXRsZQ==\"}\n[Neural Networks and Deep Learning]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLXR3aXR0ZXJjYXJkdGl0bGU=\"}\n[Neural Networks and Deep Learning]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLW9nY2FyZHRpdGxl\"}\n[Neural Networks and Deep Learning]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLW1ldGFzaXRlbmFtZQ==\"}\n[Course Material for Neural Networks and Deep Learning]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLXR3aXR0ZXJjYXJkZGVzYw==\"}\n[Course Material for Neural Networks and Deep Learning]{.hidden .quarto-markdown-envelope-contents render-id=\"cXVhcnRvLW9nY2FyZGRkZXNj\"}\n:::\n\n\n\n\n&lt;!-- --&gt;\n\n::: {.quarto-embedded-source-code}\n```````````````````{.markdown shortcodes=\"false\"}\n# Lecture 04: Optimization and Backpropagation\n\n## Overview\n\nThis lecture focuses on the mathematical foundations of neural network training, covering gradient descent optimization, the backpropagation algorithm, and the challenges of optimizing non-convex loss functions in high-dimensional spaces.\n\n## Loss Functions and Optimization Objectives\n\nThe primary goal of neural network training is to find optimal parameters Θ* that minimize the loss function L(Θ).\n\n```python\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport torch\nimport torch.nn as nn\nimport torch.optim as optim\nfrom mpl_toolkits.mplot3d import Axes3D\n\ndef visualize_loss_landscapes():\n    \"\"\"Visualize different types of loss landscapes\"\"\"\n    \n    # Create 2D parameter space for visualization\n    x = np.linspace(-3, 3, 100)\n    y = np.linspace(-3, 3, 100)\n    X, Y = np.meshgrid(x, y)\n    \n    # Convex function (bowl-shaped)\n    Z_convex = X**2 + Y**2\n    \n    # Non-convex function with multiple minima\n    Z_nonconvex = np.sin(X) * np.cos(Y) + 0.1 * (X**2 + Y**2)\n    \n    # Saddle point function\n    Z_saddle = X**2 - Y**2\n    \n    fig = plt.figure(figsize=(15, 5))\n    \n    # Plot convex surface\n    ax1 = fig.add_subplot(131, projection='3d')\n    ax1.plot_surface(X, Y, Z_convex, cmap='viridis', alpha=0.7)\n    ax1.set_title('Convex Loss (Single Global Minimum)')\n    ax1.set_xlabel('Parameter 1')\n    ax1.set_ylabel('Parameter 2')\n    ax1.set_zlabel('Loss')\n    \n    # Plot non-convex surface\n    ax2 = fig.add_subplot(132, projection='3d')\n    ax2.plot_surface(X, Y, Z_nonconvex, cmap='viridis', alpha=0.7)\n    ax2.set_title('Non-convex Loss (Multiple Local Minima)')\n    ax2.set_xlabel('Parameter 1')\n    ax2.set_ylabel('Parameter 2')\n    \n    # Plot saddle point\n    ax3 = fig.add_subplot(133, projection='3d')\n    ax3.plot_surface(X, Y, Z_saddle, cmap='viridis', alpha=0.7)\n    ax3.set_title('Saddle Point')\n    ax3.set_xlabel('Parameter 1')\n    ax3.set_ylabel('Parameter 2')\n    \n    plt.tight_layout()\n    plt.show()\n    \n    print(\"Loss Landscape Types:\")\n    print(\"1. Convex: Single global minimum, gradient descent guaranteed to find it\")\n    print(\"2. Non-convex: Multiple local minima, gradient descent finds local minimum\")\n    print(\"3. Saddle Point: Minimum in one direction, maximum in another\")\n\n# visualize_loss_landscapes()  # Uncomment to run"
   },
   {
     "objectID": "lectures/01_MachineLearning/lecture04_optimization.html#gradient-descent-fundamentals-1",
@@ -915,5 +957,12 @@
     "title": "Projects",
     "section": "",
     "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\nFrameworks\n\n\n\n\n\n\nThomas Manke\n\n\nAug 2, 2025\n\n\n\n\n\n\n\n\n\n\n\nFrameworks\n\n\n\n\n\n\nThomas Manke\n\n\nAug 3, 2025\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Neural Networks and Deep Learning",
+    "section": "",
+    "text": "Upon successful completion of this course, you will\n\nunderstand the key concepts and challenges of neural networks\nbe proficient in common software solutions for deep learning (pytorch)\nbe able to define, train and evaluate your own models\nhave completed 4 concrete data analysis projects and provide reproducible code\nhave worked in teams and presented your work\nwant to learn more and deeper …"
   }
 ]
