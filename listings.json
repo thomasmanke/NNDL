@@ -1,21 +1,7 @@
 [
   {
-    "listing": "/lectures/02_NeuralNetworks/index.html",
-    "items": [
-      "/lectures/02_NeuralNetworks/neural_networks.html"
-    ]
-  },
-  {
-    "listing": "/lectures/03_ConvolutionalNeuralNetworks/index.html",
-    "items": [
-      "/lectures/03_ConvolutionalNeuralNetworks/001_CNN.html"
-    ]
-  },
-  {
-    "listing": "/lectures/04_GenerativeModels/index.html",
-    "items": [
-      "/lectures/04_GenerativeModels/01_Intro.html"
-    ]
+    "listing": "/lectures/05_LargeLanguageModels/index.html",
+    "items": []
   },
   {
     "listing": "/homework/index.html",
@@ -27,27 +13,38 @@
   },
   {
     "listing": "/projects/index.html",
-    "items": [
-      "/projects/01_MachineLearning.html"
-    ]
+    "items": []
   },
   {
     "listing": "/lectures/01_MachineLearning/index.html",
     "items": [
-      "/lectures/01_MachineLearning/01_LinearRegression.html",
-      "/lectures/01_MachineLearning/ANN_001_Intro.html",
-      "/lectures/01_MachineLearning/DataScience.html",
-      "/lectures/01_MachineLearning/lecture01_intro.html"
+      "/lectures/01_MachineLearning/01_Data.html"
     ]
   },
   {
-    "listing": "/lectures/05_LargeLanguageModels/index.html",
+    "listing": "/lectures/04_GenerativeModels/index.html",
     "items": []
+  },
+  {
+    "listing": "/lectures/03_ConvolutionalNeuralNetworks/index.html",
+    "items": [
+      "/lectures/03_ConvolutionalNeuralNetworks/001_CNN.html"
+    ]
+  },
+  {
+    "listing": "/lectures/02_NeuralNetworks/index.html",
+    "items": [
+      "/lectures/02_NeuralNetworks/00_Perceptron.html",
+      "/lectures/02_NeuralNetworks/01_Backpropagation.html",
+      "/lectures/02_NeuralNetworks/03_ActivationFunctions.html",
+      "/lectures/02_NeuralNetworks/05_ImageClassification.html",
+      "/lectures/02_NeuralNetworks/neural_networks.html",
+      "/lectures/02_NeuralNetworks/practical_tips.html"
+    ]
   },
   {
     "listing": "/help/index.html",
     "items": [
-      "/help/01_Frameworks.html",
       "/help/03_Pytorch.html"
     ]
   }
