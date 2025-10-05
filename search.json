@@ -959,52 +959,10 @@
     "text": "Data Resources\nSome popular links - personal bias and far from complete\n\n\n\nRepository / Platform\nCategories Covered\n# of Datasets (approx.)\nTotal Size (approx.)\n\n\n\n\n\nHugging Face Datasets\nNLP, vision, audio, multimodal\nThousands\nTens of TB\n\n\n\nRegistry of Open Data on AWS\nGenomics, earth science, satellite, healthcare\nMany hundreds\nHundreds of TB\n\n\n\nAwesome Public Datasets (GitHub)\nCurated lists across topics—including genomics, medical, climate\nHundreds (topics)\nVariable\n\n\n\nEuropean Genome‑phenome Archive (EGA)\nHuman genomics & phenotypic clinical data\n~4,500 studies from 1,000+ institutions\nTens to hundreds of PB\n\n\n\nThe Cancer Imaging Archive (TCIA)\nMedical imaging (cancer CT, MRI, PET)\nHundreds of collections; millions of images\nTens/hundreds of TB\n\n\n\nMedMNIST v2\nBiomedical images (2D/3D small‑scale)\n~718K images across 18 tasks\nTens of GB"
   },
   {
-    "objectID": "help/01_Frameworks.html",
-    "href": "help/01_Frameworks.html",
-    "title": "Frameworks",
-    "section": "",
-    "text": "Machine Learning and Deep-Learning have been powered by a number of open frameworks to simplify all modeling steps:\nHere we review 3 popular frameworks: scikit-learn, pytorch, keras/tensorflow (not an exhaustive list)"
-  },
-  {
-    "objectID": "help/01_Frameworks.html#goal-x-to-y-fx",
-    "href": "help/01_Frameworks.html#goal-x-to-y-fx",
-    "title": "Frameworks",
-    "section": "Goal: \\(X \\to Y = f(X)\\)",
-    "text": "Goal: \\(X \\to Y = f(X)\\)\nRemember the simple example from the lecture.\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nx = np.array([-1,  0, 1, 2, 3, 4])     # Data x\ny = np.array([-3, -1, 1, 3, 5, 7])     # Answer y\n\nplt.plot(x,y,'o')\nplt.xlabel('x')\nplt.ylabel('y')\nplt.show()"
-  },
-  {
-    "objectID": "help/01_Frameworks.html#scikit-learn-2007",
-    "href": "help/01_Frameworks.html#scikit-learn-2007",
-    "title": "Frameworks",
-    "section": "scikit-learn (2007++)",
-    "text": "scikit-learn (2007++)\n\nPythonic ML-alternative to R\ndesigned for small datasets (in-memory)\nno GPU support\n\n\n\nCode\nimport sklearn\nfrom sklearn import linear_model\nfrom sklearn.metrics import mean_squared_error\nprint('sklearn version:', sklearn.__version__)\n\nlm = linear_model.LinearRegression()  # define model\nxr = x.reshape(-1,1)                  # reshape data for tool (samples as rows) --&gt; x[:, np.newaxis]\nlm.fit(xr, y)                         # fit c.f. R: lm(Y ~ X)\n\n# report fit\nprint(f\"Fitted Parameters {lm.intercept_}, {lm.coef_}\")\n\nyp = lm.predict(xr)                   # prediction\nMSE= mean_squared_error(y, yp)        # evaluate fit. other scores: R2=lm.score(xr, y)\nprint(f\"Mean Squared Error: {MSE}\")\n\n# predict y for some new x\nx_new=np.array([10, -40])\ny_new = lm.predict(x_new.reshape(-1,1))\n\nprint(f\"predictions:  {y_new}\")\n\n\nsklearn version: 1.7.1\nFitted Parameters -1.0, [2.]\nMean Squared Error: 0.0\npredictions:  [ 19. -81.]"
-  },
-  {
-    "objectID": "help/01_Frameworks.html#tensorflowkeras-2015",
-    "href": "help/01_Frameworks.html#tensorflowkeras-2015",
-    "title": "Frameworks",
-    "section": "TensorFlow/Keras (2015)",
-    "text": "TensorFlow/Keras (2015)\n\nTensorFlow (Google Brain 2015): very complex\nKeras (F. Chollet 2015): user-friendly frontend to TF & other frameworks\nTF2: merged TF & Keras\nstrength: enterprise solutions & integration with Google Cloud/TPU\n\n\n\nCode\nimport tensorflow as tf\nprint('tf version:',tf.__version__)\n\n# define model - the \"black box\"\nmodel = tf.keras.Sequential()\nmodel.add(tf.keras.Input(shape=(1,))) # define input shape\nmodel.add(tf.keras.layers.Dense(units=1))\n\n# define optimization and loss\nmodel.compile(optimizer='sgd', loss='mean_squared_error') \n\n# fit model\nfit_history = model.fit(x,y, epochs=100, verbose=0)       \n\n# report fit\nprint('Fitted Parameters             ', model.trainable_variables)\nprint('Mean Squared Error (loss):    ', fit_history.history['loss'][-1])\n\n# make predictions\nx_new = np.array([ 10.0 , -40.0 ])\ny_new = model.predict(x_new)\ny_ana = -1 + 2.0*np.array(x_new)\n\nprint('analytical: ', y_ana)\nprint('numerical:  ', y_new.flatten())\n\n\n\ntf version: 2.18.0\n\nFitted Parameters              [&lt;Variable path=sequential/dense/kernel, shape=(1, 1), dtype=float32, value=[[1.798136]]&gt;, &lt;Variable path=sequential/dense/bias, shape=(1,), dtype=float32, value=[-0.3742062]&gt;]\n\nMean Squared Error (loss):     0.22785945236682892\n\n\n1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 11ms/step\n\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\n1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 16ms/step\n\nanalytical:  [ 19. -81.]\n\nnumerical:   [ 17.607153 -72.299644]"
-  },
-  {
-    "objectID": "help/01_Frameworks.html#pytorch-facebook-2017",
-    "href": "help/01_Frameworks.html#pytorch-facebook-2017",
-    "title": "Frameworks",
-    "section": "PyTorch (Facebook 2017)",
-    "text": "PyTorch (Facebook 2017)\n\nPythonic alternative to Tensorflow 1.x\ndefault choice in AI research and community\nbacked by Linux Foundation\n\n\n\nCode\nimport torch\n#import torch.nn as nn\n#import torch.optim as optim\nprint('torch version:', torch.__version__)\n\n# Convert data to PyTorch tensors \n# define dtype and reshape to column vectors (c.f np.reshape())\nx_tensor = torch.tensor(x, dtype=torch.float32).view(-1, 1)\ny_tensor = torch.tensor(y, dtype=torch.float32).view(-1, 1)\n\n# Define Model\nmodel = torch.nn.Sequential(\n    torch.nn.Linear(1, 1)  # input dim = 1, output dim = 1\n)\n\n# Define Loss function\nloss_function = torch.nn.MSELoss()\n# Choose optimizer\noptimizer = torch.optim.SGD(model.parameters(), lr=0.01)\n\n# Fit model (explicit loop over epochs)\nloss_history = []\nmodel.train()             # put model in train mode \nfor epoch in range(100):\n\n    outputs = model(x_tensor)               # forward calculation\n    loss = loss_function(outputs, y_tensor) # loss calculation\n    loss_history.append(loss.item())        # append loss for tracking\n\n    # Backward pass\n    optimizer.zero_grad() # set .grad attribute in nn.Parameter to zero\n    loss.backward()       # backpropagation: calculate gradients and store in .grad\n    optimizer.step()      # update parameters: parm = parm - lr*parm.grad\n\n# Report best fit - convert to torch tensor to numpy\nfor name, param in model.named_parameters():\n    print(f\"{name}: {param.data.numpy().flatten()}\")\n\n# report last (=best?) loss from history\nprint(\"Mean Squared Error (loss):\", loss_history[-1])\n\n# make predictions\nx_new = np.array([10.0, -40.0])\nx_new_tensor = torch.tensor(x_new, dtype=torch.float32).view(-1, 1)\ny_new = model(x_new_tensor).detach().numpy()\n\ny_ana = -1 + 2.0 * np.array(x_new)\n\nprint(\"analytical: \", y_ana)\nprint(\"numerical:  \", y_new.flatten())\n\n\ntorch version: 2.6.0\n0.weight: [1.9249797]\n0.bias: [-0.7674474]\nMean Squared Error (loss): 0.0314667746424675\nanalytical:  [ 19. -81.]\nnumerical:   [ 18.482351 -77.76664 ]\n\n\n\n\nCode\nplt.figure()\nplt.plot(fit_history.history['loss'][1:], label=\"TensorFlow\")\nplt.plot(loss_history, label=\"PyTorch\")\nplt.title('model loss')\nplt.ylabel('loss')\nplt.xlabel('epoch')\nplt.legend()\nplt.show()"
-  },
-  {
-    "objectID": "help/01_Frameworks.html#summary-table",
-    "href": "help/01_Frameworks.html#summary-table",
-    "title": "Frameworks",
-    "section": "Summary Table",
-    "text": "Summary Table\n\n\n\n\n\n\n\n\n\nFeature\nScikit-learn\nTensorFlow (TF)\nPyTorch\n\n\n\n\nInitial Release\n2010\n2015\n2017\n\n\nDeveloper\nINRIA, open-source community\nGoogle Brain\nFacebook AI Research (FAIR)\n\n\nLanguage\nPython (NumPy, SciPy)\nPython + C++ backend\nPython + C++ backend\n\n\nPrimary Use\nClassical ML\nDeep Learning + Production Pipelines\nDeep Learning + R&D\n\n\nModel Types\nTrees, SVMs, Linear Models, etc.\nNeural Networks\nNeural Networks\n\n\nGPU Support\n❌ No\n✅ Yes\n✅ Yes\n\n\nEase of Use\n✅ Very simple API\n⚠️ Steep TF1.x; better in TF2.x\n✅ Pythonic and intuitive\n\n\nCommunity Focus\nData Science / ML practitioners\nCloud, deployment, industry\nResearch, academia, experimental models\n\n\nIntegration\nPandas, NumPy, matplotlib\nTF Hub, TF Lite, Google Cloud\nHuggingFace, FastAI, Lightning\n\n\nGovernance\nCommunity-led (INRIA)\nGoogle\nLinux Foundation (since 2022)"
-  },
-  {
     "objectID": "help/index.html",
     "href": "help/index.html",
     "title": "Help",
     "section": "",
-    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nFrameworks\n\n\n\nsklearn\n\npytorch\n\ntensorflow\n\n\n\npowerful tools for neural networks\n\n\n\nThomas Manke\n\n\nOct 5, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nBig Data\n\n\n\nbig data\n\n\n\nFamous image sets and other Big Data\n\n\n\nThomas Manke\n\n\nOct 5, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nPytorch Starter\n\n\na basic intro\n\n\n\nThomas Manke\n\n\nOct 5, 2025\n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nBig Data\n\n\n\nbig data\n\n\n\nFamous image sets and other Big Data\n\n\n\nThomas Manke\n\n\nOct 5, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nPytorch Starter\n\n\na basic intro\n\n\n\nThomas Manke\n\n\nOct 5, 2025\n\n\n\n\n\n\nNo matching items"
   }
 ]

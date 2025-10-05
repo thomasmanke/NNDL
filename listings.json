@@ -45,7 +45,6 @@
   {
     "listing": "/help/index.html",
     "items": [
-      "/help/01_Frameworks.html",
       "/help/03_BigData.html",
       "/help/03_Pytorch.html"
     ]
