@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Thomas Manke">
-<meta name="dcterms.date" content="2025-10-04">
+<meta name="dcterms.date" content="2025-10-05">
 <meta name="description" content="a basic intro">
 
 <title>Pytorch Starter – Neural Networks and Deep Learning</title>
@@ -418,7 +418,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 4, 2025</p>
+      <p class="date">October 5, 2025</p>
     </div>
   </div>
   
@@ -443,7 +443,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="import" class="level2">
 <h2 class="anchored" data-anchor-id="import">Import</h2>
-<div id="27c5eeb5" class="cell" data-execution_count="1">
+<div id="9438fa1d" class="cell" data-execution_count="1">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
@@ -460,7 +460,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="tensors">Tensors</h2>
 <section id="generation" class="level3">
 <h3 class="anchored" data-anchor-id="generation">Generation</h3>
-<div id="e0bef92e" class="cell" data-execution_count="2">
+<div id="b9bde05f" class="cell" data-execution_count="2">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> [[<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>], [<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>]] <span class="co"># list</span></span>
@@ -480,7 +480,7 @@ type(Xt): &lt;class 'torch.Tensor'&gt;</code></pre>
 </section>
 <section id="data-type-and-type-conversion" class="level3">
 <h3 class="anchored" data-anchor-id="data-type-and-type-conversion">Data Type and Type conversion</h3>
-<div id="847a1d4f" class="cell" data-execution_count="3">
+<div id="99b5529c" class="cell" data-execution_count="3">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt.dtype): </span><span class="sc">{</span>Xt<span class="sc">.</span>dtype<span class="sc">}</span><span class="ss">'</span>) <span class="co"># single data type for elements of Xt</span></span>
@@ -495,7 +495,7 @@ Yt.dtype): torch.float32</code></pre>
 </section>
 <section id="access" class="level3">
 <h3 class="anchored" data-anchor-id="access">Access</h3>
-<div id="f045c676" class="cell" data-execution_count="4">
+<div id="b694453e" class="cell" data-execution_count="4">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Xt)</span>
@@ -516,7 +516,7 @@ tensor([2, 5])</code></pre>
 </section>
 <section id="attributes" class="level3">
 <h3 class="anchored" data-anchor-id="attributes">Attributes</h3>
-<div id="5e3280b2" class="cell" data-execution_count="5">
+<div id="136079cb" class="cell" data-execution_count="5">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt.shape: </span><span class="sc">{</span>Xt<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span>
@@ -532,7 +532,7 @@ Xt.device: cpu</code></pre>
 </section>
 <section id="methods" class="level3">
 <h3 class="anchored" data-anchor-id="methods">Methods</h3>
-<div id="b54c7920" class="cell" data-execution_count="6">
+<div id="ddc51824" class="cell" data-execution_count="6">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt.numpy: </span><span class="sc">{</span>Xt<span class="sc">.</span>numpy()<span class="sc">}</span><span class="ss">'</span>) <span class="co"># converting</span></span>
@@ -551,7 +551,7 @@ Xt.argmax: tensor([2, 2])</code></pre>
 </section>
 <section id="generation-by-shape" class="level3">
 <h3 class="anchored" data-anchor-id="generation-by-shape">Generation by shape</h3>
-<div id="a8c7b5d2" class="cell" data-execution_count="7">
+<div id="cbc9323d" class="cell" data-execution_count="7">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>shape<span class="op">=</span>(<span class="dv">3</span>,<span class="dv">4</span>) <span class="co"># rows, columns</span></span>
@@ -563,18 +563,18 @@ Xt.argmax: tensor([2, 2])</code></pre>
 <pre><code>zeros:  tensor([[0., 0., 0., 0.],
         [0., 0., 0., 0.],
         [0., 0., 0., 0.]])
-rand:  tensor([[0.6281, 0.8123, 0.6739, 0.7244],
-        [0.6743, 0.8492, 0.3517, 0.1436],
-        [0.4428, 0.2867, 0.1409, 0.5511]])
-randn:  tensor([[1.0053, 1.0025, 0.9972, 0.9936],
-        [1.0026, 1.0037, 0.9950, 1.0078],
-        [0.9946, 0.9897, 1.0064, 0.9987]])</code></pre>
+rand:  tensor([[0.2505, 0.1409, 0.8899, 0.7524],
+        [0.1809, 0.3016, 0.4057, 0.4317],
+        [0.1356, 0.9248, 0.5920, 0.5241]])
+randn:  tensor([[1.0009, 0.9982, 0.9960, 0.9930],
+        [1.0066, 1.0008, 0.9987, 1.0007],
+        [0.9966, 1.0017, 1.0107, 1.0067]])</code></pre>
 </div>
 </div>
 </section>
 <section id="reshaping" class="level3">
 <h3 class="anchored" data-anchor-id="reshaping">Reshaping</h3>
-<div id="8fa2d4ad" class="cell" data-execution_count="8">
+<div id="7a2e07dc" class="cell" data-execution_count="8">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>Xt <span class="op">=</span> torch.tensor([[<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>], [<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>]] )</span>
@@ -616,7 +616,7 @@ Xt: tensor([[42,  1,  2],
 </section>
 <section id="permuting" class="level3">
 <h3 class="anchored" data-anchor-id="permuting">Permuting</h3>
-<div id="afb4e040" class="cell" data-execution_count="9">
+<div id="b4354dc6" class="cell" data-execution_count="9">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>Xt <span class="op">=</span> torch.arange(<span class="dv">6</span>).reshape(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>) <span class="co"># 3D tensor with first direction 1-D</span></span>
@@ -638,7 +638,7 @@ Xt.permute: torch.Size([3, 1, 2])</code></pre>
 </section>
 <section id="combining" class="level3">
 <h3 class="anchored" data-anchor-id="combining">Combining</h3>
-<div id="d1692f79" class="cell" data-execution_count="10">
+<div id="311e35be" class="cell" data-execution_count="10">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>Xt <span class="op">=</span> torch.tensor([[<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>], [<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>]] )</span>
@@ -683,7 +683,7 @@ matrix multiply tensor([[ 9, 12, 15],
 <pre><code>device:  mps</code></pre>
 </div>
 </div>
-<div id="b44636d0" class="cell" data-execution_count="12">
+<div id="ba32beb1" class="cell" data-execution_count="12">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initalize on device</span></span>
@@ -710,7 +710,7 @@ tensor([3., 6., 9.], device='mps:0')</code></pre>
 </section>
 <section id="parameters" class="level2">
 <h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
-<div id="ca0d99ba" class="cell" data-execution_count="13">
+<div id="a89797ba" class="cell" data-execution_count="13">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>shape<span class="op">=</span>(<span class="dv">2</span>,<span class="dv">3</span>)</span>
@@ -724,7 +724,7 @@ tensor([3., 6., 9.], device='mps:0')</code></pre>
 </section>
 <section id="autograd" class="level2">
 <h2 class="anchored" data-anchor-id="autograd">Autograd</h2>
-<div id="dcb5c7eb" class="cell" data-execution_count="14">
+<div id="a4d9e0a8" class="cell" data-execution_count="14">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lead nodes; define by used with</span></span>
@@ -741,11 +741,11 @@ tensor([3., 6., 9.], device='mps:0')</code></pre>
 <span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'L_grad = </span><span class="sc">{</span>L<span class="sc">.</span>grad_fn<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>z_grad = &lt;AddBackward0 object at 0x331a42050&gt;
-L_grad = &lt;MulBackward0 object at 0x3317e8430&gt;</code></pre>
+<pre><code>z_grad = &lt;AddBackward0 object at 0x323de64a0&gt;
+L_grad = &lt;MulBackward0 object at 0x323e42d40&gt;</code></pre>
 </div>
 </div>
-<div id="802a608f" class="cell" data-execution_count="15">
+<div id="fcf0ee5a" class="cell" data-execution_count="15">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>a.grad <span class="op">=</span> b.grad <span class="op">=</span> x.grad <span class="op">=</span> <span class="va">None</span>  <span class="co"># clear old grads if any</span></span>
@@ -769,7 +769,7 @@ z.grad: tensor(1.)</code></pre>
 <h2 class="anchored" data-anchor-id="legoblocks-torch.nn-module">Legoblocks: torch.nn module</h2>
 <section id="simple-functions" class="level3">
 <h3 class="anchored" data-anchor-id="simple-functions">Simple Functions</h3>
-<div id="a1a25e8d" class="cell" data-execution_count="16">
+<div id="14fd19a2" class="cell" data-execution_count="16">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> torch.tensor([<span class="op">-</span><span class="fl">2.0</span>, <span class="fl">0.0</span>, <span class="fl">0.5</span>, <span class="fl">1.0</span>])</span>
@@ -793,7 +793,7 @@ relu(X):     tensor([0.0000, 0.0000, 0.5000, 1.0000])</code></pre>
 </section>
 <section id="linear-layers" class="level3">
 <h3 class="anchored" data-anchor-id="linear-layers">Linear Layers</h3>
-<div id="27ec0c01" class="cell" data-execution_count="17">
+<div id="b06ac0ed" class="cell" data-execution_count="17">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>D_in <span class="op">=</span> <span class="dv">1</span></span>
@@ -816,9 +816,9 @@ relu(X):     tensor([0.0000, 0.0000, 0.5000, 1.0000])</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>weight.shape:  torch.Size([3, 1])
 weight matrix: Parameter containing:
-tensor([[0.1228],
-        [0.4572],
-        [0.3039]], requires_grad=True)
+tensor([[-0.5041],
+        [-0.0248],
+        [ 0.2453]], requires_grad=True)
 X.shape:  torch.Size([6, 1])
 After linear transformation = matrix multiplication
 y_hat.shape:  torch.Size([6, 3])</code></pre>
@@ -827,7 +827,7 @@ y_hat.shape:  torch.Size([6, 3])</code></pre>
 </section>
 <section id="embeddings" class="level3">
 <h3 class="anchored" data-anchor-id="embeddings">Embeddings</h3>
-<div id="32f58abc" class="cell" data-execution_count="18">
+<div id="6e872712" class="cell" data-execution_count="18">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>nw <span class="op">=</span> <span class="dv">10</span> <span class="co"># number of words</span></span>
@@ -840,17 +840,17 @@ y_hat.shape:  torch.Size([6, 3])</code></pre>
 <span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'word vectors: '</span>, words_vec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>word vectors:  tensor([[ 0.8890,  2.2888,  0.8418],
-        [-0.6020, -0.5518, -0.1318],
-        [-0.6020, -0.5518, -0.1318],
-        [ 1.1328, -0.0177,  0.0371],
-        [-0.0565, -0.1811, -0.3971]], grad_fn=&lt;EmbeddingBackward0&gt;)</code></pre>
+<pre><code>word vectors:  tensor([[-0.4440,  0.0272, -1.2057],
+        [-0.7078, -0.8524, -0.3536],
+        [-0.7078, -0.8524, -0.3536],
+        [-0.7424,  0.2300,  1.7273],
+        [-0.0244,  2.6445,  1.2962]], grad_fn=&lt;EmbeddingBackward0&gt;)</code></pre>
 </div>
 </div>
 </section>
 <section id="dropout-layer" class="level3">
 <h3 class="anchored" data-anchor-id="dropout-layer">Dropout Layer</h3>
-<div id="f60c1b67" class="cell" data-execution_count="19">
+<div id="7df2438e" class="cell" data-execution_count="19">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> torch.ones(<span class="dv">1</span>,<span class="dv">8</span>)</span>
@@ -866,19 +866,19 @@ y_hat.shape:  torch.Size([6, 3])</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>tensor([[1., 1., 1., 1., 1., 1., 1., 1.]])
-tensor([[1.4286, 0.0000, 0.0000, 0.0000, 0.0000, 1.4286, 1.4286, 0.0000]])
-tensor([[1.4286, 1.4286, 0.0000, 0.0000, 1.4286, 1.4286, 0.0000, 1.4286]])
-tensor([[1.4286, 1.4286, 0.0000, 1.4286, 1.4286, 1.4286, 1.4286, 1.4286]])
-tensor([[1.4286, 0.0000, 1.4286, 1.4286, 0.0000, 0.0000, 1.4286, 1.4286]])
+tensor([[1.4286, 1.4286, 0.0000, 1.4286, 0.0000, 1.4286, 1.4286, 1.4286]])
+tensor([[1.4286, 1.4286, 0.0000, 1.4286, 1.4286, 0.0000, 1.4286, 0.0000]])
+tensor([[0.0000, 1.4286, 1.4286, 1.4286, 1.4286, 1.4286, 1.4286, 1.4286]])
 tensor([[1.4286, 1.4286, 1.4286, 1.4286, 1.4286, 1.4286, 1.4286, 1.4286]])
-tensor([[1.4286, 1.4286, 0.0000, 0.0000, 1.4286, 1.4286, 0.0000, 0.0000]])</code></pre>
+tensor([[0.0000, 1.4286, 1.4286, 1.4286, 1.4286, 1.4286, 1.4286, 0.0000]])
+tensor([[1.4286, 1.4286, 1.4286, 0.0000, 1.4286, 0.0000, 1.4286, 0.0000]])</code></pre>
 </div>
 </div>
 </section>
 <section id="building-larger-models" class="level3">
 <h3 class="anchored" data-anchor-id="building-larger-models">Building Larger Models</h3>
 <p>We can define our own models from building blocks. Ultimately this will help to abstract from individual layers, their initialization, normalization, dropouts etc.</p>
-<div id="bc955fb3" class="cell" data-execution_count="20">
+<div id="7695d4ff" class="cell" data-execution_count="20">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
@@ -912,7 +912,7 @@ tensor([[1.4286, 1.4286, 0.0000, 0.0000, 1.4286, 1.4286, 0.0000, 0.0000]])</code
 </section>
 <section id="optimizer-and-loss-function" class="level2">
 <h2 class="anchored" data-anchor-id="optimizer-and-loss-function">Optimizer and Loss Function</h2>
-<div id="e444831b" class="cell" data-execution_count="21">
+<div id="d7cfc778" class="cell" data-execution_count="21">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.optim <span class="im">as</span> optim</span>
@@ -1001,7 +1001,7 @@ tensor([[1.4286, 1.4286, 0.0000, 0.0000, 1.4286, 1.4286, 0.0000, 0.0000]])</code
 <span id="cb45-31"><a href="#cb45-31" aria-hidden="true" tabindex="-1"></a>    val_loss <span class="op">=</span> loss_function(val_output, y_val)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>epoch 0, loss 0.25015008449554443</code></pre>
+<pre><code>epoch 0, loss 0.26598238945007324</code></pre>
 </div>
 </div>
 </section>
@@ -1091,7 +1091,7 @@ tensor([[1.4286, 1.4286, 0.0000, 0.0000, 1.4286, 1.4286, 0.0000, 0.0000]])</code
 <span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>writer.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="edab5041" class="cell" data-execution_count="27">
+<div id="9129d4d0" class="cell" data-execution_count="27">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co">#echo: false</span></span>
@@ -1574,464 +1574,465 @@ tensor([[1.4286, 1.4286, 0.0000, 0.0000, 1.4286, 1.4286, 0.0000, 0.0000]])</code
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="an">jupyter:</span><span class="co"> pytorch</span></span>
 <span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="co">#eval: false</span></span>
 <span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> a basic intro</span></span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Install</span></span>
-<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>...using conda environments (also mamba/micromamba)</span>
-<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a><span class="in">```bash </span></span>
-<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a><span class="co"># first define dedicated environment</span></span>
-<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> pytorch_env python=3.10</span>
-<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate pytorch_env</span>
-<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a><span class="co"># from pytorch channel</span></span>
-<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install pytorch torchvision torchaudio <span class="at">-c</span> pytorch</span>
-<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a>... or using pip</span>
-<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
-<span id="cb52-21"><a href="#cb52-21" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install pytorch</span>
-<span id="cb52-22"><a href="#cb52-22" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-23"><a href="#cb52-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-24"><a href="#cb52-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Import</span></span>
-<span id="cb52-27"><a href="#cb52-27" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-28"><a href="#cb52-28" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb52-29"><a href="#cb52-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'torch version: </span><span class="sc">{</span>torch<span class="sc">.</span>__version__<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb52-30"><a href="#cb52-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-31"><a href="#cb52-31" aria-hidden="true" tabindex="-1"></a><span class="co"># new functionality/vocabulary (nouns and verbs): dir(torch) </span></span>
-<span id="cb52-32"><a href="#cb52-32" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-33"><a href="#cb52-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-34"><a href="#cb52-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tensors</span></span>
-<span id="cb52-35"><a href="#cb52-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-36"><a href="#cb52-36" aria-hidden="true" tabindex="-1"></a><span class="fu">### Generation</span></span>
-<span id="cb52-39"><a href="#cb52-39" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-40"><a href="#cb52-40" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> [[<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>], [<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>]] <span class="co"># list</span></span>
-<span id="cb52-41"><a href="#cb52-41" aria-hidden="true" tabindex="-1"></a>Xt <span class="op">=</span> torch.tensor(X)   <span class="co"># tensor</span></span>
-<span id="cb52-42"><a href="#cb52-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-43"><a href="#cb52-43" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'type(X): </span><span class="sc">{</span><span class="bu">type</span>(X)<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb52-44"><a href="#cb52-44" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'type(Xt): </span><span class="sc">{</span><span class="bu">type</span>(Xt)<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb52-45"><a href="#cb52-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-46"><a href="#cb52-46" aria-hidden="true" tabindex="-1"></a><span class="co">#help(torch.tensor) # first aid</span></span>
-<span id="cb52-47"><a href="#cb52-47" aria-hidden="true" tabindex="-1"></a><span class="co">#print("Xt address:", Xt.data_ptr()) </span></span>
-<span id="cb52-48"><a href="#cb52-48" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-49"><a href="#cb52-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> images/pytorch.png</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## Install</span></span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>...using conda environments (also mamba/micromamba)</span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a><span class="in">```bash </span></span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a><span class="co"># first define dedicated environment</span></span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> pytorch_env python=3.10</span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate pytorch_env</span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a><span class="co"># from pytorch channel</span></span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install pytorch torchvision torchaudio <span class="at">-c</span> pytorch</span>
+<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a>... or using pip</span>
+<span id="cb52-21"><a href="#cb52-21" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb52-22"><a href="#cb52-22" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install pytorch</span>
+<span id="cb52-23"><a href="#cb52-23" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-24"><a href="#cb52-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-25"><a href="#cb52-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## Import</span></span>
+<span id="cb52-28"><a href="#cb52-28" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-29"><a href="#cb52-29" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb52-30"><a href="#cb52-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'torch version: </span><span class="sc">{</span>torch<span class="sc">.</span>__version__<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb52-31"><a href="#cb52-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-32"><a href="#cb52-32" aria-hidden="true" tabindex="-1"></a><span class="co"># new functionality/vocabulary (nouns and verbs): dir(torch) </span></span>
+<span id="cb52-33"><a href="#cb52-33" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-34"><a href="#cb52-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-35"><a href="#cb52-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tensors</span></span>
+<span id="cb52-36"><a href="#cb52-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-37"><a href="#cb52-37" aria-hidden="true" tabindex="-1"></a><span class="fu">### Generation</span></span>
+<span id="cb52-40"><a href="#cb52-40" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-41"><a href="#cb52-41" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> [[<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>], [<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>]] <span class="co"># list</span></span>
+<span id="cb52-42"><a href="#cb52-42" aria-hidden="true" tabindex="-1"></a>Xt <span class="op">=</span> torch.tensor(X)   <span class="co"># tensor</span></span>
+<span id="cb52-43"><a href="#cb52-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-44"><a href="#cb52-44" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'type(X): </span><span class="sc">{</span><span class="bu">type</span>(X)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb52-45"><a href="#cb52-45" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'type(Xt): </span><span class="sc">{</span><span class="bu">type</span>(Xt)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb52-46"><a href="#cb52-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-47"><a href="#cb52-47" aria-hidden="true" tabindex="-1"></a><span class="co">#help(torch.tensor) # first aid</span></span>
+<span id="cb52-48"><a href="#cb52-48" aria-hidden="true" tabindex="-1"></a><span class="co">#print("Xt address:", Xt.data_ptr()) </span></span>
+<span id="cb52-49"><a href="#cb52-49" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb52-50"><a href="#cb52-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-51"><a href="#cb52-51" aria-hidden="true" tabindex="-1"></a><span class="fu">### Data Type and Type conversion</span></span>
-<span id="cb52-52"><a href="#cb52-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-55"><a href="#cb52-55" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-56"><a href="#cb52-56" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt.dtype): </span><span class="sc">{</span>Xt<span class="sc">.</span>dtype<span class="sc">}</span><span class="ss">'</span>) <span class="co"># single data type for elements of Xt</span></span>
-<span id="cb52-57"><a href="#cb52-57" aria-hidden="true" tabindex="-1"></a>Yt <span class="op">=</span> Xt.to(dtype<span class="op">=</span>torch.float32) <span class="co"># shortcut: Xt.float()</span></span>
-<span id="cb52-58"><a href="#cb52-58" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Yt.dtype): </span><span class="sc">{</span>Yt<span class="sc">.</span>dtype<span class="sc">}</span><span class="ss">'</span>) </span>
-<span id="cb52-59"><a href="#cb52-59" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-60"><a href="#cb52-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-61"><a href="#cb52-61" aria-hidden="true" tabindex="-1"></a><span class="fu">### Access</span></span>
-<span id="cb52-62"><a href="#cb52-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-65"><a href="#cb52-65" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-66"><a href="#cb52-66" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Xt)</span>
-<span id="cb52-67"><a href="#cb52-67" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Xt[:,<span class="dv">2</span>]) <span class="co"># simple index, e.g. column=2</span></span>
-<span id="cb52-68"><a href="#cb52-68" aria-hidden="true" tabindex="-1"></a>ind_select <span class="op">=</span> torch.tensor([[<span class="dv">1</span>],[<span class="dv">0</span>]])      <span class="co"># complex index (along)</span></span>
-<span id="cb52-69"><a href="#cb52-69" aria-hidden="true" tabindex="-1"></a>torch.gather(Xt, dim<span class="op">=</span><span class="dv">1</span>, index<span class="op">=</span>ind_select) <span class="co"># pick [0,1] and [1,0]</span></span>
-<span id="cb52-70"><a href="#cb52-70" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-71"><a href="#cb52-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-51"><a href="#cb52-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-52"><a href="#cb52-52" aria-hidden="true" tabindex="-1"></a><span class="fu">### Data Type and Type conversion</span></span>
+<span id="cb52-53"><a href="#cb52-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-56"><a href="#cb52-56" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-57"><a href="#cb52-57" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt.dtype): </span><span class="sc">{</span>Xt<span class="sc">.</span>dtype<span class="sc">}</span><span class="ss">'</span>) <span class="co"># single data type for elements of Xt</span></span>
+<span id="cb52-58"><a href="#cb52-58" aria-hidden="true" tabindex="-1"></a>Yt <span class="op">=</span> Xt.to(dtype<span class="op">=</span>torch.float32) <span class="co"># shortcut: Xt.float()</span></span>
+<span id="cb52-59"><a href="#cb52-59" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Yt.dtype): </span><span class="sc">{</span>Yt<span class="sc">.</span>dtype<span class="sc">}</span><span class="ss">'</span>) </span>
+<span id="cb52-60"><a href="#cb52-60" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-61"><a href="#cb52-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-62"><a href="#cb52-62" aria-hidden="true" tabindex="-1"></a><span class="fu">### Access</span></span>
+<span id="cb52-63"><a href="#cb52-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-66"><a href="#cb52-66" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-67"><a href="#cb52-67" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Xt)</span>
+<span id="cb52-68"><a href="#cb52-68" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Xt[:,<span class="dv">2</span>]) <span class="co"># simple index, e.g. column=2</span></span>
+<span id="cb52-69"><a href="#cb52-69" aria-hidden="true" tabindex="-1"></a>ind_select <span class="op">=</span> torch.tensor([[<span class="dv">1</span>],[<span class="dv">0</span>]])      <span class="co"># complex index (along)</span></span>
+<span id="cb52-70"><a href="#cb52-70" aria-hidden="true" tabindex="-1"></a>torch.gather(Xt, dim<span class="op">=</span><span class="dv">1</span>, index<span class="op">=</span>ind_select) <span class="co"># pick [0,1] and [1,0]</span></span>
+<span id="cb52-71"><a href="#cb52-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb52-72"><a href="#cb52-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-73"><a href="#cb52-73" aria-hidden="true" tabindex="-1"></a><span class="fu">### Attributes</span></span>
-<span id="cb52-76"><a href="#cb52-76" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-77"><a href="#cb52-77" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt.shape: </span><span class="sc">{</span>Xt<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb52-78"><a href="#cb52-78" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt.dtype: </span><span class="sc">{</span>Xt<span class="sc">.</span>dtype<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb52-79"><a href="#cb52-79" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt.device: </span><span class="sc">{</span>Xt<span class="sc">.</span>device<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb52-80"><a href="#cb52-80" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-81"><a href="#cb52-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-82"><a href="#cb52-82" aria-hidden="true" tabindex="-1"></a><span class="fu">### Methods</span></span>
-<span id="cb52-85"><a href="#cb52-85" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-86"><a href="#cb52-86" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt.numpy: </span><span class="sc">{</span>Xt<span class="sc">.</span>numpy()<span class="sc">}</span><span class="ss">'</span>) <span class="co"># converting</span></span>
-<span id="cb52-87"><a href="#cb52-87" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt.sum: </span><span class="sc">{</span>Xt<span class="sc">.</span><span class="bu">sum</span>(dim<span class="op">=</span><span class="dv">0</span>)<span class="sc">}</span><span class="ss">'</span>) <span class="co"># summarizing along dimensions</span></span>
-<span id="cb52-88"><a href="#cb52-88" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt.argmax: </span><span class="sc">{</span>Xt<span class="sc">.</span>argmax(dim<span class="op">=</span><span class="dv">1</span>)<span class="sc">}</span><span class="ss">'</span>) <span class="co"># indices with largest value</span></span>
-<span id="cb52-89"><a href="#cb52-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-90"><a href="#cb52-90" aria-hidden="true" tabindex="-1"></a><span class="co"># many more attributes and methods: dir(Xt)</span></span>
-<span id="cb52-91"><a href="#cb52-91" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-92"><a href="#cb52-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-93"><a href="#cb52-93" aria-hidden="true" tabindex="-1"></a><span class="fu">### Generation by shape</span></span>
-<span id="cb52-96"><a href="#cb52-96" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-97"><a href="#cb52-97" aria-hidden="true" tabindex="-1"></a>shape<span class="op">=</span>(<span class="dv">3</span>,<span class="dv">4</span>) <span class="co"># rows, columns</span></span>
-<span id="cb52-98"><a href="#cb52-98" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'zeros: '</span>, torch.zeros(shape))</span>
-<span id="cb52-99"><a href="#cb52-99" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'rand: '</span>, torch.rand(shape))</span>
-<span id="cb52-100"><a href="#cb52-100" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'randn: '</span>, <span class="dv">1</span> <span class="op">+</span> <span class="fl">0.01</span><span class="op">*</span>torch.randn(shape))</span>
-<span id="cb52-101"><a href="#cb52-101" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-102"><a href="#cb52-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-73"><a href="#cb52-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-74"><a href="#cb52-74" aria-hidden="true" tabindex="-1"></a><span class="fu">### Attributes</span></span>
+<span id="cb52-77"><a href="#cb52-77" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-78"><a href="#cb52-78" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt.shape: </span><span class="sc">{</span>Xt<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb52-79"><a href="#cb52-79" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt.dtype: </span><span class="sc">{</span>Xt<span class="sc">.</span>dtype<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb52-80"><a href="#cb52-80" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt.device: </span><span class="sc">{</span>Xt<span class="sc">.</span>device<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb52-81"><a href="#cb52-81" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-82"><a href="#cb52-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-83"><a href="#cb52-83" aria-hidden="true" tabindex="-1"></a><span class="fu">### Methods</span></span>
+<span id="cb52-86"><a href="#cb52-86" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-87"><a href="#cb52-87" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt.numpy: </span><span class="sc">{</span>Xt<span class="sc">.</span>numpy()<span class="sc">}</span><span class="ss">'</span>) <span class="co"># converting</span></span>
+<span id="cb52-88"><a href="#cb52-88" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt.sum: </span><span class="sc">{</span>Xt<span class="sc">.</span><span class="bu">sum</span>(dim<span class="op">=</span><span class="dv">0</span>)<span class="sc">}</span><span class="ss">'</span>) <span class="co"># summarizing along dimensions</span></span>
+<span id="cb52-89"><a href="#cb52-89" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt.argmax: </span><span class="sc">{</span>Xt<span class="sc">.</span>argmax(dim<span class="op">=</span><span class="dv">1</span>)<span class="sc">}</span><span class="ss">'</span>) <span class="co"># indices with largest value</span></span>
+<span id="cb52-90"><a href="#cb52-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-91"><a href="#cb52-91" aria-hidden="true" tabindex="-1"></a><span class="co"># many more attributes and methods: dir(Xt)</span></span>
+<span id="cb52-92"><a href="#cb52-92" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-93"><a href="#cb52-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-94"><a href="#cb52-94" aria-hidden="true" tabindex="-1"></a><span class="fu">### Generation by shape</span></span>
+<span id="cb52-97"><a href="#cb52-97" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-98"><a href="#cb52-98" aria-hidden="true" tabindex="-1"></a>shape<span class="op">=</span>(<span class="dv">3</span>,<span class="dv">4</span>) <span class="co"># rows, columns</span></span>
+<span id="cb52-99"><a href="#cb52-99" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'zeros: '</span>, torch.zeros(shape))</span>
+<span id="cb52-100"><a href="#cb52-100" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'rand: '</span>, torch.rand(shape))</span>
+<span id="cb52-101"><a href="#cb52-101" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'randn: '</span>, <span class="dv">1</span> <span class="op">+</span> <span class="fl">0.01</span><span class="op">*</span>torch.randn(shape))</span>
+<span id="cb52-102"><a href="#cb52-102" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb52-103"><a href="#cb52-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-104"><a href="#cb52-104" aria-hidden="true" tabindex="-1"></a><span class="fu">### Reshaping</span></span>
-<span id="cb52-105"><a href="#cb52-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-108"><a href="#cb52-108" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-109"><a href="#cb52-109" aria-hidden="true" tabindex="-1"></a>Xt <span class="op">=</span> torch.tensor([[<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>], [<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>]] )</span>
-<span id="cb52-110"><a href="#cb52-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-111"><a href="#cb52-111" aria-hidden="true" tabindex="-1"></a><span class="co"># a special reshape = flatten</span></span>
-<span id="cb52-112"><a href="#cb52-112" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt.reshape(6): </span><span class="sc">{</span>Xt<span class="sc">.</span>reshape(<span class="dv">6</span>)<span class="sc">}</span><span class="ss">'</span>) </span>
-<span id="cb52-113"><a href="#cb52-113" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt.flatten: </span><span class="sc">{</span>Xt<span class="sc">.</span>flatten(start_dim<span class="op">=</span><span class="dv">0</span>)<span class="sc">}</span><span class="ss">'</span>) </span>
-<span id="cb52-114"><a href="#cb52-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-115"><a href="#cb52-115" aria-hidden="true" tabindex="-1"></a><span class="co"># more complicated reshapes</span></span>
-<span id="cb52-116"><a href="#cb52-116" aria-hidden="true" tabindex="-1"></a>Yt <span class="op">=</span> Xt.reshape(<span class="dv">3</span>,<span class="dv">2</span>)</span>
-<span id="cb52-117"><a href="#cb52-117" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt: </span><span class="sc">{</span>Xt<span class="sc">}</span><span class="ss">'</span>) </span>
-<span id="cb52-118"><a href="#cb52-118" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Yt: </span><span class="sc">{</span>Yt<span class="sc">}</span><span class="ss">'</span>) <span class="co"># </span></span>
-<span id="cb52-119"><a href="#cb52-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-104"><a href="#cb52-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-105"><a href="#cb52-105" aria-hidden="true" tabindex="-1"></a><span class="fu">### Reshaping</span></span>
+<span id="cb52-106"><a href="#cb52-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-109"><a href="#cb52-109" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-110"><a href="#cb52-110" aria-hidden="true" tabindex="-1"></a>Xt <span class="op">=</span> torch.tensor([[<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>], [<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>]] )</span>
+<span id="cb52-111"><a href="#cb52-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-112"><a href="#cb52-112" aria-hidden="true" tabindex="-1"></a><span class="co"># a special reshape = flatten</span></span>
+<span id="cb52-113"><a href="#cb52-113" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt.reshape(6): </span><span class="sc">{</span>Xt<span class="sc">.</span>reshape(<span class="dv">6</span>)<span class="sc">}</span><span class="ss">'</span>) </span>
+<span id="cb52-114"><a href="#cb52-114" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt.flatten: </span><span class="sc">{</span>Xt<span class="sc">.</span>flatten(start_dim<span class="op">=</span><span class="dv">0</span>)<span class="sc">}</span><span class="ss">'</span>) </span>
+<span id="cb52-115"><a href="#cb52-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-116"><a href="#cb52-116" aria-hidden="true" tabindex="-1"></a><span class="co"># more complicated reshapes</span></span>
+<span id="cb52-117"><a href="#cb52-117" aria-hidden="true" tabindex="-1"></a>Yt <span class="op">=</span> Xt.reshape(<span class="dv">3</span>,<span class="dv">2</span>)</span>
+<span id="cb52-118"><a href="#cb52-118" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt: </span><span class="sc">{</span>Xt<span class="sc">}</span><span class="ss">'</span>) </span>
+<span id="cb52-119"><a href="#cb52-119" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Yt: </span><span class="sc">{</span>Yt<span class="sc">}</span><span class="ss">'</span>) <span class="co"># </span></span>
 <span id="cb52-120"><a href="#cb52-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-121"><a href="#cb52-121" aria-hidden="true" tabindex="-1"></a><span class="co"># Warning: reshape() may not create a copy of Xt</span></span>
-<span id="cb52-122"><a href="#cb52-122" aria-hidden="true" tabindex="-1"></a><span class="co"># Yt shares the same storage with Xt !!</span></span>
-<span id="cb52-123"><a href="#cb52-123" aria-hidden="true" tabindex="-1"></a>Yt[<span class="dv">0</span>,<span class="dv">0</span>] <span class="op">=</span> <span class="dv">42</span></span>
-<span id="cb52-124"><a href="#cb52-124" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Yt: </span><span class="sc">{</span>Yt<span class="sc">}</span><span class="ss">'</span>) <span class="co">#</span></span>
-<span id="cb52-125"><a href="#cb52-125" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt: </span><span class="sc">{</span>Xt<span class="sc">}</span><span class="ss">'</span>) <span class="co"># </span></span>
-<span id="cb52-126"><a href="#cb52-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-127"><a href="#cb52-127" aria-hidden="true" tabindex="-1"></a><span class="co"># to copy explicitly use clone()</span></span>
-<span id="cb52-128"><a href="#cb52-128" aria-hidden="true" tabindex="-1"></a><span class="co">#Yt = Xt.clone().reshape(3, 2)</span></span>
-<span id="cb52-129"><a href="#cb52-129" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-130"><a href="#cb52-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-131"><a href="#cb52-131" aria-hidden="true" tabindex="-1"></a><span class="fu">### Permuting</span></span>
-<span id="cb52-134"><a href="#cb52-134" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-135"><a href="#cb52-135" aria-hidden="true" tabindex="-1"></a>Xt <span class="op">=</span> torch.arange(<span class="dv">6</span>).reshape(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>) <span class="co"># 3D tensor with first direction 1-D</span></span>
-<span id="cb52-136"><a href="#cb52-136" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt: </span><span class="sc">{</span>Xt<span class="sc">}</span><span class="ss">'</span>)  </span>
-<span id="cb52-137"><a href="#cb52-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-138"><a href="#cb52-138" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt: </span><span class="sc">{</span>Xt<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>) <span class="co"># </span></span>
-<span id="cb52-139"><a href="#cb52-139" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt.squeeze: </span><span class="sc">{</span>Xt<span class="sc">.</span>squeeze()<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>) <span class="co"># squeezing</span></span>
-<span id="cb52-140"><a href="#cb52-140" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt.permute: </span><span class="sc">{</span>Xt<span class="sc">.</span>permute(<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>)<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>) <span class="co"># permuting</span></span>
-<span id="cb52-141"><a href="#cb52-141" aria-hidden="true" tabindex="-1"></a><span class="co">#print(f'Xt.permute: {Xt.permute(2,0,1)}')</span></span>
-<span id="cb52-142"><a href="#cb52-142" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-143"><a href="#cb52-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-121"><a href="#cb52-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-122"><a href="#cb52-122" aria-hidden="true" tabindex="-1"></a><span class="co"># Warning: reshape() may not create a copy of Xt</span></span>
+<span id="cb52-123"><a href="#cb52-123" aria-hidden="true" tabindex="-1"></a><span class="co"># Yt shares the same storage with Xt !!</span></span>
+<span id="cb52-124"><a href="#cb52-124" aria-hidden="true" tabindex="-1"></a>Yt[<span class="dv">0</span>,<span class="dv">0</span>] <span class="op">=</span> <span class="dv">42</span></span>
+<span id="cb52-125"><a href="#cb52-125" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Yt: </span><span class="sc">{</span>Yt<span class="sc">}</span><span class="ss">'</span>) <span class="co">#</span></span>
+<span id="cb52-126"><a href="#cb52-126" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt: </span><span class="sc">{</span>Xt<span class="sc">}</span><span class="ss">'</span>) <span class="co"># </span></span>
+<span id="cb52-127"><a href="#cb52-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-128"><a href="#cb52-128" aria-hidden="true" tabindex="-1"></a><span class="co"># to copy explicitly use clone()</span></span>
+<span id="cb52-129"><a href="#cb52-129" aria-hidden="true" tabindex="-1"></a><span class="co">#Yt = Xt.clone().reshape(3, 2)</span></span>
+<span id="cb52-130"><a href="#cb52-130" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-131"><a href="#cb52-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-132"><a href="#cb52-132" aria-hidden="true" tabindex="-1"></a><span class="fu">### Permuting</span></span>
+<span id="cb52-135"><a href="#cb52-135" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-136"><a href="#cb52-136" aria-hidden="true" tabindex="-1"></a>Xt <span class="op">=</span> torch.arange(<span class="dv">6</span>).reshape(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>) <span class="co"># 3D tensor with first direction 1-D</span></span>
+<span id="cb52-137"><a href="#cb52-137" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt: </span><span class="sc">{</span>Xt<span class="sc">}</span><span class="ss">'</span>)  </span>
+<span id="cb52-138"><a href="#cb52-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-139"><a href="#cb52-139" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt: </span><span class="sc">{</span>Xt<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>) <span class="co"># </span></span>
+<span id="cb52-140"><a href="#cb52-140" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt.squeeze: </span><span class="sc">{</span>Xt<span class="sc">.</span>squeeze()<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>) <span class="co"># squeezing</span></span>
+<span id="cb52-141"><a href="#cb52-141" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Xt.permute: </span><span class="sc">{</span>Xt<span class="sc">.</span>permute(<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>)<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>) <span class="co"># permuting</span></span>
+<span id="cb52-142"><a href="#cb52-142" aria-hidden="true" tabindex="-1"></a><span class="co">#print(f'Xt.permute: {Xt.permute(2,0,1)}')</span></span>
+<span id="cb52-143"><a href="#cb52-143" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb52-144"><a href="#cb52-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-145"><a href="#cb52-145" aria-hidden="true" tabindex="-1"></a><span class="fu">### Combining</span></span>
-<span id="cb52-146"><a href="#cb52-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-149"><a href="#cb52-149" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-150"><a href="#cb52-150" aria-hidden="true" tabindex="-1"></a>Xt <span class="op">=</span> torch.tensor([[<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>], [<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>]] )</span>
-<span id="cb52-151"><a href="#cb52-151" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'element_wise add </span><span class="sc">{</span>Xt <span class="op">+</span> Xt<span class="sc">}</span><span class="ss">'</span>) </span>
-<span id="cb52-152"><a href="#cb52-152" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'element_wise mult </span><span class="sc">{</span>Xt <span class="op">*</span> Xt<span class="sc">}</span><span class="ss">'</span>) </span>
-<span id="cb52-153"><a href="#cb52-153" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'matrix multiply </span><span class="sc">{</span>Xt<span class="sc">.</span>T <span class="op">@</span> Xt<span class="sc">}</span><span class="ss">'</span>) </span>
-<span id="cb52-154"><a href="#cb52-154" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-155"><a href="#cb52-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-156"><a href="#cb52-156" aria-hidden="true" tabindex="-1"></a><span class="fu">## Devices</span></span>
-<span id="cb52-157"><a href="#cb52-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-158"><a href="#cb52-158" aria-hidden="true" tabindex="-1"></a>PyTorch objects are associated with a <span class="in">`device`</span>.</span>
-<span id="cb52-159"><a href="#cb52-159" aria-hidden="true" tabindex="-1"></a>If possible use GPU for speed. </span>
-<span id="cb52-160"><a href="#cb52-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-161"><a href="#cb52-161" aria-hidden="true" tabindex="-1"></a>@GoogleColab or Kaggle: You may have to change the Runtime/Accelerator</span>
-<span id="cb52-162"><a href="#cb52-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-165"><a href="#cb52-165" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-166"><a href="#cb52-166" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: device</span></span>
-<span id="cb52-167"><a href="#cb52-167" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> detect_device():</span>
-<span id="cb52-168"><a href="#cb52-168" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> torch</span>
-<span id="cb52-169"><a href="#cb52-169" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> torch.backends.mps.is_available():</span>
-<span id="cb52-170"><a href="#cb52-170" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Mac</span></span>
-<span id="cb52-171"><a href="#cb52-171" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"mps"</span></span>
-<span id="cb52-172"><a href="#cb52-172" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> torch.cuda.is_available():</span>
-<span id="cb52-173"><a href="#cb52-173" aria-hidden="true" tabindex="-1"></a>        <span class="co"># NVIDIA</span></span>
-<span id="cb52-174"><a href="#cb52-174" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"cuda"</span></span>
-<span id="cb52-175"><a href="#cb52-175" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb52-176"><a href="#cb52-176" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"cpu"</span></span>
-<span id="cb52-177"><a href="#cb52-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-178"><a href="#cb52-178" aria-hidden="true" tabindex="-1"></a>device <span class="op">=</span> detect_device()</span>
-<span id="cb52-179"><a href="#cb52-179" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'device: '</span>, device)</span>
-<span id="cb52-180"><a href="#cb52-180" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-181"><a href="#cb52-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-184"><a href="#cb52-184" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-185"><a href="#cb52-185" aria-hidden="true" tabindex="-1"></a><span class="co"># Initalize on device</span></span>
-<span id="cb52-186"><a href="#cb52-186" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.tensor(</span>
-<span id="cb52-187"><a href="#cb52-187" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">3.0</span>, <span class="fl">6.0</span>, <span class="fl">9.0</span>],</span>
-<span id="cb52-188"><a href="#cb52-188" aria-hidden="true" tabindex="-1"></a>    dtype<span class="op">=</span>torch.float32,</span>
-<span id="cb52-189"><a href="#cb52-189" aria-hidden="true" tabindex="-1"></a>    device<span class="op">=</span>device)</span>
-<span id="cb52-190"><a href="#cb52-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-191"><a href="#cb52-191" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span>
-<span id="cb52-192"><a href="#cb52-192" aria-hidden="true" tabindex="-1"></a><span class="co"># transfer to CPU</span></span>
-<span id="cb52-193"><a href="#cb52-193" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>x.cpu()</span>
-<span id="cb52-194"><a href="#cb52-194" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span>
-<span id="cb52-195"><a href="#cb52-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-196"><a href="#cb52-196" aria-hidden="true" tabindex="-1"></a><span class="co"># transfer to device</span></span>
-<span id="cb52-197"><a href="#cb52-197" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> x.to(device)</span>
-<span id="cb52-198"><a href="#cb52-198" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span>
-<span id="cb52-199"><a href="#cb52-199" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-200"><a href="#cb52-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-201"><a href="#cb52-201" aria-hidden="true" tabindex="-1"></a><span class="fu">## Parameters</span></span>
-<span id="cb52-202"><a href="#cb52-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-205"><a href="#cb52-205" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-206"><a href="#cb52-206" aria-hidden="true" tabindex="-1"></a>shape<span class="op">=</span>(<span class="dv">2</span>,<span class="dv">3</span>)</span>
-<span id="cb52-207"><a href="#cb52-207" aria-hidden="true" tabindex="-1"></a>W <span class="op">=</span> torch.rand(shape, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb52-208"><a href="#cb52-208" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(W.grad_fn)</span>
-<span id="cb52-209"><a href="#cb52-209" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-210"><a href="#cb52-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-211"><a href="#cb52-211" aria-hidden="true" tabindex="-1"></a><span class="fu">## Autograd</span></span>
-<span id="cb52-214"><a href="#cb52-214" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-215"><a href="#cb52-215" aria-hidden="true" tabindex="-1"></a><span class="co"># Lead nodes; define by used with</span></span>
-<span id="cb52-216"><a href="#cb52-216" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor(<span class="fl">2.0</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb52-217"><a href="#cb52-217" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> torch.tensor(<span class="fl">3.0</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb52-218"><a href="#cb52-218" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.tensor(<span class="fl">1.0</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb52-219"><a href="#cb52-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-220"><a href="#cb52-220" aria-hidden="true" tabindex="-1"></a><span class="co"># operations in computational graph: nodes z and L</span></span>
-<span id="cb52-221"><a href="#cb52-221" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> a <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>b</span>
-<span id="cb52-222"><a href="#cb52-222" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> x<span class="op">*</span>z  <span class="co"># L = x*(a+2b);  dL/dx = z; dL/dz = x</span></span>
-<span id="cb52-223"><a href="#cb52-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-224"><a href="#cb52-224" aria-hidden="true" tabindex="-1"></a><span class="co"># endows inner nodes (z and L) with gradient functions</span></span>
-<span id="cb52-225"><a href="#cb52-225" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'z_grad = </span><span class="sc">{</span>z<span class="sc">.</span>grad_fn<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb52-226"><a href="#cb52-226" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'L_grad = </span><span class="sc">{</span>L<span class="sc">.</span>grad_fn<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb52-227"><a href="#cb52-227" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-228"><a href="#cb52-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-231"><a href="#cb52-231" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-232"><a href="#cb52-232" aria-hidden="true" tabindex="-1"></a>a.grad <span class="op">=</span> b.grad <span class="op">=</span> x.grad <span class="op">=</span> <span class="va">None</span>  <span class="co"># clear old grads if any</span></span>
-<span id="cb52-233"><a href="#cb52-233" aria-hidden="true" tabindex="-1"></a>z.retain_grad() <span class="co"># per default pytorch keeps gradients only for leave nodes</span></span>
-<span id="cb52-234"><a href="#cb52-234" aria-hidden="true" tabindex="-1"></a>L.backward() <span class="co"># fill gradients with respect to L</span></span>
-<span id="cb52-235"><a href="#cb52-235" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-236"><a href="#cb52-236" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'x.grad:'</span>, x.grad) <span class="co"># dL/dx = z  = a + b = 5</span></span>
-<span id="cb52-237"><a href="#cb52-237" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'a.grad:'</span>, a.grad) <span class="co"># dL/da = (dL/dz) (dz/da) = x * 1</span></span>
-<span id="cb52-238"><a href="#cb52-238" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'b.grad:'</span>, b.grad) <span class="co"># dL/db = (dL/dz) (dz/db) = x * 1</span></span>
-<span id="cb52-239"><a href="#cb52-239" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'z.grad:'</span>, z.grad) <span class="co"># dL/dz = x</span></span>
-<span id="cb52-240"><a href="#cb52-240" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-241"><a href="#cb52-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-145"><a href="#cb52-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-146"><a href="#cb52-146" aria-hidden="true" tabindex="-1"></a><span class="fu">### Combining</span></span>
+<span id="cb52-147"><a href="#cb52-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-150"><a href="#cb52-150" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-151"><a href="#cb52-151" aria-hidden="true" tabindex="-1"></a>Xt <span class="op">=</span> torch.tensor([[<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>], [<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>]] )</span>
+<span id="cb52-152"><a href="#cb52-152" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'element_wise add </span><span class="sc">{</span>Xt <span class="op">+</span> Xt<span class="sc">}</span><span class="ss">'</span>) </span>
+<span id="cb52-153"><a href="#cb52-153" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'element_wise mult </span><span class="sc">{</span>Xt <span class="op">*</span> Xt<span class="sc">}</span><span class="ss">'</span>) </span>
+<span id="cb52-154"><a href="#cb52-154" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'matrix multiply </span><span class="sc">{</span>Xt<span class="sc">.</span>T <span class="op">@</span> Xt<span class="sc">}</span><span class="ss">'</span>) </span>
+<span id="cb52-155"><a href="#cb52-155" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-156"><a href="#cb52-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-157"><a href="#cb52-157" aria-hidden="true" tabindex="-1"></a><span class="fu">## Devices</span></span>
+<span id="cb52-158"><a href="#cb52-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-159"><a href="#cb52-159" aria-hidden="true" tabindex="-1"></a>PyTorch objects are associated with a <span class="in">`device`</span>.</span>
+<span id="cb52-160"><a href="#cb52-160" aria-hidden="true" tabindex="-1"></a>If possible use GPU for speed. </span>
+<span id="cb52-161"><a href="#cb52-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-162"><a href="#cb52-162" aria-hidden="true" tabindex="-1"></a>@GoogleColab or Kaggle: You may have to change the Runtime/Accelerator</span>
+<span id="cb52-163"><a href="#cb52-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-166"><a href="#cb52-166" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-167"><a href="#cb52-167" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: device</span></span>
+<span id="cb52-168"><a href="#cb52-168" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> detect_device():</span>
+<span id="cb52-169"><a href="#cb52-169" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> torch</span>
+<span id="cb52-170"><a href="#cb52-170" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> torch.backends.mps.is_available():</span>
+<span id="cb52-171"><a href="#cb52-171" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Mac</span></span>
+<span id="cb52-172"><a href="#cb52-172" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"mps"</span></span>
+<span id="cb52-173"><a href="#cb52-173" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> torch.cuda.is_available():</span>
+<span id="cb52-174"><a href="#cb52-174" aria-hidden="true" tabindex="-1"></a>        <span class="co"># NVIDIA</span></span>
+<span id="cb52-175"><a href="#cb52-175" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"cuda"</span></span>
+<span id="cb52-176"><a href="#cb52-176" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb52-177"><a href="#cb52-177" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"cpu"</span></span>
+<span id="cb52-178"><a href="#cb52-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-179"><a href="#cb52-179" aria-hidden="true" tabindex="-1"></a>device <span class="op">=</span> detect_device()</span>
+<span id="cb52-180"><a href="#cb52-180" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'device: '</span>, device)</span>
+<span id="cb52-181"><a href="#cb52-181" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-182"><a href="#cb52-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-185"><a href="#cb52-185" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-186"><a href="#cb52-186" aria-hidden="true" tabindex="-1"></a><span class="co"># Initalize on device</span></span>
+<span id="cb52-187"><a href="#cb52-187" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.tensor(</span>
+<span id="cb52-188"><a href="#cb52-188" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">3.0</span>, <span class="fl">6.0</span>, <span class="fl">9.0</span>],</span>
+<span id="cb52-189"><a href="#cb52-189" aria-hidden="true" tabindex="-1"></a>    dtype<span class="op">=</span>torch.float32,</span>
+<span id="cb52-190"><a href="#cb52-190" aria-hidden="true" tabindex="-1"></a>    device<span class="op">=</span>device)</span>
+<span id="cb52-191"><a href="#cb52-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-192"><a href="#cb52-192" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span>
+<span id="cb52-193"><a href="#cb52-193" aria-hidden="true" tabindex="-1"></a><span class="co"># transfer to CPU</span></span>
+<span id="cb52-194"><a href="#cb52-194" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>x.cpu()</span>
+<span id="cb52-195"><a href="#cb52-195" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span>
+<span id="cb52-196"><a href="#cb52-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-197"><a href="#cb52-197" aria-hidden="true" tabindex="-1"></a><span class="co"># transfer to device</span></span>
+<span id="cb52-198"><a href="#cb52-198" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> x.to(device)</span>
+<span id="cb52-199"><a href="#cb52-199" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span>
+<span id="cb52-200"><a href="#cb52-200" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-201"><a href="#cb52-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-202"><a href="#cb52-202" aria-hidden="true" tabindex="-1"></a><span class="fu">## Parameters</span></span>
+<span id="cb52-203"><a href="#cb52-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-206"><a href="#cb52-206" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-207"><a href="#cb52-207" aria-hidden="true" tabindex="-1"></a>shape<span class="op">=</span>(<span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb52-208"><a href="#cb52-208" aria-hidden="true" tabindex="-1"></a>W <span class="op">=</span> torch.rand(shape, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb52-209"><a href="#cb52-209" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(W.grad_fn)</span>
+<span id="cb52-210"><a href="#cb52-210" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-211"><a href="#cb52-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-212"><a href="#cb52-212" aria-hidden="true" tabindex="-1"></a><span class="fu">## Autograd</span></span>
+<span id="cb52-215"><a href="#cb52-215" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-216"><a href="#cb52-216" aria-hidden="true" tabindex="-1"></a><span class="co"># Lead nodes; define by used with</span></span>
+<span id="cb52-217"><a href="#cb52-217" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor(<span class="fl">2.0</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb52-218"><a href="#cb52-218" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> torch.tensor(<span class="fl">3.0</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb52-219"><a href="#cb52-219" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.tensor(<span class="fl">1.0</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb52-220"><a href="#cb52-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-221"><a href="#cb52-221" aria-hidden="true" tabindex="-1"></a><span class="co"># operations in computational graph: nodes z and L</span></span>
+<span id="cb52-222"><a href="#cb52-222" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> a <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>b</span>
+<span id="cb52-223"><a href="#cb52-223" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> x<span class="op">*</span>z  <span class="co"># L = x*(a+2b);  dL/dx = z; dL/dz = x</span></span>
+<span id="cb52-224"><a href="#cb52-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-225"><a href="#cb52-225" aria-hidden="true" tabindex="-1"></a><span class="co"># endows inner nodes (z and L) with gradient functions</span></span>
+<span id="cb52-226"><a href="#cb52-226" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'z_grad = </span><span class="sc">{</span>z<span class="sc">.</span>grad_fn<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb52-227"><a href="#cb52-227" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'L_grad = </span><span class="sc">{</span>L<span class="sc">.</span>grad_fn<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb52-228"><a href="#cb52-228" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-229"><a href="#cb52-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-232"><a href="#cb52-232" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-233"><a href="#cb52-233" aria-hidden="true" tabindex="-1"></a>a.grad <span class="op">=</span> b.grad <span class="op">=</span> x.grad <span class="op">=</span> <span class="va">None</span>  <span class="co"># clear old grads if any</span></span>
+<span id="cb52-234"><a href="#cb52-234" aria-hidden="true" tabindex="-1"></a>z.retain_grad() <span class="co"># per default pytorch keeps gradients only for leave nodes</span></span>
+<span id="cb52-235"><a href="#cb52-235" aria-hidden="true" tabindex="-1"></a>L.backward() <span class="co"># fill gradients with respect to L</span></span>
+<span id="cb52-236"><a href="#cb52-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-237"><a href="#cb52-237" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'x.grad:'</span>, x.grad) <span class="co"># dL/dx = z  = a + b = 5</span></span>
+<span id="cb52-238"><a href="#cb52-238" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'a.grad:'</span>, a.grad) <span class="co"># dL/da = (dL/dz) (dz/da) = x * 1</span></span>
+<span id="cb52-239"><a href="#cb52-239" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'b.grad:'</span>, b.grad) <span class="co"># dL/db = (dL/dz) (dz/db) = x * 1</span></span>
+<span id="cb52-240"><a href="#cb52-240" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'z.grad:'</span>, z.grad) <span class="co"># dL/dz = x</span></span>
+<span id="cb52-241"><a href="#cb52-241" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb52-242"><a href="#cb52-242" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-243"><a href="#cb52-243" aria-hidden="true" tabindex="-1"></a><span class="fu">## Legoblocks: torch.nn module</span></span>
-<span id="cb52-244"><a href="#cb52-244" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-245"><a href="#cb52-245" aria-hidden="true" tabindex="-1"></a><span class="fu">### Simple Functions</span></span>
-<span id="cb52-248"><a href="#cb52-248" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-249"><a href="#cb52-249" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> torch.tensor([<span class="op">-</span><span class="fl">2.0</span>, <span class="fl">0.0</span>, <span class="fl">0.5</span>, <span class="fl">1.0</span>])</span>
-<span id="cb52-250"><a href="#cb52-250" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'X           '</span>, X)</span>
-<span id="cb52-251"><a href="#cb52-251" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'sigmoid(X): '</span>, torch.nn.functional.sigmoid(X)) <span class="co"># sigmoid function</span></span>
-<span id="cb52-252"><a href="#cb52-252" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'softmax(X): '</span>, torch.nn.functional.softmax(X, dim<span class="op">=</span><span class="dv">0</span>))   <span class="co"># X --&gt; p, \sum X = 1</span></span>
-<span id="cb52-253"><a href="#cb52-253" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'relu(X):    '</span>, torch.nn.functional.relu(X))    <span class="co"># ReLU: max(0, X)</span></span>
-<span id="cb52-254"><a href="#cb52-254" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-255"><a href="#cb52-255" aria-hidden="true" tabindex="-1"></a><span class="co"># similar with classes</span></span>
-<span id="cb52-256"><a href="#cb52-256" aria-hidden="true" tabindex="-1"></a>relu <span class="op">=</span> torch.nn.ReLU() <span class="co"># create instance of relu class </span></span>
-<span id="cb52-257"><a href="#cb52-257" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'relu(X):    '</span>, relu(X))</span>
-<span id="cb52-258"><a href="#cb52-258" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-259"><a href="#cb52-259" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-260"><a href="#cb52-260" aria-hidden="true" tabindex="-1"></a><span class="fu">### Linear Layers</span></span>
-<span id="cb52-263"><a href="#cb52-263" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-264"><a href="#cb52-264" aria-hidden="true" tabindex="-1"></a>D_in <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb52-265"><a href="#cb52-265" aria-hidden="true" tabindex="-1"></a>D_out <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb52-266"><a href="#cb52-266" aria-hidden="true" tabindex="-1"></a><span class="co"># create D_out x D_in matrix of parameters (randomly initialized)</span></span>
-<span id="cb52-267"><a href="#cb52-267" aria-hidden="true" tabindex="-1"></a>linear_layer <span class="op">=</span> torch.nn.Linear(D_in, D_out)</span>
-<span id="cb52-268"><a href="#cb52-268" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'weight.shape: '</span>, linear_layer.weight.shape)</span>
-<span id="cb52-269"><a href="#cb52-269" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'weight matrix:'</span>, linear_layer.weight)</span>
-<span id="cb52-270"><a href="#cb52-270" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-271"><a href="#cb52-271" aria-hidden="true" tabindex="-1"></a><span class="co"># fake data</span></span>
-<span id="cb52-272"><a href="#cb52-272" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> torch.arange(<span class="dv">6</span>, dtype<span class="op">=</span>torch.float32).reshape((<span class="op">-</span><span class="dv">1</span>,D_in))</span>
-<span id="cb52-273"><a href="#cb52-273" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'X.shape: '</span>, X.shape)</span>
-<span id="cb52-274"><a href="#cb52-274" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-275"><a href="#cb52-275" aria-hidden="true" tabindex="-1"></a><span class="co"># linear transform: y_hat = f(X) = X @ W.T + bias</span></span>
-<span id="cb52-276"><a href="#cb52-276" aria-hidden="true" tabindex="-1"></a>y_hat <span class="op">=</span> linear_layer(X)</span>
-<span id="cb52-277"><a href="#cb52-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-278"><a href="#cb52-278" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'After linear transformation = matrix multiplication'</span>)</span>
-<span id="cb52-279"><a href="#cb52-279" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'y_hat.shape: '</span>, y_hat.shape)</span>
-<span id="cb52-280"><a href="#cb52-280" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-281"><a href="#cb52-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-243"><a href="#cb52-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-244"><a href="#cb52-244" aria-hidden="true" tabindex="-1"></a><span class="fu">## Legoblocks: torch.nn module</span></span>
+<span id="cb52-245"><a href="#cb52-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-246"><a href="#cb52-246" aria-hidden="true" tabindex="-1"></a><span class="fu">### Simple Functions</span></span>
+<span id="cb52-249"><a href="#cb52-249" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-250"><a href="#cb52-250" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> torch.tensor([<span class="op">-</span><span class="fl">2.0</span>, <span class="fl">0.0</span>, <span class="fl">0.5</span>, <span class="fl">1.0</span>])</span>
+<span id="cb52-251"><a href="#cb52-251" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'X           '</span>, X)</span>
+<span id="cb52-252"><a href="#cb52-252" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'sigmoid(X): '</span>, torch.nn.functional.sigmoid(X)) <span class="co"># sigmoid function</span></span>
+<span id="cb52-253"><a href="#cb52-253" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'softmax(X): '</span>, torch.nn.functional.softmax(X, dim<span class="op">=</span><span class="dv">0</span>))   <span class="co"># X --&gt; p, \sum X = 1</span></span>
+<span id="cb52-254"><a href="#cb52-254" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'relu(X):    '</span>, torch.nn.functional.relu(X))    <span class="co"># ReLU: max(0, X)</span></span>
+<span id="cb52-255"><a href="#cb52-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-256"><a href="#cb52-256" aria-hidden="true" tabindex="-1"></a><span class="co"># similar with classes</span></span>
+<span id="cb52-257"><a href="#cb52-257" aria-hidden="true" tabindex="-1"></a>relu <span class="op">=</span> torch.nn.ReLU() <span class="co"># create instance of relu class </span></span>
+<span id="cb52-258"><a href="#cb52-258" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'relu(X):    '</span>, relu(X))</span>
+<span id="cb52-259"><a href="#cb52-259" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-260"><a href="#cb52-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-261"><a href="#cb52-261" aria-hidden="true" tabindex="-1"></a><span class="fu">### Linear Layers</span></span>
+<span id="cb52-264"><a href="#cb52-264" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-265"><a href="#cb52-265" aria-hidden="true" tabindex="-1"></a>D_in <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb52-266"><a href="#cb52-266" aria-hidden="true" tabindex="-1"></a>D_out <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb52-267"><a href="#cb52-267" aria-hidden="true" tabindex="-1"></a><span class="co"># create D_out x D_in matrix of parameters (randomly initialized)</span></span>
+<span id="cb52-268"><a href="#cb52-268" aria-hidden="true" tabindex="-1"></a>linear_layer <span class="op">=</span> torch.nn.Linear(D_in, D_out)</span>
+<span id="cb52-269"><a href="#cb52-269" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'weight.shape: '</span>, linear_layer.weight.shape)</span>
+<span id="cb52-270"><a href="#cb52-270" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'weight matrix:'</span>, linear_layer.weight)</span>
+<span id="cb52-271"><a href="#cb52-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-272"><a href="#cb52-272" aria-hidden="true" tabindex="-1"></a><span class="co"># fake data</span></span>
+<span id="cb52-273"><a href="#cb52-273" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> torch.arange(<span class="dv">6</span>, dtype<span class="op">=</span>torch.float32).reshape((<span class="op">-</span><span class="dv">1</span>,D_in))</span>
+<span id="cb52-274"><a href="#cb52-274" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'X.shape: '</span>, X.shape)</span>
+<span id="cb52-275"><a href="#cb52-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-276"><a href="#cb52-276" aria-hidden="true" tabindex="-1"></a><span class="co"># linear transform: y_hat = f(X) = X @ W.T + bias</span></span>
+<span id="cb52-277"><a href="#cb52-277" aria-hidden="true" tabindex="-1"></a>y_hat <span class="op">=</span> linear_layer(X)</span>
+<span id="cb52-278"><a href="#cb52-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-279"><a href="#cb52-279" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'After linear transformation = matrix multiplication'</span>)</span>
+<span id="cb52-280"><a href="#cb52-280" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'y_hat.shape: '</span>, y_hat.shape)</span>
+<span id="cb52-281"><a href="#cb52-281" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb52-282"><a href="#cb52-282" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-283"><a href="#cb52-283" aria-hidden="true" tabindex="-1"></a><span class="fu">### Embeddings</span></span>
-<span id="cb52-284"><a href="#cb52-284" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-287"><a href="#cb52-287" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-288"><a href="#cb52-288" aria-hidden="true" tabindex="-1"></a>nw <span class="op">=</span> <span class="dv">10</span> <span class="co"># number of words</span></span>
-<span id="cb52-289"><a href="#cb52-289" aria-hidden="true" tabindex="-1"></a>k  <span class="op">=</span> <span class="dv">3</span>  <span class="co"># embedding dimension</span></span>
-<span id="cb52-290"><a href="#cb52-290" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-291"><a href="#cb52-291" aria-hidden="true" tabindex="-1"></a>embedding_layer <span class="op">=</span> torch.nn.Embedding(nw, k)</span>
-<span id="cb52-292"><a href="#cb52-292" aria-hidden="true" tabindex="-1"></a>words_ids <span class="op">=</span> torch.tensor([<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">9</span>]) <span class="co"># integer representation</span></span>
-<span id="cb52-293"><a href="#cb52-293" aria-hidden="true" tabindex="-1"></a>words_vec <span class="op">=</span> embedding_layer(words_ids)    <span class="co"># better representation ?</span></span>
-<span id="cb52-294"><a href="#cb52-294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-295"><a href="#cb52-295" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'word vectors: '</span>, words_vec)</span>
-<span id="cb52-296"><a href="#cb52-296" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-297"><a href="#cb52-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-283"><a href="#cb52-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-284"><a href="#cb52-284" aria-hidden="true" tabindex="-1"></a><span class="fu">### Embeddings</span></span>
+<span id="cb52-285"><a href="#cb52-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-288"><a href="#cb52-288" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-289"><a href="#cb52-289" aria-hidden="true" tabindex="-1"></a>nw <span class="op">=</span> <span class="dv">10</span> <span class="co"># number of words</span></span>
+<span id="cb52-290"><a href="#cb52-290" aria-hidden="true" tabindex="-1"></a>k  <span class="op">=</span> <span class="dv">3</span>  <span class="co"># embedding dimension</span></span>
+<span id="cb52-291"><a href="#cb52-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-292"><a href="#cb52-292" aria-hidden="true" tabindex="-1"></a>embedding_layer <span class="op">=</span> torch.nn.Embedding(nw, k)</span>
+<span id="cb52-293"><a href="#cb52-293" aria-hidden="true" tabindex="-1"></a>words_ids <span class="op">=</span> torch.tensor([<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">9</span>]) <span class="co"># integer representation</span></span>
+<span id="cb52-294"><a href="#cb52-294" aria-hidden="true" tabindex="-1"></a>words_vec <span class="op">=</span> embedding_layer(words_ids)    <span class="co"># better representation ?</span></span>
+<span id="cb52-295"><a href="#cb52-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-296"><a href="#cb52-296" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'word vectors: '</span>, words_vec)</span>
+<span id="cb52-297"><a href="#cb52-297" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb52-298"><a href="#cb52-298" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-299"><a href="#cb52-299" aria-hidden="true" tabindex="-1"></a><span class="fu">### Dropout Layer</span></span>
-<span id="cb52-300"><a href="#cb52-300" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-303"><a href="#cb52-303" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-304"><a href="#cb52-304" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> torch.ones(<span class="dv">1</span>,<span class="dv">8</span>)</span>
-<span id="cb52-305"><a href="#cb52-305" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-306"><a href="#cb52-306" aria-hidden="true" tabindex="-1"></a>dropout_layer <span class="op">=</span> torch.nn.Dropout(p<span class="op">=</span><span class="fl">0.3</span>) <span class="co"># set 30% to 0</span></span>
-<span id="cb52-307"><a href="#cb52-307" aria-hidden="true" tabindex="-1"></a>dropout_layer.train() <span class="co"># only use during training for robustness</span></span>
-<span id="cb52-308"><a href="#cb52-308" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-309"><a href="#cb52-309" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X)</span>
-<span id="cb52-310"><a href="#cb52-310" aria-hidden="true" tabindex="-1"></a><span class="co"># illustrate random drops and scaling</span></span>
-<span id="cb52-311"><a href="#cb52-311" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">6</span>):</span>
-<span id="cb52-312"><a href="#cb52-312" aria-hidden="true" tabindex="-1"></a>    X_drop <span class="op">=</span> dropout_layer(X)</span>
-<span id="cb52-313"><a href="#cb52-313" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(X_drop)</span>
-<span id="cb52-314"><a href="#cb52-314" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-315"><a href="#cb52-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-299"><a href="#cb52-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-300"><a href="#cb52-300" aria-hidden="true" tabindex="-1"></a><span class="fu">### Dropout Layer</span></span>
+<span id="cb52-301"><a href="#cb52-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-304"><a href="#cb52-304" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-305"><a href="#cb52-305" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> torch.ones(<span class="dv">1</span>,<span class="dv">8</span>)</span>
+<span id="cb52-306"><a href="#cb52-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-307"><a href="#cb52-307" aria-hidden="true" tabindex="-1"></a>dropout_layer <span class="op">=</span> torch.nn.Dropout(p<span class="op">=</span><span class="fl">0.3</span>) <span class="co"># set 30% to 0</span></span>
+<span id="cb52-308"><a href="#cb52-308" aria-hidden="true" tabindex="-1"></a>dropout_layer.train() <span class="co"># only use during training for robustness</span></span>
+<span id="cb52-309"><a href="#cb52-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-310"><a href="#cb52-310" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X)</span>
+<span id="cb52-311"><a href="#cb52-311" aria-hidden="true" tabindex="-1"></a><span class="co"># illustrate random drops and scaling</span></span>
+<span id="cb52-312"><a href="#cb52-312" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">6</span>):</span>
+<span id="cb52-313"><a href="#cb52-313" aria-hidden="true" tabindex="-1"></a>    X_drop <span class="op">=</span> dropout_layer(X)</span>
+<span id="cb52-314"><a href="#cb52-314" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(X_drop)</span>
+<span id="cb52-315"><a href="#cb52-315" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb52-316"><a href="#cb52-316" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-317"><a href="#cb52-317" aria-hidden="true" tabindex="-1"></a><span class="fu">### Building Larger Models</span></span>
-<span id="cb52-318"><a href="#cb52-318" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-319"><a href="#cb52-319" aria-hidden="true" tabindex="-1"></a>We can define our own models from building blocks.</span>
-<span id="cb52-320"><a href="#cb52-320" aria-hidden="true" tabindex="-1"></a>Ultimately this will help to abstract from individual layers, their </span>
-<span id="cb52-321"><a href="#cb52-321" aria-hidden="true" tabindex="-1"></a>initialization, normalization, dropouts etc.</span>
-<span id="cb52-322"><a href="#cb52-322" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-325"><a href="#cb52-325" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-326"><a href="#cb52-326" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
-<span id="cb52-327"><a href="#cb52-327" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-328"><a href="#cb52-328" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MyModel(nn.Module):</span>
-<span id="cb52-329"><a href="#cb52-329" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, n_in, n_out):</span>
-<span id="cb52-330"><a href="#cb52-330" aria-hidden="true" tabindex="-1"></a>        <span class="co"># inherit stuff from nn.Module</span></span>
-<span id="cb52-331"><a href="#cb52-331" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
-<span id="cb52-332"><a href="#cb52-332" aria-hidden="true" tabindex="-1"></a>        <span class="co"># define layers: just some random examples</span></span>
-<span id="cb52-333"><a href="#cb52-333" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.linear <span class="op">=</span> nn.Linear(n_in, n_out)</span>
-<span id="cb52-334"><a href="#cb52-334" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.norm <span class="op">=</span> nn.Dropout(p<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb52-335"><a href="#cb52-335" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-336"><a href="#cb52-336" aria-hidden="true" tabindex="-1"></a>    <span class="co"># conncect layers defined above</span></span>
-<span id="cb52-337"><a href="#cb52-337" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
-<span id="cb52-338"><a href="#cb52-338" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.linear(x)</span>
-<span id="cb52-339"><a href="#cb52-339" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.norm(x)</span>
-<span id="cb52-340"><a href="#cb52-340" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> nn.functional.sigmoid(x)</span>
-<span id="cb52-341"><a href="#cb52-341" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x</span>
-<span id="cb52-342"><a href="#cb52-342" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-343"><a href="#cb52-343" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> MyModel(<span class="dv">10</span>, <span class="dv">1</span>)</span>
-<span id="cb52-344"><a href="#cb52-344" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model)</span>
-<span id="cb52-345"><a href="#cb52-345" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-346"><a href="#cb52-346" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-347"><a href="#cb52-347" aria-hidden="true" tabindex="-1"></a><span class="fu">## Optimizer and Loss Function</span></span>
-<span id="cb52-350"><a href="#cb52-350" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-351"><a href="#cb52-351" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.optim <span class="im">as</span> optim</span>
-<span id="cb52-352"><a href="#cb52-352" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-353"><a href="#cb52-353" aria-hidden="true" tabindex="-1"></a>learning_rate <span class="op">=</span> <span class="fl">0.01</span> <span class="co"># hyperparameter</span></span>
-<span id="cb52-354"><a href="#cb52-354" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-355"><a href="#cb52-355" aria-hidden="true" tabindex="-1"></a>optimizer <span class="op">=</span> optim.Adam(model.parameters(), lr <span class="op">=</span> learning_rate)</span>
-<span id="cb52-356"><a href="#cb52-356" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-357"><a href="#cb52-357" aria-hidden="true" tabindex="-1"></a>loss_function <span class="op">=</span> nn.MSELoss()</span>
-<span id="cb52-358"><a href="#cb52-358" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-359"><a href="#cb52-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-317"><a href="#cb52-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-318"><a href="#cb52-318" aria-hidden="true" tabindex="-1"></a><span class="fu">### Building Larger Models</span></span>
+<span id="cb52-319"><a href="#cb52-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-320"><a href="#cb52-320" aria-hidden="true" tabindex="-1"></a>We can define our own models from building blocks.</span>
+<span id="cb52-321"><a href="#cb52-321" aria-hidden="true" tabindex="-1"></a>Ultimately this will help to abstract from individual layers, their </span>
+<span id="cb52-322"><a href="#cb52-322" aria-hidden="true" tabindex="-1"></a>initialization, normalization, dropouts etc.</span>
+<span id="cb52-323"><a href="#cb52-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-326"><a href="#cb52-326" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-327"><a href="#cb52-327" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
+<span id="cb52-328"><a href="#cb52-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-329"><a href="#cb52-329" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MyModel(nn.Module):</span>
+<span id="cb52-330"><a href="#cb52-330" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, n_in, n_out):</span>
+<span id="cb52-331"><a href="#cb52-331" aria-hidden="true" tabindex="-1"></a>        <span class="co"># inherit stuff from nn.Module</span></span>
+<span id="cb52-332"><a href="#cb52-332" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb52-333"><a href="#cb52-333" aria-hidden="true" tabindex="-1"></a>        <span class="co"># define layers: just some random examples</span></span>
+<span id="cb52-334"><a href="#cb52-334" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.linear <span class="op">=</span> nn.Linear(n_in, n_out)</span>
+<span id="cb52-335"><a href="#cb52-335" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.norm <span class="op">=</span> nn.Dropout(p<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb52-336"><a href="#cb52-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-337"><a href="#cb52-337" aria-hidden="true" tabindex="-1"></a>    <span class="co"># conncect layers defined above</span></span>
+<span id="cb52-338"><a href="#cb52-338" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb52-339"><a href="#cb52-339" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.linear(x)</span>
+<span id="cb52-340"><a href="#cb52-340" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.norm(x)</span>
+<span id="cb52-341"><a href="#cb52-341" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> nn.functional.sigmoid(x)</span>
+<span id="cb52-342"><a href="#cb52-342" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x</span>
+<span id="cb52-343"><a href="#cb52-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-344"><a href="#cb52-344" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> MyModel(<span class="dv">10</span>, <span class="dv">1</span>)</span>
+<span id="cb52-345"><a href="#cb52-345" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model)</span>
+<span id="cb52-346"><a href="#cb52-346" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-347"><a href="#cb52-347" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-348"><a href="#cb52-348" aria-hidden="true" tabindex="-1"></a><span class="fu">## Optimizer and Loss Function</span></span>
+<span id="cb52-351"><a href="#cb52-351" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-352"><a href="#cb52-352" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.optim <span class="im">as</span> optim</span>
+<span id="cb52-353"><a href="#cb52-353" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-354"><a href="#cb52-354" aria-hidden="true" tabindex="-1"></a>learning_rate <span class="op">=</span> <span class="fl">0.01</span> <span class="co"># hyperparameter</span></span>
+<span id="cb52-355"><a href="#cb52-355" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-356"><a href="#cb52-356" aria-hidden="true" tabindex="-1"></a>optimizer <span class="op">=</span> optim.Adam(model.parameters(), lr <span class="op">=</span> learning_rate)</span>
+<span id="cb52-357"><a href="#cb52-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-358"><a href="#cb52-358" aria-hidden="true" tabindex="-1"></a>loss_function <span class="op">=</span> nn.MSELoss()</span>
+<span id="cb52-359"><a href="#cb52-359" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb52-360"><a href="#cb52-360" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-361"><a href="#cb52-361" aria-hidden="true" tabindex="-1"></a><span class="fu">## model.train() vs. model.eval()</span></span>
-<span id="cb52-362"><a href="#cb52-362" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-363"><a href="#cb52-363" aria-hidden="true" tabindex="-1"></a>two different modes for training and evaluation</span>
-<span id="cb52-364"><a href="#cb52-364" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-365"><a href="#cb52-365" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Feature               <span class="pp">|</span> <span class="in">`model.train()`</span> (Training Mode)           <span class="pp">|</span> <span class="in">`model.eval()`</span> (Evaluation Mode)         <span class="pp">|</span></span>
-<span id="cb52-366"><a href="#cb52-366" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---------------------</span> <span class="pp">| -----------------------------------------</span> <span class="pp">| ----------------------------------------</span> <span class="pp">|</span></span>
-<span id="cb52-367"><a href="#cb52-367" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Dropout**           <span class="pp">|</span> Randomly disables neurons (adds noise) <span class="pp">|</span> All neurons active (no dropout)        <span class="pp">|</span></span>
-<span id="cb52-368"><a href="#cb52-368" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **BatchNorm**         <span class="pp">|</span> Uses current batch stats (mean/var)     <span class="pp">|</span> Uses running (saved) stats            <span class="pp">|</span></span>
-<span id="cb52-369"><a href="#cb52-369" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Gradient Tracking** <span class="pp">|</span> Yes                                     <span class="pp">|</span> Use <span class="in">`with torch.no_grad()`</span> to disable <span class="pp">|</span></span>
-<span id="cb52-370"><a href="#cb52-370" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **When to use**       <span class="pp">|</span> During training loop                    <span class="pp">|</span> During validation/testing/inference    <span class="pp">|</span></span>
-<span id="cb52-371"><a href="#cb52-371" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-372"><a href="#cb52-372" aria-hidden="true" tabindex="-1"></a>Typical use:</span>
-<span id="cb52-375"><a href="#cb52-375" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-376"><a href="#cb52-376" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: model_train_eval</span></span>
-<span id="cb52-377"><a href="#cb52-377" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-378"><a href="#cb52-378" aria-hidden="true" tabindex="-1"></a><span class="co"># train data</span></span>
-<span id="cb52-379"><a href="#cb52-379" aria-hidden="true" tabindex="-1"></a>n_samples, m_features <span class="op">=</span> <span class="dv">100</span>, <span class="dv">10</span></span>
-<span id="cb52-380"><a href="#cb52-380" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.rand((n_samples, m_features))</span>
-<span id="cb52-381"><a href="#cb52-381" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> torch.bernoulli(x[:,<span class="dv">0</span>], <span class="fl">0.5</span>).reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span>
-<span id="cb52-382"><a href="#cb52-382" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-383"><a href="#cb52-383" aria-hidden="true" tabindex="-1"></a><span class="co"># Training</span></span>
-<span id="cb52-384"><a href="#cb52-384" aria-hidden="true" tabindex="-1"></a>n_epochs <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb52-385"><a href="#cb52-385" aria-hidden="true" tabindex="-1"></a>model.train()</span>
-<span id="cb52-386"><a href="#cb52-386" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(n_epochs):</span>
-<span id="cb52-387"><a href="#cb52-387" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-388"><a href="#cb52-388" aria-hidden="true" tabindex="-1"></a>    output <span class="op">=</span> model(x)           <span class="co"># forward path x -&gt; output</span></span>
-<span id="cb52-389"><a href="#cb52-389" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-390"><a href="#cb52-390" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> loss_function(output, y) <span class="co"># loss calculation</span></span>
-<span id="cb52-391"><a href="#cb52-391" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-392"><a href="#cb52-392" aria-hidden="true" tabindex="-1"></a>    optimizer.zero_grad() <span class="co"># reset gradients (do not accumulate)</span></span>
-<span id="cb52-393"><a href="#cb52-393" aria-hidden="true" tabindex="-1"></a>    loss.backward()       <span class="co"># backward path L -&gt; x (gradient calc)</span></span>
-<span id="cb52-394"><a href="#cb52-394" aria-hidden="true" tabindex="-1"></a>    optimizer.step()      <span class="co"># update parm = parm - learning_rate * grad</span></span>
-<span id="cb52-395"><a href="#cb52-395" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-396"><a href="#cb52-396" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print loss</span></span>
-<span id="cb52-397"><a href="#cb52-397" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(epoch <span class="op">%</span> <span class="dv">20</span> <span class="op">==</span> <span class="dv">0</span>):</span>
-<span id="cb52-398"><a href="#cb52-398" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'epoch </span><span class="sc">{}</span><span class="st">, loss </span><span class="sc">{}</span><span class="st">'</span>.<span class="bu">format</span>(epoch, loss.data))</span>
-<span id="cb52-399"><a href="#cb52-399" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-400"><a href="#cb52-400" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluation (Validation or Test or Prediction)</span></span>
-<span id="cb52-401"><a href="#cb52-401" aria-hidden="true" tabindex="-1"></a>x_val <span class="op">=</span> torch.rand((n_samples, m_features))</span>
-<span id="cb52-402"><a href="#cb52-402" aria-hidden="true" tabindex="-1"></a>y_val <span class="op">=</span> torch.bernoulli(x_val[:,<span class="dv">0</span>], <span class="fl">0.5</span>).reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span>
-<span id="cb52-403"><a href="#cb52-403" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-404"><a href="#cb52-404" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">eval</span>()</span>
-<span id="cb52-405"><a href="#cb52-405" aria-hidden="true" tabindex="-1"></a><span class="co"># disable grad calculation for speed</span></span>
-<span id="cb52-406"><a href="#cb52-406" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> torch.no_grad():</span>
-<span id="cb52-407"><a href="#cb52-407" aria-hidden="true" tabindex="-1"></a>    val_output <span class="op">=</span> model(x_val)</span>
-<span id="cb52-408"><a href="#cb52-408" aria-hidden="true" tabindex="-1"></a>    val_loss <span class="op">=</span> loss_function(val_output, y_val)</span>
-<span id="cb52-409"><a href="#cb52-409" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-410"><a href="#cb52-410" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-411"><a href="#cb52-411" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-412"><a href="#cb52-412" aria-hidden="true" tabindex="-1"></a><span class="fu">## Saving models</span></span>
-<span id="cb52-413"><a href="#cb52-413" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-414"><a href="#cb52-414" aria-hidden="true" tabindex="-1"></a>You may want to save (and share) your final model.</span>
-<span id="cb52-415"><a href="#cb52-415" aria-hidden="true" tabindex="-1"></a>But for long-running jobs it may also be good to save</span>
-<span id="cb52-416"><a href="#cb52-416" aria-hidden="true" tabindex="-1"></a>occasional checkpoints during training</span>
-<span id="cb52-419"><a href="#cb52-419" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-420"><a href="#cb52-420" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: saving_models</span></span>
-<span id="cb52-421"><a href="#cb52-421" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb52-422"><a href="#cb52-422" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb52-423"><a href="#cb52-423" aria-hidden="true" tabindex="-1"></a>save_dir <span class="op">=</span> <span class="st">"checkpoints"</span></span>
-<span id="cb52-424"><a href="#cb52-424" aria-hidden="true" tabindex="-1"></a>os.makedirs(save_dir, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb52-425"><a href="#cb52-425" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-426"><a href="#cb52-426" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. only saves state_dict, need to know model class</span></span>
-<span id="cb52-427"><a href="#cb52-427" aria-hidden="true" tabindex="-1"></a>torch.save(model.state_dict(), os.path.join(save_dir, <span class="st">"model_dict.pt"</span>))</span>
-<span id="cb52-428"><a href="#cb52-428" aria-hidden="true" tabindex="-1"></a>model.load_state_dict(torch.load(<span class="st">"checkpoints/model_dict.pt"</span>))</span>
-<span id="cb52-429"><a href="#cb52-429" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-430"><a href="#cb52-430" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. save full model. Warning: may not port across pytorch versions!!! </span></span>
-<span id="cb52-431"><a href="#cb52-431" aria-hidden="true" tabindex="-1"></a>torch.save(model, os.path.join(save_dir, <span class="st">"model_full.pth"</span>))</span>
-<span id="cb52-432"><a href="#cb52-432" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> torch.load(<span class="st">"checkpoints/model_full.pth"</span>, weights_only<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb52-433"><a href="#cb52-433" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-434"><a href="#cb52-434" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-435"><a href="#cb52-435" aria-hidden="true" tabindex="-1"></a><span class="fu">## Saving histories</span></span>
-<span id="cb52-436"><a href="#cb52-436" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-439"><a href="#cb52-439" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-440"><a href="#cb52-440" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: saving_histories</span></span>
-<span id="cb52-441"><a href="#cb52-441" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb52-442"><a href="#cb52-442" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-443"><a href="#cb52-443" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. npz format (most general and robust)</span></span>
-<span id="cb52-444"><a href="#cb52-444" aria-hidden="true" tabindex="-1"></a>np.savez(os.path.join(save_dir, <span class="st">"loss_history.npz"</span>),</span>
-<span id="cb52-445"><a href="#cb52-445" aria-hidden="true" tabindex="-1"></a>         train<span class="op">=</span>train_losses, val<span class="op">=</span>val_losses)</span>
-<span id="cb52-446"><a href="#cb52-446" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-447"><a href="#cb52-447" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> np.load(<span class="st">"checkpoints/loss_history.npz"</span>)</span>
-<span id="cb52-448"><a href="#cb52-448" aria-hidden="true" tabindex="-1"></a>train_losses <span class="op">=</span> data[<span class="st">"train"</span>]</span>
-<span id="cb52-449"><a href="#cb52-449" aria-hidden="true" tabindex="-1"></a>val_losses <span class="op">=</span> data[<span class="st">"val"</span>]</span>
-<span id="cb52-450"><a href="#cb52-450" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-451"><a href="#cb52-451" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. pickle format (more flexible less portable)</span></span>
-<span id="cb52-452"><a href="#cb52-452" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(os.path.join(save_dir, <span class="st">"loss_history.pkl"</span>), <span class="st">"wb"</span>) <span class="im">as</span> f:</span>
-<span id="cb52-453"><a href="#cb52-453" aria-hidden="true" tabindex="-1"></a>    pickle.dump({<span class="st">"train"</span>: train_losses, <span class="st">"val"</span>: val_losses}, f)</span>
-<span id="cb52-454"><a href="#cb52-454" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-455"><a href="#cb52-455" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"checkpoints/loss_history.pkl"</span>, <span class="st">"rb"</span>) <span class="im">as</span> f:</span>
-<span id="cb52-456"><a href="#cb52-456" aria-hidden="true" tabindex="-1"></a>    losses <span class="op">=</span> pickle.load(f)</span>
-<span id="cb52-457"><a href="#cb52-457" aria-hidden="true" tabindex="-1"></a>train_losses <span class="op">=</span> losses[<span class="st">"train"</span>]</span>
-<span id="cb52-458"><a href="#cb52-458" aria-hidden="true" tabindex="-1"></a>val_losses <span class="op">=</span> losses[<span class="st">"val"</span>]</span>
-<span id="cb52-459"><a href="#cb52-459" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-361"><a href="#cb52-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-362"><a href="#cb52-362" aria-hidden="true" tabindex="-1"></a><span class="fu">## model.train() vs. model.eval()</span></span>
+<span id="cb52-363"><a href="#cb52-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-364"><a href="#cb52-364" aria-hidden="true" tabindex="-1"></a>two different modes for training and evaluation</span>
+<span id="cb52-365"><a href="#cb52-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-366"><a href="#cb52-366" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Feature               <span class="pp">|</span> <span class="in">`model.train()`</span> (Training Mode)           <span class="pp">|</span> <span class="in">`model.eval()`</span> (Evaluation Mode)         <span class="pp">|</span></span>
+<span id="cb52-367"><a href="#cb52-367" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---------------------</span> <span class="pp">| -----------------------------------------</span> <span class="pp">| ----------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb52-368"><a href="#cb52-368" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Dropout**           <span class="pp">|</span> Randomly disables neurons (adds noise) <span class="pp">|</span> All neurons active (no dropout)        <span class="pp">|</span></span>
+<span id="cb52-369"><a href="#cb52-369" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **BatchNorm**         <span class="pp">|</span> Uses current batch stats (mean/var)     <span class="pp">|</span> Uses running (saved) stats            <span class="pp">|</span></span>
+<span id="cb52-370"><a href="#cb52-370" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Gradient Tracking** <span class="pp">|</span> Yes                                     <span class="pp">|</span> Use <span class="in">`with torch.no_grad()`</span> to disable <span class="pp">|</span></span>
+<span id="cb52-371"><a href="#cb52-371" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **When to use**       <span class="pp">|</span> During training loop                    <span class="pp">|</span> During validation/testing/inference    <span class="pp">|</span></span>
+<span id="cb52-372"><a href="#cb52-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-373"><a href="#cb52-373" aria-hidden="true" tabindex="-1"></a>Typical use:</span>
+<span id="cb52-376"><a href="#cb52-376" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-377"><a href="#cb52-377" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: model_train_eval</span></span>
+<span id="cb52-378"><a href="#cb52-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-379"><a href="#cb52-379" aria-hidden="true" tabindex="-1"></a><span class="co"># train data</span></span>
+<span id="cb52-380"><a href="#cb52-380" aria-hidden="true" tabindex="-1"></a>n_samples, m_features <span class="op">=</span> <span class="dv">100</span>, <span class="dv">10</span></span>
+<span id="cb52-381"><a href="#cb52-381" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.rand((n_samples, m_features))</span>
+<span id="cb52-382"><a href="#cb52-382" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> torch.bernoulli(x[:,<span class="dv">0</span>], <span class="fl">0.5</span>).reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span>
+<span id="cb52-383"><a href="#cb52-383" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-384"><a href="#cb52-384" aria-hidden="true" tabindex="-1"></a><span class="co"># Training</span></span>
+<span id="cb52-385"><a href="#cb52-385" aria-hidden="true" tabindex="-1"></a>n_epochs <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb52-386"><a href="#cb52-386" aria-hidden="true" tabindex="-1"></a>model.train()</span>
+<span id="cb52-387"><a href="#cb52-387" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(n_epochs):</span>
+<span id="cb52-388"><a href="#cb52-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-389"><a href="#cb52-389" aria-hidden="true" tabindex="-1"></a>    output <span class="op">=</span> model(x)           <span class="co"># forward path x -&gt; output</span></span>
+<span id="cb52-390"><a href="#cb52-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-391"><a href="#cb52-391" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> loss_function(output, y) <span class="co"># loss calculation</span></span>
+<span id="cb52-392"><a href="#cb52-392" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-393"><a href="#cb52-393" aria-hidden="true" tabindex="-1"></a>    optimizer.zero_grad() <span class="co"># reset gradients (do not accumulate)</span></span>
+<span id="cb52-394"><a href="#cb52-394" aria-hidden="true" tabindex="-1"></a>    loss.backward()       <span class="co"># backward path L -&gt; x (gradient calc)</span></span>
+<span id="cb52-395"><a href="#cb52-395" aria-hidden="true" tabindex="-1"></a>    optimizer.step()      <span class="co"># update parm = parm - learning_rate * grad</span></span>
+<span id="cb52-396"><a href="#cb52-396" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-397"><a href="#cb52-397" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print loss</span></span>
+<span id="cb52-398"><a href="#cb52-398" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(epoch <span class="op">%</span> <span class="dv">20</span> <span class="op">==</span> <span class="dv">0</span>):</span>
+<span id="cb52-399"><a href="#cb52-399" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'epoch </span><span class="sc">{}</span><span class="st">, loss </span><span class="sc">{}</span><span class="st">'</span>.<span class="bu">format</span>(epoch, loss.data))</span>
+<span id="cb52-400"><a href="#cb52-400" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-401"><a href="#cb52-401" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluation (Validation or Test or Prediction)</span></span>
+<span id="cb52-402"><a href="#cb52-402" aria-hidden="true" tabindex="-1"></a>x_val <span class="op">=</span> torch.rand((n_samples, m_features))</span>
+<span id="cb52-403"><a href="#cb52-403" aria-hidden="true" tabindex="-1"></a>y_val <span class="op">=</span> torch.bernoulli(x_val[:,<span class="dv">0</span>], <span class="fl">0.5</span>).reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span>
+<span id="cb52-404"><a href="#cb52-404" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-405"><a href="#cb52-405" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">eval</span>()</span>
+<span id="cb52-406"><a href="#cb52-406" aria-hidden="true" tabindex="-1"></a><span class="co"># disable grad calculation for speed</span></span>
+<span id="cb52-407"><a href="#cb52-407" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> torch.no_grad():</span>
+<span id="cb52-408"><a href="#cb52-408" aria-hidden="true" tabindex="-1"></a>    val_output <span class="op">=</span> model(x_val)</span>
+<span id="cb52-409"><a href="#cb52-409" aria-hidden="true" tabindex="-1"></a>    val_loss <span class="op">=</span> loss_function(val_output, y_val)</span>
+<span id="cb52-410"><a href="#cb52-410" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-411"><a href="#cb52-411" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-412"><a href="#cb52-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-413"><a href="#cb52-413" aria-hidden="true" tabindex="-1"></a><span class="fu">## Saving models</span></span>
+<span id="cb52-414"><a href="#cb52-414" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-415"><a href="#cb52-415" aria-hidden="true" tabindex="-1"></a>You may want to save (and share) your final model.</span>
+<span id="cb52-416"><a href="#cb52-416" aria-hidden="true" tabindex="-1"></a>But for long-running jobs it may also be good to save</span>
+<span id="cb52-417"><a href="#cb52-417" aria-hidden="true" tabindex="-1"></a>occasional checkpoints during training</span>
+<span id="cb52-420"><a href="#cb52-420" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-421"><a href="#cb52-421" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: saving_models</span></span>
+<span id="cb52-422"><a href="#cb52-422" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb52-423"><a href="#cb52-423" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb52-424"><a href="#cb52-424" aria-hidden="true" tabindex="-1"></a>save_dir <span class="op">=</span> <span class="st">"checkpoints"</span></span>
+<span id="cb52-425"><a href="#cb52-425" aria-hidden="true" tabindex="-1"></a>os.makedirs(save_dir, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb52-426"><a href="#cb52-426" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-427"><a href="#cb52-427" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. only saves state_dict, need to know model class</span></span>
+<span id="cb52-428"><a href="#cb52-428" aria-hidden="true" tabindex="-1"></a>torch.save(model.state_dict(), os.path.join(save_dir, <span class="st">"model_dict.pt"</span>))</span>
+<span id="cb52-429"><a href="#cb52-429" aria-hidden="true" tabindex="-1"></a>model.load_state_dict(torch.load(<span class="st">"checkpoints/model_dict.pt"</span>))</span>
+<span id="cb52-430"><a href="#cb52-430" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-431"><a href="#cb52-431" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. save full model. Warning: may not port across pytorch versions!!! </span></span>
+<span id="cb52-432"><a href="#cb52-432" aria-hidden="true" tabindex="-1"></a>torch.save(model, os.path.join(save_dir, <span class="st">"model_full.pth"</span>))</span>
+<span id="cb52-433"><a href="#cb52-433" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> torch.load(<span class="st">"checkpoints/model_full.pth"</span>, weights_only<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb52-434"><a href="#cb52-434" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-435"><a href="#cb52-435" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-436"><a href="#cb52-436" aria-hidden="true" tabindex="-1"></a><span class="fu">## Saving histories</span></span>
+<span id="cb52-437"><a href="#cb52-437" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-440"><a href="#cb52-440" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-441"><a href="#cb52-441" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: saving_histories</span></span>
+<span id="cb52-442"><a href="#cb52-442" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb52-443"><a href="#cb52-443" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-444"><a href="#cb52-444" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. npz format (most general and robust)</span></span>
+<span id="cb52-445"><a href="#cb52-445" aria-hidden="true" tabindex="-1"></a>np.savez(os.path.join(save_dir, <span class="st">"loss_history.npz"</span>),</span>
+<span id="cb52-446"><a href="#cb52-446" aria-hidden="true" tabindex="-1"></a>         train<span class="op">=</span>train_losses, val<span class="op">=</span>val_losses)</span>
+<span id="cb52-447"><a href="#cb52-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-448"><a href="#cb52-448" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> np.load(<span class="st">"checkpoints/loss_history.npz"</span>)</span>
+<span id="cb52-449"><a href="#cb52-449" aria-hidden="true" tabindex="-1"></a>train_losses <span class="op">=</span> data[<span class="st">"train"</span>]</span>
+<span id="cb52-450"><a href="#cb52-450" aria-hidden="true" tabindex="-1"></a>val_losses <span class="op">=</span> data[<span class="st">"val"</span>]</span>
+<span id="cb52-451"><a href="#cb52-451" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-452"><a href="#cb52-452" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. pickle format (more flexible less portable)</span></span>
+<span id="cb52-453"><a href="#cb52-453" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(os.path.join(save_dir, <span class="st">"loss_history.pkl"</span>), <span class="st">"wb"</span>) <span class="im">as</span> f:</span>
+<span id="cb52-454"><a href="#cb52-454" aria-hidden="true" tabindex="-1"></a>    pickle.dump({<span class="st">"train"</span>: train_losses, <span class="st">"val"</span>: val_losses}, f)</span>
+<span id="cb52-455"><a href="#cb52-455" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-456"><a href="#cb52-456" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"checkpoints/loss_history.pkl"</span>, <span class="st">"rb"</span>) <span class="im">as</span> f:</span>
+<span id="cb52-457"><a href="#cb52-457" aria-hidden="true" tabindex="-1"></a>    losses <span class="op">=</span> pickle.load(f)</span>
+<span id="cb52-458"><a href="#cb52-458" aria-hidden="true" tabindex="-1"></a>train_losses <span class="op">=</span> losses[<span class="st">"train"</span>]</span>
+<span id="cb52-459"><a href="#cb52-459" aria-hidden="true" tabindex="-1"></a>val_losses <span class="op">=</span> losses[<span class="st">"val"</span>]</span>
 <span id="cb52-460"><a href="#cb52-460" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-461"><a href="#cb52-461" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-462"><a href="#cb52-462" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-463"><a href="#cb52-463" aria-hidden="true" tabindex="-1"></a><span class="fu">## Saving Everything</span></span>
-<span id="cb52-464"><a href="#cb52-464" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-467"><a href="#cb52-467" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-468"><a href="#cb52-468" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: saving_everything</span></span>
-<span id="cb52-469"><a href="#cb52-469" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb52-470"><a href="#cb52-470" aria-hidden="true" tabindex="-1"></a>torch.save({</span>
-<span id="cb52-471"><a href="#cb52-471" aria-hidden="true" tabindex="-1"></a>    <span class="st">'model_state'</span>: model.state_dict(),</span>
-<span id="cb52-472"><a href="#cb52-472" aria-hidden="true" tabindex="-1"></a>    <span class="st">'optimizer_state'</span>: optimizer.state_dict(),</span>
-<span id="cb52-473"><a href="#cb52-473" aria-hidden="true" tabindex="-1"></a>    <span class="st">'train_losses'</span>: train_losses,</span>
-<span id="cb52-474"><a href="#cb52-474" aria-hidden="true" tabindex="-1"></a>    <span class="st">'val_losses'</span>: val_losses,</span>
-<span id="cb52-475"><a href="#cb52-475" aria-hidden="true" tabindex="-1"></a>}, os.path.join(save_dir, <span class="st">"checkpoint_all.pt"</span>))</span>
-<span id="cb52-476"><a href="#cb52-476" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-477"><a href="#cb52-477" aria-hidden="true" tabindex="-1"></a>checkpoint <span class="op">=</span> torch.load(<span class="st">"checkpoints/checkpoint_all.pt"</span>)</span>
-<span id="cb52-478"><a href="#cb52-478" aria-hidden="true" tabindex="-1"></a>model.load_state_dict(checkpoint[<span class="st">'model_state'</span>])</span>
-<span id="cb52-479"><a href="#cb52-479" aria-hidden="true" tabindex="-1"></a>optimizer.load_state_dict(checkpoint[<span class="st">'optimizer_state'</span>])</span>
-<span id="cb52-480"><a href="#cb52-480" aria-hidden="true" tabindex="-1"></a>train_losses <span class="op">=</span> checkpoint[<span class="st">'train_losses'</span>]</span>
-<span id="cb52-481"><a href="#cb52-481" aria-hidden="true" tabindex="-1"></a>val_losses <span class="op">=</span> checkpoint[<span class="st">'val_losses'</span>]</span>
-<span id="cb52-482"><a href="#cb52-482" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-483"><a href="#cb52-483" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-484"><a href="#cb52-484" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-461"><a href="#cb52-461" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-462"><a href="#cb52-462" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-463"><a href="#cb52-463" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-464"><a href="#cb52-464" aria-hidden="true" tabindex="-1"></a><span class="fu">## Saving Everything</span></span>
+<span id="cb52-465"><a href="#cb52-465" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-468"><a href="#cb52-468" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-469"><a href="#cb52-469" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: saving_everything</span></span>
+<span id="cb52-470"><a href="#cb52-470" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb52-471"><a href="#cb52-471" aria-hidden="true" tabindex="-1"></a>torch.save({</span>
+<span id="cb52-472"><a href="#cb52-472" aria-hidden="true" tabindex="-1"></a>    <span class="st">'model_state'</span>: model.state_dict(),</span>
+<span id="cb52-473"><a href="#cb52-473" aria-hidden="true" tabindex="-1"></a>    <span class="st">'optimizer_state'</span>: optimizer.state_dict(),</span>
+<span id="cb52-474"><a href="#cb52-474" aria-hidden="true" tabindex="-1"></a>    <span class="st">'train_losses'</span>: train_losses,</span>
+<span id="cb52-475"><a href="#cb52-475" aria-hidden="true" tabindex="-1"></a>    <span class="st">'val_losses'</span>: val_losses,</span>
+<span id="cb52-476"><a href="#cb52-476" aria-hidden="true" tabindex="-1"></a>}, os.path.join(save_dir, <span class="st">"checkpoint_all.pt"</span>))</span>
+<span id="cb52-477"><a href="#cb52-477" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-478"><a href="#cb52-478" aria-hidden="true" tabindex="-1"></a>checkpoint <span class="op">=</span> torch.load(<span class="st">"checkpoints/checkpoint_all.pt"</span>)</span>
+<span id="cb52-479"><a href="#cb52-479" aria-hidden="true" tabindex="-1"></a>model.load_state_dict(checkpoint[<span class="st">'model_state'</span>])</span>
+<span id="cb52-480"><a href="#cb52-480" aria-hidden="true" tabindex="-1"></a>optimizer.load_state_dict(checkpoint[<span class="st">'optimizer_state'</span>])</span>
+<span id="cb52-481"><a href="#cb52-481" aria-hidden="true" tabindex="-1"></a>train_losses <span class="op">=</span> checkpoint[<span class="st">'train_losses'</span>]</span>
+<span id="cb52-482"><a href="#cb52-482" aria-hidden="true" tabindex="-1"></a>val_losses <span class="op">=</span> checkpoint[<span class="st">'val_losses'</span>]</span>
+<span id="cb52-483"><a href="#cb52-483" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-484"><a href="#cb52-484" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb52-485"><a href="#cb52-485" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-486"><a href="#cb52-486" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tensorboard</span></span>
-<span id="cb52-487"><a href="#cb52-487" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-488"><a href="#cb52-488" aria-hidden="true" tabindex="-1"></a>tensorboard is a popular tool to inspect neural networks</span>
-<span id="cb52-489"><a href="#cb52-489" aria-hidden="true" tabindex="-1"></a>and training progress</span>
-<span id="cb52-492"><a href="#cb52-492" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-493"><a href="#cb52-493" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tensorboard</span></span>
-<span id="cb52-494"><a href="#cb52-494" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb52-495"><a href="#cb52-495" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.utils.tensorboard <span class="im">import</span> SummaryWriter</span>
-<span id="cb52-496"><a href="#cb52-496" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-497"><a href="#cb52-497" aria-hidden="true" tabindex="-1"></a><span class="co"># default `log_dir` is "runs" - we'll be more specific here</span></span>
-<span id="cb52-498"><a href="#cb52-498" aria-hidden="true" tabindex="-1"></a>writer <span class="op">=</span> SummaryWriter(<span class="st">'log_dir/mnist_experiment'</span>)</span>
-<span id="cb52-499"><a href="#cb52-499" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-500"><a href="#cb52-500" aria-hidden="true" tabindex="-1"></a><span class="co"># typical uses</span></span>
-<span id="cb52-501"><a href="#cb52-501" aria-hidden="true" tabindex="-1"></a>writer.add_graph(model)</span>
-<span id="cb52-502"><a href="#cb52-502" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100</span>):</span>
-<span id="cb52-503"><a href="#cb52-503" aria-hidden="true" tabindex="-1"></a>    <span class="co"># training loop</span></span>
-<span id="cb52-504"><a href="#cb52-504" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...</span></span>
-<span id="cb52-505"><a href="#cb52-505" aria-hidden="true" tabindex="-1"></a>    <span class="co"># train_loss = loss_function(logits, y)</span></span>
-<span id="cb52-506"><a href="#cb52-506" aria-hidden="true" tabindex="-1"></a>    writer.add_scalar(<span class="st">"Loss"</span>, train_loss, epoch)</span>
-<span id="cb52-507"><a href="#cb52-507" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-508"><a href="#cb52-508" aria-hidden="true" tabindex="-1"></a>writer.close()</span>
-<span id="cb52-509"><a href="#cb52-509" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-510"><a href="#cb52-510" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-513"><a href="#cb52-513" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb52-514"><a href="#cb52-514" aria-hidden="true" tabindex="-1"></a><span class="co">#echo: false</span></span>
-<span id="cb52-515"><a href="#cb52-515" aria-hidden="true" tabindex="-1"></a><span class="co">#eval: false</span></span>
-<span id="cb52-516"><a href="#cb52-516" aria-hidden="true" tabindex="-1"></a><span class="co"># pytorch in 1 hours: https://www.youtube.com/watch?v=r1bquDz5GGA</span></span>
-<span id="cb52-517"><a href="#cb52-517" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-486"><a href="#cb52-486" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-487"><a href="#cb52-487" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tensorboard</span></span>
+<span id="cb52-488"><a href="#cb52-488" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-489"><a href="#cb52-489" aria-hidden="true" tabindex="-1"></a>tensorboard is a popular tool to inspect neural networks</span>
+<span id="cb52-490"><a href="#cb52-490" aria-hidden="true" tabindex="-1"></a>and training progress</span>
+<span id="cb52-493"><a href="#cb52-493" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-494"><a href="#cb52-494" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tensorboard</span></span>
+<span id="cb52-495"><a href="#cb52-495" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb52-496"><a href="#cb52-496" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.utils.tensorboard <span class="im">import</span> SummaryWriter</span>
+<span id="cb52-497"><a href="#cb52-497" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-498"><a href="#cb52-498" aria-hidden="true" tabindex="-1"></a><span class="co"># default `log_dir` is "runs" - we'll be more specific here</span></span>
+<span id="cb52-499"><a href="#cb52-499" aria-hidden="true" tabindex="-1"></a>writer <span class="op">=</span> SummaryWriter(<span class="st">'log_dir/mnist_experiment'</span>)</span>
+<span id="cb52-500"><a href="#cb52-500" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-501"><a href="#cb52-501" aria-hidden="true" tabindex="-1"></a><span class="co"># typical uses</span></span>
+<span id="cb52-502"><a href="#cb52-502" aria-hidden="true" tabindex="-1"></a>writer.add_graph(model)</span>
+<span id="cb52-503"><a href="#cb52-503" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100</span>):</span>
+<span id="cb52-504"><a href="#cb52-504" aria-hidden="true" tabindex="-1"></a>    <span class="co"># training loop</span></span>
+<span id="cb52-505"><a href="#cb52-505" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...</span></span>
+<span id="cb52-506"><a href="#cb52-506" aria-hidden="true" tabindex="-1"></a>    <span class="co"># train_loss = loss_function(logits, y)</span></span>
+<span id="cb52-507"><a href="#cb52-507" aria-hidden="true" tabindex="-1"></a>    writer.add_scalar(<span class="st">"Loss"</span>, train_loss, epoch)</span>
+<span id="cb52-508"><a href="#cb52-508" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-509"><a href="#cb52-509" aria-hidden="true" tabindex="-1"></a>writer.close()</span>
+<span id="cb52-510"><a href="#cb52-510" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-511"><a href="#cb52-511" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-514"><a href="#cb52-514" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb52-515"><a href="#cb52-515" aria-hidden="true" tabindex="-1"></a><span class="co">#echo: false</span></span>
+<span id="cb52-516"><a href="#cb52-516" aria-hidden="true" tabindex="-1"></a><span class="co">#eval: false</span></span>
+<span id="cb52-517"><a href="#cb52-517" aria-hidden="true" tabindex="-1"></a><span class="co"># pytorch in 1 hours: https://www.youtube.com/watch?v=r1bquDz5GGA</span></span>
+<span id="cb52-518"><a href="#cb52-518" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

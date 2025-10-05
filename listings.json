@@ -1,37 +1,5 @@
 [
   {
-    "listing": "/lectures/05_LargeLanguageModels/index.html",
-    "items": []
-  },
-  {
-    "listing": "/homework/index.html",
-    "items": [
-      "/homework/02_MNIST.html",
-      "/homework/04_Autoencoder.html",
-      "/homework/traditional_ml_to_generative.html"
-    ]
-  },
-  {
-    "listing": "/projects/index.html",
-    "items": []
-  },
-  {
-    "listing": "/lectures/01_MachineLearning/index.html",
-    "items": [
-      "/lectures/01_MachineLearning/01_Data.html"
-    ]
-  },
-  {
-    "listing": "/lectures/04_GenerativeModels/index.html",
-    "items": []
-  },
-  {
-    "listing": "/lectures/03_ConvolutionalNeuralNetworks/index.html",
-    "items": [
-      "/lectures/03_ConvolutionalNeuralNetworks/001_CNN.html"
-    ]
-  },
-  {
     "listing": "/lectures/02_NeuralNetworks/index.html",
     "items": [
       "/lectures/02_NeuralNetworks/00_Perceptron.html",
@@ -43,8 +11,42 @@
     ]
   },
   {
+    "listing": "/lectures/03_ConvolutionalNeuralNetworks/index.html",
+    "items": [
+      "/lectures/03_ConvolutionalNeuralNetworks/001_CNN.html"
+    ]
+  },
+  {
+    "listing": "/lectures/04_GenerativeModels/index.html",
+    "items": []
+  },
+  {
+    "listing": "/lectures/01_MachineLearning/index.html",
+    "items": [
+      "/lectures/01_MachineLearning/01_Data.html"
+    ]
+  },
+  {
+    "listing": "/projects/index.html",
+    "items": []
+  },
+  {
+    "listing": "/homework/index.html",
+    "items": [
+      "/homework/02_MNIST.html",
+      "/homework/04_Autoencoder.html",
+      "/homework/traditional_ml_to_generative.html"
+    ]
+  },
+  {
+    "listing": "/lectures/05_LargeLanguageModels/index.html",
+    "items": []
+  },
+  {
     "listing": "/help/index.html",
     "items": [
+      "/help/01_Frameworks.html",
+      "/help/03_BigData.html",
       "/help/03_Pytorch.html"
     ]
   }

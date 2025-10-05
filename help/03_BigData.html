@@ -7,9 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Thomas Manke">
-<meta name="dcterms.date" content="2025-09-05">
+<meta name="dcterms.date" content="2025-10-05">
+<meta name="description" content="Famous image sets and other Big Data">
 
-<title>01 Machine Learning – Neural Networks and Deep Learning</title>
+<title>Big Data – Neural Networks and Deep Learning</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -60,29 +61,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-listing/list.min.js"></script>
-<script src="../../site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-d329e753491efaeac79c98c4b193a686.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-ced0475e70959dfb81820bb49685eb32.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-79cdac72355b6842798e3400025574c4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-ced0475e70959dfb81820bb49685eb32.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-d329e753491efaeac79c98c4b193a686.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ced0475e70959dfb81820bb49685eb32.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-79cdac72355b6842798e3400025574c4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-ced0475e70959dfb81820bb49685eb32.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -110,65 +109,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-01_machine_learning .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-01_machine_learning'] = new List('listing-01_machine_learning', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -337,11 +278,11 @@ window.Quarto = {
   </script>
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Neural Networks and Deep Learning</span>
     </a>
   </div>
@@ -359,37 +300,37 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-lectures">    
         <li>
-    <a class="dropdown-item" href="../../lectures/01_MachineLearning/index.html">
+    <a class="dropdown-item" href="../lectures/01_MachineLearning/index.html">
  <span class="dropdown-text">01 Machine Learning</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../lectures/02_NeuralNetworks/index.html">
+    <a class="dropdown-item" href="../lectures/02_NeuralNetworks/index.html">
  <span class="dropdown-text">02 Neural Networks</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../lectures/03_ConvolutionalNeuralNetworks/index.html">
+    <a class="dropdown-item" href="../lectures/03_ConvolutionalNeuralNetworks/index.html">
  <span class="dropdown-text">03 Convolutional Neural Networks</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../lectures/04_GenerativeModels/index.html">
+    <a class="dropdown-item" href="../lectures/04_GenerativeModels/index.html">
  <span class="dropdown-text">04 Generative Models</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="../../projects/index.html"> <i class="bi bi-bricks" role="img">
+    <a class="nav-link" href="../projects/index.html"> <i class="bi bi-bricks" role="img">
 </i> 
 <span class="menu-text">Projects</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../help/index.html"> <i class="bi bi-question-circle" role="img">
+    <a class="nav-link" href="../help/index.html"> <i class="bi bi-question-circle" role="img">
 </i> 
 <span class="menu-text">Help</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../general/Chalkboard.html"> <i class="bi bi-clipboard-fill" role="img">
+    <a class="nav-link" href="../general/Chalkboard.html"> <i class="bi bi-clipboard-fill" role="img">
 </i> 
 <span class="menu-text">Chalkboard</span></a>
   </li>  
@@ -407,121 +348,173 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <div class="quarto-title-block"><div><h1 class="title">01 Machine Learning</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
-                      </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta column-page-left">
-
-      <div>
-      <div class="quarto-title-meta-heading">Author</div>
-      <div class="quarto-title-meta-contents">
-               <p>Thomas Manke </p>
-            </div>
-    </div>
-      
-      <div>
-      <div class="quarto-title-meta-heading">Published</div>
-      <div class="quarto-title-meta-contents">
-        <p class="date">September 5, 2025</p>
-      </div>
-    </div>
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGF0YSUyMEFuYWx5c2lzJTIwV29ya2Zsb3c=">Data Analysis Workflow <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGF0YSUyMENoYWxsZW5nZXM=">Data Challenges <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGF0YSUyMEZvcm1hdHM=">Data Formats <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGF0YSUyMFR5cGVz">Data Types <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TWV0YWRhdGE=">Metadata <span class="quarto-category-count">(1)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#famous-image-datasets" id="toc-famous-image-datasets" class="nav-link active" data-scroll-target="#famous-image-datasets">Famous Image Datasets</a></li>
+  <li><a href="#data-resources" id="toc-data-resources" class="nav-link" data-scroll-target="#data-resources">Data Resources</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content column-page-left" id="quarto-document-content">
 
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Big Data</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+  <div class="quarto-categories">
+    <div class="quarto-category">big data</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Famous image sets and other Big Data
+  </div>
+</div>
 
 
+<div class="quarto-title-meta column-page-left">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Thomas Manke </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 5, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
 
 
+</header>
 
+
+<section id="famous-image-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="famous-image-datasets">Famous Image Datasets</h2>
+<p>… and common starters for deep learning.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Dataset</th>
+<th>Year</th>
+<th># Samples</th>
+<th>Features per sample</th>
+<th>Approx. Size</th>
+<th>Authors / Creators</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://en.wikipedia.org/wiki/MNIST_database"><strong>MNIST</strong></a></td>
+<td>~1998‑1999 (released)</td>
+<td>60 000 train + 10 000 test = 70 000 images</td>
+<td>28×28 gray‑scale pixels (784 features)</td>
+<td>~50 MB</td>
+<td>Yann LeCun, C. Cortes, C. Burges (via NIST)</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><a href="https://en.wikipedia.org/wiki/CIFAR-10"><strong>CIFAR‑10</strong></a></td>
+<td>2009</td>
+<td>50 000 train + 10 000 test = 60 000 images</td>
+<td>32×32 color images (3×32×32 = 3 072 features)</td>
+<td>~170 MB</td>
+<td>Alex Krizhevsky, Vinod Nair, Geoffrey Hinton</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><a href="https://en.wikipedia.org/wiki/ImageNet"><strong>ImageNet‑1K</strong></a></td>
+<td>2009</td>
+<td>1 281 167 train + 50 000 validation + 100 000 test = ~1.43 M images</td>
+<td>High‑res RGB images (often resized to 256×256)</td>
+<td>~150 GB</td>
+<td>Jia Deng, Li Fei‑Fei, et al.&nbsp;(ImageNet team)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="data-resources" class="level2">
+<h2 class="anchored" data-anchor-id="data-resources">Data Resources</h2>
+<p>Some popular links - personal bias and far from complete</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><strong>Repository / Platform</strong></th>
+<th><strong>Categories Covered</strong></th>
+<th><strong># of Datasets (approx.)</strong></th>
+<th><strong>Total Size (approx.)</strong></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://huggingface.co/datasets"><strong>Hugging Face Datasets</strong></a></td>
+<td>NLP, vision, audio, multimodal</td>
+<td>Thousands</td>
+<td>Tens of TB</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><a href="https://registry.opendata.aws"><strong>Registry of Open Data on AWS</strong></a></td>
+<td>Genomics, earth science, satellite, healthcare</td>
+<td>Many hundreds</td>
+<td>Hundreds of TB</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/awesomedata/awesome-public-datasets"><strong>Awesome Public Datasets (GitHub)</strong></a></td>
+<td>Curated lists across topics—including genomics, medical, climate</td>
+<td>Hundreds (topics)</td>
+<td>Variable</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><a href="https://ega-archive.org"><strong>European Genome‑phenome Archive (EGA)</strong></a></td>
+<td>Human genomics &amp; phenotypic clinical data</td>
+<td>~4,500 studies from 1,000+ institutions</td>
+<td>Tens to hundreds of PB</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><a href="https://www.cancerimagingarchive.net"><strong>The Cancer Imaging Archive (TCIA)</strong></a></td>
+<td>Medical imaging (cancer CT, MRI, PET)</td>
+<td>Hundreds of collections; millions of images</td>
+<td>Tens/hundreds of TB</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><a href="https://medmnist.com"><strong>MedMNIST v2</strong></a></td>
+<td>Biomedical images (2D/3D small‑scale)</td>
+<td>~718K images across 18 tasks</td>
+<td>Tens of GB</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 
 
 <!-- -->
 
+</section>
 
-<div class="quarto-listing quarto-listing-container-grid" id="listing-01_machine_learning">
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-    <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-    <select id="listing-01_machine_learning-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-01_machine_learning'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-      <option value="" disabled="" selected="" hidden="">Order By</option>
-      <option value="index" data-direction="asc">Default</option>
-      <option value="listing-title" data-direction="asc">
-        Title
-      </option>
-      <option value="listing-date-sort" data-direction="asc">
-        Date - Oldest
-      </option>
-      <option value="listing-date-sort" data-direction="desc">
-        Date - Newest
-      </option>
-      <option value="listing-author" data-direction="asc">
-        Author
-      </option>
-    </select>
-  </div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
-    </div>
-</div>
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="RGF0YSUyMEZvcm1hdHMlMkNEYXRhJTIwVHlwZXMlMkNEYXRhJTIwQW5hbHlzaXMlMjBXb3JrZmxvdyUyQ0RhdGElMjBDaGFsbGVuZ2VzJTJDTWV0YWRhdGE=" data-listing-date-sort="1759669969000" data-listing-file-modified-sort="1759669969525" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1716">
-<a href="../../lectures/01_MachineLearning/01_Data.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="../../lectures/01_MachineLearning/images/data_from_files.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Data Stories
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMEZvcm1hdHM='); return false;">Data Formats</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFR5cGVz'); return false;">Data Types</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMEFuYWx5c2lzJTIwV29ya2Zsb3c='); return false;">Data Analysis Workflow</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMENoYWxsZW5nZXM='); return false;">Data Challenges</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('TWV0YWRhdGE='); return false;">Metadata</div>
-
-</div>
-<div class="card-text listing-description delink">
-<p>Data is everywhere and in all shapes</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Thomas Manke
-</div>
-<div class="listing-date">
-Oct 5, 2025
-</div>
-</div>
-</div>
-</div></a>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -986,19 +979,39 @@ Oct 5, 2025
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "01 Machine Learning"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">listing:</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">  - id: 01_machine_learning</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">    contents: "*.qmd"</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">    type: grid</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">    sort: "name asc"</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">    categories: true</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">    sort-ui: true</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">    filter-ui: true</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#page-layout: full</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="an">title-block-banner:</span><span class="co"> true</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#toc: true</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Big Data"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> Famous image sets and other Big Data</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">draft:</span><span class="co"> false</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">    - big data</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/BigData_2267x1146_white.png/960px-BigData_2267x1146_white.png</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## Famous Image Datasets</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>... and common starters for deep learning.</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Dataset                  <span class="pp">|</span> Year                   <span class="pp">|</span> # Samples                                                            <span class="pp">|</span> Features per sample                                                <span class="pp">|</span> Approx. Size                                                                               <span class="pp">|</span> Authors / Creators                                                                                                                                  <span class="pp">|</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="pp">| ------------------------</span> <span class="pp">| ----------------------</span> <span class="pp">| --------------------------------------------------------------------</span> <span class="pp">| ------------------------------------------------------------------</span> <span class="pp">| ------------------------------------------------------------------------------------------</span> <span class="pp">| ------------------------------------------------------------------------------------------------------------------------------</span> <span class="pp">| -------------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">**MNIST**</span><span class="co">](https://en.wikipedia.org/wiki/MNIST_database)</span>               <span class="pp">|</span> \~1998‑1999 (released) <span class="pp">|</span> 60 000 train + 10 000 test = 70 000 images                           <span class="pp">|</span> 28×28 gray‑scale pixels (784 features)                             <span class="pp">|</span> \~50 MB                         <span class="pp">|</span> Yann LeCun, C. Cortes, C. Burges (via NIST)                                                     <span class="pp">|</span> </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">**CIFAR‑10**</span><span class="co">](https://en.wikipedia.org/wiki/CIFAR-10)</span>             <span class="pp">|</span> 2009                   <span class="pp">|</span> 50 000 train + 10 000 test = 60 000 images                           <span class="pp">|</span> 32×32 color images (3×32×32 = 3 072 features)                      <span class="pp">|</span> \~170 MB                                <span class="pp">|</span> Alex Krizhevsky, Vinod Nair, Geoffrey Hinton                           <span class="pp">|</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">**ImageNet‑1K**</span><span class="co">](https://en.wikipedia.org/wiki/ImageNet)</span> <span class="pp">|</span> 2009                   <span class="pp">|</span> 1 281 167 train + 50 000 validation + 100 000 test = \~1.43 M images <span class="pp">|</span> High‑res RGB images (often resized to 256×256)                     <span class="pp">|</span> \~150 GB  <span class="pp">|</span> Jia Deng, Li Fei‑Fei, et al. (ImageNet team)                                            <span class="pp">|</span> </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Resources</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>Some popular links - personal bias and far from complete</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Repository / Platform**         |                                             **Categories Covered**                                           | **# of Datasets (approx.)**                                  | **Total Size (approx.)**                                                                                                                       <span class="pp">|</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="pp">| ----------------------------------------------</span> <span class="pp">| ----------------------------------------------------------------------------------------------------------</span> <span class="pp">| ----------------------------------------------------------------</span> <span class="pp">| ------------------------------------------------------------</span> <span class="pp">| ----------------------------------------------------------------------------------------------------------------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">**Hugging Face Datasets**</span><span class="co">](https://huggingface.co/datasets)</span>                                <span class="pp">|</span> NLP, vision, audio, multimodal                                   <span class="pp">|</span> Thousands                                                    <span class="pp">|</span> Tens of TB                                                                                                                                     <span class="pp">|</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">**Registry of Open Data on AWS**</span><span class="co">](https://registry.opendata.aws)</span>                               <span class="pp">|</span> Genomics, earth science, satellite, healthcare                   <span class="pp">|</span> Many hundreds                                                <span class="pp">|</span> Hundreds of TB <span class="pp">|</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">**Awesome Public Datasets (GitHub)**</span><span class="co">](https://github.com/awesomedata/awesome-public-datasets)</span>            <span class="pp">|</span> Curated lists across topics—including genomics, medical, climate <span class="pp">|</span> Hundreds (topics)                                            <span class="pp">|</span> Variable                                                                                       <span class="pp">|</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">**European Genome‑phenome Archive (EGA)**</span><span class="co">](https://ega-archive.org)</span>      <span class="pp">|</span>            Human genomics &amp; phenotypic clinical data                        <span class="pp">|</span> \~4,500 studies from 1,000+ institutions     <span class="pp">|</span> Tens to hundreds of PB                                                                                                 <span class="pp">|</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">**The Cancer Imaging Archive (TCIA)**</span><span class="co">](https://www.cancerimagingarchive.net)</span>          <span class="pp">|</span>         Medical imaging (cancer CT, MRI, PET)                            <span class="pp">|</span> Hundreds of collections; millions of images <span class="pp">|</span> Tens/hundreds of TB                                                                                                                            <span class="pp">|</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">**MedMNIST v2**</span><span class="co">](https://medmnist.com)</span>              <span class="pp">|</span> Biomedical images (2D/3D small‑scale)                            <span class="pp">|</span> \~718K images across 18 tasks                  <span class="pp">|</span> Tens of GB                                                                                                                                     <span class="pp">|</span></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
@@ -1009,7 +1022,7 @@ Oct 5, 2025
     <div class="nav-footer-center">
       <ul class="footer-items list-unstyled">
     <li class="nav-item">
-    <a class="nav-link" href="../../general/about.html">
+    <a class="nav-link" href="../general/about.html">
 <p>About</p>
 </a>
   </li>  
