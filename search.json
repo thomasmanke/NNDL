@@ -263,7 +263,7 @@
     "href": "lectures/01_MachineLearning/index.html",
     "title": "01 Machine Learning",
     "section": "",
-    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nData Stories\n\n\n\nData Formats\n\nData Types\n\nData Analysis Workflow\n\nData Challenges\n\nMetadata\n\n\n\nData is everywhere and in all shapes\n\n\n\nThomas Manke\n\n\nOct 5, 2025\n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nData Stories\n\n\n\nData Formats\n\nData Types\n\nData Analysis Workflow\n\nData Challenges\n\nMetadata\n\n\n\nData is everywhere and in all shapes\n\n\n\nThomas Manke\n\n\nOct 12, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhat is Machine Learning ?\n\n\n\nsklearn\n\npytorch\n\nmachine learning\n\nloss function\n\nepochs\n\ntraining loop\n\n\n\nCan machines learn?\n\n\n\nThomas Manke\n\n\nOct 15, 2025\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "lectures/01_MachineLearning/01_Data.html",
@@ -322,18 +322,151 @@
     "text": "Data Science Challenges\n\nLanguages and Jargon\nDomain Expertise\nDirty Data\nFAIR data\nStatistics & Maths\nFAIR data\n(Programming)\n\n\n\n\n“Many safe roads at land; countless doomed routes at sea.”"
   },
   {
-    "objectID": "homework/04_Autoencoder.html",
-    "href": "homework/04_Autoencoder.html",
-    "title": "01 Autoencoder",
+    "objectID": "homework/02_MNIST.html",
+    "href": "homework/02_MNIST.html",
+    "title": "01 Homework",
     "section": "",
-    "text": "Data Download: Obtain both train and test data for the MNIST data set of handwritten digits from torchvision.datasets\nData Massage: For numerical efficiency use pytorch dataloaders and split the dataset into train, test and validation. Check data values and if normalization is required.\nModel Definition: Define a simple autoencoder (model1) with 4 layers to reduce dimensions: 728 -&gt; 128 -&gt; 64 -&gt; 16 -&gt; 3 count dimensions and parameters\nGoal and Strategy: Define a loss function and a suitable optimizer\nModel Training: Train the model and track the following parameters for each epochs\n\n\nloss and validation loss\ntraining images, latent representations, reconstructred images\n\n\nModel Evaluation:\n\n\nplot traing and validation loss.\nFor the best model calculate loss on. test data\ncompare several real images and compare to their reconstruction\n\n\nLatent Assessment: Compare the latent representation of images with the PCA embedding\n\n\nhow much variability is encoded by the first 3 components of PCA(X) compared to PCA(Z)\n\n\n\nData Generation: For a given image, generate new images by changing selected latent variable in PCA space or latent space.\noptional: replace the simple autoencoder model1 by a neural network with 3 convolutional layers (model2)\n\n\ncount parameters and compare to model1\ncompare learning curves with model1\n\n\nexplore what happens if you reduce the size of the data set"
+    "text": "Reference:\n\nhttps://www.kaggle.com/code/kanncaa1/pytorch-tutorial-for-deep-learning-lovers\n\nRun a classification on the MNIST data with\n\nA simple logistic (10 classes)\nA three layer NN (128, 128, 128, 10) with ReLU\nA CNN\n\ncompare the accuracies on a test data"
   },
   {
-    "objectID": "homework/04_Autoencoder.html#tasks",
-    "href": "homework/04_Autoencoder.html#tasks",
-    "title": "01 Autoencoder",
+    "objectID": "homework/02_MNIST.html#task",
+    "href": "homework/02_MNIST.html#task",
+    "title": "01 Homework",
     "section": "",
-    "text": "Data Download: Obtain both train and test data for the MNIST data set of handwritten digits from torchvision.datasets\nData Massage: For numerical efficiency use pytorch dataloaders and split the dataset into train, test and validation. Check data values and if normalization is required.\nModel Definition: Define a simple autoencoder (model1) with 4 layers to reduce dimensions: 728 -&gt; 128 -&gt; 64 -&gt; 16 -&gt; 3 count dimensions and parameters\nGoal and Strategy: Define a loss function and a suitable optimizer\nModel Training: Train the model and track the following parameters for each epochs\n\n\nloss and validation loss\ntraining images, latent representations, reconstructred images\n\n\nModel Evaluation:\n\n\nplot traing and validation loss.\nFor the best model calculate loss on. test data\ncompare several real images and compare to their reconstruction\n\n\nLatent Assessment: Compare the latent representation of images with the PCA embedding\n\n\nhow much variability is encoded by the first 3 components of PCA(X) compared to PCA(Z)\n\n\n\nData Generation: For a given image, generate new images by changing selected latent variable in PCA space or latent space.\noptional: replace the simple autoencoder model1 by a neural network with 3 convolutional layers (model2)\n\n\ncount parameters and compare to model1\ncompare learning curves with model1\n\n\nexplore what happens if you reduce the size of the data set"
+    "text": "Reference:\n\nhttps://www.kaggle.com/code/kanncaa1/pytorch-tutorial-for-deep-learning-lovers\n\nRun a classification on the MNIST data with\n\nA simple logistic (10 classes)\nA three layer NN (128, 128, 128, 10) with ReLU\nA CNN\n\ncompare the accuracies on a test data"
+  },
+  {
+    "objectID": "homework/02_MNIST.html#packages",
+    "href": "homework/02_MNIST.html#packages",
+    "title": "01 Homework",
+    "section": "Packages",
+    "text": "Packages"
+  },
+  {
+    "objectID": "homework/02_MNIST.html#data",
+    "href": "homework/02_MNIST.html#data",
+    "title": "01 Homework",
+    "section": "Data",
+    "text": "Data\nVerify mean and std"
+  },
+  {
+    "objectID": "homework/02_MNIST.html#model-definition",
+    "href": "homework/02_MNIST.html#model-definition",
+    "title": "01 Homework",
+    "section": "Model Definition",
+    "text": "Model Definition"
+  },
+  {
+    "objectID": "homework/02_MNIST.html#parameters",
+    "href": "homework/02_MNIST.html#parameters",
+    "title": "01 Homework",
+    "section": "Parameters",
+    "text": "Parameters"
+  },
+  {
+    "objectID": "homework/02_MNIST.html#define-traing-loop",
+    "href": "homework/02_MNIST.html#define-traing-loop",
+    "title": "01 Homework",
+    "section": "Define Traing Loop",
+    "text": "Define Traing Loop"
+  },
+  {
+    "objectID": "homework/02_MNIST.html#run-training",
+    "href": "homework/02_MNIST.html#run-training",
+    "title": "01 Homework",
+    "section": "Run Training",
+    "text": "Run Training"
+  },
+  {
+    "objectID": "projects/index.html",
+    "href": "projects/index.html",
+    "title": "Projects",
+    "section": "",
+    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n01 Machine Learning\n\n\nAn ML starter\n\n\n\nThomas Manke\n\n\nOct 12, 2025\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "projects/01_MachineLearning.html",
+    "href": "projects/01_MachineLearning.html",
+    "title": "01 Machine Learning",
+    "section": "",
+    "text": "This project serves a introduction to the key challenges in machine learning and data analysis. Upon successful completion you should be able to conduct such analysis tasks independently and apply them to other problems.\n\nSetup Jupyter Notebook which includes\n\ndetail environment in which this nodebook was developed and tested\ninstallation of versioned packages (if necessary)\nload required software packages and report their version\nother custom functions (if necessary)\nproject-wide variables\n\nLoad Data (see examples below) and describe in detail their origin, content, structures and data types.\nData Exploration. Prepare statistical and visual data summaries. How many variables/features does the data contain, how many samples? Are there missing values? Explore correlations among variables and conduct at least one unsupervised analysis. Consider variable transformations and normalizations where applicable.\nData Model. Define what you want to model (following the table below) and choose an appropriate model framework. Define a simple baseline model and a loss function - theoretically and practically. Explain the model in terms of input-output data structures and dimensions.\nTrain Model. Define a Train Define Train and Test Data and run the training loop. Monitor the behaviour of the loss function.\nEvaluate Model. Run model predictions on the test data set. Calculate and visualize the appropriate metrics to evaluate model performance. Explain why a separate test data set should be used for such evaluations.\nImprove Model. Suggest extensions to your baseline model and repeat steps 4. - 6. Do these extensions improve the model?\n\n\n\n\n\n\n\nSummary\n\n\n\nProvide a concise summary and critical reflection of this project and all analysis steps. What are the assumptions and limits? Document and annotate all steps above carefully in a single jupyter notebook and ensure that it will execute reproducibly and without error. Upon completion, submit the project as a single notebook per team. This notebook will be the basis for your presentation and it will be shared with the whole class.\nInclude a statement of originality and contributions at the beginning"
+  },
+  {
+    "objectID": "projects/01_MachineLearning.html#tasks",
+    "href": "projects/01_MachineLearning.html#tasks",
+    "title": "01 Machine Learning",
+    "section": "",
+    "text": "This project serves a introduction to the key challenges in machine learning and data analysis. Upon successful completion you should be able to conduct such analysis tasks independently and apply them to other problems.\n\nSetup Jupyter Notebook which includes\n\ndetail environment in which this nodebook was developed and tested\ninstallation of versioned packages (if necessary)\nload required software packages and report their version\nother custom functions (if necessary)\nproject-wide variables\n\nLoad Data (see examples below) and describe in detail their origin, content, structures and data types.\nData Exploration. Prepare statistical and visual data summaries. How many variables/features does the data contain, how many samples? Are there missing values? Explore correlations among variables and conduct at least one unsupervised analysis. Consider variable transformations and normalizations where applicable.\nData Model. Define what you want to model (following the table below) and choose an appropriate model framework. Define a simple baseline model and a loss function - theoretically and practically. Explain the model in terms of input-output data structures and dimensions.\nTrain Model. Define a Train Define Train and Test Data and run the training loop. Monitor the behaviour of the loss function.\nEvaluate Model. Run model predictions on the test data set. Calculate and visualize the appropriate metrics to evaluate model performance. Explain why a separate test data set should be used for such evaluations.\nImprove Model. Suggest extensions to your baseline model and repeat steps 4. - 6. Do these extensions improve the model?\n\n\n\n\n\n\n\nSummary\n\n\n\nProvide a concise summary and critical reflection of this project and all analysis steps. What are the assumptions and limits? Document and annotate all steps above carefully in a single jupyter notebook and ensure that it will execute reproducibly and without error. Upon completion, submit the project as a single notebook per team. This notebook will be the basis for your presentation and it will be shared with the whole class.\nInclude a statement of originality and contributions at the beginning"
+  },
+  {
+    "objectID": "projects/01_MachineLearning.html#originality-and-contributions",
+    "href": "projects/01_MachineLearning.html#originality-and-contributions",
+    "title": "01 Machine Learning",
+    "section": "Originality and Contributions",
+    "text": "Originality and Contributions\nAuthors: X.Y., A.I.\nThis notebook is our own work. Any other sources have been clearly marked and cited.\nAll authors contributed equally. (alternative: state specific contributions explicitly)"
+  },
+  {
+    "objectID": "projects/01_MachineLearning.html#references",
+    "href": "projects/01_MachineLearning.html#references",
+    "title": "01 Machine Learning",
+    "section": "References",
+    "text": "References\nProvide references and citations where necessary"
+  },
+  {
+    "objectID": "projects/01_MachineLearning.html#data-sets",
+    "href": "projects/01_MachineLearning.html#data-sets",
+    "title": "01 Machine Learning",
+    "section": "Data Sets",
+    "text": "Data Sets\nThe data sets below are heavily used in machine learning. They also have the advantage of being easily accessible and highly standardized.\nEach team should work with the data set (Project ID) assigned to them.\nWhen modelling the given target variable \\(y\\), it should be modelled as a multivariate function of other variables/features \\(X\\) in the data set. You can also consider relevant subsets of features, if you can argue to exclude some features, or for the purpose of a first simple baseline model.\n\n\n\nProject ID\nLink\ntarget variable \\(y\\)\n\n\n\n\n1.1\nwine data\nwine quality\n\n\n1.2\ngapminder\nlifeExpectancy\n\n\n1.3\nbreast cancer\ncancer status\n\n\n1.4\nMNIST\ndigit label"
+  },
+  {
+    "objectID": "projects/01_MachineLearning.html#data-loading-hints",
+    "href": "projects/01_MachineLearning.html#data-loading-hints",
+    "title": "01 Machine Learning",
+    "section": "Data Loading Hints",
+    "text": "Data Loading Hints\nThere are many ways to obtain these data sets. Below are just a few suggestions.\nPlease explore the data carefully - transform and normalize where necessary.\n\n\nCode\nimport pandas as pd\ndf = pd.read_csv(\n    \"https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv\",\n    sep=\";\"\n)\nprint(df.describe())\ny = df['quality']\n\n\n\n\nCode\nimport plotly.express as px\ndf = px.data.gapminder() \ny = df['lifeExp']\n\n\n\n\nCode\nfrom sklearn.datasets import load_breast_cancer\nimport pandas as pd\n\nbc = load_breast_cancer(as_frame=True)\nX = bc.data\ny = pd.Series(bc.target).map({0: \"malignant\", 1: \"benign\"}).rename(\"status\")\ndf = pd.concat([X, y], axis=1)\n\n\n\n\nCode\nfrom torchvision import datasets, transforms\nfrom torch.utils.data import DataLoader\n\n# this dataset already comes split in train and test\ntransform = transforms.ToTensor()\ntrain = datasets.MNIST(root=\"data\", train=True, download=True, transform=transform)\ntest  = datasets.MNIST(root=\"data\", train=False, download=True, transform=transform)\ntrain_loader = DataLoader(train, batch_size=64, shuffle=True)"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Neural Networks and Deep Learning",
+    "section": "",
+    "text": "Upon successful completion of this course, you will\n\nunderstand the key concepts and challenges of neural networks\nbe proficient in common software solutions for deep learning (pytorch)\nbe able to define, train and evaluate your own models\nhave completed 4 concrete data analysis projects and provide reproducible code\nhave worked in teams and presented your work\nwant to learn more and deeper … open"
+  },
+  {
+    "objectID": "index.html#objectives",
+    "href": "index.html#objectives",
+    "title": "Neural Networks and Deep Learning",
+    "section": "",
+    "text": "Upon successful completion of this course, you will\n\nunderstand the key concepts and challenges of neural networks\nbe proficient in common software solutions for deep learning (pytorch)\nbe able to define, train and evaluate your own models\nhave completed 4 concrete data analysis projects and provide reproducible code\nhave worked in teams and presented your work\nwant to learn more and deeper … open"
+  },
+  {
+    "objectID": "index.html#content",
+    "href": "index.html#content",
+    "title": "Neural Networks and Deep Learning",
+    "section": "Content",
+    "text": "Content\n\nMachine Learning 101\nNeural Networks\nConvolutional Neural Networks\nGenerative Networks"
+  },
+  {
+    "objectID": "index.html#format",
+    "href": "index.html#format",
+    "title": "Neural Networks and Deep Learning",
+    "section": "Format",
+    "text": "Format\nThe course comprises the following blocks (with the estimated time effort)\n\nLectures: (16x 2h) will provide an introduction and overview\nProjects: 4 larger assignments that are solved in teams of 2 students. Each team will submit a fully documented and executable notebook per project.\nTutorials: (16x 2h): weekly tutorials will focus on practical implementations and the review of lecture material. Up to 2 teams will present their project solutions (~30 min / team)."
+  },
+  {
+    "objectID": "index.html#evaluation",
+    "href": "index.html#evaluation",
+    "title": "Neural Networks and Deep Learning",
+    "section": "Evaluation",
+    "text": "Evaluation\n\nProject Submissions (28 P). Completed projects are submitted as single jupyter noteboooks and are evaluated per team. Notebooks have to be fully documented to explain both the analysis goals and the code. They should clearly state software dependencies and be fully executable.\nProject Presentation (12 P). Presentation and submission of a reproducible data analysis project in an executable markdown format.\nExam (60 P): this will be a written individual exam with conceptual questions, including multiple choice and short essays."
+  },
+  {
+    "objectID": "index.html#materials-and-references",
+    "href": "index.html#materials-and-references",
+    "title": "Neural Networks and Deep Learning",
+    "section": "Materials and References",
+    "text": "Materials and References\n\nClassic Books (Theory & Maths)\n\nGoodfellow et al (2016)\nBishop & Bishop (2024)\n\nClassic Courses (YouTube)\n\nAndrew Ng @ Coursera\nStandford CS230, 2018\n\nPytorch Tutorials (Practical)\nHuggingFace Learning (Next Steps)"
   },
   {
     "objectID": "homework/traditional_ml_to_generative.html#define-class-label",
@@ -399,109 +532,81 @@
     "text": "10. Summary\nThis example shows how a nonlinear, complex distribution p(x) can be constructed from a simple latent variable z ~ N(0,1). Without any neural networks, we explored: - Clustering with GMM - Binary classification with logistic regression - Evaluation and interpretability - Latent space approximation and data generation\nThis prepares the stage for introducing Autoencoders, VAEs, and GANs.\n\n\n\n\n\n\n\n\nConcept\nTraditional Method\nMapping to Deep Learning\n\n\n\n\nLatent variable z\nN(0,1)\nLatent code\n\n\nComplex p(x)\nsin(3z) + noise\nGenerator network\n\n\nInverse mapping x → z\nRidge regression\nEncoder network\n\n\nDimensionality reduction\nPCA, GMM\nAutoencoder\n\n\np(z) → x\ndeterministic function\nDecoder or GAN generator\n\n\nLearning p(x)\nKDE or histograms\nLikelihood via VAE, GANs\n\n\nSupervised y\nLogistic regression\nClassifier layer"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Neural Networks and Deep Learning",
+    "objectID": "homework/04_Autoencoder.html",
+    "href": "homework/04_Autoencoder.html",
+    "title": "01 Autoencoder",
     "section": "",
-    "text": "Upon successful completion of this course, you will\n\nunderstand the key concepts and challenges of neural networks\nbe proficient in common software solutions for deep learning (pytorch)\nbe able to define, train and evaluate your own models\nhave completed 4 concrete data analysis projects and provide reproducible code\nhave worked in teams and presented your work\nwant to learn more and deeper … open"
+    "text": "Data Download: Obtain both train and test data for the MNIST data set of handwritten digits from torchvision.datasets\nData Massage: For numerical efficiency use pytorch dataloaders and split the dataset into train, test and validation. Check data values and if normalization is required.\nModel Definition: Define a simple autoencoder (model1) with 4 layers to reduce dimensions: 728 -&gt; 128 -&gt; 64 -&gt; 16 -&gt; 3 count dimensions and parameters\nGoal and Strategy: Define a loss function and a suitable optimizer\nModel Training: Train the model and track the following parameters for each epochs\n\n\nloss and validation loss\ntraining images, latent representations, reconstructred images\n\n\nModel Evaluation:\n\n\nplot traing and validation loss.\nFor the best model calculate loss on. test data\ncompare several real images and compare to their reconstruction\n\n\nLatent Assessment: Compare the latent representation of images with the PCA embedding\n\n\nhow much variability is encoded by the first 3 components of PCA(X) compared to PCA(Z)\n\n\n\nData Generation: For a given image, generate new images by changing selected latent variable in PCA space or latent space.\noptional: replace the simple autoencoder model1 by a neural network with 3 convolutional layers (model2)\n\n\ncount parameters and compare to model1\ncompare learning curves with model1\n\n\nexplore what happens if you reduce the size of the data set"
   },
   {
-    "objectID": "index.html#objectives",
-    "href": "index.html#objectives",
-    "title": "Neural Networks and Deep Learning",
+    "objectID": "homework/04_Autoencoder.html#tasks",
+    "href": "homework/04_Autoencoder.html#tasks",
+    "title": "01 Autoencoder",
     "section": "",
-    "text": "Upon successful completion of this course, you will\n\nunderstand the key concepts and challenges of neural networks\nbe proficient in common software solutions for deep learning (pytorch)\nbe able to define, train and evaluate your own models\nhave completed 4 concrete data analysis projects and provide reproducible code\nhave worked in teams and presented your work\nwant to learn more and deeper … open"
+    "text": "Data Download: Obtain both train and test data for the MNIST data set of handwritten digits from torchvision.datasets\nData Massage: For numerical efficiency use pytorch dataloaders and split the dataset into train, test and validation. Check data values and if normalization is required.\nModel Definition: Define a simple autoencoder (model1) with 4 layers to reduce dimensions: 728 -&gt; 128 -&gt; 64 -&gt; 16 -&gt; 3 count dimensions and parameters\nGoal and Strategy: Define a loss function and a suitable optimizer\nModel Training: Train the model and track the following parameters for each epochs\n\n\nloss and validation loss\ntraining images, latent representations, reconstructred images\n\n\nModel Evaluation:\n\n\nplot traing and validation loss.\nFor the best model calculate loss on. test data\ncompare several real images and compare to their reconstruction\n\n\nLatent Assessment: Compare the latent representation of images with the PCA embedding\n\n\nhow much variability is encoded by the first 3 components of PCA(X) compared to PCA(Z)\n\n\n\nData Generation: For a given image, generate new images by changing selected latent variable in PCA space or latent space.\noptional: replace the simple autoencoder model1 by a neural network with 3 convolutional layers (model2)\n\n\ncount parameters and compare to model1\ncompare learning curves with model1\n\n\nexplore what happens if you reduce the size of the data set"
   },
   {
-    "objectID": "index.html#content",
-    "href": "index.html#content",
-    "title": "Neural Networks and Deep Learning",
-    "section": "Content",
-    "text": "Content\n\nMachine Learning 101\nNeural Networks\nConvolutional Neural Networks\nGenerative Networks"
-  },
-  {
-    "objectID": "index.html#format",
-    "href": "index.html#format",
-    "title": "Neural Networks and Deep Learning",
-    "section": "Format",
-    "text": "Format\nThe course comprises the following blocks (with the estimated time effort)\n\nLectures: (16x 2h) will provide an introduction and overview\nProjects (4x 12h): 4 larger assignments that are solved in teams of 2 students. Each team will submit a fully documented and executable notebook per project.\nTutorials: (16x 2h): weekly tutorials will focus on practical implementations and the review of lecture material. Up to 2 teams will present their project solutions (~30 min / team)."
-  },
-  {
-    "objectID": "index.html#evaluation",
-    "href": "index.html#evaluation",
-    "title": "Neural Networks and Deep Learning",
-    "section": "Evaluation",
-    "text": "Evaluation\n\nProject Submissions (28 P). Completed projects are submitted as single jupyter noteboooks and are evaluated per team. Notebooks have to be fully documented to explain both the analysis goals and the code. They should clearly state software dependencies and be fully executable.\nProject Presentation (12 P). Presentation and submission of a reproducible data analysis project in an executable markdown format.\nExam (60 P): this will be a written individual exam with conceptual questions, including multiple choice and short essays."
-  },
-  {
-    "objectID": "index.html#materials-and-references",
-    "href": "index.html#materials-and-references",
-    "title": "Neural Networks and Deep Learning",
-    "section": "Materials and References",
-    "text": "Materials and References\n\nClassic Books (Theory & Maths)\n\nGoodfellow et al (2016)\nBishop & Bishop (2024)\n\nClassic Courses (YouTube)\n\nAndrew Ng @ Coursera\nStandford CS230, 2018\n\nPytorch Tutorials (Practical)\nHuggingFace Learning (Next Steps)"
-  },
-  {
-    "objectID": "projects/index.html",
-    "href": "projects/index.html",
-    "title": "Projects",
+    "objectID": "lectures/01_MachineLearning/02_LinearRegression.html",
+    "href": "lectures/01_MachineLearning/02_LinearRegression.html",
+    "title": "What is Machine Learning ?",
     "section": "",
-    "text": "No matching items"
+    "text": "“The principal difficulty … lay in the fact of there being too much evidence. What was vital was overlaid and hidden by what was irrelevant. Of all the facts which were presented to us we had to pick just those which we deemed to be essential, and then piece them together in their order, so as to reconstruct this very remarkable chain of events.” Sherlock Holmes (The Naval treaty, 1893)\n\n\n\nCan we write a program to do the same?"
   },
   {
-    "objectID": "homework/02_MNIST.html",
-    "href": "homework/02_MNIST.html",
-    "title": "01 Homework",
+    "objectID": "lectures/01_MachineLearning/02_LinearRegression.html#how-do-we-recognize-label-images",
+    "href": "lectures/01_MachineLearning/02_LinearRegression.html#how-do-we-recognize-label-images",
+    "title": "What is Machine Learning ?",
     "section": "",
-    "text": "Reference:\n\nhttps://www.kaggle.com/code/kanncaa1/pytorch-tutorial-for-deep-learning-lovers\n\nRun a classification on the MNIST data with\n\nA simple logistic (10 classes)\nA three layer NN (128, 128, 128, 10) with ReLU\nA CNN\n\ncompare the accuracies on a test data"
+    "text": "“The principal difficulty … lay in the fact of there being too much evidence. What was vital was overlaid and hidden by what was irrelevant. Of all the facts which were presented to us we had to pick just those which we deemed to be essential, and then piece them together in their order, so as to reconstruct this very remarkable chain of events.” Sherlock Holmes (The Naval treaty, 1893)\n\n\n\nCan we write a program to do the same?"
   },
   {
-    "objectID": "homework/02_MNIST.html#task",
-    "href": "homework/02_MNIST.html#task",
-    "title": "01 Homework",
-    "section": "",
-    "text": "Reference:\n\nhttps://www.kaggle.com/code/kanncaa1/pytorch-tutorial-for-deep-learning-lovers\n\nRun a classification on the MNIST data with\n\nA simple logistic (10 classes)\nA three layer NN (128, 128, 128, 10) with ReLU\nA CNN\n\ncompare the accuracies on a test data"
+    "objectID": "lectures/01_MachineLearning/02_LinearRegression.html#a-paradigm-shift",
+    "href": "lectures/01_MachineLearning/02_LinearRegression.html#a-paradigm-shift",
+    "title": "What is Machine Learning ?",
+    "section": "A paradigm shift",
+    "text": "A paradigm shift\n\nClassical Programming: Rules (f) + Data (X) –&gt; Answers (Y)\n\nMachine Learning: Answers (Y) + Data (X) –&gt; Rules (f)\n\nQuiz (5 min): A simpler challenge: Find the rule \\(y = f(x)\\) for x and y below\n\n\nCode\nimport numpy as np\n\nx = np.array([-1,  0, 1, 2, 3, 4])     # Data\ny = np.array([-3, -1, 1, 3, 5, 7])     # Answer\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNotice: a more realistic scenario would allow for errors: \\(y = f(x) + \\epsilon\\)"
   },
   {
-    "objectID": "homework/02_MNIST.html#packages",
-    "href": "homework/02_MNIST.html#packages",
-    "title": "01 Homework",
-    "section": "Packages",
-    "text": "Packages"
+    "objectID": "lectures/01_MachineLearning/02_LinearRegression.html#the-math-way-gauss-1809",
+    "href": "lectures/01_MachineLearning/02_LinearRegression.html#the-math-way-gauss-1809",
+    "title": "What is Machine Learning ?",
+    "section": "The Math Way (Gauss: 1809)",
+    "text": "The Math Way (Gauss: 1809)\n\nModel Definition\n\\[\n\\begin{align}\n\\mbox{Linear model:} ~~~& y=f(x_i; a,b) = a  + b x_i \\\\ \\\\\n\\mbox{2 Paramters:} ~~~& \\theta = (a,b) ~~~~\\mbox{same for all  } x_i\n\\end{align}\n\\]\n\n\nA goal\n\\[\n\\begin{align}\nL(\\theta) = \\sum_i (y_i - f(x_i;\\theta))^2  \\to \\mbox{minimize!}\\\\\n\\underset{\\theta}{\\mbox{argmin}} ~L(\\theta) \\longrightarrow \\hat{\\theta}\n\\end{align}\n\\]\n\nlinear regression = ordinary least squares (OLS)\nsynonymous terms: goal = loss function = cost function = objective function = …\nsolving the goal = fitting = training = learning = parameter estimation = (linear) regression\nfor linear models: fast and analytical solution !!\n\n\n\nOptimal Paramters\n\\[\n\\hat{\\theta} = (a,b) = (-1,2)\n\\]\n\n\nPredictions\nrun best model for new values, e.g. \\(x= (10, -40, \\ldots)\\)\n\n\nCode\nx_new = np.array([10, -40])\ny_new = -1 + 2.0*x_new\nprint('predictions: ', x_new, \"-&gt;\", y_new)\n\n\npredictions:  [ 10 -40] -&gt; [ 19. -81.]\n\n\n\n\n\n\n\n\nModeling Steps\n\n\n\n\ndefine the data\ndefine the model\nfit parameters\nevaluate model\nuse model (predict)"
   },
   {
-    "objectID": "homework/02_MNIST.html#data",
-    "href": "homework/02_MNIST.html#data",
-    "title": "01 Homework",
-    "section": "Data",
-    "text": "Data\nVerify mean and std"
+    "objectID": "lectures/01_MachineLearning/02_LinearRegression.html#the-python-way-sklearn-2013",
+    "href": "lectures/01_MachineLearning/02_LinearRegression.html#the-python-way-sklearn-2013",
+    "title": "What is Machine Learning ?",
+    "section": "The Python way (sklearn: 2013)",
+    "text": "The Python way (sklearn: 2013)\n\n\nCode\nfrom sklearn import linear_model\nfrom sklearn.metrics import mean_squared_error\n\nlm = linear_model.LinearRegression()  # define model\nxr = x.reshape(-1,1)                  # define data (+restructuring for specific tool) \n\nlm.fit(xr, y)             \n\n# report fit\nprint('Fitted Parameters       ', lm.intercept_, lm.coef_)\n\nyp = lm.predict(xr)                   # prediction\nMSE= mean_squared_error(y, yp)        # evaluate fit. other scores: R2=lm.score(xr, y)\nprint('Mean Squared Error:     ', MSE)\n\n# predict y for some new x\nx_new = np.linspace(-10, 10, 20)\ny_new = lm.predict(x_new.reshape(-1,1))\n\n\nFitted Parameters        -1.0 [2.]\nMean Squared Error:      0.0\n\n\n\n\nCode\ntitle_str = f\"Loss = {MSE:.3f}; Intercept = {lm.intercept_.item():.3f}, Slope = {lm.coef_.item():.3f}\"\nplt.figure(figsize=(6,4))\nplt.plot(x, y, 'o', label=\"Data\")\nplt.plot(x_new, y_new, label=\"Model prediction\")\nplt.xlabel(\"x\")\nplt.ylabel(\"y\")\nplt.title(title_str)\nplt.legend()\nplt.grid(True)\nplt.show()"
   },
   {
-    "objectID": "homework/02_MNIST.html#model-definition",
-    "href": "homework/02_MNIST.html#model-definition",
-    "title": "01 Homework",
-    "section": "Model Definition",
-    "text": "Model Definition"
+    "objectID": "lectures/01_MachineLearning/02_LinearRegression.html#the-pytorch-way-2025",
+    "href": "lectures/01_MachineLearning/02_LinearRegression.html#the-pytorch-way-2025",
+    "title": "What is Machine Learning ?",
+    "section": "The PyTorch Way (2025)",
+    "text": "The PyTorch Way (2025)\nLearn parameters by iterative improvements\n\\[\n\\begin{array}{ll}\n\\textbf{Input:} & \\{(x_1, y_1), (x_2, y_2), \\ldots, (x_n, y_n)\\} \\\\\n\\textbf{Initialize:} & \\theta \\text{ randomly} \\\\\n\\textbf{Repeat:} & \\\\\n& y_{\\mathrm{pred}} \\gets f(x; \\theta) \\\\\n& L \\gets L(y_{\\mathrm{pred}}, y) \\\\\n& \\theta \\gets \\text{update}(\\theta, L) \\\\\n\\textbf{Until:} & \\text{stopping criterion is met}\n\\end{array}\n\\]\n\n\nCode\nimport numpy as np\nimport torch\nprint('torch version:', torch.__version__)\n\n# convert to tensor, type and reshape to column vector\nx_t = torch.as_tensor(x, dtype=torch.float32).view(-1, 1)\ny_t = torch.as_tensor(y, dtype=torch.float32).view(-1, 1)\n\nmodel = torch.nn.Linear(1,1) # define black box model (1 input and 1 output)\nloss_func = torch.nn.MSELoss()\noptimizer = torch.optim.SGD(model.parameters(), lr=0.01)\n\n# training loop\nlosses = []\nmodel.train()\nfor epoch in range(200):\n    y_pred = model(x_t)             # model prediction\n    loss = loss_func(y_pred, y_t)   # model loss\n\n    optimizer.zero_grad()           # initalizations\n    loss.backward()                 # calculate new parameters\n    optimizer.step()                # update parameters\n\n    losses.append(loss.item())      # track loss history\n\n# finished training. inspect model \nprint(f'Mean Squared Error (loss) = {loss.item():.5f}')\nprint('Trained Parameters')\nprint(f'PyTorch: intercept =  {model.bias.item():.3f},  slope={model.weight.item():.3f}')\nprint(f'sklearn: intercept =  {lm.intercept_.item():.3f},  slope={lm.coef_.item():.3f}')\n\n\ntorch version: 2.7.1\nMean Squared Error (loss) = 0.01165\nTrained Parameters\nPyTorch: intercept =  -0.859,  slope=1.954\nsklearn: intercept =  -1.000,  slope=2.000\n\n\n\n\n\n\n\n\nDon’t Panic !!!\n\n\n\n\nlooks more complicated than sklearn, but is much more flexible and powerful\niterative approach is generic and extends to much more complex models, far beyond linear.\nPyTorch supports all modeling steps: define model, define loss function, define optimizer, fit model, predict.\nThere are alternative frameworks: TensorFlow/Keras, … \\(\\to\\) Tutorial\nI will use PyTorch, but it should be possible to transfer everything also to TF/Keras\nPyTorch has new data structures that need to get used to: torch.Tensor\npredictions less accurate (and slower) than with sklearn \\(\\to\\) iterations not yet converged\nloss (MSE) can be monitored to assess convergence"
   },
   {
-    "objectID": "homework/02_MNIST.html#parameters",
-    "href": "homework/02_MNIST.html#parameters",
-    "title": "01 Homework",
-    "section": "Parameters",
-    "text": "Parameters"
+    "objectID": "lectures/01_MachineLearning/02_LinearRegression.html#monitor-training",
+    "href": "lectures/01_MachineLearning/02_LinearRegression.html#monitor-training",
+    "title": "What is Machine Learning ?",
+    "section": "Monitor Training",
+    "text": "Monitor Training\n\n\nCode\nplt.figure()\nplt.plot(losses)\nplt.ylabel('loss')\nplt.xlabel('epoch')\nplt.title('Loss history')\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n\nloss \\(L\\) should decrease for sensible parameter updates\nloss histories are the most important tools to assess learning progress"
   },
   {
-    "objectID": "homework/02_MNIST.html#define-traing-loop",
-    "href": "homework/02_MNIST.html#define-traing-loop",
-    "title": "01 Homework",
-    "section": "Define Traing Loop",
-    "text": "Define Traing Loop"
+    "objectID": "lectures/01_MachineLearning/02_LinearRegression.html#making-predictions",
+    "href": "lectures/01_MachineLearning/02_LinearRegression.html#making-predictions",
+    "title": "What is Machine Learning ?",
+    "section": "Making predictions",
+    "text": "Making predictions\nEven though our current best model is not very good, we already have a blackbox that allows us to make prediction for any new data \\(x\\). Like so:\n\n\nCode\n# define some new input data  x_new\nx_new = np.linspace(-10, 10, 20)\nx_t = torch.as_tensor(x_new, dtype=torch.float32).view(-1, 1)\n\n# blackbox predcition\ny_new = model(x_t) \n\n\n\n\nCode\nintercept = model.bias.item()\nslope = model.weight.item()\ntitle_str = f\"Loss = {loss.item():.3f}; Intercept = {intercept:.3f}, Slope = {slope:.3f}\"\nplt.figure(figsize=(6,4))\nplt.plot(x, y, 'o', label=\"Data\")\nplt.plot(x_new, y_new.detach(), label=\"Model prediction\")\nplt.xlabel(\"x\")\nplt.ylabel(\"y\")\nplt.title(title_str)\nplt.legend()\nplt.grid(True)\nplt.show()"
   },
   {
-    "objectID": "homework/02_MNIST.html#run-training",
-    "href": "homework/02_MNIST.html#run-training",
-    "title": "01 Homework",
-    "section": "Run Training",
-    "text": "Run Training"
+    "objectID": "lectures/01_MachineLearning/02_LinearRegression.html#summary",
+    "href": "lectures/01_MachineLearning/02_LinearRegression.html#summary",
+    "title": "What is Machine Learning ?",
+    "section": "Summary",
+    "text": "Summary\n\n3 ways to do linear regression - 1 common goal: minimize loss (MSE)\nGauss (linear algebra), scikit-learn (Gauss + Python), PyTorch (iterations & optimization)\n\n\n\n\nA simple neuron calculating a linear function."
   },
   {
     "objectID": "lectures/03_ConvolutionalNeuralNetworks/001_CNN.html",
