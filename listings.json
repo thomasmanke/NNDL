@@ -21,14 +21,6 @@
     "items": []
   },
   {
-    "listing": "/lectures/01_MachineLearning/index.html",
-    "items": [
-      "/lectures/01_MachineLearning/01_Data.html",
-      "/lectures/01_MachineLearning/02_LinearRegression.html",
-      "/lectures/01_MachineLearning/03_Models101.html"
-    ]
-  },
-  {
     "listing": "/projects/index.html",
     "items": [
       "/projects/01_MachineLearning.html",
@@ -41,6 +33,17 @@
       "/homework/02_MNIST.html",
       "/homework/04_Autoencoder.html",
       "/homework/traditional_ml_to_generative.html"
+    ]
+  },
+  {
+    "listing": "/lectures/01_MachineLearning/index.html",
+    "items": [
+      "/lectures/01_MachineLearning/01_Data.html",
+      "/lectures/01_MachineLearning/02_LinearRegression.html",
+      "/lectures/01_MachineLearning/03_Models101.html",
+      "/lectures/01_MachineLearning/04_MultivariateRegression.html",
+      "/lectures/01_MachineLearning/05_MultinomialRegression.html",
+      "/lectures/01_MachineLearning/06_TrainingAndTesting.html"
     ]
   },
   {

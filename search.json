@@ -259,6 +259,55 @@
     "text": "Key Challenges\n\nFinding Optimal Solutions\nVanishing/Exploding Gradients\nOverfitting\n\nWhen comparing model performance, compare data + data processing + optimization strategy + model"
   },
   {
+    "objectID": "lectures/01_MachineLearning/05_MultinomialRegression.html",
+    "href": "lectures/01_MachineLearning/05_MultinomialRegression.html",
+    "title": "Multinomial Regression",
+    "section": "",
+    "text": "A neuron layer receiving multiple inputs - and calculating multiple outputs.\n\n\n\n\nCode\nimport matplotlib.pyplot as plt\nfrom sklearn import datasets\nimport torch\nimport torch.nn as nn"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/05_MultinomialRegression.html#generalization-more-output-variables",
+    "href": "lectures/01_MachineLearning/05_MultinomialRegression.html#generalization-more-output-variables",
+    "title": "Multinomial Regression",
+    "section": "",
+    "text": "A neuron layer receiving multiple inputs - and calculating multiple outputs.\n\n\n\n\nCode\nimport matplotlib.pyplot as plt\nfrom sklearn import datasets\nimport torch\nimport torch.nn as nn"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/05_MultinomialRegression.html#get-iris-data",
+    "href": "lectures/01_MachineLearning/05_MultinomialRegression.html#get-iris-data",
+    "title": "Multinomial Regression",
+    "section": "Get Iris data",
+    "text": "Get Iris data\n\n\nCode\n# get iris data from sklearn\niris = datasets.load_iris() \nX = iris.data # all four columns  \ny = iris.target  # forth column\n\n# convert to tensors\nX = torch.tensor(X, dtype=torch.float32)\ny = torch.tensor(y, dtype=torch.long)\nprint(f\"X.shape = {X.shape}, y.shape = {y.shape}\")\n\n\nX.shape = torch.Size([150, 4]), y.shape = torch.Size([150])"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/05_MultinomialRegression.html#model-training",
+    "href": "lectures/01_MachineLearning/05_MultinomialRegression.html#model-training",
+    "title": "Multinomial Regression",
+    "section": "Model Training",
+    "text": "Model Training\n… requires minimal changes to pytorch code\n\n\nCode\nn_epochs = 10000\nmodel = nn.Linear(4, 3)  # change: n_in = 4 (features), n_out = 3 (classes)\nloss_func = nn.CrossEntropyLoss()  # Cross-Entropy\n\n# all below as before\noptimizer = torch.optim.SGD(model.parameters()) \n\nmodel.train()\nfor epoch in range(n_epochs):\n    # model predictions are interpreted as z = logits\n    z = model(X)  \n    loss = loss_func(z, y)\n    optimizer.zero_grad()\n    loss.backward()\n    optimizer.step()\n\nprint(\"Fitted parameters:\")\nprint(\"Intercept (bias):\", model.bias.detach().numpy())\n\n## Notice more weights\nprint(\"Coefficients (weights):\", model.weight.detach().numpy())\nprint('Loss: ', loss)    \n\n\nFitted parameters:\nIntercept (bias): [ 0.4097849  -0.00864549  0.22877324]\nCoefficients (weights): [[ 0.31035995  0.61378133 -1.4084837  -0.27761978]\n [ 0.09734378 -0.3853656   0.26491988 -0.44041577]\n [-0.6314199  -0.75229895  1.0699543   0.51602477]]\nLoss:  tensor(0.3601, grad_fn=&lt;NllLossBackward0&gt;)"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/05_MultinomialRegression.html#predict-and-plot",
+    "href": "lectures/01_MachineLearning/05_MultinomialRegression.html#predict-and-plot",
+    "title": "Multinomial Regression",
+    "section": "Predict and Plot",
+    "text": "Predict and Plot\nNow the model predictions \\(z\\) (logits) can be interpreted as probabilities, and the class with the maximal probability will be the class prediction.\n\n\n\n\n\n\nConverting logits to probabilities\n\n\n\n\n\n\\[\np_k = \\frac{e^{z_k}}{\\sum_{j=1}^{K} e^{z_j}}\n\\]\nThis function is also called softmax, because it basically gives the largest probability for largest logit \\(z_k\\) (for every sample)\nThe probabilities are normalized \\[\n\\sum_{k=1}^{K} p_k = 1\n\\]\n\n\n\n\n\n\n\n\n\nCross-entropy loss\n\n\n\nfor one sample \\[\n\\mathcal{L}(\\mathbf{y}, \\mathbf{p}) = -\\sum_{k=1}^{K} y_k \\log(p_k)\n\\]\nfor all samples\n\\[\nL = \\frac{1}{N} \\sum_i \\mathcal{L}(\\mathbf{y}_i, \\mathbf{p}_i)\n\\]\n\n\n\n\nCode\nmodel.eval()\nwith torch.no_grad():\n    z = model(X)\n    y_prob = z.softmax(dim=1) # for easier interpretation\n    y_pred = z.argmax(dim=1)  # class predition = largest logit\n    acc = (y_pred == y).float().mean().item()\n\nprint('y_true:     ', y[:3])\nprint('z (logits): ', z[:3])\nprint('y_prob:     ', y_prob[:3])\nprint('y_pred:     ', y_pred[:3])\n\nprint(f\"\\n\\nTraining accuracy: {acc:.3f}\")\n\n\ny_true:      tensor([0, 0, 0])\nz (logits):  tensor([[ 2.1135, -0.5782, -4.0234],\n        [ 1.7445, -0.4050, -3.5209],\n        [ 1.9460, -0.5280, -3.6521]])\ny_prob:      tensor([[0.9346, 0.0633, 0.0020],\n        [0.8915, 0.1039, 0.0046],\n        [0.9192, 0.0774, 0.0034]])\ny_pred:      tensor([0, 0, 0])\n\n\nTraining accuracy: 0.967"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/05_MultinomialRegression.html#confusion-matrix",
+    "href": "lectures/01_MachineLearning/05_MultinomialRegression.html#confusion-matrix",
+    "title": "Multinomial Regression",
+    "section": "Confusion Matrix",
+    "text": "Confusion Matrix\n\n\nCode\nfrom sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, classification_report\n\ncm = confusion_matrix(y, y_pred.numpy())\ndisp = ConfusionMatrixDisplay(confusion_matrix=cm,\n                              display_labels=iris.target_names)\ndisp.plot(cmap='Blues')"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/05_MultinomialRegression.html#classification-report",
+    "href": "lectures/01_MachineLearning/05_MultinomialRegression.html#classification-report",
+    "title": "Multinomial Regression",
+    "section": "Classification Report",
+    "text": "Classification Report\n\n\nCode\nreport = classification_report(y, y_pred.numpy(), target_names=iris.target_names)\nprint(report)\n\n\n              precision    recall  f1-score   support\n\n      setosa       1.00      1.00      1.00        50\n  versicolor       1.00      0.90      0.95        50\n   virginica       0.91      1.00      0.95        50\n\n    accuracy                           0.97       150\n   macro avg       0.97      0.97      0.97       150\nweighted avg       0.97      0.97      0.97       150\n\n\n\nConfusion Matrix & Jargon (Wikipedia)"
+  },
+  {
     "objectID": "lectures/01_MachineLearning/03_Models101.html#models",
     "href": "lectures/01_MachineLearning/03_Models101.html#models",
     "title": "Models 101",
@@ -313,13 +362,6 @@
     "title": "Models 101",
     "section": "Review",
     "text": "Review\n\ndependencies between variables can often be modeled\nfind best parameters and loss function (RSS)\nlinear models:\n\nfast analytical and computational solutions\nmany evaluation metrics and checking: \\(R^2, F, \\ldots\\)\n\nmay not be appropriate (complex relationships, \\(y\\) categorical)\n\ndangers:\n\ngood models not necessarily causal\nextrapolation beyond fit domains\n\nfuture\n\nbeyond linear models\nfocus on RSS, accuracy (and other loss functions)\nparameters less interesting"
-  },
-  {
-    "objectID": "lectures/01_MachineLearning/index.html",
-    "href": "lectures/01_MachineLearning/index.html",
-    "title": "01 Machine Learning",
-    "section": "",
-    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nData Stories\n\n\n\nData Formats\n\nData Types\n\nData Analysis Workflow\n\nData Challenges\n\nMetadata\n\n\n\nData is everywhere and in all shapes\n\n\n\nThomas Manke\n\n\nOct 16, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhat is Machine Learning ?\n\n\n\nsklearn\n\npytorch\n\nmachine learning\n\nloss function\n\nepochs\n\ntraining loop\n\n\n\nCan machines learn?\n\n\n\nThomas Manke\n\n\nOct 15, 2025\n\n\n\n\n\n\n\n\n\n\n\nModels 101\n\n\n\nlinear model\n\nRSS\n\nparameters\n\nloss function\n\nmodel matrix\n\nmodel checking\n\nexplained variance\n\n\n\nSome models are useful\n\n\n\nThomas Manke\n\n\nOct 21, 2025\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "homework/04_Autoencoder.html",
@@ -445,7 +487,7 @@
     "href": "projects/index.html",
     "title": "Projects",
     "section": "",
-    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n01 Machine Learning\n\n\nAn ML starter\n\n\n\nThomas Manke\n\n\nOct 12, 2025\n\n\n\n\n\n\n\n\n\n\n\n01 Machine Learning\n\n\nA template for Iris Data\n\n\n\nThomas Manke\n\n\nOct 21, 2025\n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n01 Machine Learning\n\n\nAn ML starter\n\n\n\nThomas Manke\n\n\nOct 12, 2025\n\n\n\n\n\n\n\n\n\n\n\n01 Machine Learning\n\n\nA template for Iris Data\n\n\n\nThomas Manke\n\n\nOct 28, 2025\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "projects/01_MachineLearning.html",
@@ -578,7 +620,7 @@
     "href": "projects/01_MachineLearningIris.html#supervised-linear-model-x-to-y",
     "title": "01 Machine Learning",
     "section": "Supervised: Linear Model \\(x \\to y\\)",
-    "text": "Supervised: Linear Model \\(x \\to y\\)\nUse PyTorch to define a linear model (with one input and one output), a suitable loss function, and an optimizer.\n\n\nCode\nimport numpy as np\nimport torch\nimport torch.nn as nn\nprint('torch version:', torch.__version__)\n\n# identical to the 1st lecture (same model)\nmodel = nn.Sequential(nn.Linear(1, 1)) # n_in = 1, n_out = 1\nloss_func = nn.MSELoss()\noptimizer = torch.optim.SGD(model.parameters())\n\n\ntorch version: 2.7.1"
+    "text": "Supervised: Linear Model \\(x \\to y\\)\nUse PyTorch to define a linear model (with one input and one output), a suitable loss function, and an optimizer.\n\n\nCode\nimport numpy as np\nimport torch\nimport torch.nn as nn\nprint('torch version:', torch.__version__)\n\n# identical to the 1st lecture (same model)\nmodel = nn.Linear(1, 1) # n_in = 1, n_out = 1\nloss_func = nn.MSELoss()\noptimizer = torch.optim.SGD(model.parameters())\n\n\ntorch version: 2.7.1"
   },
   {
     "objectID": "projects/01_MachineLearningIris.html#define-data",
@@ -592,7 +634,7 @@
     "href": "projects/01_MachineLearningIris.html#train-the-model",
     "title": "01 Machine Learning",
     "section": "Train the Model",
-    "text": "Train the Model\nChose a number of iterations (e.g 100 “epochs”) and keep track of the loss at each iteration.\n\n\nCode\nlosses = []\nmodel.train()\nfor epoch in range(100):\n    y_pred = model(x_t)\n    loss = loss_func(y_pred, y_t)\n    loss.backward()\n    optimizer.step()\n    optimizer.zero_grad()\n    losses.append(loss.item()) # keep track of losses\n\n# finished training. inspect model \nprint('Mean Squared Error (loss):    ',loss.item())\nprint('Parameters:')\nfor name, p in model.named_parameters():\n    print(name, p.detach())\n\n\nMean Squared Error (loss):     0.05693141371011734\nParameters:\n0.weight tensor([[0.4240]])\n0.bias tensor([-0.5117])\n\n\n\n\n\n\n\n\nNote\n\n\n\n\n“weight” = slope parameter\n“bias” = intercept"
+    "text": "Train the Model\nChose a number of iterations (e.g 100 “epochs”) and keep track of the loss at each iteration.\n\n\nCode\nlosses = []\nmodel.train()\nfor epoch in range(200):\n    y_pred = model(x_t)\n    loss = loss_func(y_pred, y_t)\n    optimizer.zero_grad()\n    loss.backward()\n    optimizer.step()\n\n    losses.append(loss.item()) # keep track of losses\n\n# finished training. inspect model \nprint('Mean Squared Error (loss):    ',loss.item())\nprint('Parameters:')\nfor name, p in model.named_parameters():\n    print(name, p.detach())\n\n\nMean Squared Error (loss):     0.19705839455127716\nParameters:\nweight tensor([[0.2114]])\nbias tensor([0.5649])\n\n\n\n\n\n\n\n\nNote\n\n\n\n\n“weight” = slope parameter\n“bias” = intercept"
   },
   {
     "objectID": "projects/01_MachineLearningIris.html#inspect-losses",
@@ -606,7 +648,14 @@
     "href": "projects/01_MachineLearningIris.html#predicitons",
     "title": "01 Machine Learning",
     "section": "Predicitons",
-    "text": "Predicitons\nUse the trained model to make predction for 50 new \\(x\\)-values in a range \\((-10,10)\\). Overlay the model predictions with the original data on which the model was learned.\n\n\nCode\n# pick a range of new x-values (meaningful?)\nx_new = np.arange(-10,10,0.5)\n# convert to tensor\nx_new_t = torch.as_tensor(x_new, dtype=torch.float32).view(-1, 1)\n# run predictions\nyp  = model(x_new_t)\n\n# convert from tensor to numpy and reshape\ny_pred = yp.detach().numpy().flatten()\n\nplt.scatter(x_t, y_t, label=\"Data\")\nplt.plot(x_new,y_pred, c=\"orange\", label=\"Model\")\nplt.legend()\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSome Lessons\n\n\n\n\nthere is no perfect fit because\n\nlearning has not yet converged\nreal data is noisy MSE \\(\\ne 0\\)\n\nModels are ignorant: What is the Petal.Width for Petal.Length = -1cm ?\nAssessments of predicted performance should invoke some left out data (test set)\nModels are not necessarily causal\nall models are wrong, some are useful"
+    "text": "Predicitons\nUse the trained model to make predction for 50 new \\(x\\)-values in a range \\((-10,10)\\). Overlay the model predictions with the original data on which the model was learned.\n\n\nCode\n# pick any range of new x-values (meaningful?)\nx_new = np.arange(-10,10,0.5)\n# convert to tensor\nx_new_t = torch.as_tensor(x_new, dtype=torch.float32).view(-1, 1)\n# run predictions\nyp  = model(x_new_t)\n\n# convert from tensor to numpy and reshape\ny_pred = yp.detach().numpy().flatten()\n\nplt.scatter(x_t, y_t, label=\"Data\")\nplt.plot(x_new,y_pred, c=\"orange\", label=\"Model\")\nplt.legend()\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nModel Critique\n\n\n\n\nthere is no perfect fit because\n\nlearning has not yet converged\nreal data is noisy MSE \\(\\ne 0\\)\n\nModels are ignorant: What is the Petal.Width for Petal.Length = -1cm ?\nAssessments of predicted performance should invoke some left out data (test set)\nModels are not necessarily causal\nall models are wrong, some are useful"
+  },
+  {
+    "objectID": "projects/01_MachineLearningIris.html#multivariate-multinomial-regression",
+    "href": "projects/01_MachineLearningIris.html#multivariate-multinomial-regression",
+    "title": "01 Machine Learning",
+    "section": "Multivariate Multinomial Regression",
+    "text": "Multivariate Multinomial Regression\n… with test-train split\n\n\nCode\nimport numpy as np\nimport torch\nimport torch.nn as nn\nfrom sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay\n\nX = torch.tensor(iris.data, dtype=torch.float32) # numeric measurements\nY = torch.tensor(iris.target, dtype=torch.long)  # class labels\nprint(f\"X.shape = {X.shape}, Y.shape = {Y.shape}\")\n\n# define train and test data sets\nn_samples = X.shape[0] # number of all samples\nn_train = int(0.8 * n_samples) # number of training samples\nperm = torch.randperm(n_samples) # shuffled random indicies\ni_train = perm[:n_train] # train indices\ni_test = perm[n_train:] # test indices\n\nmodel = nn.Linear(4, 3) # n_in = 4, n_out = 3\nloss_func = nn.CrossEntropyLoss()\noptimizer = torch.optim.SGD(model.parameters())\n\nmodel.train()\nfor epoch in range(5000):\n    yp = model(X[i_train])\n    loss = loss_func(yp, Y[i_train])\n    optimizer.zero_grad()\n    loss.backward()\n    optimizer.step()\n\nmodel.eval()\nz = model(X[i_test])\ny_pred_class = torch.argmax(z, dim=1)\ny_true_class = Y[i_test].numpy()\nacc = accuracy_score(y_true_class, y_pred_class)\nprint('Accuracy: ', acc)   \n\ncm = confusion_matrix(y_true_class, y_pred_class)\ndisp = ConfusionMatrixDisplay(confusion_matrix=cm,\n                              display_labels=iris.target_names)\ndisp.plot(cmap='Blues')\n\n\nX.shape = torch.Size([150, 4]), Y.shape = torch.Size([150])\nAccuracy:  0.9333333333333333"
   },
   {
     "objectID": "homework/02_MNIST.html",
@@ -782,6 +831,83 @@
     "title": "What is Machine Learning ?",
     "section": "Summary",
     "text": "Summary\n\n3 ways to do linear regression - 1 common goal: minimize loss (MSE)\nGauss (linear algebra), scikit-learn (Gauss + Python), PyTorch (iterations & optimization)\n\n\n\n\nA simple neuron calculating a linear function."
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/index.html",
+    "href": "lectures/01_MachineLearning/index.html",
+    "title": "01 Machine Learning",
+    "section": "",
+    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nData Stories\n\n\n\nData Formats\n\nData Types\n\nData Analysis Workflow\n\nData Challenges\n\nMetadata\n\n\n\nData is everywhere and in all shapes\n\n\n\nThomas Manke\n\n\nOct 16, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhat is Machine Learning ?\n\n\n\nsklearn\n\npytorch\n\nmachine learning\n\nloss function\n\nepochs\n\ntraining loop\n\n\n\nCan machines learn?\n\n\n\nThomas Manke\n\n\nOct 15, 2025\n\n\n\n\n\n\n\n\n\n\n\nModels 101\n\n\n\nlinear model\n\nRSS\n\nparameters\n\nloss function\n\nmodel matrix\n\nmodel checking\n\nexplained variance\n\n\n\nSome models are useful\n\n\n\nThomas Manke\n\n\nOct 21, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nMultivariate Linear Regression\n\n\n\nmultivariate regression\n\niris\n\n\n\nHandle multiple inputs\n\n\n\nThomas Manke\n\n\nOct 28, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nMultinomial Regression\n\n\n\nmultinomial regression\n\niris\n\n\n\nHandle multiple outputs\n\n\n\nThomas Manke\n\n\nOct 28, 2025\n\n\n\n\n\n\n\n\n\n\n\nTraining And Testing Data\n\n\n\noverfitting\n\nunderfitting\n\n\n\nuse different data set to test your model\n\n\n\nThomas Manke\n\n\nOct 28, 2025\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/06_TrainingAndTesting.html",
+    "href": "lectures/01_MachineLearning/06_TrainingAndTesting.html",
+    "title": "Training And Testing Data",
+    "section": "",
+    "text": "Code\nimport torch\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n# helper function\ndef poly_features(x, degree: int):\n    # built polynomial features from x (up to degree)\n    # x -&gt; [1, x, x^2, ..., x^degree]\n    cols = [torch.ones_like(x)]\n    for p in range(1, degree + 1):\n        cols.append(x ** p)\n    return torch.cat(cols, dim=1)\n\ndef model_train(model, X, y, epochs=2000, lr=0.05):\n    loss_func = torch.nn.MSELoss()\n    opt = torch.optim.Adam(model.parameters(), lr=lr)\n#    opt = torch.optim.SGD(model.parameters(), lr=lr)\n    model.train()\n    for _ in range(epochs):\n        opt.zero_grad()\n        loss = loss_func(model(X), y)\n        loss.backward()\n        opt.step()\n    return loss.item()\n\ndef model_predict(model, X):\n    model.eval()\n    with torch.no_grad():\n        return model(X)\n\ndef model_test(model, X, y):\n    loss_func = torch.nn.MSELoss()\n    with torch.no_grad():\n        return loss_func(model(X), y).item()"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/06_TrainingAndTesting.html#generate-synthetic-data",
+    "href": "lectures/01_MachineLearning/06_TrainingAndTesting.html#generate-synthetic-data",
+    "title": "Training And Testing Data",
+    "section": "Generate synthetic data",
+    "text": "Generate synthetic data\n\n\nCode\nseed = 0\ntorch.manual_seed(seed)\nnp.random.seed(seed)\nn = 10\nnoise_sigma = 0.75\n\n# data range\nx = torch.linspace(-2.0, 2.0, n).unsqueeze(1) \n# synthetic data. very simple y = x + noise\ny = x + noise_sigma * torch.randn_like(x)\n\n# define plotting range (for later convenience)\nx_plot = torch.linspace(-2.1, 2.1, 200).unsqueeze(1)"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/06_TrainingAndTesting.html#train-and-test-data",
+    "href": "lectures/01_MachineLearning/06_TrainingAndTesting.html#train-and-test-data",
+    "title": "Training And Testing Data",
+    "section": "Train and Test Data",
+    "text": "Train and Test Data\n\n\nCode\n# Train-test split (80/20)\nn_train = int(0.8 * n) # number of training data \n\n# permute indices [0,1,...,n-1] --&gt; [3, 1, 6, ....]\nperm = torch.randperm(n)  \ntrain_idx, test_idx = perm[:n_train], perm[n_train:]\nx_train, y_train = x[train_idx], y[train_idx]\nx_test, y_test = x[test_idx], y[test_idx]\n\n# plot orginal data\nplt.figure(figsize=(7,5))\nplt.scatter(x_train, y_train, color='black', label='train data', s=50)\nplt.scatter(x_test, y_test, color='red', label='test data', s=50)\nplt.title(\"Train and Test Data\")\nplt.xlabel(\"x\")\nplt.ylabel(\"y\")\nplt.show()"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/06_TrainingAndTesting.html#fitting-under-and-over",
+    "href": "lectures/01_MachineLearning/06_TrainingAndTesting.html#fitting-under-and-over",
+    "title": "Training And Testing Data",
+    "section": "Fitting: Under and Over",
+    "text": "Fitting: Under and Over\n\n\n\n\n\n\nPolynomial Fit\n\n\n\n\n\n\n\nCode\npf = poly_features(x, 3)\nprint(pf[:5])\n\n\ntensor([[ 1.0000, -2.0000,  4.0000, -8.0000],\n        [ 1.0000, -1.5556,  2.4198, -3.7641],\n        [ 1.0000, -1.1111,  1.2346, -1.3717],\n        [ 1.0000, -0.6667,  0.4444, -0.2963],\n        [ 1.0000, -0.2222,  0.0494, -0.0110]])\n\n\n\n\n\n\n\nCode\nplt.figure(figsize=(7,5))\nplt.scatter(x_train, y_train, color='black', label='train data', s=50)\nplt.scatter(x_test, y_test, color='red', label='test data', s=50)\n\n# plot fits of different polynomial degrees\ndegrees = [0, 1, 7]\ncolors = ['blue', 'green', 'orange']\nfor d, col in zip(degrees, colors):\n    Xtr = poly_features(x_train, d)\n    Xpl = poly_features(x_plot, d)\n    model = torch.nn.Linear(d + 1, 1, bias=False)\n    model_train(model, Xtr, y_train)\n    y_pred = model_predict(model, Xpl)\n    plt.plot(x_plot, y_pred, color=col, lw=3, label=f\"d={d}\")\n\nplt.xlabel(\"x\")\nplt.ylabel(\"y\")\nplt.title(\"Polynomial fits and overfits\")\nplt.legend()\nplt.grid(True)\nplt.tight_layout()\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n\nhigh degree polynomials \\(\\to\\) complex models, many parameters, high flexibilty\ncomplex models can fit training data (black) points with high accuracy\nerror tends to be large on left-out data (test data, red)\nevaluate models on test data !\n\n\n\n\n\nCode\ndegrees = range(0, 9)\ntrain_mse, test_mse = [], []\nfor d in degrees:\n    Xtr = poly_features(x_train, d)\n    Xte = poly_features(x_test, d)\n    model = torch.nn.Linear(d + 1, 1, bias=False)\n    train_loss = model_train(model, Xtr, y_train)\n    test_loss = model_test(model, Xte, y_test)\n    train_mse.append(train_loss)\n    test_mse.append(test_loss)\n\nplt.figure(figsize=(7,5))\nplt.plot(degrees, train_mse, marker='o', label='Train MSE')\nplt.plot(degrees, test_mse, marker='o', label='Test MSE')\nplt.xlabel('Polynomial degree (model complexity)')\nplt.ylabel('Mean Squared Error')\nplt.title('Train vs Test error')\nplt.legend()\nplt.grid(True)\nplt.tight_layout()\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n\noverfitted models do not generalize well to unseen data\nmany regularization methods"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/06_TrainingAndTesting.html#appendix-more-splitting",
+    "href": "lectures/01_MachineLearning/06_TrainingAndTesting.html#appendix-more-splitting",
+    "title": "Training And Testing Data",
+    "section": "Appendix: More splitting",
+    "text": "Appendix: More splitting\nThere is also a powerful (and frequently used) method to conduct the train-test split with sklearn functionality. But this requires changing from torch tensors to numpy arrays (and convert back to tensors).\n\n\nCode\nfrom sklearn.model_selection import train_test_split\n\nprint(f'x.shape: {x.shape} y.shape {y.shape}')\nx_train, x_test, y_train, y_test = train_test_split(\n    x.numpy(), y.numpy(), test_size=0.2, random_state=42\n)\n\n# Convert back to torch\nx_train = torch.tensor(x_train, dtype=torch.float32)\nx_test  = torch.tensor(x_test, dtype=torch.float32)\ny_train = torch.tensor(y_train, dtype=torch.float32)\ny_test  = torch.tensor(y_test, dtype=torch.float32)\n\nprint(f'x_train.shape: {x_train.shape} y_train.shape {y_train.shape}')\nprint(f'x_test.shape: {x_test.shape} y_test.shape {y_test.shape}')\n\n\nx.shape: torch.Size([10, 1]) y.shape torch.Size([10, 1])\nx_train.shape: torch.Size([8, 1]) y_train.shape torch.Size([8, 1])\nx_test.shape: torch.Size([2, 1]) y_test.shape torch.Size([2, 1])"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/04_MultivariateRegression.html",
+    "href": "lectures/01_MachineLearning/04_MultivariateRegression.html",
+    "title": "Multivariate Linear Regression",
+    "section": "",
+    "text": "A simple neuron calculating a simple linear function.\n\n\n\n\n\n\n\n\nSome Lessons from iris\n\n\n\n\nThere is no perfect fit because real data is noisy. In general: MSE \\(\\ne 0\\)\nModels are ignorant: What is the Petal.Width for Petal.Length = -1cm ?\nModels are not necessarily causal\n“All models are wrong, some are useful”\nAssessments of predicted performance should invoke some left out data (test set)"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/04_MultivariateRegression.html#summary",
+    "href": "lectures/01_MachineLearning/04_MultivariateRegression.html#summary",
+    "title": "Multivariate Linear Regression",
+    "section": "",
+    "text": "A simple neuron calculating a simple linear function.\n\n\n\n\n\n\n\n\nSome Lessons from iris\n\n\n\n\nThere is no perfect fit because real data is noisy. In general: MSE \\(\\ne 0\\)\nModels are ignorant: What is the Petal.Width for Petal.Length = -1cm ?\nModels are not necessarily causal\n“All models are wrong, some are useful”\nAssessments of predicted performance should invoke some left out data (test set)"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/04_MultivariateRegression.html#generalization-more-input-variables",
+    "href": "lectures/01_MachineLearning/04_MultivariateRegression.html#generalization-more-input-variables",
+    "title": "Multivariate Linear Regression",
+    "section": "Generalization: more input variables",
+    "text": "Generalization: more input variables\n\n\n\nA simple neuron receiving multiple inputs - and calculating a linear function.\n\n\n\n\nCode\nimport matplotlib.pyplot as plt\nfrom sklearn import datasets\nimport torch\nimport torch.nn as nn\n\n\n\n\nCode\n# get iris data from sklearn\niris = datasets.load_iris() \nX = iris.data[:,:3] # first three columns  \ny = iris.data[:,3]  # forth column\n\n# convert to tensors\nX = torch.tensor(X, dtype=torch.float32)\ny = torch.tensor(y, dtype=torch.float32).unsqueeze(1)\nprint(f\"X.shape = {X.shape}, y.shape = {y.shape}\")\n\n\nX.shape = torch.Size([150, 3]), y.shape = torch.Size([150, 1])"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/04_MultivariateRegression.html#model-training",
+    "href": "lectures/01_MachineLearning/04_MultivariateRegression.html#model-training",
+    "title": "Multivariate Linear Regression",
+    "section": "Model Training",
+    "text": "Model Training\n… requires minimal changes to pytorch code\n\n\nCode\nn_epochs = 1000\nmodel = nn.Linear(3, 1)  # only change: n_in = 3, n_out = 1\n\n# all below as before\nloss_func = nn.MSELoss()  # MSE!\noptimizer = torch.optim.SGD(model.parameters()) \n\nmodel.train()\nfor epoch in range(n_epochs):\n    y_pred = model(X) \n    loss = loss_func(y_pred, y)\n    optimizer.zero_grad()\n    loss.backward()\n    optimizer.step()\n\nprint(\"Fitted parameters:\")\nprint(\"Intercept (bias):\", model.bias.item())\n\n## Notice more weights\nprint(\"Coefficients (weights):\", model.weight.detach().numpy())\nprint('Loss: ', loss)    \n\n\nFitted parameters:\nIntercept (bias): 0.2394721806049347\nCoefficients (weights): [[ 0.0421822  -0.21746331  0.36797115]]\nLoss:  tensor(0.0560, grad_fn=&lt;MseLossBackward0&gt;)"
+  },
+  {
+    "objectID": "lectures/01_MachineLearning/04_MultivariateRegression.html#predict-and-plot",
+    "href": "lectures/01_MachineLearning/04_MultivariateRegression.html#predict-and-plot",
+    "title": "Multivariate Linear Regression",
+    "section": "Predict and Plot",
+    "text": "Predict and Plot\nNow the predicted values y_pred depend on multiple inputs high-dimensional inputs x. It’s convenient to plot the true value y_true against y_pred = f(x).\n\n\nCode\nmodel.eval()\ny_pred = model(X)\n\n# convert to numpy (only for plotting)\nyp = y_pred.detach().numpy()\nyt = y.numpy()\n\ntitle_str = f\"Truth vs Predictions. Loss = MSE = {loss:.3f}\"\nplt.figure(figsize=(6,4))\nplt.plot(yp, yt, 'o')\nplt.xlabel(\"y_pred = f(x)\")\nplt.ylabel(\"y_true\")\nplt.title(title_str)\nplt.legend()\nplt.grid(True)\nplt.show()\n\n\n/var/folders/jh/jwym2_j128v8nn1dwc0sc10m0000gn/T/ipykernel_47611/1653731775.py:14: UserWarning:\n\nNo artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument."
   },
   {
     "objectID": "lectures/03_ConvolutionalNeuralNetworks/001_CNN.html",
