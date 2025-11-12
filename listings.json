@@ -1,5 +1,15 @@
 [
   {
+    "listing": "/lectures/03_ConvolutionalNeuralNetworks/index.html",
+    "items": [
+      "/lectures/03_ConvolutionalNeuralNetworks/001_CNN.html"
+    ]
+  },
+  {
+    "listing": "/lectures/04_GenerativeModels/index.html",
+    "items": []
+  },
+  {
     "listing": "/lectures/01_MachineLearning/index.html",
     "items": [
       "/lectures/01_MachineLearning/01_Data.html",
@@ -22,25 +32,17 @@
     "listing": "/projects/index.html",
     "items": [
       "/projects/01_MachineLearning.html",
-      "/projects/01_MachineLearningGapminder.html",
       "/projects/01_MachineLearningIris.html",
       "/projects/02_DeepNeuralNetworks.html"
     ]
   },
   {
-    "listing": "/lectures/04_GenerativeModels/index.html",
-    "items": []
-  },
-  {
-    "listing": "/lectures/03_ConvolutionalNeuralNetworks/index.html",
-    "items": [
-      "/lectures/03_ConvolutionalNeuralNetworks/001_CNN.html"
-    ]
-  },
-  {
     "listing": "/lectures/02_NeuralNetworks/index.html",
     "items": [
-      "/lectures/02_NeuralNetworks/00_Perceptron.html"
+      "/lectures/02_NeuralNetworks/00_Perceptron.html",
+      "/lectures/02_NeuralNetworks/01_Non-Linearities.html",
+      "/lectures/02_NeuralNetworks/02_LossAndGradientDescent.html",
+      "/lectures/02_NeuralNetworks/03_EngineeringWithGradients.html"
     ]
   },
   {
