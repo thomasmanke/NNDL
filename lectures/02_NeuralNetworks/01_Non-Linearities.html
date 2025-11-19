@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Thomas Manke">
-<meta name="dcterms.date" content="2025-11-10">
+<meta name="dcterms.date" content="2025-11-14">
 <meta name="description" content="Inserting non-linearities in neural networks">
 
 <title>Non-linearities – Neural Networks and Deep Learning</title>
@@ -427,7 +427,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 10, 2025</p>
+      <p class="date">November 14, 2025</p>
     </div>
   </div>
   
@@ -797,7 +797,7 @@ Note
 <td style="text-align: left;"><strong>Advantages</strong></td>
 <td style="text-align: left;">• Smooth and bounded<br>• Probabilistic interpretation<br>• Historically important</td>
 <td style="text-align: left;">• Zero-centered<br>• Smooth and bounded<br>• Symmetric around 0</td>
-<td style="text-align: left;">• Simple and fast<br>• Avoids vanishing gradients for x&gt;0<br>• Sparse activations</td>
+<td style="text-align: left;">• Simple and fast<br>• Avoids vanishing gradients for x&gt;0<br></td>
 <td style="text-align: left;">• Smooth and differentiable<br>• Avoids dead neurons<br>• No hyperparameters<br></td>
 </tr>
 <tr class="even">
@@ -1550,7 +1550,7 @@ Note
 <span id="cb6-272"><a href="#cb6-272" aria-hidden="true" tabindex="-1"></a><span class="pp">|:----------|:-------------|:----------|:-----------|:------------------|</span></span>
 <span id="cb6-273"><a href="#cb6-273" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Definition** <span class="pp">|</span> $\frac{1}{1 + e^{-z}}$ <span class="pp">|</span> $\frac{e^{z} - e^{-z}}{e^{z} + e^{-z}}$ <span class="pp">|</span> $\max(0, z)$ <span class="pp">|</span> $\frac{z}{1 + e^{-z}}$ <span class="pp">|</span></span>
 <span id="cb6-274"><a href="#cb6-274" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Range** <span class="pp">|</span> $(0, 1)$ <span class="pp">|</span> $(−1, 1)$ <span class="pp">|</span> $\left[0, \infty \right)$ <span class="pp">|</span> $(-1.28, \infty)$ <span class="pp">|</span></span>
-<span id="cb6-275"><a href="#cb6-275" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Advantages** <span class="pp">|</span> • Smooth and bounded<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>• Probabilistic interpretation<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>• Historically important <span class="pp">|</span> • Zero-centered<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>• Smooth and bounded<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>• Symmetric around 0 <span class="pp">|</span> • Simple and fast<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>• Avoids vanishing gradients for x&gt;0<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>• Sparse activations <span class="pp">|</span> • Smooth and differentiable<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>• Avoids dead neurons<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>• No hyperparameters<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span> <span class="pp">|</span></span>
+<span id="cb6-275"><a href="#cb6-275" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Advantages** <span class="pp">|</span> • Smooth and bounded<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>• Probabilistic interpretation<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>• Historically important <span class="pp">|</span> • Zero-centered<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>• Smooth and bounded<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>• Symmetric around 0 <span class="pp">|</span> • Simple and fast<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>• Avoids vanishing gradients for x&gt;0<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span> <span class="pp">|</span> • Smooth and differentiable<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>• Avoids dead neurons<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>• No hyperparameters<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span> <span class="pp">|</span></span>
 <span id="cb6-276"><a href="#cb6-276" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Disadvantages** <span class="pp">|</span> • Not zero-centered<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>• Saturates → vanishing gradients<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>• Slow convergence in deep nets <span class="pp">|</span> • saturates for large <span class="sc">\|</span>x<span class="sc">\|</span> → vanishing gradients<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>• Slower than ReLU <span class="pp">|</span> • Zero gradient for x&lt;0 (dead neurons)<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>• Non-smooth at 0 <span class="pp">|</span> • Slightly higher compute cost (needs sigmoid)<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>• Non-monotonic around −1<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>• Less intuitive <span class="pp">|</span></span>
 <span id="cb6-277"><a href="#cb6-277" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Typical use cases** <span class="pp">|</span> output layer for binary classification <span class="pp">|</span> RNNs, LSTMs <span class="pp">|</span> Default for many modern NN<span class="pp">|</span> Transformers, ReLU replacement <span class="pp">|</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>

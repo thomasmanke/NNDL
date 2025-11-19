@@ -137,7 +137,7 @@
     "href": "lectures/02_NeuralNetworks/02_LossAndGradientDescent.html#backpropagation",
     "title": "Loss and Gradients",
     "section": "Backpropagation",
-    "text": "Backpropagation\n\n\n\n\n\n\nChain Rule\n\n\n\n\\[\n\\begin{aligned}\n\\frac{\\partial L}{\\partial w} &= \\left(\\frac{\\partial L}{\\partial a}\\right)\\left(\\frac{\\partial a}{\\partial z}\\right) \\left(\\frac{\\partial z}{\\partial w}\\right)\n\\end{aligned}\n\\]\n\n\n\\[\n\\begin{aligned}\n\\frac{\\partial L}{\\partial a} &= -\\frac{y}{a} + \\frac{1-y}{1-a}\\\\\n\\frac{\\partial a}{\\partial z} &= a(1-a)~~~\\mbox{for sigmoid}\\\\\n\\frac{\\partial z}{\\partial w_j} &= x_j~~~; ~~~\\frac{\\partial z}{\\partial b} = 1\n\\end{aligned}\n\\]\n\n\n\n\n\n\nBackward Calculation\n\n\n\n\nderivatives = lookup and multiplication\ndecompose larger calculation into smaller local parts\nstrict computational flow ensures that all required contributions are known\nimportance of differentiable activation functions: \\(\\frac{\\partial a}{\\partial z}\\)\nattaches a gradient to each forward value: \\(a \\to da \\equiv \\frac{\\partial L}{\\partial a}\\)\nflexibility: other loss functions, other inputs, more layers\nthis is for one sample \\((\\mathbf{x},y)\\) only"
+    "text": "Backpropagation\n\n\n\n\n\n\nChain Rule\n\n\n\n\\[\n\\begin{aligned}\n\\frac{\\partial L}{\\partial w} &= \\left(\\frac{\\partial L}{\\partial a}\\right)\\left(\\frac{\\partial a}{\\partial z}\\right) \\left(\\frac{\\partial z}{\\partial w}\\right)\n\\end{aligned}\n\\]\n\nLoss \\(L\\)\nActivations: \\(a\\)\nOutputs: \\(z\\)\nWeights (or biases): \\(w\\)\n\n\n\n\\[\n\\begin{aligned}\n\\frac{\\partial L}{\\partial a} &= -\\frac{y}{a} + \\frac{1-y}{1-a}\\\\\n\\frac{\\partial a}{\\partial z} &= a(1-a)~~~\\mbox{for sigmoid}\\\\\n\\frac{\\partial z}{\\partial w_j} &= x_j~~~; ~~~\\frac{\\partial z}{\\partial b} = 1\n\\end{aligned}\n\\]\n\n\n\n\n\n\nBackward Calculation\n\n\n\n\nderivatives = lookup and multiplication\ndecompose larger calculation into smaller local parts\nstrict computational flow ensures that all required contributions are known\nimportance of differentiable activation functions: \\(\\frac{\\partial a}{\\partial z}\\)\nattaches a gradient to each forward value: \\(a \\to da \\equiv \\frac{\\partial L}{\\partial a}\\)\nflexibility: other loss functions, other inputs, more layers\n\n\n\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\n\ndef sigmoid(x):\n    return 1 / (1 + np.exp(-x))\n\nx = np.linspace(-3, 3, 50)\ny_sigmoid = sigmoid(x)\ny_prime = y_sigmoid * ( 1 - y_sigmoid) \nplt.figure(figsize=(8, 5))\nplt.plot(x, y_sigmoid, label='Sigmoid', linewidth=2)\nplt.plot(x, y_prime, label='Derviative', linewidth=2)\nplt.title(\"Sigmoid and Derivative\")\nplt.legend()\nplt.show()"
   },
   {
     "objectID": "lectures/02_NeuralNetworks/02_LossAndGradientDescent.html#summary-forward-and-backward-flows",
@@ -186,7 +186,7 @@
     "href": "lectures/02_NeuralNetworks/01_Non-Linearities.html#summary",
     "title": "Non-linearities",
     "section": "Summary",
-    "text": "Summary\n\n\nCode\nimport torch\nimport torch.nn.functional as F\nimport matplotlib.pyplot as plt\n\nz = torch.linspace(-5, 5, 400)\ny_relu = F.relu(z)\ny_silu = F.silu(z)\ny_sigmoid = torch.sigmoid(z)\n\nplt.plot(z, y_relu, label=\"ReLU\", linestyle=\"--\")\nplt.plot(z, y_silu, label=\"SiLU (Swish)\")\nplt.plot(z, y_sigmoid, label=\"Sigmoid\", linestyle=\":\")\nplt.legend()\nplt.title(\"Activation Functions\")\nplt.grid(True, linestyle=\":\")\nplt.xlabel(\"z\")\nplt.ylabel(\"a(z)\")\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSigmoid\ntanh\nReLU\nSiLU\n\n\n\n\nDefinition\n\\(\\frac{1}{1 + e^{-z}}\\)\n\\(\\frac{e^{z} - e^{-z}}{e^{z} + e^{-z}}\\)\n\\(\\max(0, z)\\)\n\\(\\frac{z}{1 + e^{-z}}\\)\n\n\nRange\n\\((0, 1)\\)\n\\((−1, 1)\\)\n\\(\\left[0, \\infty \\right)\\)\n\\((-1.28, \\infty)\\)\n\n\nAdvantages\n• Smooth and bounded• Probabilistic interpretation• Historically important\n• Zero-centered• Smooth and bounded• Symmetric around 0\n• Simple and fast• Avoids vanishing gradients for x&gt;0• Sparse activations\n• Smooth and differentiable• Avoids dead neurons• No hyperparameters\n\n\nDisadvantages\n• Not zero-centered• Saturates → vanishing gradients• Slow convergence in deep nets\n• saturates for large |x| → vanishing gradients• Slower than ReLU\n• Zero gradient for x&lt;0 (dead neurons)• Non-smooth at 0\n• Slightly higher compute cost (needs sigmoid)• Non-monotonic around −1• Less intuitive\n\n\nTypical use cases\noutput layer for binary classification\nRNNs, LSTMs\nDefault for many modern NN\nTransformers, ReLU replacement"
+    "text": "Summary\n\n\nCode\nimport torch\nimport torch.nn.functional as F\nimport matplotlib.pyplot as plt\n\nz = torch.linspace(-5, 5, 400)\ny_relu = F.relu(z)\ny_silu = F.silu(z)\ny_sigmoid = torch.sigmoid(z)\n\nplt.plot(z, y_relu, label=\"ReLU\", linestyle=\"--\")\nplt.plot(z, y_silu, label=\"SiLU (Swish)\")\nplt.plot(z, y_sigmoid, label=\"Sigmoid\", linestyle=\":\")\nplt.legend()\nplt.title(\"Activation Functions\")\nplt.grid(True, linestyle=\":\")\nplt.xlabel(\"z\")\nplt.ylabel(\"a(z)\")\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSigmoid\ntanh\nReLU\nSiLU\n\n\n\n\nDefinition\n\\(\\frac{1}{1 + e^{-z}}\\)\n\\(\\frac{e^{z} - e^{-z}}{e^{z} + e^{-z}}\\)\n\\(\\max(0, z)\\)\n\\(\\frac{z}{1 + e^{-z}}\\)\n\n\nRange\n\\((0, 1)\\)\n\\((−1, 1)\\)\n\\(\\left[0, \\infty \\right)\\)\n\\((-1.28, \\infty)\\)\n\n\nAdvantages\n• Smooth and bounded• Probabilistic interpretation• Historically important\n• Zero-centered• Smooth and bounded• Symmetric around 0\n• Simple and fast• Avoids vanishing gradients for x&gt;0\n• Smooth and differentiable• Avoids dead neurons• No hyperparameters\n\n\nDisadvantages\n• Not zero-centered• Saturates → vanishing gradients• Slow convergence in deep nets\n• saturates for large |x| → vanishing gradients• Slower than ReLU\n• Zero gradient for x&lt;0 (dead neurons)• Non-smooth at 0\n• Slightly higher compute cost (needs sigmoid)• Non-monotonic around −1• Less intuitive\n\n\nTypical use cases\noutput layer for binary classification\nRNNs, LSTMs\nDefault for many modern NN\nTransformers, ReLU replacement"
   },
   {
     "objectID": "lectures/01_MachineLearning/04_MultivariateRegression.html",
@@ -998,7 +998,7 @@
     "href": "lectures/02_NeuralNetworks/03_EngineeringWithGradients.html#parameter-initialization",
     "title": "Engineering with Gradients",
     "section": "Parameter Initialization",
-    "text": "Parameter Initialization\n\ndifferent initialization can lead to different solutions\navoid node symmetry: random initialization not zero\navoid vanishing gradients: no learning\navoid exploding gradients: unstable updates, divergent loss\nchose activation function\n\n\n\n\n\n\n\nDifferent Initializations at different layers:\n\n\n\nFor layer with \\(n_l\\) nodes \\[\n\\begin{aligned}\nz &= \\sum_i w_i x_i \\\\\nVar(z) &= n Var(w_i)\n\\end{aligned}\n\\]\n\nXavier Initialization (for tanh): \\(Var(w) = 1/n_l\\)\nKaiming Initialization (for ReLU); \\(Var(w) = 2/n_l\\)\nmany more: e.g. torch.nn.init"
+    "text": "Parameter Initialization\n\ndifferent initialization can lead to different solutions\navoid node symmetry: random initialization, not zero\navoid large weights \\(\\to\\) vanishing gradients (w/ sigmoid) \\(\\to\\) no learning\navoid small weights \\(\\to\\) small activation \\(\\to\\) small gradients\n\n\\[\n(\\partial L / \\partial w_i) = (\\partial L / \\partial a)   (\\partial a / \\partial w_i)\n\\]\n\n\n\n\n\n\nDifferent Initializations at different layers:\n\n\n\nFor layer with \\(n_l\\) nodes \\[\n\\begin{aligned}\nz &= \\sum_i w_i x_i \\\\\nVar(z) &= n_l Var(w) Var(x)\n\\end{aligned}\n\\]\nWe want that Var(output) \\(\\propto\\) Var(input)\n\nXavier Initialization (for tanh): \\(Var(w) = 1/n_l\\)\nKaiming Initialization (for ReLU); \\(Var(w) = 2/n_l\\)\nmany more: e.g. torch.nn.init"
   },
   {
     "objectID": "lectures/02_NeuralNetworks/03_EngineeringWithGradients.html#vectorization-gpu",
@@ -1012,7 +1012,7 @@
     "href": "lectures/02_NeuralNetworks/index.html",
     "title": "02 Deep Neural Networks",
     "section": "",
-    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nPerceptron\n\n\n\nperceptron\n\ndecision boundaries\n\nneuron\n\n\n\nBrain Connections\n\n\n\nThomas Manke\n\n\nSep 7, 2025\n\n\n\n\n\n\n\n\n\n\n\nNon-linearities\n\n\nInserting non-linearities in neural networks\n\n\n\nThomas Manke\n\n\nNov 10, 2025\n\n\n\n\n\n\n\n\n\n\n\nLoss and Gradients\n\n\n\nchain rule\n\nbackpropagation\n\ngradient descent\n\n\n\nChain rules on networks\n\n\n\nThomas Manke\n\n\nNov 10, 2025\n\n\n\n\n\n\n\n\n\n\n\nEngineering with Gradients\n\n\n\nstochastic gradient descent\n\nmomentum\n\nAdam\n\n\n\nImprovements for simple gradient descent\n\n\n\nThomas Manke\n\n\nNov 11, 2025\n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nPerceptron\n\n\n\nperceptron\n\ndecision boundaries\n\nneuron\n\n\n\nBrain Connections\n\n\n\nThomas Manke\n\n\nSep 7, 2025\n\n\n\n\n\n\n\n\n\n\n\nNon-linearities\n\n\nInserting non-linearities in neural networks\n\n\n\nThomas Manke\n\n\nNov 14, 2025\n\n\n\n\n\n\n\n\n\n\n\nLoss and Gradients\n\n\n\nchain rule\n\nbackpropagation\n\ngradient descent\n\n\n\nChain rules on networks\n\n\n\nThomas Manke\n\n\nNov 19, 2025\n\n\n\n\n\n\n\n\n\n\n\nEngineering with Gradients\n\n\n\nstochastic gradient descent\n\nmomentum\n\nAdam\n\n\n\nImprovements beyond simple gradient descent\n\n\n\nThomas Manke\n\n\nNov 19, 2025\n\n\n\n\n\n\n\n\n\n\n\nOverfitting with DNN\n\n\n\noverfitting\n\ndropout\n\nregularization\n\n\n\nUniversal Approximations can also overfit\n\n\n\nThomas Manke\n\n\nNov 19, 2025\n\n\n\n\n\n\n\n\n\n\n\nSummary: DNN Challenges\n\n\nSummary\n\n\n\nThomas Manke\n\n\nNov 17, 2025\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "lectures/02_NeuralNetworks/00_Perceptron.html",
@@ -1160,5 +1160,103 @@
     "title": "Help",
     "section": "",
     "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nFrameworks\n\n\n\nsklearn\n\npytorch\n\ntensorflow\n\n\n\npowerful tools for neural networks\n\n\n\nThomas Manke\n\n\nOct 21, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nBig Data\n\n\n\nbig data\n\n\n\nFamous image sets and other Big Data\n\n\n\nThomas Manke\n\n\nOct 5, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nPytorch Starter\n\n\na basic intro\n\n\n\nThomas Manke\n\n\nNov 5, 2025\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/04_Overfitting.html",
+    "href": "lectures/02_NeuralNetworks/04_Overfitting.html",
+    "title": "Overfitting with DNN",
+    "section": "",
+    "text": "Great power comes with great responsibility\n\n\n\n\nuniversal approximation theorem \\(\\to\\) great flexibility to fit any function\nmethods to control overfitting"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/04_Overfitting.html#define-model-and-training-loop",
+    "href": "lectures/02_NeuralNetworks/04_Overfitting.html#define-model-and-training-loop",
+    "title": "Overfitting with DNN",
+    "section": "Define Model and Training Loop",
+    "text": "Define Model and Training Loop\nHere we define a relatively simple model class and a standardard training loop for convenience.\nNotice: two parameters, \\(\\delta\\) and \\(\\lambda\\), to be used later.\n\n\nCode\nclass Model1(nn.Module):\n    def __init__(self, delta=0.0):\n        super().__init__()\n        self.delta = delta\n        self.net = nn.Sequential(\n            nn.Linear(1, 16),\n            nn.ReLU(),\n            nn.Dropout(delta),\n            nn.Linear(16, 1),\n        )\n\n    def forward(self, x):\n        return self.net(x)\n\ndef model_train(model, X, y, epochs=1000, lr=0.05, lam=0.0):\n    # standard training loop with MSE loss\n    loss_func = torch.nn.MSELoss()\n    opt = torch.optim.Adam(model.parameters(), lr=lr)\n    loss_hist = []\n    model.train()\n    for _ in range(epochs):\n        opt.zero_grad()\n        loss_reg = lam * sum(p.pow(2).sum() for p in model.parameters())\n        loss = loss_func(model(X), y) + loss_reg\n        loss.backward()\n        opt.step()\n\n        loss_hist.append(loss.detach().numpy())\n    return loss_hist"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/04_Overfitting.html#generate-synthetic-data",
+    "href": "lectures/02_NeuralNetworks/04_Overfitting.html#generate-synthetic-data",
+    "title": "Overfitting with DNN",
+    "section": "Generate synthetic data",
+    "text": "Generate synthetic data\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport torch\nimport torch.nn as nn\n\nseed = 0\ntorch.manual_seed(seed)\nnp.random.seed(seed)\nn = 10\nnoise_sigma = 0.75\n# synthetic data: y = x + epsilon\nx = torch.linspace(-2.0, 2.0, n).unsqueeze(1) \ny = x + noise_sigma * torch.randn_like(x) \n\nplt.figure(figsize=(7,5))\nplt.scatter(x, y, color='black', label='train data', s=50)\nplt.title(\"A simple example - again\")\nplt.xlabel(\"x\")\nplt.ylabel(\"y\")\nplt.show()"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/04_Overfitting.html#train-model",
+    "href": "lectures/02_NeuralNetworks/04_Overfitting.html#train-model",
+    "title": "Overfitting with DNN",
+    "section": "Train Model",
+    "text": "Train Model\n\n\nCode\n%%time\nfrom torchinfo import summary\nmodel = Model1(delta=0.0)\nprint(summary(model))\n\nloss_hist = model_train(model, x, y, epochs=10000, lr=1e-3)\n\n\n=================================================================\nLayer (type:depth-idx)                   Param #\n=================================================================\nModel1                                   --\n├─Sequential: 1-1                        --\n│    └─Linear: 2-1                       32\n│    └─ReLU: 2-2                         --\n│    └─Dropout: 2-3                      --\n│    └─Linear: 2-4                       17\n=================================================================\nTotal params: 49\nTrainable params: 49\nNon-trainable params: 0\n=================================================================\nCPU times: user 1.93 s, sys: 92.6 ms, total: 2.03 s\nWall time: 2.33 s"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/04_Overfitting.html#loss-history",
+    "href": "lectures/02_NeuralNetworks/04_Overfitting.html#loss-history",
+    "title": "Overfitting with DNN",
+    "section": "Loss History",
+    "text": "Loss History\n\n\nCode\ndef plot_losses(losses):\n    plt.figure()\n    plt.plot(losses)\n    plt.ylabel('loss')\n    plt.xlabel('epoch')\n    plt.title(f'Loss history. Final Loss: {losses[-1]:.4f}')\n    plt.show()\n\nplot_losses(loss_hist)"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/04_Overfitting.html#model-predictions",
+    "href": "lectures/02_NeuralNetworks/04_Overfitting.html#model-predictions",
+    "title": "Overfitting with DNN",
+    "section": "Model Predictions",
+    "text": "Model Predictions\n\n\nCode\ndef plot_pred(x,y, x_new, model, title=\"\"):\n    # plot training data and model predictions\n\n    # no not use dropout during evaluation !\n    model.eval() \n    with torch.no_grad():\n        y_pred = model(x_new)\n\n    plt.figure(figsize=(7,5))\n    # training data\n    plt.scatter(x, y, color='black', label='train data', s=50)\n    # predictions\n    plt.plot(x_new, y_pred.detach(), color='orange', lw=3, label=f\"model (delta={model.delta:.2f})\")\n    plt.xlabel(\"x\")\n    plt.ylabel(\"y\")\n    plt.title(title)\n    plt.grid(True)\n    plt.legend()\n    plt.tight_layout()\n    plt.show()\n\nx_plot = torch.linspace(-2.1, 2.1, 200).unsqueeze(1)\nplot_pred(x,y, x_plot, model, title=\"Universality and Overfitting\")"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/04_Overfitting.html#with-dropout",
+    "href": "lectures/02_NeuralNetworks/04_Overfitting.html#with-dropout",
+    "title": "Overfitting with DNN",
+    "section": "With Dropout",
+    "text": "With Dropout\n… adjust model (during training).\nThis sets to zero the output of a random fraction (10-20%) of neurons for each mini-batch (epochs in the simple example below). In this way the model predictions should be robust against the presence or absence of individual neurons and overfit less.\n\n\nCode\nmodel = Model1(delta=0.1)\n#print(summary(model))\nloss_hist = model_train(model, x, y, epochs=10000, lr=1e-3)\nplot_losses(loss_hist)\nplot_pred(x,y, x_plot, model, title=f\"delta={model.delta:.2f}\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDropout (\\(delta&gt;0\\))\n\n\n\n\ncorresponds to ensemble of smaller networks within big one\nmakes learning harder\nincreases loss and loss fluctuations\nreduces network capacity \\(\\to\\) increased training time\nforces redundant representations (c.f neurobiology: neurons are not reliable\nmakes model more robust \\(\\to\\) less overfitting\naccuracy \\(\\to\\) reliability\nonly at training (pyTorch: model.eval at inference!)\n\nor run multiple evaluations to estimate empirical probabilities"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/04_Overfitting.html#with-regularization",
+    "href": "lectures/02_NeuralNetworks/04_Overfitting.html#with-regularization",
+    "title": "Overfitting with DNN",
+    "section": "With regularization",
+    "text": "With regularization\n… adjust cost function \\[\nL(\\theta) \\to L(\\theta) + \\frac{\\lambda}{2} \\sum_l \\theta_l^2\n\\]\nThis is also know as “L2 regularization” which encourages more balanced distribution of weights \\(\\theta_l\\).\n… and parameter update \\[\n\\theta_{t+1} = \\theta_t - \\alpha \\fract{\\partial L}{\\partial \\theta_t} - \\lambda \\theta_t\n\\]\n\n\nCode\ndelta, lam = 0.0, 0.1\nmodel = Model1(delta=delta)\n#print(summary(model))\nloss_hist = model_train(model, x, y, epochs=10000, lr=1e-3, lam=lam)\nplot_losses(loss_hist)\nplot_pred(x,y, x_plot, model,title=f\"delta={delta:.2f}, lambda={lam:.2f}\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLoss Regularization\n\n\n\n\nno change to model\nlearning less affected \\(\\to\\) smoother loss history\nmodel is more robust \\(\\to\\) less overfitting\nnew hyperparameters"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/04_Overfitting.html#summary-deep-nn-challenges",
+    "href": "lectures/02_NeuralNetworks/04_Overfitting.html#summary-deep-nn-challenges",
+    "title": "Overfitting with DNN",
+    "section": "Summary: Deep NN challenges",
+    "text": "Summary: Deep NN challenges\n\nfind optimal solutions (minimize loss)\noverparameterization: more parameters than necessary (more than data points) \\(\\to\\) model flexibility\noverfitting \\(\\to\\) poor generalization\nvanishing/exploding gradients\n\n\n\n\n\n\n\n\n\nChallenge\nSymptoms\nRemedy\n\n\n\n\nFind optimal parameters (non-convex optimization)**\nslow or unstable loss reduction\nUse advanced optimizers (Adam, RMSProp, SGD + momentum); learning-rate scheduling; good weight initialization;\n\n\nOverparameterization\nmore parameters than data points\nsmaller networks, constraints or symmetries\n\n\nOverfitting (poor generalization)\ndecrease training loss, increased validation/test loss\nDropout; L2 regularization, data augmentation; weight decay (L2 regularization); early stopping; increase dataset\n\n\nVanishing gradients (no learning)\nGradients \\(\\approx 0\\) in early layers\nUse other activation functions (ReLU, siLU); He/Xavier initialization; normalization layers\n\n\nExploding gradients (divergent training)\nLoss or parameters become NaN/∞\nGradient clipping; lower learning rate; normalization\n\n\nSmall Data\nPoor performance on small datasets\nData augmentation, Transfer learning;\n\n\nComputational cost\nslow and memory-intensive\nGPU, batch processing, quantization\n\n\nInterpretability\ndifficult to interprete parameters\nFeature attribution attention visualization\n\n\nUncertainty Estimation\nOverconfident predictions\nMonte Carlo dropouts, Calibration"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/05_Summary.html",
+    "href": "lectures/02_NeuralNetworks/05_Summary.html",
+    "title": "Summary: DNN Challenges",
+    "section": "",
+    "text": "Universal approximation theorem\nFlexibility\nFrameworks\nInfrastructure\nCommunity"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/05_Summary.html#dnn-power",
+    "href": "lectures/02_NeuralNetworks/05_Summary.html#dnn-power",
+    "title": "Summary: DNN Challenges",
+    "section": "",
+    "text": "Universal approximation theorem\nFlexibility\nFrameworks\nInfrastructure\nCommunity"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/05_Summary.html#dnn-challenges",
+    "href": "lectures/02_NeuralNetworks/05_Summary.html#dnn-challenges",
+    "title": "Summary: DNN Challenges",
+    "section": "DNN challenges",
+    "text": "DNN challenges\n\n\n\n\n\n\n\n\nChallenge\nSymptoms\nRemedy\n\n\n\n\nFind optimal parameters (non-convex optimization)\nslow or unstable loss reduction\nUse advanced optimizers (SGD, ADAM); learning-rate scheduling; weight initialization;\n\n\nOverparameterization\n#parameters &gt; #observations\nsmaller networks, constraints or symmetries\n\n\nOverfitting (poor generalization)\ndecrease training loss, increased validation/test loss\nDropout; L2 regularization, data augmentation; weight decay (L2 regularization); early stopping; increase dataset\n\n\nVanishing gradients (no learning)\nGradients \\(\\approx 0\\) in early layers\nuse better activation functions (ReLU, siLU); normalization layers\n\n\nExploding gradients (divergent training)\nLoss or parameters become NaN/∞\nGradient clipping; lower learning rate; normalization layers\n\n\nSmall Data\nPoor performance on small datasets\nData augmentation, Transfer learning\n\n\nComputational cost\nslow and memory-intensive\nGPU, batch processing, quantization\n\n\nUncertainty Estimation\nOverconfident predictions\nMonte Carlo dropouts, Calibration\n\n\nInterpretability\ndifficult to interprete parameters\nFeature attribution map"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/04_Overfitting.html#summary-overfitting",
+    "href": "lectures/02_NeuralNetworks/04_Overfitting.html#summary-overfitting",
+    "title": "Overfitting with DNN",
+    "section": "Summary: Overfitting",
+    "text": "Summary: Overfitting\n\n\n\n\n\n\nImportant\n\n\n\n\nuniversal approximation theorem\narbitrary functions can be constructed (“piecewise-linear”)\nnon-linearity in model is crucial (here: ReLU)\nrelatively simple models: 49 parameters\nnumber of data points: \\(n = 10 \\to\\) overfitting\nuse regularizations: e.g. \\(\\lambda &gt; 0\\) or dropout \\(\\delta&gt;0\\)\nalways assess generalizability with test data"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/04_Overfitting.html#get-more-data-data-augementation",
+    "href": "lectures/02_NeuralNetworks/04_Overfitting.html#get-more-data-data-augementation",
+    "title": "Overfitting with DNN",
+    "section": "Get more data: Data Augementation",
+    "text": "Get more data: Data Augementation\n\nembedd into ML workflow\nidentify symmetries (invariances): shift, rotate, scale, crop, brightness\naugment only training data\naugment all samples of the training data in same proportions"
   }
 ]
