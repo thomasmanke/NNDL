@@ -876,7 +876,7 @@ N_{out} = \frac{N_{in} - F + 2P}{S} + 1
 <p>Notice that each model has a defined input shape (e.g.&nbsp;[,3,224,224]) and a defined output (e.g [,10]). The inner layers should work such that the dimensions match.</p>
 <p>Ideally we also define pre-processing steps and <strong>transformers</strong> to adjust those dimensions when other data is provided.</p>
 <p><strong>Employ Model:</strong></p>
-<div id="6357fb59" class="cell" data-execution_count="2">
+<div id="8c9fce43" class="cell" data-execution_count="2">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> my_model()</span>
@@ -917,7 +917,7 @@ fc.bias torch.Size([10])</code></pre>
 <p>In contrast, the output sizes of each layer will depend on the dimension of the input data and can only be done at execution (forward pass)</p>
 <p>Below I show how to use, hooks that allow for efficient manipulation of the forward path, such that all quantities of interest can be tracked. Here I will track the shapes</p>
 <p><strong>Define Hook</strong></p>
-<div id="62bb6991" class="cell" data-execution_count="4">
+<div id="ecbc3205" class="cell" data-execution_count="4">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> describe_model_forward(model, input_tensor):</span>

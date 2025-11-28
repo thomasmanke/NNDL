@@ -1,9 +1,7 @@
 [
   {
     "listing": "/lectures/03_ConvolutionalNeuralNetworks/index.html",
-    "items": [
-      "/lectures/03_ConvolutionalNeuralNetworks/001_CNN.html"
-    ]
+    "items": []
   },
   {
     "listing": "/lectures/04_GenerativeModels/index.html",
@@ -33,7 +31,8 @@
     "items": [
       "/projects/01_MachineLearning.html",
       "/projects/01_MachineLearningIris.html",
-      "/projects/02_DeepNeuralNetworks.html"
+      "/projects/02_DeepNeuralNetworks.html",
+      "/projects/03_ConvolutionalNeuralNetworks.html"
     ]
   },
   {

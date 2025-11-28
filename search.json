@@ -529,7 +529,7 @@
     "href": "projects/index.html",
     "title": "Projects",
     "section": "",
-    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n01 Machine Learning\n\n\nAn ML starter\n\n\n\nThomas Manke\n\n\nOct 12, 2025\n\n\n\n\n\n\n\n\n\n\n\n01 Machine Learning\n\n\nA template for Iris Data\n\n\n\nThomas Manke\n\n\nOct 28, 2025\n\n\n\n\n\n\n\n\n\n\n\n02 Deep Neural Networks\n\n\nMLP for universal approximations\n\n\n\nThomas Manke\n\n\nNov 2, 2025\n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n01 Machine Learning\n\n\nAn ML starter\n\n\n\nThomas Manke\n\n\nOct 12, 2025\n\n\n\n\n\n\n\n\n\n\n\n01 Machine Learning\n\n\nA template for Iris Data\n\n\n\nThomas Manke\n\n\nOct 28, 2025\n\n\n\n\n\n\n\n\n\n\n\n02 Deep Neural Networks\n\n\nMLP for universal approximations\n\n\n\nThomas Manke\n\n\nNov 2, 2025\n\n\n\n\n\n\n\n\n\n\n\n03 Convolutional Neural Networks\n\n\nImage Classification\n\n\n\nThomas Manke\n\n\nNov 29, 2025\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "projects/01_MachineLearningIris.html",
@@ -1012,7 +1012,7 @@
     "href": "lectures/02_NeuralNetworks/index.html",
     "title": "02 Deep Neural Networks",
     "section": "",
-    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nPerceptron\n\n\n\nperceptron\n\ndecision boundaries\n\nneuron\n\n\n\nBrain Connections\n\n\n\nThomas Manke\n\n\nSep 7, 2025\n\n\n\n\n\n\n\n\n\n\n\nNon-linearities\n\n\nInserting non-linearities in neural networks\n\n\n\nThomas Manke\n\n\nNov 14, 2025\n\n\n\n\n\n\n\n\n\n\n\nLoss and Gradients\n\n\n\nchain rule\n\nbackpropagation\n\ngradient descent\n\n\n\nChain rules on networks\n\n\n\nThomas Manke\n\n\nNov 19, 2025\n\n\n\n\n\n\n\n\n\n\n\nEngineering with Gradients\n\n\n\nstochastic gradient descent\n\nmomentum\n\nAdam\n\n\n\nImprovements beyond simple gradient descent\n\n\n\nThomas Manke\n\n\nNov 19, 2025\n\n\n\n\n\n\n\n\n\n\n\nOverfitting with DNN\n\n\n\noverfitting\n\ndropout\n\nregularization\n\n\n\nUniversal Approximations can also overfit\n\n\n\nThomas Manke\n\n\nNov 19, 2025\n\n\n\n\n\n\n\n\n\n\n\nSummary: DNN Challenges\n\n\nSummary\n\n\n\nThomas Manke\n\n\nNov 17, 2025\n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nPerceptron\n\n\n\nperceptron\n\ndecision boundaries\n\nneuron\n\n\n\nBrain Connections\n\n\n\nThomas Manke\n\n\nSep 7, 2025\n\n\n\n\n\n\n\n\n\n\n\nNon-linearities\n\n\nInserting non-linearities in neural networks\n\n\n\nThomas Manke\n\n\nNov 14, 2025\n\n\n\n\n\n\n\n\n\n\n\nLoss and Gradients\n\n\n\nchain rule\n\nbackpropagation\n\ngradient descent\n\n\n\nChain rules on networks\n\n\n\nThomas Manke\n\n\nNov 19, 2025\n\n\n\n\n\n\n\n\n\n\n\nEngineering with Gradients\n\n\n\nstochastic gradient descent\n\nmomentum\n\nAdam\n\n\n\nImprovements beyond simple gradient descent\n\n\n\nThomas Manke\n\n\nNov 19, 2025\n\n\n\n\n\n\n\n\n\n\n\nOverfitting with DNN\n\n\n\noverfitting\n\ndropout\n\nregularization\n\n\n\nUniversal Approximations can also overfit\n\n\n\nThomas Manke\n\n\nNov 19, 2025\n\n\n\n\n\n\n\n\n\n\n\nSummary: DNN Challenges\n\n\nSummary\n\n\n\nThomas Manke\n\n\nNov 26, 2025\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "lectures/02_NeuralNetworks/00_Perceptron.html",
@@ -1229,21 +1229,21 @@
     "href": "lectures/02_NeuralNetworks/05_Summary.html",
     "title": "Summary: DNN Challenges",
     "section": "",
-    "text": "Universal approximation theorem\nFlexibility\nFrameworks\nInfrastructure\nCommunity"
+    "text": "The big picture"
   },
   {
     "objectID": "lectures/02_NeuralNetworks/05_Summary.html#dnn-power",
     "href": "lectures/02_NeuralNetworks/05_Summary.html#dnn-power",
     "title": "Summary: DNN Challenges",
-    "section": "",
-    "text": "Universal approximation theorem\nFlexibility\nFrameworks\nInfrastructure\nCommunity"
+    "section": "DNN Power",
+    "text": "DNN Power\n\nUniversal approximation theorem\nFlexibility\nFrameworks\nInfrastructure\nCommunity"
   },
   {
     "objectID": "lectures/02_NeuralNetworks/05_Summary.html#dnn-challenges",
     "href": "lectures/02_NeuralNetworks/05_Summary.html#dnn-challenges",
     "title": "Summary: DNN Challenges",
     "section": "DNN challenges",
-    "text": "DNN challenges\n\n\n\n\n\n\n\n\nChallenge\nSymptoms\nRemedy\n\n\n\n\nFind optimal parameters (non-convex optimization)\nslow or unstable loss reduction\nUse advanced optimizers (SGD, ADAM); learning-rate scheduling; weight initialization;\n\n\nOverparameterization\n#parameters &gt; #observations\nsmaller networks, constraints or symmetries\n\n\nOverfitting (poor generalization)\ndecrease training loss, increased validation/test loss\nDropout; L2 regularization, data augmentation; weight decay (L2 regularization); early stopping; increase dataset\n\n\nVanishing gradients (no learning)\nGradients \\(\\approx 0\\) in early layers\nuse better activation functions (ReLU, siLU); normalization layers\n\n\nExploding gradients (divergent training)\nLoss or parameters become NaN/∞\nGradient clipping; lower learning rate; normalization layers\n\n\nSmall Data\nPoor performance on small datasets\nData augmentation, Transfer learning\n\n\nComputational cost\nslow and memory-intensive\nGPU, batch processing, quantization\n\n\nUncertainty Estimation\nOverconfident predictions\nMonte Carlo dropouts, Calibration\n\n\nInterpretability\ndifficult to interprete parameters\nFeature attribution map"
+    "text": "DNN challenges\n\n\n\n\n\n\n\n\nChallenge\nSymptoms\nRemedy\n\n\n\n\nFind optimal parameters (non-convex optimization)\nslow or unstable loss reduction\nUse advanced optimizers (SGD, ADAM); learning-rate scheduling; weight initialization;\n\n\nOverparameterization\n#parameters &gt; #observations\nsmaller networks, constraints or symmetries\n\n\nOverfitting (poor generalization)\ndecrease training loss, increased validation/test loss\nDropout; L2 regularization; early stopping; increase dataset (data augmentation)\n\n\nVanishing gradients (no learning)\nGradients \\(\\approx 0\\) in early layers\nuse better activation functions (ReLU, siLU); normalization layers\n\n\nExploding gradients (divergent training)\nLoss or parameters become NaN/∞\nGradient clipping; lower learning rate; normalization layers\n\n\nSmall Data\nPoor performance on small datasets\nData augmentation, Transfer learning\n\n\nComputational cost\nslow and memory-intensive\nGPU, batch processing, quantization\n\n\nUncertainty Estimation\nOverconfident predictions\nMonte Carlo dropouts, Calibration\n\n\nInterpretability\ndifficult to interprete parameters\nFeature attribution map"
   },
   {
     "objectID": "lectures/02_NeuralNetworks/04_Overfitting.html#summary-overfitting",
@@ -1258,5 +1258,75 @@
     "title": "Overfitting with DNN",
     "section": "Get more data: Data Augementation",
     "text": "Get more data: Data Augementation\n\nembedd into ML workflow\nidentify symmetries (invariances): shift, rotate, scale, crop, brightness\naugment only training data\naugment all samples of the training data in same proportions"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/index.html",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/index.html",
+    "title": "03 Convolutional Neural Networks",
+    "section": "",
+    "text": "No matching items"
+  },
+  {
+    "objectID": "projects/03_ConvolutionalNeuralNetworks.html",
+    "href": "projects/03_ConvolutionalNeuralNetworks.html",
+    "title": "03 Convolutional Neural Networks",
+    "section": "",
+    "text": "In this project, you will build and evaluate Convolutional Neural Network models (CNN) for image classification."
+  },
+  {
+    "objectID": "projects/03_ConvolutionalNeuralNetworks.html#datasets-and-targets",
+    "href": "projects/03_ConvolutionalNeuralNetworks.html#datasets-and-targets",
+    "title": "03 Convolutional Neural Networks",
+    "section": "Datasets and Targets",
+    "text": "Datasets and Targets\n\n\n\nProject ID\nData Set\nTarget Variable (\\(y\\))\n\n\n\n\n3.1\nWikiArt\nArtist (optionally: style/genre)\n\n\n3.2\nX-rays\nNormal/Pneumonia"
+  },
+  {
+    "objectID": "projects/03_ConvolutionalNeuralNetworks.html#tasks",
+    "href": "projects/03_ConvolutionalNeuralNetworks.html#tasks",
+    "title": "03 Convolutional Neural Networks",
+    "section": "Tasks",
+    "text": "Tasks\n\n\n\n\n\n\n\n\nTask\nWhat to Do\nKey Points / Checks\n\n\n\n\nData Exploration\nExplore dataset origin, structure, dimensions, metadata;\nplot class distribution; check class balance;\n\n\nData Filtering\nRemove rare classes (&lt;100 samples).\nKeep label indices consistent; Hint: keep mapping dictionaries.\n\n\nStratified Split\nCreate train/val/test sets = 80/10/10\nUse stratified sampling to preserve class distribution.\n\n\nImage Transformations\nDefine and apply data transformations + augmentation\nResize; fix channels; normalize; augment; convert to tensors; Hint: inverse function tensor2image() may also be useful\n\n\nLabel Transformations\nEnsure consistent label encoding; reindex if needed.\nCheck labels after filtering; update mappings.\n\n\nData Loaders\nBuild train/val/test DataLoaders.\nVerify shapes, label formats, and data augmentation behavior.\n\n\nSimple CNN Model\nbuild a CNN with at least 2 convolutional layers (incl. ReLU, MaxPool + optional dropout).\nDefine input and output dimensions; ensure appropriate layer dimensions; report trainable parameter count.\n\n\nLoss & Optimizer\nDefine and explain a suitable loss function and optimizer\nEnsure compatibility with problem type and consider possible regularization\n\n\nModel Training\nTrain for sufficient number of epochs using mini-batches\nPlot loss curves for train + validation set. Discuss the observed behaviour (optionally: implement early stopping criteria)\n\n\nModel Evaluation\nEvaluate trained model on test set\nCompute confusion matrix and report per-class metrics. Critique model and suggest possible improvements\n\n\nTransfer Learning\nLoad pretrained ResNet50; freeze all backbone parameters but replace final fully connected layer with suitable last layer\nTrain as before and compare performance gain vs. simple CNN."
+  },
+  {
+    "objectID": "projects/03_ConvolutionalNeuralNetworks.html#obtaining-and-modify-resnet50",
+    "href": "projects/03_ConvolutionalNeuralNetworks.html#obtaining-and-modify-resnet50",
+    "title": "03 Convolutional Neural Networks",
+    "section": "Obtaining and Modify ResNet50",
+    "text": "Obtaining and Modify ResNet50\nBoth projects will use ResNet50. This pre-trained model can be obtained from torchvisison, like so:\n\nfrom torchvision.models import resnet50, ResNet50_Weights\n\nweights = ResNet50_Weights.IMAGENET1K_V1\nmodel = resnet50(weights=weights)\n\n# freeze pretrained parameters\nfor param in model.parameters():\n    param.requires_grad = False\n\n# Replace last fully connected layer `model.fc`\nmodel.fc = nn.Sequential(\n    # edit here for transfer learning\n)"
+  },
+  {
+    "objectID": "projects/03_ConvolutionalNeuralNetworks.html#get-data",
+    "href": "projects/03_ConvolutionalNeuralNetworks.html#get-data",
+    "title": "03 Convolutional Neural Networks",
+    "section": "Get Data",
+    "text": "Get Data\n\nProject 3.1: WikiArt\n\nimport torch\nfrom datasets import load_dataset, load_dataset_builder\nfrom itertools import islice\n\n# dataset name: Be careful what you get from huggingface!\nds_name=\"huggan/wikiart\"  \n\n# get metadata\nbuilder = load_dataset_builder(ds_name)\nfeatures = builder.info.features\n\n# get data (subset)\nN_SUB = 1000 # feel free to change (not too big, not too small)\nds_stream = load_dataset(ds_name, split=\"train\", streaming=True)\nds = list(islice(ds_stream, N_SUB))\n\n# the full data would be quite big and slow!\n#ds = load_dataset(ds_name) \n\n\n\nProject 3.2 X-Rays\n\n\nCode\nimport torch\nfrom datasets import load_dataset, load_dataset_builder\nfrom datasets import load_dataset\n\n# orginal source: https://data.mendeley.com/datasets/rscbjbr9sj/2\nds_name=\"Ewakaa/pneumonia_classification_chest_xray\"\n\n# metadata\nbuilder = load_dataset_builder(ds_name)\nfeatures = builder.info.features\n# features['label'].names = ['NORMAL', 'PNEUMONIA']\n\n# load dataset dictionary. contains 3 datasets: train, validation, test\nds = load_dataset(ds_name)"
+  },
+  {
+    "objectID": "projects/03_ConvolutionalNeuralNetworks.html#datasets-targets",
+    "href": "projects/03_ConvolutionalNeuralNetworks.html#datasets-targets",
+    "title": "03 Convolutional Neural Networks",
+    "section": "Datasets & Targets",
+    "text": "Datasets & Targets\n\n\n\nProject ID\nData Set\nTarget Variable (\\(y\\))\n\n\n\n\n3.1\nWikiArt\nArtist (optionally: style/genre)\n\n\n3.2\nX-rays\nNormal/Pneumonia"
+  },
+  {
+    "objectID": "projects/03_ConvolutionalNeuralNetworks.html#get-and-modify-resnet50-model",
+    "href": "projects/03_ConvolutionalNeuralNetworks.html#get-and-modify-resnet50-model",
+    "title": "03 Convolutional Neural Networks",
+    "section": "Get and Modify ResNet50 Model",
+    "text": "Get and Modify ResNet50 Model\nBoth projects will use ResNet50. This pre-trained model can be obtained from torchvisison, like so:\n\nfrom torchvision.models import resnet50, ResNet50_Weights\n\nweights = ResNet50_Weights.IMAGENET1K_V1\nmodel = resnet50(weights=weights)\n\n# freeze pretrained parameters\nfor param in model.parameters():\n    param.requires_grad = False\n\n# Replace last fully connected layer `model.fc`\nmodel.fc = nn.Sequential(\n    # edit here for transfer learning\n)"
+  },
+  {
+    "objectID": "projects/03_ConvolutionalNeuralNetworks.html#get-model",
+    "href": "projects/03_ConvolutionalNeuralNetworks.html#get-model",
+    "title": "03 Convolutional Neural Networks",
+    "section": "Get Model",
+    "text": "Get Model\nBoth projects will use (and modify) the ResNet50 model.\nThis pre-trained model can be obtained from torchvisison, like so:\n\nfrom torchvision.models import resnet50, ResNet50_Weights\n\nweights = ResNet50_Weights.IMAGENET1K_V1\nmodel = resnet50(weights=weights)\n\n# freeze pretrained parameters\nfor param in model.parameters():\n    param.requires_grad = False\n\n# Replace last fully connected layer `model.fc`\nmodel.fc = nn.Sequential(\n    # edit here for transfer learning\n)"
+  },
+  {
+    "objectID": "projects/03_ConvolutionalNeuralNetworks.html#datasets",
+    "href": "projects/03_ConvolutionalNeuralNetworks.html#datasets",
+    "title": "03 Convolutional Neural Networks",
+    "section": "Datasets",
+    "text": "Datasets\nThe project-specific datasets and the target variable of interest are\n\n\n\nProject ID\nData Set\nTarget Variable (\\(y\\))\n\n\n\n\n3.1\nWikiArt\nArtist (optionally: style/genre)\n\n\n3.2\nX-rays\nNormal/Pneumonia"
   }
 ]
