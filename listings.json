@@ -1,7 +1,9 @@
 [
   {
     "listing": "/lectures/03_ConvolutionalNeuralNetworks/index.html",
-    "items": []
+    "items": [
+      "/lectures/03_ConvolutionalNeuralNetworks/01_CNN_Intro.html"
+    ]
   },
   {
     "listing": "/lectures/04_GenerativeModels/index.html",

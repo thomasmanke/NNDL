@@ -1264,7 +1264,7 @@
     "href": "lectures/03_ConvolutionalNeuralNetworks/index.html",
     "title": "03 Convolutional Neural Networks",
     "section": "",
-    "text": "No matching items"
+    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\nConvolutional Neural Networks\n\n\nbringing spatial structure to neural networks\n\n\n\nThomas Manke\n\n\nDec 5, 2025\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "projects/03_ConvolutionalNeuralNetworks.html",
@@ -1328,5 +1328,215 @@
     "title": "03 Convolutional Neural Networks",
     "section": "Datasets",
     "text": "Datasets\nThe project-specific datasets and the target variable of interest are\n\n\n\nProject ID\nData Set\nTarget Variable (\\(y\\))\n\n\n\n\n3.1\nWikiArt\nArtist (optionally: style/genre)\n\n\n3.2\nX-rays\nNormal/Pneumonia"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html",
+    "title": "Convolutional Neural Networks",
+    "section": "",
+    "text": "Imports\nimport psutil, os\nimport numpy as np\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\nfrom torchvision import datasets, transforms\nfrom torch.utils.data import DataLoader, random_split, Subset\nfrom torchinfo import summary\nfrom sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, classification_report\nfrom sklearn.model_selection import train_test_split\nimport matplotlib.pyplot as plt\nfrom PIL import Image\n\n\nfrom lecture_utils.helper import plot_cm, detect_device\n\ndef plot_fit_history(hist, name='loss', test_score=None):\n    if name not in hist:\n        print(f\"{name} not found in history\")\n        return\n    plt.plot(hist[name], label='train')\n    val_name = 'val_' + name\n    if val_name in hist:\n        plt.plot(hist[val_name], label='valid')\n    if test_score is not None:\n        plt.axhline(test_score, color='green', linestyle='-.', label='test')\n    plt.xlabel('Epoch')\n    plt.ylabel(name)\n    plt.legend()\n    plt.show()\n\ndef dataset2images(dataset, classes, SEED=42, n=16):\n    \"\"\"Show n random images from a dataset in a 4x4 grid.\"\"\"\n    np.random.seed(SEED)\n    indices = np.random.choice(len(dataset), n, replace=False)\n\n    plt.figure(figsize=(8, 8))\n    for i, idx in enumerate(indices):\n        img, label = dataset[idx]\n\n        if torch.is_tensor(img):\n            # PyTorch tensor (C,H,W) -&gt; numpy (H,W,C)\n            img_np = img.permute(1, 2, 0).cpu().numpy()\n\n        elif isinstance(img, Image.Image):\n            # PIL Image\n            img_np = np.array(img)\n\n        elif isinstance(img, np.ndarray):\n            # numpy array already OK\n            img_np = img\n\n        else:\n            raise TypeError(\n                f\"Unsupported image type: {type(img)}. \"\n                \"Expected torch.Tensor, PIL.Image, or numpy.ndarray.\"\n            )\n\n        # Plot\n        ax = plt.subplot(4, 4, i + 1)\n        ax.imshow(img_np)\n        ax.set_title(f\"{label}: {classes[label]}\")\n        ax.axis(\"off\")\n\n    plt.tight_layout()\n    plt.show()\n\n\nprocess = psutil.Process(os.getpid())\n\ndef mem_MB():\n    return process.memory_info().rss / (1024**2)\n\ndevice = detect_device()\nBATCH_SIZE = 64\n\nprint('torch-version: ', torch.__version__)\nprint('device: ', device)\n\n\ntorch-version:  2.7.1\ndevice:  mps"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#review",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#review",
+    "title": "Convolutional Neural Networks",
+    "section": "Review",
+    "text": "Review\n\nneural networks: layers of neurons connected by weights\neach neuron: linear function (weights/bias) + non-linear activation function\nloss optimization: iterations, (stochastic) gradient descent, momentum, ADAM\nmathematical solution: backprogation of gradients = chain rule on computational graph\nengineering challenges:\n\nvanishing gradients \\(\\to\\) activation functions, weight initialization\noverfitting \\(\\to\\) test set, regularization\ncoding complexity \\(\\to\\) frameworks\n\ninterpretation challenges:\n\noverconfidence and calibration\noverparameterization, interpretation\nbeyond accuracy and other goals"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#another-classical-dataset-cifar-10",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#another-classical-dataset-cifar-10",
+    "title": "Convolutional Neural Networks",
+    "section": "Another classical dataset: CIFAR-10",
+    "text": "Another classical dataset: CIFAR-10\nThis is a set of 50k coloured images [32, 32, 3] in 10 categories.\nBut unlike MNIST they are not as standardized.\nReference: Krizhevsky, Nair, Hinton\n\n\nCode\nfrom torchvision import datasets, transforms\n\ntransform = transforms.Compose([\n    # can add many (image) transformations here\n    # .... resize, rotate, flip, ....\n    # minimal transformation: PIL --&gt; tensor\n    transforms.ToTensor(),\n])\n\n# tochvision dataset: list of tuples (tensor, int)\ntrain_dataset = datasets.CIFAR10(root='./data', \n    train=True, download=True, transform=transform)\ntest_dataset  = datasets.CIFAR10(root='./data', \n    train=False, download=True, transform=transform)\n\ntrain_MB = train_dataset.data.nbytes / 1024**2\ntest_MB  = test_dataset.data.nbytes /  1024**2\n\ncifar_classes = train_dataset.classes\nprint(f\"classes: {cifar_classes}\")\nprint(f\"train: shape={train_dataset.data.shape} size={train_MB:.2f}\")\nprint(f\"test:  shape={test_dataset.data.shape} size={test_MB:.2f}\")\n\n# plot a selection\ndataset2images(train_dataset, cifar_classes)\n\n\nclasses: ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']\ntrain: shape=(50000, 32, 32, 3) size=146.48\ntest:  shape=(10000, 32, 32, 3) size=29.30\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n\nCIFAR-10 is downloaded to disk (./data/)\nRAM footprint can be much larger (\\(\\to\\) DataLoader)\ntransformations: part of data definition; standardized and modularized"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#data-processing",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#data-processing",
+    "title": "Convolutional Neural Networks",
+    "section": "Data Processing",
+    "text": "Data Processing\n\nSplit and Downsample\n\n\nCode\n# Downsample for speed\nn_train, n_val, n_test = 10000, 2000, 1000\n# seed for reproducibility\ntorch.manual_seed(42)\n\n# Split train_dataset into train and val\ntrain_ds, val_ds, _ = random_split(\n    train_dataset,\n    [n_train, n_val, len(train_dataset) - n_train - n_val]\n)\n\n# Downsample test_dataset to n_test samples\ntest_ds, _ = random_split(\n    test_dataset,\n    [n_test, len(test_dataset) - n_test]\n)\n\n\n\n\nData Loaders for Batches\nDataLoaders provide efficient access to batches during training and evaluation\n\n\nCode\n# shuffle = True for randomized optimization and gradients calculation\ntrain_loader = DataLoader(train_ds, batch_size=BATCH_SIZE, shuffle=True)\n# shuffle = False for fixed and consistent evaluation and metrics\ntest_loader  = DataLoader(test_ds, batch_size=BATCH_SIZE, shuffle=False)\nval_loader   = DataLoader(val_ds, batch_size=BATCH_SIZE, shuffle=False)"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#explore",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#explore",
+    "title": "Convolutional Neural Networks",
+    "section": "Explore",
+    "text": "Explore\n\n\nCode\nimport pandas as pd\nimport seaborn as sns\n\nfract = pd.Series(train_dataset.targets).value_counts(normalize=True).sort_index()\nsns.barplot(x=fract.index, y=fract.values)\nplt.title(\"CIFAR-10: Label Distribution\")\nplt.xlabel(\"Image Class Label\")\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\nCode\nfrom sklearn.decomposition import PCA\n\nn_sub = 500 # define a subset of digits for speed\n\n# flattening a tensor to get [samples x features]\nX_sub = train_dataset.data[:n_sub].reshape(n_sub, -1)\ny_sub = train_dataset.targets[:n_sub]\nprint('Images X (flattened): ', X_sub.shape)\n\nX_pca = PCA(n_components = 2).fit_transform(X_sub)\nprint('PCA Representation:   ',X_pca.shape)\n\ncm = plt.get_cmap('tab10')\nplt.scatter( X_pca[:,0], X_pca[:,1] , c=y_sub, cmap=cm)\nplt.title('CIFAR-10: PCA')\nplt.colorbar()\nplt.show()\n\n\nImages X (flattened):  (500, 3072)\nPCA Representation:    (500, 2)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMessage\n\n\n\n\nNo apparent class structure (unlike MNIST)\nsimple feedforward network (MLP) will not be very accurate classifier\nhigher accuracy on flattened images will be difficult\nchange data representation and network architecture"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#discussion-other-challenges",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#discussion-other-challenges",
+    "title": "Convolutional Neural Networks",
+    "section": "Discussion: other challenges ?",
+    "text": "Discussion: other challenges ?\n\n\n\nConfused Cat"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#why-not-add-more-layers",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#why-not-add-more-layers",
+    "title": "Convolutional Neural Networks",
+    "section": "Why not add more layers ?",
+    "text": "Why not add more layers ?\n\noptimization increasingly hard\ndoes not scale to larger images\nMLP do not encode spatial structure \\(\\to\\) input permutations possible\nperformance plateau\n\n\n\n\n\n\n\nFC Problem in Numbers\n\n\n\n1 input x 1 hidden layer:\n[1000 x 1000 x 3 pixels] x [1000 neurons] \\(\\to\\) 3 billion parameters"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#the-idea",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#the-idea",
+    "title": "Convolutional Neural Networks",
+    "section": "The idea",
+    "text": "The idea\n\nrestrict capacity of each layer \\(\\to\\) weight sharing\ninvariance assumption: should not matter where feature is"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#convolutional-neural-networks-cnn",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#convolutional-neural-networks-cnn",
+    "title": "Convolutional Neural Networks",
+    "section": "Convolutional Neural Networks (CNN)",
+    "text": "Convolutional Neural Networks (CNN)\n\n\n\nThe big picture - and some jargon."
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#new-layers-filters-and-pools",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#new-layers-filters-and-pools",
+    "title": "Convolutional Neural Networks",
+    "section": "New layers: Filters and Pools",
+    "text": "New layers: Filters and Pools\n\ninput layer: image [3 channels (RGB), height, width]\nconvolutional layer (Conv): K filters e.g [K,3,3,3]\n\ndetect pattern (e.g. horizontal, vertical, diagonal lines)\nhave the same depth as input\nseveral filter per layer: different filters applied to same spatial location in image\n\npooling filter (Pool)\n\nspatial downsampling, depth stays the same (e.g. max or average)\n\nfully conncted layer (Dense)\n\nconnect all previous nodes\n\n\nTypical structures: Input - Conv/Relu - Conv/Relu - Pool - Conv/Relu - … - Dense"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#convolutions",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#convolutions",
+    "title": "Convolutional Neural Networks",
+    "section": "Convolutions",
+    "text": "Convolutions\n\n1D Conv\nConvolutions combine two functions by sliding one (the kernel \\(g(x)\\)) over the other \\[\n(f \\ast g)(x) = \\sum_{k=-\\infty}^{\\infty} f[k] \\cdot g[x-k]\n\\]\nThis can be used conveniently for\n\nsmoothing/averaging\nchange detection (derivatives)\npattern detection\nsharpening\n\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom scipy.signal import convolve\n\n# Create a signal with edges\nx = np.linspace(-10, 10, 400)\nf = np.sin(x) + 0.1*np.random.randn(len(x))  # noisy sinus\n\n# Kernels\nxk = np.linspace(-3, 3, 51)\nsigma = 1\ng1 = np.exp(-(xk**2)/(2*sigma**2)); \ng1 = g1 / g1.sum()             # Gaussian for smoothing/averaging\ng2 = np.array([-1, 1])         # 1st derivative\ng3 = np.array([1, -2, 1])      # 2nd derivative (Laplacian)\ng4 = np.array([-1, 2, -1])     # High-pass filter (sharpening)\n\n# Convolve\nfs = convolve(f, g1, mode='same') # smoothed signal\nf1 = convolve(fs, g2, mode='same') # 1st derivative\nf1s = convolve(f1, g1, mode='same') # smoothed 1st derivativ\nf2 = convolve(f1s, g3, mode='same') # 2nd derivative\n\n# remove boundary effects\npad = 81\nx = x[pad:-pad]\nf = f[pad:-pad]\nfs = fs[pad:-pad]\nf1 = f1[pad:-pad]\nf2 = f2[pad:-pad]\n\n# Plot: \n# kernels are scaled arbitrarly for visibility\nfsize = 14\nplt.figure(figsize=(6, 6))\nplt.subplot(4,1,1)\nplt.plot(x, f)\nplt.title(\"Original Data\", fontsize=fsize)\n\nplt.subplot(4,1,2)\nplt.plot(x, fs)\nplt.bar(xk-1, g1*20, color=\"orange\", width=0.05)\nplt.title(\"Smoothing/Averaging: fs = f * G  \\n Gaussian Kernel $G \\\\propto \\\\exp{(-x^2)}$\", fontsize=fsize)\n\nplt.subplot(4,1,3)\nplt.plot(x, f1); \nplt.bar(x[[99,100]], g2/20, color=\"orange\",width=0.05)\nplt.title(\"Change Detection: f1 = fs * D \\n 1st derivative D = [-1, +1]\", fontsize=fsize)\n\nplt.subplot(4,1,4)\nplt.plot(x, f2); \nplt.bar(x[[99,100,101]], g3/10000, color=\"orange\",width=0.05)\nplt.title(\"Curvature Detection: f2 = (f1 * G) * L \\n 2nd derivative L = [1, -2, 1]\", fontsize=fsize)\n\nplt.tight_layout()\nplt.show()\n\n\n\n\n\nDifferent kernels in 1D\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n\nappropriate convolutions can extract features\nmany different kernels possible\nfind different (more suitable) data representations\nkernel rules are shift-invariant and independent of data size\ncontrolled by few parameters\n\n\n\n\n\n2D Conv\n\n\n\nConvolution in 2D. Source: Anh H. Reynolds: https://anhreynolds.com/blogs/cnn.html"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#cnn-pytorch-implementation",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#cnn-pytorch-implementation",
+    "title": "Convolutional Neural Networks",
+    "section": "CNN: PyTorch implementation",
+    "text": "CNN: PyTorch implementation\n\n\nCode\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\nfrom torchinfo import summary\n\n# Number of classes\nnc = len(cifar_classes)\nX_train, y_train = next(iter(train_loader))\n\nprint('input_shape:      ', X_train.shape)\nprint('number of classes:', nc)\n\nclass CNN_Model(nn.Module):\n    def __init__(self, num_classes=nc):\n        super().__init__()\n        self.conv1 = nn.Conv2d(3, 32, kernel_size=3, padding=1)\n        self.pool1 = nn.MaxPool2d(2, 2)\n        self.flatten = nn.Flatten()\n        self.fc1 = nn.Linear(32 * 16 * 16, 128)\n        self.fc2 = nn.Linear(128, num_classes)\n\n    def forward(self, x):\n        x = F.relu(self.conv1(x))\n        x = self.pool1(x)\n        x = self.flatten(x)\n        x = F.relu(self.fc1(x))\n        x = self.fc2(x)\n        return x\n\nmodel = CNN_Model().to(device)\nprint(summary(model, input_data=X_train, device=device))\n\nloss_function = nn.CrossEntropyLoss()\noptimizer = torch.optim.Adam(model.parameters())\n\n\ninput_shape:       torch.Size([64, 3, 32, 32])\nnumber of classes: 10\n==========================================================================================\nLayer (type:depth-idx)                   Output Shape              Param #\n==========================================================================================\nCNN_Model                                [64, 10]                  --\n├─Conv2d: 1-1                            [64, 32, 32, 32]          896\n├─MaxPool2d: 1-2                         [64, 32, 16, 16]          --\n├─Flatten: 1-3                           [64, 8192]                --\n├─Linear: 1-4                            [64, 128]                 1,048,704\n├─Linear: 1-5                            [64, 10]                  1,290\n==========================================================================================\nTotal params: 1,050,890\nTrainable params: 1,050,890\nNon-trainable params: 0\nTotal mult-adds (Units.MEGABYTES): 125.92\n==========================================================================================\nInput size (MB): 0.79\nForward/backward pass size (MB): 16.85\nParams size (MB): 4.20\nEstimated Total Size (MB): 21.84\n==========================================================================================\n\n\nNotice\n\nmemory and compute in early layers, parameters in last layer\nnumbers can more than double when the gradients are calculated + caching\nmaintain also multiple images (batch normalization)"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#cnn-fitting-gpus-and-batch-size",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#cnn-fitting-gpus-and-batch-size",
+    "title": "Convolutional Neural Networks",
+    "section": "CNN: fitting, GPUs and batch size",
+    "text": "CNN: fitting, GPUs and batch size\nThe following cell will fit the model. This will take some time - especially without dedicated hardware (e.g. GPU) or further optimization (improved algorithm).\n\n\nCode\nnum_epochs = 5\nhistory = {'loss': [], 'val_loss': []}\n\nfor epoch in range(num_epochs):\n    model.train()\n    total_loss = 0\n    for xb, yb in train_loader:\n        xb, yb = xb.to(device), yb.to(device)\n        optimizer.zero_grad()\n        logits = model(xb)\n        loss = loss_function(logits, yb)\n        loss.backward()\n        optimizer.step()\n        total_loss += loss.item()\n    train_loss = total_loss / len(train_loader.dataset)\n    history['loss'].append(train_loss)\n\n    # Validation\n    model.eval()\n    val_loss = 0\n    with torch.no_grad():\n        for xb, yb in val_loader:\n            xb, yb = xb.to(device), yb.to(device)\n            logits = model(xb)\n            loss = loss_function(logits, yb)\n            val_loss += loss.item()\n    val_loss = val_loss / len(val_loader.dataset)\n    history['val_loss'].append(val_loss)\n    print(f\"Epoch {epoch+1}: train_loss={train_loss:.4f}, val_loss={val_loss:.4f}\")\n\n\nEpoch 1: train_loss=0.0323, val_loss=0.0290\nEpoch 2: train_loss=0.0272, val_loss=0.0275\nEpoch 3: train_loss=0.0246, val_loss=0.0265\nEpoch 4: train_loss=0.0226, val_loss=0.0244\nEpoch 5: train_loss=0.0209, val_loss=0.0235\n\n\n\nSave Model\nSince training is expensive we usually want to safe the model and history. In real application this would also be done during training.\n\n\nCode\noutdir = \"output\"\nos.makedirs(outdir, exist_ok=True)\n\ntorch.save(model.state_dict(), f'{outdir}/cifar_model.pt')\ntorch.save(history, f\"{outdir}/cifar_history.pt\")\n\n\n\n\n\n\n\n\nCIFAR-Demo\n\n\n\nCNN with Javascript. Animation from Karpathy."
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#evaluations-on-test",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#evaluations-on-test",
+    "title": "Convolutional Neural Networks",
+    "section": "Evaluations on Test",
+    "text": "Evaluations on Test\n\n\nCode\n# Evaluate on test\nmodel.eval()\ntotal_loss = 0\nall_logits = []\nall_true = []\nwith torch.no_grad():\n    for xb, yb in test_loader:\n        xb, yb = xb.to(device), yb.to(device)\n        logits = model(xb)\n        loss = loss_function(logits, yb)\n\n        # collect total_loss, predicted logits and true labels yb\n        total_loss += loss.item()\n        all_logits.append(logits.cpu())\n        all_true.append(yb.cpu())\n\ntest_loss = total_loss / len(test_loader.dataset) # mean test loss\nall_logits = torch.cat(all_logits)\nall_true = torch.cat(all_true)\n\nplot_fit_history(history, 'loss', test_loss)\n\nall_preds = all_logits.argmax(dim=1).detach().cpu()\ncm = confusion_matrix(all_true.numpy(), all_preds.numpy())\n\ndisp = ConfusionMatrixDisplay(confusion_matrix=cm)\ndisp.plot(cmap='Blues')\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDiscussion: What could be further improvements?"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#a-closer-look-at-layers",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#a-closer-look-at-layers",
+    "title": "Convolutional Neural Networks",
+    "section": "A closer look at layers",
+    "text": "A closer look at layers\nMotivation: Understand prediction in terms of layered “concepts”\n\n\nCode\nprint(summary(model, input_data=X_train, device=device))\n\n\n==========================================================================================\nLayer (type:depth-idx)                   Output Shape              Param #\n==========================================================================================\nCNN_Model                                [64, 10]                  --\n├─Conv2d: 1-1                            [64, 32, 32, 32]          896\n├─MaxPool2d: 1-2                         [64, 32, 16, 16]          --\n├─Flatten: 1-3                           [64, 8192]                --\n├─Linear: 1-4                            [64, 128]                 1,048,704\n├─Linear: 1-5                            [64, 10]                  1,290\n==========================================================================================\nTotal params: 1,050,890\nTrainable params: 1,050,890\nNon-trainable params: 0\nTotal mult-adds (Units.MEGABYTES): 125.92\n==========================================================================================\nInput size (MB): 0.79\nForward/backward pass size (MB): 16.85\nParams size (MB): 4.20\nEstimated Total Size (MB): 21.84\n==========================================================================================\n\n\n\nFilters\n\n\nCode\n# Get the weights of the first conv layer (shape: [out_channels, in_channels, H, W])\nW = model.conv1.weight.data.cpu().numpy()  # shape: (32, 3, 3, 3)\nprint('W.shape: ',W.shape)\nfig = plt.figure(figsize=(16, 8))\nnr, nc = (5, 5)  # number of rows and columns\n\nfor i in range(nr * nc):\n    # Each filter: shape [3, 3, 3] (in_channels, H, W)\n    # Transpose to (H, W, C) for imshow\n    img = W[i].transpose(1, 2, 0)\n    # Normalize to [0, 1] for visualization\n    img = (img - img.min()) / (img.max() - img.min() + 1e-5)\n    ax = fig.add_subplot(nr, nc, i + 1)\n    ax.imshow(img)\n    ax.set_title(f'filter: {i}')\n    ax.axis('off')\n\nplt.show()\n\n\nW.shape:  (32, 3, 3, 3)\n\n\n\n\n\n\n\n\n\nNotice: Maximal activation for all RGB channels=1 (black) and minimal activation for all RGB channels = 0 (white)"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#the-last-layer",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#the-last-layer",
+    "title": "Convolutional Neural Networks",
+    "section": "The last layer",
+    "text": "The last layer\nThe goal of the added convolutional layers is to obtain a better representation of the image data by representing spatial features (edges etc.). If this is successful then we would expect better separation properties in the penultimate layer (last before output layer).\n\n\nCode\nfrom sklearn.decomposition import PCA\nfrom sklearn.manifold import TSNE\n\n# Get representations from the penultimate (last hidden) layer in PyTorch\n# We'll use torch.no_grad() and a hook or simply modify the model to return features\n\n# Example assumes model: features = model.fc1 output after relu, before final fc2\n\ndef get_last_layer_features(model, dataloader, device, n_samples=500):\n    model.eval()\n    features = []\n    labels = []\n    with torch.no_grad():\n        count = 0\n        for xb, yb in dataloader:\n            xb, yb = xb.to(device), yb.to(device)\n            x = F.relu(model.conv1(xb))\n            x = model.pool1(x)\n            x = model.flatten(x)\n            x = F.relu(model.fc1(x))\n            # Forward up to penultimate layer\n            features.append(x.cpu())\n            labels.append(yb.cpu())\n            count += xb.size(0)\n            if count &gt;= n_samples:\n                break\n    features = torch.cat(features)[:n_samples]\n    labels = torch.cat(labels)[:n_samples]\n    return features.numpy(), labels.numpy()\n\n# Get features for train set (or a subset)\nX_lay, y = get_last_layer_features(model, train_loader, device, n_samples=500)\n\n# Also get original input (flattened)\nX_orig = []\ncount = 0\nfor xb, yb in train_loader:\n    X_orig.append(xb.cpu().reshape(xb.size(0), -1))\n    count += xb.size(0)\n    if count &gt;= 500:\n        break\nX_orig = torch.cat(X_orig)[:500].numpy()\n\nprint('X shapes: ', X_orig.shape, X_lay.shape)\n\n# PCA or t-SNE\nX_pca = PCA(n_components=2).fit_transform(X_orig)\nX_lay_pca = PCA(n_components=2).fit_transform(X_lay)\nprint('PCA Shapes: ', X_pca.shape, X_lay_pca.shape)\n\nplt.figure(figsize=(8, 4))\ncm = plt.get_cmap('tab10')\n\nax = plt.subplot(1, 2, 1)\nplt.scatter(X_pca[:, 0], X_pca[:, 1], c=y, cmap=cm)\nplt.title('PCA: X orig.')\n\nax = plt.subplot(1, 2, 2)\nplt.scatter(X_lay_pca[:, 0], X_lay_pca[:, 1], c=y, cmap=cm)\nplt.title('PCA - X transformed')\n\nplt.colorbar()\nplt.show()\n\n\nX shapes:  (500, 3072) (500, 128)\nPCA Shapes:  (500, 2) (500, 2)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSummary\n\n\n\n\nMLP: pass 1D vectors from layer to layer\nCNN: match network to spatial structure (pass 2D images)\ngoal: ‘better’ representation of input data\nLower layers: Primitive “concepts”\n\nDeeper layers: Higher order “concepts”\n\n\n\n\n\n\nExample from VGGNet. Image from A. Karpathy"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#data-access",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#data-access",
+    "title": "Convolutional Neural Networks",
+    "section": "Data Access",
+    "text": "Data Access\nThere are several ways to access pytorch datasets\n\n\nCode\n# access raw data: untransformed numpy .data and .targets are CIFAR-specific\nnd = train_dataset.data \nprint(f\"train_dataset.data: {nd.shape} -&gt; range: {nd.min().item()} - {nd.max().item()}\")\nprint(f\"train_dataset.targets: {np.unique(train_dataset.targets)}\")\n\n# access transformed data: using generic methods (__getitem__ and __len__)\nimg, label = train_dataset[0]   # returns tuple (torch.tensor, integer)\nprint(f\"img: {img.shape} range: {img.min().item()} - {img.max().item()}\")\nprint(f\"label: {label} -&gt; {cifar_classes[label]}\")\nprint(f\"len(train_dataset): {len(train_dataset)}\")\n\n\ntrain_dataset.data: (50000, 32, 32, 3) -&gt; range: 0 - 255\ntrain_dataset.targets: [0 1 2 3 4 5 6 7 8 9]\nimg: torch.Size([3, 32, 32]) range: 0.0 - 1.0\nlabel: 6 -&gt; frog\nlen(train_dataset): 50000"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#data-preparation",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#data-preparation",
+    "title": "Convolutional Neural Networks",
+    "section": "Data Preparation",
+    "text": "Data Preparation\nThe data preparation invokes the usual steps:\n\nsplitting data sets into train, validation, test\noptionally: downsample for speed\ndefinition of batches\n\n\nSplit and Downsample\n\n\nCode\nfrom sklearn.model_selection import train_test_split\nfrom torch.utils.data import Subset\n\nSEED = 42\nFRACT = 0.1\nTRAIN_VAL=0.8\n\n# get current sizes\ntrain_indices = np.arange(len(train_dataset)) \ntrain_labels  = np.array(train_dataset.targets)\ntest_indices  = np.arange(len(test_dataset))  \ntest_labels   = np.array(test_dataset.targets)\n\n# subsample FRACT \ntrain_pool_idx, _ = train_test_split(\n    train_indices, train_size=FRACT, stratify=train_labels, random_state=SEED\n)\n\ntest_idx, _ = train_test_split(\n    test_indices, train_size=FRACT, stratify=test_labels, random_state=SEED\n)\n\n# split train -&gt; train + val\ny_pool = train_labels[train_pool_idx]\ntrain_idx, val_idx = train_test_split(\n    train_pool_idx, train_size=TRAIN_VAL, stratify=y_pool, random_state=SEED\n)\n\ntrain_ds = Subset(train_dataset, train_idx)\nval_ds   = Subset(train_dataset, val_idx)\ntest_ds  = Subset(test_dataset,  test_idx)\n\nprint(f\"train: {train_idx.shape}, val: {val_idx.shape}, test: {test_idx.shape}\")\n\n\ntrain: (4000,), val: (1000,), test: (1000,)\n\n\n\n\nData Loaders for Batches\nDataLoaders provide efficient access to batches during training and evaluation\n\n\nCode\n# shuffle = True for randomized optimization and gradients calculation\ntrain_loader = DataLoader(train_ds, batch_size=BATCH_SIZE, shuffle=True)\n# shuffle = False for fixed and consistent evaluation and metrics\ntest_loader  = DataLoader(test_ds, batch_size=BATCH_SIZE, shuffle=False)\nval_loader   = DataLoader(val_ds, batch_size=BATCH_SIZE, shuffle=False)"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#discussion-challenges",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#discussion-challenges",
+    "title": "Convolutional Neural Networks",
+    "section": "Discussion: Challenges ?",
+    "text": "Discussion: Challenges ?\n\n\n\nConfused Cat"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#convolutions-1",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/ANN_005_CNN.html#convolutions-1",
+    "title": "Convolutional Neural Networks",
+    "section": "Convolutions",
+    "text": "Convolutions\n\n\n\nConvolution and Pooling\n\n\n\nNumber of outputs from Convolutional Layer\n\n\\(F\\) filter size\n\\(S\\) stride\n\\(P\\) padding\n\n\\[\nN_{out} = \\frac{N_{in} - F + 2P}{S} + 1\n\\]\nNotice\n\n\\((N_{in} - F + 2P)/S\\) has to be integer for this to work properly.\n\n\n\nHabits and Recommendations\n\nuse input size \\(L \\times L = 2^n\\) (e.g. 512)\nuse stride \\(S=1\\)\nuse padding \\(P= (F-1)/2\\) to retain input size –&gt; multiple CONV layers\npooling: \\(F=2 S=2\\) (size reduction: \\(L \\times L --&gt; L/2 \\times L/2\\) !!! - aggressive reduction"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/01_CNN_Intro.html",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/01_CNN_Intro.html",
+    "title": "Convolutional Neural Networks",
+    "section": "",
+    "text": "Imports\nimport psutil, os\nimport numpy as np\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\nfrom torchvision import datasets, transforms\nfrom torch.utils.data import DataLoader, random_split, Subset\nfrom torchinfo import summary\nfrom sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, classification_report\nfrom sklearn.model_selection import train_test_split\nimport matplotlib.pyplot as plt\nfrom PIL import Image\n\n\nfrom lecture_utils.helper import plot_cm, detect_device\n\ndef plot_fit_history(hist, name='loss', test_score=None):\n    if name not in hist:\n        print(f\"{name} not found in history\")\n        return\n    plt.plot(hist[name], label='train')\n    val_name = 'val_' + name\n    if val_name in hist:\n        plt.plot(hist[val_name], label='valid')\n    if test_score is not None:\n        plt.axhline(test_score, color='green', linestyle='-.', label='test')\n    plt.xlabel('Epoch')\n    plt.ylabel(name)\n    plt.legend()\n    plt.show()\n\ndef dataset2images(dataset, classes, SEED=42, n=16):\n    \"\"\"Show n random images from a dataset in a 4x4 grid.\"\"\"\n    np.random.seed(SEED)\n    indices = np.random.choice(len(dataset), n, replace=False)\n\n    plt.figure(figsize=(8, 8))\n    for i, idx in enumerate(indices):\n        img, label = dataset[idx]\n\n        if torch.is_tensor(img):\n            # PyTorch tensor (C,H,W) -&gt; numpy (H,W,C)\n            img_np = img.permute(1, 2, 0).cpu().numpy()\n\n        elif isinstance(img, Image.Image):\n            # PIL Image\n            img_np = np.array(img)\n\n        elif isinstance(img, np.ndarray):\n            # numpy array already OK\n            img_np = img\n\n        else:\n            raise TypeError(\n                f\"Unsupported image type: {type(img)}. \"\n                \"Expected torch.Tensor, PIL.Image, or numpy.ndarray.\"\n            )\n\n        # Plot\n        ax = plt.subplot(4, 4, i + 1)\n        ax.imshow(img_np)\n        ax.set_title(f\"{label}: {classes[label]}\")\n        ax.axis(\"off\")\n\n    plt.tight_layout()\n    plt.show()\n\n\nprocess = psutil.Process(os.getpid())\n\ndef mem_MB():\n    return process.memory_info().rss / (1024**2)\n\ndevice = detect_device()\nBATCH_SIZE = 64\n\nprint('torch-version: ', torch.__version__)\nprint('device: ', device)\n\n\ntorch-version:  2.7.1\ndevice:  mps"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/01_CNN_Intro.html#review",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/01_CNN_Intro.html#review",
+    "title": "Convolutional Neural Networks",
+    "section": "Review",
+    "text": "Review\n\nneural networks: layers of neurons connected by weights\neach neuron: linear function (weights/bias) + non-linear activation function\nloss optimization: iterations, (stochastic) gradient descent, momentum, ADAM\nmathematical solution: backprogation of gradients = chain rule on computational graph\nengineering challenges:\n\nvanishing gradients \\(\\to\\) activation functions, weight initialization\noverfitting \\(\\to\\) test set, regularization\ncoding complexity \\(\\to\\) frameworks\n\ninterpretation challenges:\n\noverconfidence and calibration\noverparameterization, interpretation\nbeyond accuracy and other goals"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/01_CNN_Intro.html#another-classical-dataset-cifar-10",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/01_CNN_Intro.html#another-classical-dataset-cifar-10",
+    "title": "Convolutional Neural Networks",
+    "section": "Another classical dataset: CIFAR-10",
+    "text": "Another classical dataset: CIFAR-10\nThis is a set of 50k coloured images [32, 32, 3] in 10 categories.\n\nCan also be obtain with torchvision.datasets.\nUnlike MNIST, images are not as standardized.\nReference: Krizhevsky, Nair, Hinton\n\n\n\nCode\nfrom torchvision import datasets, transforms\n\ntransform = transforms.Compose([\n    # can add many (image) transformations here\n    # .... resize, rotate, flip, ....\n    # minimal transformation: PIL --&gt; tensor\n    transforms.ToTensor(),\n])\n\n# tochvision dataset: list of tuples (tensor, int)\ntrain_dataset = datasets.CIFAR10(root='./data', \n    train=True, download=True, transform=transform)\n\nMB = train_dataset.data.nbytes / 1024**2\n\ncifar_classes = train_dataset.classes\nprint(f\"classes: {cifar_classes}\")\nprint(f\"train: shape={train_dataset.data.shape} size={MB:.2f} MB\")\n\n# plot a selection\ndataset2images(train_dataset, cifar_classes)\n\n\nclasses: ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']\ntrain: shape=(50000, 32, 32, 3) size=146.48 MB\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n\nCIFAR-10 is downloaded to disk (./data/)\nRAM footprint can be much larger for other image data (\\(\\to\\) DataLoader)\ntransformations: part of data definition; standardized and modularized"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/01_CNN_Intro.html#data-access",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/01_CNN_Intro.html#data-access",
+    "title": "Convolutional Neural Networks",
+    "section": "Data Access",
+    "text": "Data Access\nThere are several ways to access pytorch datasets\n\n\nCode\n# access raw data: untransformed numpy .data and .targets are CIFAR-specific\ndat = train_dataset.data\ntrg =  train_dataset.targets\nmin, max = dat.min().item(), dat.max().item()\nprint(\"numpy:\")\nprint(f\".data: {dat.shape} -&gt; range: {min} - {max}\")\nprint(f\".targets: {np.unique(trg)}\")\n\n# access transformed data: using generic methods (__getitem__ and __len__)\nprint(\"tensors:\")\ntensor, label = train_dataset[0]   # returns tuple (torch.tensor, integer)\nmin, max = tensor.min().item(), tensor.max().item()\nprint(f\"tensor: {tensor.shape} range: {min} - {max}\")\nprint(f\"label: {label} -&gt; {cifar_classes[label]}\")\nprint(f\"len(train_dataset): {len(train_dataset)}\")\n\n\nnumpy:\n.data: (50000, 32, 32, 3) -&gt; range: 0 - 255\n.targets: [0 1 2 3 4 5 6 7 8 9]\ntensors:\ntensor: torch.Size([3, 32, 32]) range: 0.0 - 1.0\nlabel: 6 -&gt; frog\nlen(train_dataset): 50000"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/01_CNN_Intro.html#explore",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/01_CNN_Intro.html#explore",
+    "title": "Convolutional Neural Networks - Intro",
+    "section": "Explore",
+    "text": "Explore\n\n\nCode\nimport pandas as pd\nimport seaborn as sns\n\nfract = pd.Series(train_dataset.targets).value_counts(normalize=True).sort_index()\nsns.barplot(x=fract.index, y=fract.values)\nplt.title(\"CIFAR-10: Label Distribution\")\nplt.xlabel(\"Image Class Label\")\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\nCode\nfrom sklearn.decomposition import PCA\n\nn_sub = 500 # define a subset of digits for speed\n\n# flattening a tensor to get [samples x features]\nX_sub = train_dataset.data[:n_sub].reshape(n_sub, -1)\ny_sub = train_dataset.targets[:n_sub]\nprint('Images X (flattened): ', X_sub.shape)\n\nX_pca = PCA(n_components = 2).fit_transform(X_sub)\nprint('PCA Representation:   ',X_pca.shape)\n\ncm = plt.get_cmap('tab10')\nplt.scatter( X_pca[:,0], X_pca[:,1] , c=y_sub, cmap=cm)\nplt.title('CIFAR-10: PCA')\nplt.colorbar()\nplt.show()\n\n\nImages X (flattened):  (500, 3072)\nPCA Representation:    (500, 2)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMessage\n\n\n\n\nNo apparent class structure (unlike MNIST)\nsimple feedforward network (MLP) will not be very accurate classifier\nhigher accuracy on flattened images will be difficult\nchange data representation and network architecture"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/01_CNN_Intro.html#discussion-challenges",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/01_CNN_Intro.html#discussion-challenges",
+    "title": "Convolutional Neural Networks",
+    "section": "Discussion: Challenges ?",
+    "text": "Discussion: Challenges ?\n\n\n\nConfused Cat\n\n\n\nspatially distributed features\nocclusions / different view points\ndifferent sizes / resolutions\nmultiple classes\nintraclass variation\ndeformation / orientation\nillumination / colour choices"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/01_CNN_Intro.html#why-not-add-more-layers",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/01_CNN_Intro.html#why-not-add-more-layers",
+    "title": "Convolutional Neural Networks - Intro",
+    "section": "Why not add more layers ?",
+    "text": "Why not add more layers ?\n\nMLP does not scale to larger images\nMLP do not encode spatial structure \\(\\to\\) pixel permutations possible\nMLP do not encode hierarchy (edges, shapes, textures, objects)\noptimization increasingly hard\n\n\n\n\n\n\n\nFC Problem in Numbers\n\n\n\n1 input x 1 hidden layer:\n[1000 x 1000 x 3 pixels] x [1000 neurons] \\(\\to\\) 3 billion parameters"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/01_CNN_Intro.html#the-idea",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/01_CNN_Intro.html#the-idea",
+    "title": "Convolutional Neural Networks",
+    "section": "The idea",
+    "text": "The idea\n\nrestrict capacity of each layer \\(\\to\\) weight sharing\ninvariance assumption: it should not matter where feature is"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/01_CNN_Intro.html#data-exploration",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/01_CNN_Intro.html#data-exploration",
+    "title": "Convolutional Neural Networks",
+    "section": "Data Exploration",
+    "text": "Data Exploration\n\n\nCode\nimport pandas as pd\nimport seaborn as sns\n\nfract = pd.Series(train_dataset.targets).value_counts(normalize=True).sort_index()\nsns.barplot(x=fract.index, y=fract.values)\nplt.title(\"CIFAR-10: Label Distribution\")\nplt.xlabel(\"Image Class Label\")\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\nCode\nfrom sklearn.decomposition import PCA\n\nn_sub = 500 # define a subset of digits for speed\n\n# flattening a tensor to get [samples x features]\nX_sub = train_dataset.data[:n_sub].reshape(n_sub, -1)\ny_sub = train_dataset.targets[:n_sub]\nprint('Images X (flattened): ', X_sub.shape)\n\nX_pca = PCA(n_components = 2).fit_transform(X_sub)\nprint('PCA Representation:   ',X_pca.shape)\n\ncm = plt.get_cmap('tab10')\nplt.scatter( X_pca[:,0], X_pca[:,1] , c=y_sub, cmap=cm)\nplt.title('CIFAR-10: PCA')\nplt.colorbar()\nplt.show()\n\n\nImages X (flattened):  (500, 3072)\nPCA Representation:    (500, 2)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMessage\n\n\n\n\nNo apparent class structure (unlike MNIST)\nsimple feedforward network (MLP) will not be very accurate classifier\nhigher accuracy on flattened images will be difficult\nchange data representation and network architecture"
+  },
+  {
+    "objectID": "lectures/03_ConvolutionalNeuralNetworks/01_CNN_Intro.html#adding-more-layers",
+    "href": "lectures/03_ConvolutionalNeuralNetworks/01_CNN_Intro.html#adding-more-layers",
+    "title": "Convolutional Neural Networks",
+    "section": "Adding more layers ?",
+    "text": "Adding more layers ?\n\nMLP does not scale to larger images\nMLP do not encode spatial structure \\(\\to\\) pixel permutations possible\nMLP do not encode hierarchy (edges, shapes, textures, objects)\noptimization increasingly hard\n\n\n\n\n\n\n\nFC Problem in Numbers\n\n\n\n1 input x 1 hidden layer:\n[1000 x 1000 x 3 pixels] x [1000 neurons] \\(\\to\\) 3 billion parameters"
   }
 ]
