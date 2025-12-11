@@ -2,7 +2,10 @@
   {
     "listing": "/lectures/03_ConvolutionalNeuralNetworks/index.html",
     "items": [
-      "/lectures/03_ConvolutionalNeuralNetworks/01_CNN_Intro.html"
+      "/lectures/03_ConvolutionalNeuralNetworks/01_CNN_Intro.html",
+      "/lectures/03_ConvolutionalNeuralNetworks/02_CNN_Convolutions.html",
+      "/lectures/03_ConvolutionalNeuralNetworks/03_CNN_Implementation.html",
+      "/lectures/03_ConvolutionalNeuralNetworks/04_CNN_Inspection.html"
     ]
   },
   {
