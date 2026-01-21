@@ -8,7 +8,8 @@
       "/lectures/03_ConvolutionalNeuralNetworks/04_CNN_Inspection.html",
       "/lectures/03_ConvolutionalNeuralNetworks/05_DataAugmentation.html",
       "/lectures/03_ConvolutionalNeuralNetworks/06_HuggingFace.html",
-      "/lectures/03_ConvolutionalNeuralNetworks/07_CNN_BiggerModels.html"
+      "/lectures/03_ConvolutionalNeuralNetworks/07_CNN_BiggerModels.html",
+      "/lectures/03_ConvolutionalNeuralNetworks/08_CNN_GradCam.html"
     ]
   },
   {
