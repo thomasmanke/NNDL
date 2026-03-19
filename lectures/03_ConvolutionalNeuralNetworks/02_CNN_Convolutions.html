@@ -346,11 +346,6 @@ window.Quarto = {
   </li>  
     </ul>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" href="../../projects/index.html"> <i class="bi bi-bricks" role="img">
-</i> 
-<span class="menu-text">Projects</span></a>
-  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
@@ -396,7 +391,7 @@ window.Quarto = {
   <li><a href="#receptive-field" id="toc-receptive-field" class="nav-link" data-scroll-target="#receptive-field">Receptive Field</a></li>
   </ul></li>
   <li><a href="#habits-recommendations" id="toc-habits-recommendations" class="nav-link" data-scroll-target="#habits-recommendations">Habits &amp; Recommendations</a></li>
-  <li><a href="#x1-convolutions" id="toc-x1-convolutions" class="nav-link" data-scroll-target="#x1-convolutions">1x1 Convolutions</a></li>
+  <li><a href="#a-special-one-1x1-convolutions" id="toc-a-special-one-1x1-convolutions" class="nav-link" data-scroll-target="#a-special-one-1x1-convolutions">A special one: 1x1 Convolutions</a></li>
   </ul>
 </nav>
     </div>
@@ -677,7 +672,7 @@ Note
 <li>K different filters for different patterns (e.g.&nbsp;horizontal, vertical lines)</li>
 <li>filters have same channel depth as input</li>
 <li>filter parameters are not manually defined, but they will be trained</li>
-<li>filter/neuron scans all image patches with <em>same</em> parameters</li>
+<li>filters/neurons scans all image patches with <strong>same</strong> parameters</li>
 <li>Convolutions followed by non-linear activation</li>
 </ul>
 <p><span class="math display">\[
@@ -702,7 +697,8 @@ Z = W \ast X + b \to ReLU(Z)
 <li><strong>pooling filter</strong> (Pool)
 <ul>
 <li>spatial downsampling</li>
-<li>channel depth stays the same (e.g.&nbsp;max or average)</li>
+<li>channel depth stays the same</li>
+<li>pooling type: max, average</li>
 </ul></li>
 </ul>
 </section>
@@ -754,10 +750,10 @@ Note
 <li>Typical structures: Input - Conv/Relu - Conv/Relu - Pool - Conv/Relu - … - Dense</li>
 </ul>
 </section>
-<section id="x1-convolutions" class="level2">
-<h2 class="anchored" data-anchor-id="x1-convolutions">1x1 Convolutions</h2>
+<section id="a-special-one-1x1-convolutions" class="level2">
+<h2 class="anchored" data-anchor-id="a-special-one-1x1-convolutions">A special one: 1x1 Convolutions</h2>
 <p><span class="math inline">\(K \times K\)</span> convolutions reduce spatial dimensions and increase channel depth (capactiy)</p>
-<p>For very deep networks we may want to reduce (summarize) channels (<span class="math inline">\(C \to K\)</span>) without affecting spatial structures.</p>
+<p>For very deep networks we may also want to reduce (summarize) channels (<span class="math inline">\(C \to K\)</span>) without affecting spatial structures.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/1x1_Conv.png" class="img-fluid figure-img"></p>
@@ -1460,7 +1456,7 @@ Note
 <span id="cb3-208"><a href="#cb3-208" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>K different filters for different patterns (e.g. horizontal, vertical lines)</span>
 <span id="cb3-209"><a href="#cb3-209" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>filters have same channel depth as input</span>
 <span id="cb3-210"><a href="#cb3-210" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>filter parameters are not manually defined, but they will be trained</span>
-<span id="cb3-211"><a href="#cb3-211" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>filter/neuron scans all image patches with *same* parameters</span>
+<span id="cb3-211"><a href="#cb3-211" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>filters/neurons scans all image patches with **same** parameters</span>
 <span id="cb3-212"><a href="#cb3-212" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Convolutions followed by non-linear activation</span>
 <span id="cb3-213"><a href="#cb3-213" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-214"><a href="#cb3-214" aria-hidden="true" tabindex="-1"></a>  $$</span>
@@ -1475,71 +1471,72 @@ Note
 <span id="cb3-223"><a href="#cb3-223" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>padding types: zero/constant, replicate, reflect, ...</span>
 <span id="cb3-224"><a href="#cb3-224" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**pooling filter** (Pool)</span>
 <span id="cb3-225"><a href="#cb3-225" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>spatial downsampling</span>
-<span id="cb3-226"><a href="#cb3-226" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>channel depth stays the same (e.g. max or average)</span>
-<span id="cb3-227"><a href="#cb3-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-226"><a href="#cb3-226" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>channel depth stays the same </span>
+<span id="cb3-227"><a href="#cb3-227" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>pooling type: max, average</span>
 <span id="cb3-228"><a href="#cb3-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-229"><a href="#cb3-229" aria-hidden="true" tabindex="-1"></a><span class="fu">### Outputs Dimensions from Conv Layer</span></span>
-<span id="cb3-230"><a href="#cb3-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-231"><a href="#cb3-231" aria-hidden="true" tabindex="-1"></a>Output Size: </span>
-<span id="cb3-232"><a href="#cb3-232" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb3-233"><a href="#cb3-233" aria-hidden="true" tabindex="-1"></a>L_{out} = \frac{L_{in} - F + 2P}{S} + 1</span>
-<span id="cb3-234"><a href="#cb3-234" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb3-235"><a href="#cb3-235" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-236"><a href="#cb3-236" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb3-237"><a href="#cb3-237" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$L_{in}, L_{out}$ spatial dimensions of input and output images: $(H,W)$</span>
-<span id="cb3-238"><a href="#cb3-238" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$F=$ filter size, $S=$ stride, $P=$  padding</span>
-<span id="cb3-239"><a href="#cb3-239" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$(L_{in} - F + 2P)/S$ has to be integer for **valid** convolutional layer</span>
-<span id="cb3-240"><a href="#cb3-240" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-241"><a href="#cb3-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-229"><a href="#cb3-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-230"><a href="#cb3-230" aria-hidden="true" tabindex="-1"></a><span class="fu">### Outputs Dimensions from Conv Layer</span></span>
+<span id="cb3-231"><a href="#cb3-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-232"><a href="#cb3-232" aria-hidden="true" tabindex="-1"></a>Output Size: </span>
+<span id="cb3-233"><a href="#cb3-233" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-234"><a href="#cb3-234" aria-hidden="true" tabindex="-1"></a>L_{out} = \frac{L_{in} - F + 2P}{S} + 1</span>
+<span id="cb3-235"><a href="#cb3-235" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-236"><a href="#cb3-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-237"><a href="#cb3-237" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb3-238"><a href="#cb3-238" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$L_{in}, L_{out}$ spatial dimensions of input and output images: $(H,W)$</span>
+<span id="cb3-239"><a href="#cb3-239" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$F=$ filter size, $S=$ stride, $P=$  padding</span>
+<span id="cb3-240"><a href="#cb3-240" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$(L_{in} - F + 2P)/S$ has to be integer for **valid** convolutional layer</span>
+<span id="cb3-241"><a href="#cb3-241" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb3-242"><a href="#cb3-242" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-243"><a href="#cb3-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-244"><a href="#cb3-244" aria-hidden="true" tabindex="-1"></a><span class="fu">### Receptive Field</span></span>
-<span id="cb3-245"><a href="#cb3-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-246"><a href="#cb3-246" aria-hidden="true" tabindex="-1"></a><span class="al">![Receptive Field of $3 \times 3$ filters. Source: N. Adaloglou (AI Summer 2020)](https://theaisummer.com/static/490be17ee7f19b78003c3fdf5a6bbafc/83b75/receptive-field-in-convolutional-networks.png)</span></span>
-<span id="cb3-247"><a href="#cb3-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-244"><a href="#cb3-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-245"><a href="#cb3-245" aria-hidden="true" tabindex="-1"></a><span class="fu">### Receptive Field</span></span>
+<span id="cb3-246"><a href="#cb3-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-247"><a href="#cb3-247" aria-hidden="true" tabindex="-1"></a><span class="al">![Receptive Field of $3 \times 3$ filters. Source: N. Adaloglou (AI Summer 2020)](https://theaisummer.com/static/490be17ee7f19b78003c3fdf5a6bbafc/83b75/receptive-field-in-convolutional-networks.png)</span></span>
 <span id="cb3-248"><a href="#cb3-248" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-249"><a href="#cb3-249" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>denotes the effective number of input pixels that contribute</span>
-<span id="cb3-250"><a href="#cb3-250" aria-hidden="true" tabindex="-1"></a>to activation</span>
-<span id="cb3-251"><a href="#cb3-251" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>stacks of convolutional layers increase receptive field</span>
-<span id="cb3-252"><a href="#cb3-252" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>early convolutional layers have small receptive fields (e.g $3 \times 3$): $\to$ edge detection</span>
-<span id="cb3-253"><a href="#cb3-253" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>deeper convolutional layers "see" more global structure $\to$ object detection + classification accuracy</span>
-<span id="cb3-254"><a href="#cb3-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-249"><a href="#cb3-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-250"><a href="#cb3-250" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>denotes the effective number of input pixels that contribute</span>
+<span id="cb3-251"><a href="#cb3-251" aria-hidden="true" tabindex="-1"></a>to activation</span>
+<span id="cb3-252"><a href="#cb3-252" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>stacks of convolutional layers increase receptive field</span>
+<span id="cb3-253"><a href="#cb3-253" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>early convolutional layers have small receptive fields (e.g $3 \times 3$): $\to$ edge detection</span>
+<span id="cb3-254"><a href="#cb3-254" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>deeper convolutional layers "see" more global structure $\to$ object detection + classification accuracy</span>
 <span id="cb3-255"><a href="#cb3-255" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-256"><a href="#cb3-256" aria-hidden="true" tabindex="-1"></a><span class="fu">## Habits &amp; Recommendations</span></span>
-<span id="cb3-257"><a href="#cb3-257" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-258"><a href="#cb3-258" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>use input size $L \times L = 2^n$ (e.g. 512)</span>
-<span id="cb3-259"><a href="#cb3-259" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>use stride $S=1$</span>
-<span id="cb3-260"><a href="#cb3-260" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>use padding $P= (F-1)/2$ to retain input size $\to$ multiple CONV layers</span>
-<span id="cb3-261"><a href="#cb3-261" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Typical structures: Input - Conv/Relu - Conv/Relu - Pool - Conv/Relu - ... - Dense</span>
-<span id="cb3-262"><a href="#cb3-262" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-265"><a href="#cb3-265" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb3-266"><a href="#cb3-266" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: refs</span></span>
-<span id="cb3-267"><a href="#cb3-267" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb3-268"><a href="#cb3-268" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb3-269"><a href="#cb3-269" aria-hidden="true" tabindex="-1"></a><span class="co"># References:</span></span>
-<span id="cb3-270"><a href="#cb3-270" aria-hidden="true" tabindex="-1"></a><span class="op">-</span> https:<span class="op">//</span>dvl.<span class="kw">in</span>.tum.de<span class="op">/</span>slides<span class="op">/</span>i2dl<span class="op">-</span>ss20<span class="op">/</span><span class="fl">9.</span><span class="er">CNN</span><span class="op">-</span><span class="fl">1.</span><span class="er">pdf</span></span>
-<span id="cb3-271"><a href="#cb3-271" aria-hidden="true" tabindex="-1"></a><span class="op">-</span> Moez Krichen (<span class="dv">2023</span>). https:<span class="op">//</span>www.mdpi.com<span class="op">/</span><span class="dv">2073</span><span class="op">-</span><span class="dv">431</span><span class="er">X</span><span class="op">/</span><span class="dv">12</span><span class="op">/</span><span class="dv">8</span><span class="op">/</span><span class="dv">151</span></span>
-<span id="cb3-272"><a href="#cb3-272" aria-hidden="true" tabindex="-1"></a><span class="op">-</span> <span class="dv">1</span><span class="er">x1</span> convolution: https:<span class="op">//</span>www.youtube.com<span class="op">/</span>watch?v<span class="op">=</span>wf2HblQbP<span class="op">-</span>U</span>
-<span id="cb3-273"><a href="#cb3-273" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-274"><a href="#cb3-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-256"><a href="#cb3-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-257"><a href="#cb3-257" aria-hidden="true" tabindex="-1"></a><span class="fu">## Habits &amp; Recommendations</span></span>
+<span id="cb3-258"><a href="#cb3-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-259"><a href="#cb3-259" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>use input size $L \times L = 2^n$ (e.g. 512)</span>
+<span id="cb3-260"><a href="#cb3-260" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>use stride $S=1$</span>
+<span id="cb3-261"><a href="#cb3-261" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>use padding $P= (F-1)/2$ to retain input size $\to$ multiple CONV layers</span>
+<span id="cb3-262"><a href="#cb3-262" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Typical structures: Input - Conv/Relu - Conv/Relu - Pool - Conv/Relu - ... - Dense</span>
+<span id="cb3-263"><a href="#cb3-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-266"><a href="#cb3-266" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb3-267"><a href="#cb3-267" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: refs</span></span>
+<span id="cb3-268"><a href="#cb3-268" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb3-269"><a href="#cb3-269" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb3-270"><a href="#cb3-270" aria-hidden="true" tabindex="-1"></a><span class="co"># References:</span></span>
+<span id="cb3-271"><a href="#cb3-271" aria-hidden="true" tabindex="-1"></a><span class="op">-</span> https:<span class="op">//</span>dvl.<span class="kw">in</span>.tum.de<span class="op">/</span>slides<span class="op">/</span>i2dl<span class="op">-</span>ss20<span class="op">/</span><span class="fl">9.</span><span class="er">CNN</span><span class="op">-</span><span class="fl">1.</span><span class="er">pdf</span></span>
+<span id="cb3-272"><a href="#cb3-272" aria-hidden="true" tabindex="-1"></a><span class="op">-</span> Moez Krichen (<span class="dv">2023</span>). https:<span class="op">//</span>www.mdpi.com<span class="op">/</span><span class="dv">2073</span><span class="op">-</span><span class="dv">431</span><span class="er">X</span><span class="op">/</span><span class="dv">12</span><span class="op">/</span><span class="dv">8</span><span class="op">/</span><span class="dv">151</span></span>
+<span id="cb3-273"><a href="#cb3-273" aria-hidden="true" tabindex="-1"></a><span class="op">-</span> <span class="dv">1</span><span class="er">x1</span> convolution: https:<span class="op">//</span>www.youtube.com<span class="op">/</span>watch?v<span class="op">=</span>wf2HblQbP<span class="op">-</span>U</span>
+<span id="cb3-274"><a href="#cb3-274" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb3-275"><a href="#cb3-275" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-276"><a href="#cb3-276" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1x1 Convolutions</span></span>
-<span id="cb3-277"><a href="#cb3-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-278"><a href="#cb3-278" aria-hidden="true" tabindex="-1"></a>$K \times K$ convolutions reduce spatial dimensions and increase channel depth (capactiy)</span>
-<span id="cb3-279"><a href="#cb3-279" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-280"><a href="#cb3-280" aria-hidden="true" tabindex="-1"></a>For very deep networks we may want to reduce (summarize) channels ($C \to K$) without affecting spatial structures.</span>
-<span id="cb3-281"><a href="#cb3-281" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-282"><a href="#cb3-282" aria-hidden="true" tabindex="-1"></a><span class="al">![1x1 Convolution. Source: https://www.youtube.com/watch?v=wf2HblQbP-U](images/1x1_Conv.png)</span></span>
-<span id="cb3-283"><a href="#cb3-283" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-284"><a href="#cb3-284" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb3-285"><a href="#cb3-285" aria-hidden="true" tabindex="-1"></a>y_{ij}^{(k)} = \sum_{c=1}^C w_c^{(k)} x_{ijc} + b_k</span>
-<span id="cb3-286"><a href="#cb3-286" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb3-287"><a href="#cb3-287" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-288"><a href="#cb3-288" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb3-289"><a href="#cb3-289" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>efficient way to summarize feature</span>
-<span id="cb3-290"><a href="#cb3-290" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>"feature map pooling": pool only across channels</span>
-<span id="cb3-291"><a href="#cb3-291" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>learnable weight $w_c^{(k)}$ (in contrast to spatial pooling: Max/Average)</span>
-<span id="cb3-292"><a href="#cb3-292" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-276"><a href="#cb3-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-277"><a href="#cb3-277" aria-hidden="true" tabindex="-1"></a><span class="fu">## A special one: 1x1 Convolutions</span></span>
+<span id="cb3-278"><a href="#cb3-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-279"><a href="#cb3-279" aria-hidden="true" tabindex="-1"></a>$K \times K$ convolutions reduce spatial dimensions and increase channel depth (capactiy)</span>
+<span id="cb3-280"><a href="#cb3-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-281"><a href="#cb3-281" aria-hidden="true" tabindex="-1"></a>For very deep networks we may also want to reduce (summarize) channels ($C \to K$) without affecting spatial structures.</span>
+<span id="cb3-282"><a href="#cb3-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-283"><a href="#cb3-283" aria-hidden="true" tabindex="-1"></a><span class="al">![1x1 Convolution. Source: https://www.youtube.com/watch?v=wf2HblQbP-U](images/1x1_Conv.png)</span></span>
+<span id="cb3-284"><a href="#cb3-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-285"><a href="#cb3-285" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-286"><a href="#cb3-286" aria-hidden="true" tabindex="-1"></a>y_{ij}^{(k)} = \sum_{c=1}^C w_c^{(k)} x_{ijc} + b_k</span>
+<span id="cb3-287"><a href="#cb3-287" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-288"><a href="#cb3-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-289"><a href="#cb3-289" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb3-290"><a href="#cb3-290" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>efficient way to summarize feature</span>
+<span id="cb3-291"><a href="#cb3-291" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>"feature map pooling": pool only across channels</span>
+<span id="cb3-292"><a href="#cb3-292" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>learnable weight $w_c^{(k)}$ (in contrast to spatial pooling: Max/Average)</span>
+<span id="cb3-293"><a href="#cb3-293" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

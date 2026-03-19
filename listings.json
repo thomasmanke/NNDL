@@ -1,5 +1,9 @@
 [
   {
+    "listing": "/lectures/05_LargeLanguageModels/index.html",
+    "items": []
+  },
+  {
     "listing": "/lectures/03_ConvolutionalNeuralNetworks/index.html",
     "items": [
       "/lectures/03_ConvolutionalNeuralNetworks/01_CNN_Intro.html",
@@ -13,18 +17,12 @@
     ]
   },
   {
-    "listing": "/lectures/04_GenerativeModels/index.html",
-    "items": []
-  },
-  {
-    "listing": "/lectures/01_MachineLearning/index.html",
+    "listing": "/projects/index.html",
     "items": [
-      "/lectures/01_MachineLearning/01_Data.html",
-      "/lectures/01_MachineLearning/02_LinearRegression.html",
-      "/lectures/01_MachineLearning/03_Models101.html",
-      "/lectures/01_MachineLearning/04_MultivariateRegression.html",
-      "/lectures/01_MachineLearning/05_MultinomialRegression.html",
-      "/lectures/01_MachineLearning/06_TrainingAndTesting.html"
+      "/projects/01_MachineLearning.html",
+      "/projects/01_MachineLearningIris.html",
+      "/projects/02_DeepNeuralNetworks.html",
+      "/projects/03_ConvolutionalNeuralNetworks.html"
     ]
   },
   {
@@ -36,13 +34,14 @@
     ]
   },
   {
-    "listing": "/projects/index.html",
+    "listing": "/lectures/01_MachineLearning/index.html",
     "items": [
-      "/projects/01_MachineLearning.html",
-      "/projects/01_MachineLearningIris.html",
-      "/projects/02_DeepNeuralNetworks.html",
-      "/projects/03_ConvolutionalNeuralNetworks.html"
+      "/lectures/01_MachineLearning/01_Data.html"
     ]
+  },
+  {
+    "listing": "/lectures/04_GenerativeModels/index.html",
+    "items": []
   },
   {
     "listing": "/lectures/02_NeuralNetworks/index.html",
@@ -54,10 +53,6 @@
       "/lectures/02_NeuralNetworks/04_Overfitting.html",
       "/lectures/02_NeuralNetworks/05_Summary.html"
     ]
-  },
-  {
-    "listing": "/lectures/05_LargeLanguageModels/index.html",
-    "items": []
   },
   {
     "listing": "/help/index.html",
