@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Thomas Manke">
-<meta name="dcterms.date" content="2025-10-10">
+<meta name="dcterms.date" content="2026-04-09">
 
 <title>Neural Networks and Deep Learning</title>
 <style>
@@ -310,10 +310,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="./lectures/03_ConvolutionalNeuralNetworks/index.html">
  <span class="dropdown-text">03 Convolutional Neural Networks</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="./lectures/04_GenerativeModels/index.html">
- <span class="dropdown-text">04 Generative Models</span></a>
-  </li>  
     </ul>
   </li>
 </ul>
@@ -381,7 +377,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 10, 2025</p>
+      <p class="date">April 9, 2026</p>
     </div>
   </div>
   
@@ -400,9 +396,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>understand the key concepts and challenges of neural networks</li>
 <li>be proficient in common software solutions for deep learning (pytorch)</li>
 <li>be able to define, train and evaluate your own models</li>
-<li>have completed 4 concrete data analysis projects and provide reproducible code</li>
+<li>have completed concrete data analysis projects and provide reproducible code</li>
 <li>have worked in teams and presented your work</li>
-<li>want to learn more and deeper … open</li>
+<li>want to learn more and deeper …</li>
 </ul>
 </section>
 <section id="content" class="level2">
@@ -411,24 +407,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Machine Learning 101</li>
 <li>Neural Networks</li>
 <li>Convolutional Neural Networks</li>
-<li>Generative Networks</li>
 </ul>
 </section>
 <section id="format" class="level2">
 <h2 class="anchored" data-anchor-id="format">Format</h2>
-<p>The course comprises the following blocks (with the estimated time effort)</p>
+<p>The course comprises the following blocks:</p>
 <ul>
-<li><p><em>Lectures:</em> (16x 2h) will provide an introduction and overview</p></li>
-<li><p><em>Projects</em>: 4 larger assignments that are solved in <strong>teams of 2 students</strong>. Each team will submit a fully documented and executable notebook per project.</p></li>
-<li><p><em>Tutorials</em>: (16x 2h): weekly tutorials will focus on practical implementations and the review of lecture material. Up to 2 teams will present their project solutions (~30 min / team).</p></li>
+<li><p><em>Lectures:</em> will provide an introduction and overview</p></li>
+<li><p><em>Projects</em>: larger assignments that are solved in <strong>teams of 2 students</strong>. Each team will submit a fully documented and executable notebook per project.</p></li>
+<li><p><em>Tutorials:</em> weekly tutorials will focus on practical implementations and the review of lecture material. Up to 2 teams will present their project solutions (~30 min / team).</p></li>
 </ul>
 </section>
 <section id="evaluation" class="level2">
 <h2 class="anchored" data-anchor-id="evaluation">Evaluation</h2>
 <ul>
-<li><p>Project Submissions (<strong>28 P</strong>). Completed projects are submitted as single jupyter noteboooks and are evaluated per team. Notebooks have to be fully documented to explain both the analysis goals and the code. They should clearly state software dependencies and be fully executable.</p></li>
-<li><p>Project Presentation (<strong>12 P</strong>). Presentation and submission of a reproducible data analysis project in an executable markdown format.</p></li>
-<li><p>Exam (<strong>60 P</strong>): this will be a written individual exam with conceptual questions, including multiple choice and short essays.</p></li>
+<li><p>Project Submissions. Completed projects are submitted as single jupyter noteboooks and are evaluated per team. Notebooks have to be fully documented to explain both the analysis goals and the code. They should clearly state software dependencies and be fully executable.</p></li>
+<li><p>Project Presentation. Presentation and submission of a <em>reproducible</em> data analysis project in an executable markdown format.</p></li>
+<li><p>Exam: this will be a written individual exam with conceptual questions, including multiple choice and short essays.</p></li>
 </ul>
 </section>
 <section id="materials-and-references" class="level2">
@@ -930,47 +925,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>understand the key concepts and challenges of neural networks</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>be proficient in common software solutions for deep learning (pytorch)</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>be able to define, train and evaluate your own models</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>have completed 4 concrete data analysis projects and provide reproducible code</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>have completed concrete data analysis projects and provide reproducible code</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>have worked in teams and presented your work</span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>want to learn more and deeper ...</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>open</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## Content</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Machine Learning 101</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Neural Networks </span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Convolutional Neural Networks</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Generative Networks</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## Content</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Machine Learning 101</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Neural Networks </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Convolutional Neural Networks</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Format</span></span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## Format</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>The course comprises the following blocks:</span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>The course comprises the following blocks (with the estimated time effort)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*Lectures:* will provide an introduction and overview</span>
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*Lectures:* (16x 2h) will provide an introduction and overview</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*Projects*: larger assignments that are solved in **teams of 2 students**. Each team will submit a fully documented and executable notebook per project.</span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*Projects*: 4 larger assignments that are solved in **teams of 2 students**. Each team will submit a fully documented and executable notebook per project.</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*Tutorials:* weekly tutorials will focus on practical implementations and the review of lecture material. Up to 2 teams will present their project solutions (~30 min / team).</span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*Tutorials*: (16x 2h): weekly tutorials will focus on practical implementations and the review of lecture material. Up to 2 teams will present their project solutions (~30 min / team).</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## Evaluation</span></span>
 <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## Evaluation</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Project Submissions. Completed projects are submitted as single jupyter noteboooks and are evaluated per team. Notebooks have to be fully documented to explain both the analysis goals and the code. They should clearly state software dependencies and be fully executable.</span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Project Submissions (**28 P**). Completed projects are submitted as single jupyter noteboooks and are evaluated per team. Notebooks have to be fully documented to explain both the analysis goals and the code. They should clearly state software dependencies and be fully executable.</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Project Presentation.  Presentation and submission of a *reproducible* data analysis project in an executable markdown format.</span>
 <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Project Presentation (**12 P**).  Presentation and submission of a reproducible data analysis project in an executable markdown format.</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">-  </span>Exam: this will be a written individual exam with conceptual questions, including multiple choice and short essays.</span>
 <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ss">-  </span>Exam (**60 P**): this will be a written individual exam with conceptual questions, including multiple choice and short essays.</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="fu">## Materials and References</span></span>
 <span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## Materials and References</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Classic Books (Theory &amp; Maths)</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span><span class="co">[</span><span class="ot">Goodfellow et al (2016)</span><span class="co">](https://www.deeplearningbook.org)</span></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span><span class="co">[</span><span class="ot">Bishop &amp; Bishop (2024)</span><span class="co">](https://www.bishopbook.com)</span></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Classic Courses (YouTube)</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Andrew Ng @ Coursera</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span><span class="co">[</span><span class="ot">Standford CS230, 2018</span><span class="co">](https://www.youtube.com/playlist?list=PLoROMvodv4rOABXSygHTsbvUz4G_YQhOb)</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">**Pytorch** Tutorials (Practical)</span><span class="co">](https://docs.pytorch.org/tutorials)</span></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">**HuggingFace** Learning (Next Steps)</span><span class="co">](https://huggingface.co/learn)</span></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Classic Books (Theory &amp; Maths)</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span><span class="co">[</span><span class="ot">Goodfellow et al (2016)</span><span class="co">](https://www.deeplearningbook.org)</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span><span class="co">[</span><span class="ot">Bishop &amp; Bishop (2024)</span><span class="co">](https://www.bishopbook.com)</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Classic Courses (YouTube)</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Andrew Ng @ Coursera</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span><span class="co">[</span><span class="ot">Standford CS230, 2018</span><span class="co">](https://www.youtube.com/playlist?list=PLoROMvodv4rOABXSygHTsbvUz4G_YQhOb)</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">**Pytorch** Tutorials (Practical)</span><span class="co">](https://docs.pytorch.org/tutorials)</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">**HuggingFace** Learning (Next Steps)</span><span class="co">](https://huggingface.co/learn)</span></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

@@ -522,35 +522,35 @@
     "href": "index.html",
     "title": "Neural Networks and Deep Learning",
     "section": "",
-    "text": "Upon successful completion of this course, you will\n\nunderstand the key concepts and challenges of neural networks\nbe proficient in common software solutions for deep learning (pytorch)\nbe able to define, train and evaluate your own models\nhave completed 4 concrete data analysis projects and provide reproducible code\nhave worked in teams and presented your work\nwant to learn more and deeper … open"
+    "text": "Upon successful completion of this course, you will\n\nunderstand the key concepts and challenges of neural networks\nbe proficient in common software solutions for deep learning (pytorch)\nbe able to define, train and evaluate your own models\nhave completed concrete data analysis projects and provide reproducible code\nhave worked in teams and presented your work\nwant to learn more and deeper …"
   },
   {
     "objectID": "index.html#objectives",
     "href": "index.html#objectives",
     "title": "Neural Networks and Deep Learning",
     "section": "",
-    "text": "Upon successful completion of this course, you will\n\nunderstand the key concepts and challenges of neural networks\nbe proficient in common software solutions for deep learning (pytorch)\nbe able to define, train and evaluate your own models\nhave completed 4 concrete data analysis projects and provide reproducible code\nhave worked in teams and presented your work\nwant to learn more and deeper … open"
+    "text": "Upon successful completion of this course, you will\n\nunderstand the key concepts and challenges of neural networks\nbe proficient in common software solutions for deep learning (pytorch)\nbe able to define, train and evaluate your own models\nhave completed concrete data analysis projects and provide reproducible code\nhave worked in teams and presented your work\nwant to learn more and deeper …"
   },
   {
     "objectID": "index.html#content",
     "href": "index.html#content",
     "title": "Neural Networks and Deep Learning",
     "section": "Content",
-    "text": "Content\n\nMachine Learning 101\nNeural Networks\nConvolutional Neural Networks\nGenerative Networks"
+    "text": "Content\n\nMachine Learning 101\nNeural Networks\nConvolutional Neural Networks"
   },
   {
     "objectID": "index.html#format",
     "href": "index.html#format",
     "title": "Neural Networks and Deep Learning",
     "section": "Format",
-    "text": "Format\nThe course comprises the following blocks (with the estimated time effort)\n\nLectures: (16x 2h) will provide an introduction and overview\nProjects: 4 larger assignments that are solved in teams of 2 students. Each team will submit a fully documented and executable notebook per project.\nTutorials: (16x 2h): weekly tutorials will focus on practical implementations and the review of lecture material. Up to 2 teams will present their project solutions (~30 min / team)."
+    "text": "Format\nThe course comprises the following blocks:\n\nLectures: will provide an introduction and overview\nProjects: larger assignments that are solved in teams of 2 students. Each team will submit a fully documented and executable notebook per project.\nTutorials: weekly tutorials will focus on practical implementations and the review of lecture material. Up to 2 teams will present their project solutions (~30 min / team)."
   },
   {
     "objectID": "index.html#evaluation",
     "href": "index.html#evaluation",
     "title": "Neural Networks and Deep Learning",
     "section": "Evaluation",
-    "text": "Evaluation\n\nProject Submissions (28 P). Completed projects are submitted as single jupyter noteboooks and are evaluated per team. Notebooks have to be fully documented to explain both the analysis goals and the code. They should clearly state software dependencies and be fully executable.\nProject Presentation (12 P). Presentation and submission of a reproducible data analysis project in an executable markdown format.\nExam (60 P): this will be a written individual exam with conceptual questions, including multiple choice and short essays."
+    "text": "Evaluation\n\nProject Submissions. Completed projects are submitted as single jupyter noteboooks and are evaluated per team. Notebooks have to be fully documented to explain both the analysis goals and the code. They should clearly state software dependencies and be fully executable.\nProject Presentation. Presentation and submission of a reproducible data analysis project in an executable markdown format.\nExam: this will be a written individual exam with conceptual questions, including multiple choice and short essays."
   },
   {
     "objectID": "index.html#materials-and-references",
@@ -921,7 +921,7 @@
     "href": "lectures/01_MachineLearning/index.html",
     "title": "01 Machine Learning",
     "section": "",
-    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nData Stories\n\n\n\nData Formats\n\nData Types\n\nData Analysis Workflow\n\nData Challenges\n\nMetadata\n\n\n\nData is everywhere and in all shapes\n\n\n\nThomas Manke\n\n\nOct 16, 2025\n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nData Stories\n\n\n\nData Formats\n\nData Types\n\nData Analysis Workflow\n\nData Challenges\n\nMetadata\n\n\n\nData is everywhere and in all shapes\n\n\n\nThomas Manke\n\n\nApr 9, 2026\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "lectures/03_ConvolutionalNeuralNetworks/06_HuggingFace.html",
@@ -1348,6 +1348,6 @@
     "href": "help/index.html",
     "title": "Help",
     "section": "",
-    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nFrameworks\n\n\n\nsklearn\n\npytorch\n\ntensorflow\n\n\n\npowerful tools for neural networks\n\n\n\nThomas Manke\n\n\nOct 21, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nBig Data\n\n\n\nbig data\n\n\n\nFamous image sets and other Big Data\n\n\n\nThomas Manke\n\n\nOct 5, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nPytorch Starter\n\n\na basic intro\n\n\n\nThomas Manke\n\n\nNov 5, 2025\n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nFrameworks\n\n\n\nsklearn\n\npytorch\n\ntensorflow\n\n\n\npowerful tools for neural networks\n\n\n\nThomas Manke\n\n\nApr 9, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nBig Data\n\n\n\nbig data\n\n\n\nFamous image sets and other Big Data\n\n\n\nThomas Manke\n\n\nApr 9, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nPytorch Starter\n\n\na basic intro\n\n\n\nThomas Manke\n\n\nApr 9, 2026\n\n\n\n\n\n\nNo matching items"
   }
 ]
