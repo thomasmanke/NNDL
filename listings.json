@@ -17,20 +17,17 @@
     ]
   },
   {
-    "listing": "/projects/index.html",
-    "items": [
-      "/projects/01_MachineLearning.html",
-      "/projects/01_MachineLearningIris.html",
-      "/projects/02_DeepNeuralNetworks.html",
-      "/projects/03_ConvolutionalNeuralNetworks.html"
-    ]
-  },
-  {
     "listing": "/homework/index.html",
     "items": [
       "/homework/02_MNIST.html",
       "/homework/04_Autoencoder.html",
       "/homework/traditional_ml_to_generative.html"
+    ]
+  },
+  {
+    "listing": "/projects/index.html",
+    "items": [
+      "/projects/01_MachineLearning.html"
     ]
   },
   {

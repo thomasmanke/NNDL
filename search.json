@@ -35,20 +35,6 @@
     "text": "Devices\nPyTorch objects are associated with a device. If possible use GPU for speed.\n@GoogleColab or Kaggle: You may have to change the Runtime/Accelerator\n\n\nCode\ndef detect_device():\n    import torch\n    if torch.backends.mps.is_available():\n        # Mac\n        return \"mps\"\n    elif torch.cuda.is_available():\n        # NVIDIA\n        return \"cuda\"\n    else:\n        return \"cpu\"\n\ndevice = detect_device()\nprint('device: ', device)\n\n\ndevice:  mps\n\n\n\n\nCode\n# Initalize on device\nx = torch.tensor(\n    [3.0, 6.0, 9.0],\n    dtype=torch.float32,\n    device=device)\n\nprint(x)\n# transfer to CPU\nx=x.cpu()\nprint(x)\n\n# transfer to device\nx = x.to(device)\nprint(x)\n\n\ntensor([3., 6., 9.], device='mps:0')\ntensor([3., 6., 9.])\ntensor([3., 6., 9.], device='mps:0')"
   },
   {
-    "objectID": "help/03_Pytorch.html#parameters",
-    "href": "help/03_Pytorch.html#parameters",
-    "title": "Pytorch Starter",
-    "section": "Parameters",
-    "text": "Parameters\n\n\nCode\nshape=(2,3)\nW = torch.rand(shape, requires_grad=True)\nprint(W.grad_fn)\n\n\nNone"
-  },
-  {
-    "objectID": "help/03_Pytorch.html#autograd",
-    "href": "help/03_Pytorch.html#autograd",
-    "title": "Pytorch Starter",
-    "section": "Autograd",
-    "text": "Autograd\n\n\nCode\n# Lead nodes; define by used with\na = torch.tensor(2.0, requires_grad=True)\nb = torch.tensor(3.0, requires_grad=True)\nx = torch.tensor(1.0, requires_grad=True)\n\n# operations in computational graph: nodes z and L\nz = a + 2*b\nL = x*z  # L = x*(a+2b);  dL/dx = z; dL/dz = x\n\n# endows inner nodes (z and L) with gradient functions\nprint(f'z_grad = {z.grad_fn}')\nprint(f'L_grad = {L.grad_fn}')\n\n\nz_grad = &lt;AddBackward0 object at 0x30fa41ff0&gt;\nL_grad = &lt;MulBackward0 object at 0x330ec1a80&gt;\n\n\n\n\nCode\na.grad = b.grad = x.grad = None  # clear old grads if any\nz.retain_grad() # per default pytorch keeps gradients only for leave nodes\nL.backward() # fill gradients with respect to L\n\nprint('x.grad:', x.grad) # dL/dx = z  = a + b = 5\nprint('a.grad:', a.grad) # dL/da = (dL/dz) (dz/da) = x * 1\nprint('b.grad:', b.grad) # dL/db = (dL/dz) (dz/db) = x * 1\nprint('z.grad:', z.grad) # dL/dz = x\n\n\nx.grad: tensor(8.)\na.grad: tensor(1.)\nb.grad: tensor(2.)\nz.grad: tensor(1.)"
-  },
-  {
     "objectID": "help/03_Pytorch.html#legoblocks-torch.nn-module",
     "href": "help/03_Pytorch.html#legoblocks-torch.nn-module",
     "title": "Pytorch Starter",
@@ -56,46 +42,18 @@
     "text": "Legoblocks: torch.nn module\n\nSimple Functions\n\n\nCode\nX = torch.tensor([-2.0, 0.0, 0.5, 1.0])\nprint('X           ', X)\nprint('sigmoid(X): ', torch.nn.functional.sigmoid(X))          # sigmoid function\nprint('softmax(X): ', torch.nn.functional.softmax(X, dim=0))   # X --&gt; p, \\sum X = 1\nprint('relu(X):    ', torch.nn.functional.relu(X))             # ReLU: max(0, X)\n\n\nX            tensor([-2.0000,  0.0000,  0.5000,  1.0000])\nsigmoid(X):  tensor([0.1192, 0.5000, 0.6225, 0.7311])\nsoftmax(X):  tensor([0.0246, 0.1817, 0.2996, 0.4940])\nrelu(X):     tensor([0.0000, 0.0000, 0.5000, 1.0000])\n\n\n\n\nLinear Layers: Matrix Multiplication\n\n\nCode\nD_in = 2\nD_out = 3\n# create D_out x D_in matrix of parameters (randomly initialized)\nlinear_layer = torch.nn.Linear(D_in, D_out)\n\nW = linear_layer.weight\nb = linear_layer.bias\nprint(f'weight.shape: {W.shape} \\n{W.data}')\nprint(f'bias vector:  {b.shape} \\n{b.data}')\n\n# fake data\nX = torch.rand((8, D_in)) # 8 samples, D_in features\n#X = torch.arange(8, dtype=torch.float32).reshape((-1,D_in))\nprint('X.shape: ', X.shape)\n\n# linear transform: y_hat = f(X) = X @ W.T + bias\ny_hat = linear_layer(X)\n\nprint('After linear transformation = matrix multiplication')\nprint('y_hat.shape: ', y_hat.shape)\n\n\nweight.shape: torch.Size([3, 2]) \ntensor([[ 0.5660, -0.5959],\n        [-0.4012,  0.1093],\n        [ 0.0701, -0.5343]])\nbias vector:  torch.Size([3]) \ntensor([-0.5744,  0.5944,  0.1448])\nX.shape:  torch.Size([8, 2])\nAfter linear transformation = matrix multiplication\ny_hat.shape:  torch.Size([8, 3])\n\n\n\n\nCode\n# is confusing and too early here\n\nnw = 10 # number of words\nk  = 3  # embedding dimension\n\nembedding_layer = torch.nn.Embedding(nw, k)\nwords_ids = torch.tensor([1, 3, 3, 0, 9]) # integer representation\nwords_vec = embedding_layer(words_ids)    # better representation ?\n\nprint('word vectors: ', words_vec)\n\n\n\n\nDropout Layer\n\n\nCode\nX = torch.ones(1,8)\n\ndropout_layer = torch.nn.Dropout(p=0.3) # set 30% to 0\ndropout_layer.train() # only use during training for robustness\n\nprint(X)\n# illustrate random drops and \n# scaling: 1 -&gt; 1/(1-p) = 1/0.7 = 1.4286\nfor i in range(6):\n    X_drop = dropout_layer(X)\n    print(X_drop)\n\n\ntensor([[1., 1., 1., 1., 1., 1., 1., 1.]])\ntensor([[1.4286, 1.4286, 0.0000, 1.4286, 1.4286, 1.4286, 1.4286, 1.4286]])\ntensor([[1.4286, 1.4286, 1.4286, 1.4286, 0.0000, 1.4286, 1.4286, 0.0000]])\ntensor([[1.4286, 0.0000, 1.4286, 1.4286, 0.0000, 0.0000, 1.4286, 0.0000]])\ntensor([[0.0000, 0.0000, 1.4286, 1.4286, 1.4286, 1.4286, 1.4286, 1.4286]])\ntensor([[0.0000, 1.4286, 0.0000, 1.4286, 1.4286, 1.4286, 1.4286, 0.0000]])\ntensor([[1.4286, 1.4286, 1.4286, 1.4286, 0.0000, 1.4286, 1.4286, 1.4286]])"
   },
   {
-    "objectID": "help/03_Pytorch.html#optimizer-and-loss-function",
-    "href": "help/03_Pytorch.html#optimizer-and-loss-function",
+    "objectID": "help/03_Pytorch.html#computational-graph-and-autograd",
+    "href": "help/03_Pytorch.html#computational-graph-and-autograd",
     "title": "Pytorch Starter",
-    "section": "Optimizer and Loss Function",
-    "text": "Optimizer and Loss Function\n\n\nCode\nimport torch.optim as optim\n\nlearning_rate = 0.01 # hyperparameter\n\noptimizer = optim.Adam(model.parameters(), lr = learning_rate)\n\nloss_function = nn.MSELoss()"
+    "section": "Computational Graph and Autograd",
+    "text": "Computational Graph and Autograd\n\\[\nL = x \\cdot (a + 2b) \\quad \\text{with} \\quad (a=2, b=3, x=1)\n\\]\n\n\nCode\n# Lead nodes; inputs to the graph\na = torch.tensor(2.0, requires_grad=True)\nb = torch.tensor(3.0, requires_grad=True)\nx = torch.tensor(1.0, requires_grad=True)\n\n# operations in computational graph: nodes z and L\nz = a + 2*b\nL = x*z  # L = x*(a+2b);  dL/dx = z; dL/dz = x\n\n# endows also inner nodes (z and L) with gradient functions\nprint(f'z_grad = {z.grad_fn}')\nprint(f'L_grad = {L.grad_fn}')\n\n\nz_grad = &lt;AddBackward0 object at 0x33702a4d0&gt;\nL_grad = &lt;MulBackward0 object at 0x336ff8bb0&gt;\n\n\n\n\nCode\na.grad = b.grad = x.grad = None  # clear old grads if any\nz.retain_grad() # per default pytorch keeps gradients only for leave nodes\nL.backward()    # fill gradients with respect to L\n\nprint('x.grad:', x.grad) # dL/dx = z  = a + 2*b = 5\nprint('a.grad:', a.grad) # dL/da = (dL/dz) (dz/da) = x * 1\nprint('b.grad:', b.grad) # dL/db = (dL/dz) (dz/db) = x * 2\nprint('z.grad:', z.grad) # dL/dz = x\n\n\nx.grad: tensor(8.)\na.grad: tensor(1.)\nb.grad: tensor(2.)\nz.grad: tensor(1.)"
   },
   {
-    "objectID": "help/03_Pytorch.html#model.train-vs.-model.eval",
-    "href": "help/03_Pytorch.html#model.train-vs.-model.eval",
+    "objectID": "help/03_Pytorch.html#building-larger-models-later",
+    "href": "help/03_Pytorch.html#building-larger-models-later",
     "title": "Pytorch Starter",
-    "section": "model.train() vs. model.eval()",
-    "text": "model.train() vs. model.eval()\ntwo different modes for training and evaluation\n\n\n\n\n\n\n\n\nFeature\nmodel.train() (Training Mode)\nmodel.eval() (Evaluation Mode)\n\n\n\n\nDropout\nRandomly disables neurons (adds noise)\nAll neurons active (no dropout)\n\n\nBatchNorm\nUses current batch stats (mean/var)\nUses running (saved) stats\n\n\nGradient Tracking\nYes\nUse with torch.no_grad() to disable\n\n\nWhen to use\nDuring training loop\nDuring validation/testing/inference\n\n\n\nTypical use:\n\n\nCode\n# train data\nn_samples, m_features = 100, 10\nx = torch.rand((n_samples, m_features))\ny = torch.bernoulli(x[:,0], 0.5).reshape(-1,1)\n\n# Training\nn_epochs = 10\nmodel.train()\nfor epoch in range(n_epochs):\n\n    output = model(x)           # forward path x -&gt; output\n\n    loss = loss_function(output, y) # loss calculation\n\n    optimizer.zero_grad() # reset gradients (do not accumulate)\n    loss.backward()       # backward path L -&gt; x (gradient calc)\n    optimizer.step()      # update parm = parm - learning_rate * grad\n\n    # print loss\n    if(epoch % 20 == 0):\n        print('epoch {}, loss {}'.format(epoch, loss.data))\n\n# Evaluation (Validation or Test or Prediction)\nx_val = torch.rand((n_samples, m_features))\ny_val = torch.bernoulli(x_val[:,0], 0.5).reshape(-1,1)\n\nmodel.eval()\n# disable grad calculation for speed\nwith torch.no_grad():\n    val_output = model(x_val)\n    val_loss = loss_function(val_output, y_val)\n\n\nepoch 0, loss 0.3031926155090332"
-  },
-  {
-    "objectID": "help/03_Pytorch.html#saving-models",
-    "href": "help/03_Pytorch.html#saving-models",
-    "title": "Pytorch Starter",
-    "section": "Saving models",
-    "text": "Saving models\nYou may want to save (and share) your final model. But for long-running jobs it may also be good to save occasional checkpoints during training\n\n\nCode\nimport os\nsave_dir = \"checkpoints\"\nos.makedirs(save_dir, exist_ok=True)\n\n# 1. only saves state_dict, need to know model class\ntorch.save(model.state_dict(), os.path.join(save_dir, \"model_dict.pt\"))\nmodel.load_state_dict(torch.load(\"checkpoints/model_dict.pt\"))\n\n# 2. save full model. Warning: may not port across pytorch versions!!! \ntorch.save(model, os.path.join(save_dir, \"model_full.pth\"))\nmodel = torch.load(\"checkpoints/model_full.pth\", weights_only=False)"
-  },
-  {
-    "objectID": "help/03_Pytorch.html#saving-histories",
-    "href": "help/03_Pytorch.html#saving-histories",
-    "title": "Pytorch Starter",
-    "section": "Saving histories",
-    "text": "Saving histories\n\n\nCode\n# 1. npz format (most general and robust)\nnp.savez(os.path.join(save_dir, \"loss_history.npz\"),\n         train=train_losses, val=val_losses)\n\ndata = np.load(\"checkpoints/loss_history.npz\")\ntrain_losses = data[\"train\"]\nval_losses = data[\"val\"]\n\n# 2. pickle format (more flexible less portable)\nwith open(os.path.join(save_dir, \"loss_history.pkl\"), \"wb\") as f:\n    pickle.dump({\"train\": train_losses, \"val\": val_losses}, f)\n\nwith open(\"checkpoints/loss_history.pkl\", \"rb\") as f:\n    losses = pickle.load(f)\ntrain_losses = losses[\"train\"]\nval_losses = losses[\"val\"]"
-  },
-  {
-    "objectID": "help/03_Pytorch.html#saving-everything",
-    "href": "help/03_Pytorch.html#saving-everything",
-    "title": "Pytorch Starter",
-    "section": "Saving Everything",
-    "text": "Saving Everything\n\n\nCode\ntorch.save({\n    'model_state': model.state_dict(),\n    'optimizer_state': optimizer.state_dict(),\n    'train_losses': train_losses,\n    'val_losses': val_losses,\n}, os.path.join(save_dir, \"checkpoint_all.pt\"))\n\ncheckpoint = torch.load(\"checkpoints/checkpoint_all.pt\")\nmodel.load_state_dict(checkpoint['model_state'])\noptimizer.load_state_dict(checkpoint['optimizer_state'])\ntrain_losses = checkpoint['train_losses']\nval_losses = checkpoint['val_losses']"
-  },
-  {
-    "objectID": "help/03_Pytorch.html#tensorboard",
-    "href": "help/03_Pytorch.html#tensorboard",
-    "title": "Pytorch Starter",
-    "section": "Tensorboard",
-    "text": "Tensorboard\ntensorboard is a popular tool to inspect neural networks and training progress\n\n\nCode\nfrom torch.utils.tensorboard import SummaryWriter\n\n# default `log_dir` is \"runs\" - we'll be more specific here\nwriter = SummaryWriter('log_dir/mnist_experiment')\n\n# typical uses\nwriter.add_graph(model)\nfor epoch in range(100):\n    # training loop\n    # ...\n    # train_loss = loss_function(logits, y)\n    writer.add_scalar(\"Loss\", train_loss, epoch)\n\nwriter.close()"
+    "section": "Building Larger Models (later)",
+    "text": "Building Larger Models (later)\nWe can define larger models from small building blocks. Ultimately this will help to abstract from individual layers, their initialization, normalization, dropouts etc.\n\n\nCode\nimport torch.nn as nn\n\nclass MyModel(nn.Module):\n    def __init__(self, n_in, n_out):\n        # inherit stuff from nn.Module\n        super().__init__()\n        # define layers: just some random examples\n        self.linear = nn.Linear(n_in, n_out)\n        self.norm = nn.Dropout(p=0.3)\n\n    # conncect layers defined above\n    def forward(self, x):\n        x = self.linear(x)\n        x = self.norm(x)\n        x = nn.functional.sigmoid(x)\n        return x\n\nmodel = MyModel(10, 1)\nprint(model)\n\n\nMyModel(\n  (linear): Linear(in_features=10, out_features=1, bias=True)\n  (norm): Dropout(p=0.3, inplace=False)\n)\n\n\n\nOptimizer and Loss Function\n\n\nCode\nimport torch.optim as optim\n\nlearning_rate = 0.01 # hyperparameter\n\noptimizer = optim.Adam(model.parameters(), lr = learning_rate)\n\nloss_function = nn.MSELoss()\n\n\n\n\nmodel.train() vs. model.eval()\ntwo different modes for training and evaluation\n\n\n\n\n\n\n\n\nFeature\nmodel.train() (Training Mode)\nmodel.eval() (Evaluation Mode)\n\n\n\n\nDropout\nRandomly disables neurons (adds noise)\nAll neurons active (no dropout)\n\n\nBatchNorm\nUses current batch stats (mean/var)\nUses running (saved) stats\n\n\nGradient Tracking\nYes\nUse with torch.no_grad() to disable\n\n\nWhen to use\nDuring training loop\nDuring validation/testing/inference\n\n\n\nTypical use:\n\n\nCode\n# train data\nn_samples, m_features = 100, 10\nx = torch.rand((n_samples, m_features))\ny = torch.bernoulli(x[:,0], 0.5).reshape(-1,1)\n\n# Training\nn_epochs = 10\nmodel.train()\nfor epoch in range(n_epochs):\n\n    output = model(x)           # forward path x -&gt; output\n\n    loss = loss_function(output, y) # loss calculation\n\n    optimizer.zero_grad() # reset gradients (do not accumulate)\n    loss.backward()       # backward path L -&gt; x (gradient calc)\n    optimizer.step()      # update parm = parm - learning_rate * grad\n\n    # print loss\n    if(epoch % 20 == 0):\n        print('epoch {}, loss {}'.format(epoch, loss.data))\n\n# Evaluation (Validation or Test or Prediction)\nx_val = torch.rand((n_samples, m_features))\ny_val = torch.bernoulli(x_val[:,0], 0.5).reshape(-1,1)\n\nmodel.eval()\n# disable grad calculation for speed\nwith torch.no_grad():\n    val_output = model(x_val)\n    val_loss = loss_function(val_output, y_val)\n\n\nepoch 0, loss 0.2446327805519104\n\n\n\n\nSaving models\nYou may want to save (and share) your final model. But for long-running jobs it may also be good to save occasional checkpoints during training\n\n\nCode\nimport os\nsave_dir = \"checkpoints\"\nos.makedirs(save_dir, exist_ok=True)\n\n# 1. only saves state_dict, need to know model class\ntorch.save(model.state_dict(), os.path.join(save_dir, \"model_dict.pt\"))\nmodel.load_state_dict(torch.load(\"checkpoints/model_dict.pt\"))\n\n# 2. save full model. Warning: may not port across pytorch versions!!! \ntorch.save(model, os.path.join(save_dir, \"model_full.pth\"))\nmodel = torch.load(\"checkpoints/model_full.pth\", weights_only=False)\n\n\n\n\nSaving histories\n\n\nCode\n# 1. npz format (most general and robust)\nnp.savez(os.path.join(save_dir, \"loss_history.npz\"),\n         train=train_losses, val=val_losses)\n\ndata = np.load(\"checkpoints/loss_history.npz\")\ntrain_losses = data[\"train\"]\nval_losses = data[\"val\"]\n\n# 2. pickle format (more flexible less portable)\nwith open(os.path.join(save_dir, \"loss_history.pkl\"), \"wb\") as f:\n    pickle.dump({\"train\": train_losses, \"val\": val_losses}, f)\n\nwith open(\"checkpoints/loss_history.pkl\", \"rb\") as f:\n    losses = pickle.load(f)\ntrain_losses = losses[\"train\"]\nval_losses = losses[\"val\"]\n\n\n\n\nSaving Everything\n\n\nCode\ntorch.save({\n    'model_state': model.state_dict(),\n    'optimizer_state': optimizer.state_dict(),\n    'train_losses': train_losses,\n    'val_losses': val_losses,\n}, os.path.join(save_dir, \"checkpoint_all.pt\"))\n\ncheckpoint = torch.load(\"checkpoints/checkpoint_all.pt\")\nmodel.load_state_dict(checkpoint['model_state'])\noptimizer.load_state_dict(checkpoint['optimizer_state'])\ntrain_losses = checkpoint['train_losses']\nval_losses = checkpoint['val_losses']\n\n\n\n\nMonitoring with Tensorboard\ntensorboard is a popular tool to inspect neural networks and training progress\n\n\nCode\nfrom torch.utils.tensorboard import SummaryWriter\n\n# default `log_dir` is \"runs\" - we'll be more specific here\nwriter = SummaryWriter('log_dir/mnist_experiment')\n\n# typical uses\nwriter.add_graph(model)\nfor epoch in range(100):\n    # training loop\n    # ...\n    # train_loss = loss_function(logits, y)\n    writer.add_scalar(\"Loss\", train_loss, epoch)\n\nwriter.close()"
   },
   {
     "objectID": "lectures/02_NeuralNetworks/00_Perceptron.html",
@@ -441,18 +399,151 @@
     "text": "Model Evaluations\n\n\nCode\nfrom sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, classification_report\n\nmodel.eval()\ntotal_loss = 0\nall_logits = []\nall_true = []\nwith torch.no_grad():\n    for xb, yb in test_loader:\n        xb, yb = xb.to(device), yb.to(device)\n        z_pred = model(xb)\n        loss = loss_function(z_pred, yb)\n\n        # collect total_loss, predicted logits and true labels yb\n        total_loss += loss.item()\n        all_logits.append(z_pred.cpu())\n        all_true.append(yb.cpu())\n\ntest_loss = total_loss / len(test_loader.dataset) # mean test loss\nall_logits = torch.cat(all_logits)\nall_true = torch.cat(all_true)\n\nplot_fit_history(history, 'loss', test_loss)\n\nall_preds = all_logits.argmax(dim=1).detach().cpu()\ncm = confusion_matrix(all_true.numpy(), all_preds.numpy())\n\ndisp = ConfusionMatrixDisplay(confusion_matrix=cm)\ndisp.plot(cmap='Blues')\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDiscussion: What could be further improvements?\n\nmodel architecture: more layers, more filters\nregularization: dropout/loss regularization\nhyperparameters: epochs, learning rate, dropout rate, …\nmore data & data augmentation\nmodel interpretation ?"
   },
   {
-    "objectID": "homework/04_Autoencoder.html",
-    "href": "homework/04_Autoencoder.html",
-    "title": "01 Autoencoder",
+    "objectID": "homework/02_MNIST.html",
+    "href": "homework/02_MNIST.html",
+    "title": "01 Homework",
     "section": "",
-    "text": "Data Download: Obtain both train and test data for the MNIST data set of handwritten digits from torchvision.datasets\nData Massage: For numerical efficiency use pytorch dataloaders and split the dataset into train, test and validation. Check data values and if normalization is required.\nModel Definition: Define a simple autoencoder (model1) with 4 layers to reduce dimensions: 728 -&gt; 128 -&gt; 64 -&gt; 16 -&gt; 3 count dimensions and parameters\nGoal and Strategy: Define a loss function and a suitable optimizer\nModel Training: Train the model and track the following parameters for each epochs\n\n\nloss and validation loss\ntraining images, latent representations, reconstructred images\n\n\nModel Evaluation:\n\n\nplot traing and validation loss.\nFor the best model calculate loss on. test data\ncompare several real images and compare to their reconstruction\n\n\nLatent Assessment: Compare the latent representation of images with the PCA embedding\n\n\nhow much variability is encoded by the first 3 components of PCA(X) compared to PCA(Z)\n\n\n\nData Generation: For a given image, generate new images by changing selected latent variable in PCA space or latent space.\noptional: replace the simple autoencoder model1 by a neural network with 3 convolutional layers (model2)\n\n\ncount parameters and compare to model1\ncompare learning curves with model1\n\n\nexplore what happens if you reduce the size of the data set"
+    "text": "Reference:\n\nhttps://www.kaggle.com/code/kanncaa1/pytorch-tutorial-for-deep-learning-lovers\n\nRun a classification on the MNIST data with\n\nA simple logistic (10 classes)\nA three layer NN (128, 128, 128, 10) with ReLU\nA CNN\n\ncompare the accuracies on a test data"
   },
   {
-    "objectID": "homework/04_Autoencoder.html#tasks",
-    "href": "homework/04_Autoencoder.html#tasks",
-    "title": "01 Autoencoder",
+    "objectID": "homework/02_MNIST.html#task",
+    "href": "homework/02_MNIST.html#task",
+    "title": "01 Homework",
     "section": "",
-    "text": "Data Download: Obtain both train and test data for the MNIST data set of handwritten digits from torchvision.datasets\nData Massage: For numerical efficiency use pytorch dataloaders and split the dataset into train, test and validation. Check data values and if normalization is required.\nModel Definition: Define a simple autoencoder (model1) with 4 layers to reduce dimensions: 728 -&gt; 128 -&gt; 64 -&gt; 16 -&gt; 3 count dimensions and parameters\nGoal and Strategy: Define a loss function and a suitable optimizer\nModel Training: Train the model and track the following parameters for each epochs\n\n\nloss and validation loss\ntraining images, latent representations, reconstructred images\n\n\nModel Evaluation:\n\n\nplot traing and validation loss.\nFor the best model calculate loss on. test data\ncompare several real images and compare to their reconstruction\n\n\nLatent Assessment: Compare the latent representation of images with the PCA embedding\n\n\nhow much variability is encoded by the first 3 components of PCA(X) compared to PCA(Z)\n\n\n\nData Generation: For a given image, generate new images by changing selected latent variable in PCA space or latent space.\noptional: replace the simple autoencoder model1 by a neural network with 3 convolutional layers (model2)\n\n\ncount parameters and compare to model1\ncompare learning curves with model1\n\n\nexplore what happens if you reduce the size of the data set"
+    "text": "Reference:\n\nhttps://www.kaggle.com/code/kanncaa1/pytorch-tutorial-for-deep-learning-lovers\n\nRun a classification on the MNIST data with\n\nA simple logistic (10 classes)\nA three layer NN (128, 128, 128, 10) with ReLU\nA CNN\n\ncompare the accuracies on a test data"
+  },
+  {
+    "objectID": "homework/02_MNIST.html#packages",
+    "href": "homework/02_MNIST.html#packages",
+    "title": "01 Homework",
+    "section": "Packages",
+    "text": "Packages"
+  },
+  {
+    "objectID": "homework/02_MNIST.html#data",
+    "href": "homework/02_MNIST.html#data",
+    "title": "01 Homework",
+    "section": "Data",
+    "text": "Data\nVerify mean and std"
+  },
+  {
+    "objectID": "homework/02_MNIST.html#model-definition",
+    "href": "homework/02_MNIST.html#model-definition",
+    "title": "01 Homework",
+    "section": "Model Definition",
+    "text": "Model Definition"
+  },
+  {
+    "objectID": "homework/02_MNIST.html#parameters",
+    "href": "homework/02_MNIST.html#parameters",
+    "title": "01 Homework",
+    "section": "Parameters",
+    "text": "Parameters"
+  },
+  {
+    "objectID": "homework/02_MNIST.html#define-traing-loop",
+    "href": "homework/02_MNIST.html#define-traing-loop",
+    "title": "01 Homework",
+    "section": "Define Traing Loop",
+    "text": "Define Traing Loop"
+  },
+  {
+    "objectID": "homework/02_MNIST.html#run-training",
+    "href": "homework/02_MNIST.html#run-training",
+    "title": "01 Homework",
+    "section": "Run Training",
+    "text": "Run Training"
+  },
+  {
+    "objectID": "projects/index.html",
+    "href": "projects/index.html",
+    "title": "Projects",
+    "section": "",
+    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n01 Machine Learning\n\n\nAn ML starter\n\n\n\nThomas Manke\n\n\nApr 16, 2026\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "projects/01_MachineLearning.html",
+    "href": "projects/01_MachineLearning.html",
+    "title": "01 Machine Learning",
+    "section": "",
+    "text": "This project serves a introduction to the key challenges in machine learning and data analysis. Upon successful completion you should be able to conduct such analysis tasks independently and apply them to other problems.\n\nSetup Jupyter Notebook which includes\n\ndetail environment in which this notebook was developed and tested\ninstallation of versioned packages (if necessary)\nload required software packages and report their version\nother custom functions (if necessary)\nproject-wide variables\n\nLoad Data (see examples below) and describe in detail their origin, content, structures and data types.\nData Exploration. Prepare statistical and visual data summaries. How many variables/features does the data contain, how many samples? Are there missing values? Explore correlations among variables and conduct at least one unsupervised analysis. Consider variable transformations and normalizations where applicable.\nData Model. Define what you want to model (following the table below) and choose an appropriate model framework. Define a simple baseline model and a loss function - theoretically and practically. Explain the model in terms of input-output data structures and dimensions.\nTrain Model. Define a Train Define Train and Test Data and run the training loop. Monitor the behaviour of the loss function.\nEvaluate Model. Run model predictions on the test data set. Calculate and visualize the appropriate metrics to evaluate model performance. Explain why a separate test data set should be used for such evaluations.\nImprove Model. Suggest extensions to your baseline model and repeat steps 4. - 6. Do these extensions improve the model?\n\n\n\n\n\n\n\nSummary\n\n\n\nProvide a concise summary and critical reflection of this project and all analysis steps. What are the assumptions and limits? Document and annotate all steps above carefully in a single jupyter notebook and ensure that it will execute reproducibly and without error. Upon completion, submit the project as a single notebook per team. This notebook will be the basis for your presentation and it will be shared with the whole class.\nInclude a statement of originality and contributions at the beginning"
+  },
+  {
+    "objectID": "projects/01_MachineLearning.html#tasks",
+    "href": "projects/01_MachineLearning.html#tasks",
+    "title": "01 Machine Learning",
+    "section": "",
+    "text": "This project serves a introduction to the key challenges in machine learning and data analysis. Upon successful completion you should be able to conduct such analysis tasks independently and apply them to other problems.\n\nSetup Jupyter Notebook which includes\n\ndetail environment in which this notebook was developed and tested\ninstallation of versioned packages (if necessary)\nload required software packages and report their version\nother custom functions (if necessary)\nproject-wide variables\n\nLoad Data (see examples below) and describe in detail their origin, content, structures and data types.\nData Exploration. Prepare statistical and visual data summaries. How many variables/features does the data contain, how many samples? Are there missing values? Explore correlations among variables and conduct at least one unsupervised analysis. Consider variable transformations and normalizations where applicable.\nData Model. Define what you want to model (following the table below) and choose an appropriate model framework. Define a simple baseline model and a loss function - theoretically and practically. Explain the model in terms of input-output data structures and dimensions.\nTrain Model. Define a Train Define Train and Test Data and run the training loop. Monitor the behaviour of the loss function.\nEvaluate Model. Run model predictions on the test data set. Calculate and visualize the appropriate metrics to evaluate model performance. Explain why a separate test data set should be used for such evaluations.\nImprove Model. Suggest extensions to your baseline model and repeat steps 4. - 6. Do these extensions improve the model?\n\n\n\n\n\n\n\nSummary\n\n\n\nProvide a concise summary and critical reflection of this project and all analysis steps. What are the assumptions and limits? Document and annotate all steps above carefully in a single jupyter notebook and ensure that it will execute reproducibly and without error. Upon completion, submit the project as a single notebook per team. This notebook will be the basis for your presentation and it will be shared with the whole class.\nInclude a statement of originality and contributions at the beginning"
+  },
+  {
+    "objectID": "projects/01_MachineLearning.html#originality-and-contributions",
+    "href": "projects/01_MachineLearning.html#originality-and-contributions",
+    "title": "01 Machine Learning",
+    "section": "Originality and Contributions",
+    "text": "Originality and Contributions\nAuthors: X.Y., A.I.\nThis notebook is our own work. Any other sources have been clearly marked and cited.\nAll authors contributed equally. (alternative: state specific contributions explicitly)"
+  },
+  {
+    "objectID": "projects/01_MachineLearning.html#references",
+    "href": "projects/01_MachineLearning.html#references",
+    "title": "01 Machine Learning",
+    "section": "References",
+    "text": "References\nProvide references and citations where necessary"
+  },
+  {
+    "objectID": "projects/01_MachineLearning.html#data-sets",
+    "href": "projects/01_MachineLearning.html#data-sets",
+    "title": "01 Machine Learning",
+    "section": "Data Sets",
+    "text": "Data Sets\nThe data sets below are heavily used in machine learning. They also have the advantage of being easily accessible and highly standardized.\nEach team should work with the data set (Project ID) assigned to them.\nWhen modelling the given target variable \\(y\\), it should be modelled as a multivariate function of other variables/features \\(X\\) in the data set. You can also consider relevant subsets of features, if you can argue to exclude some features, or for the purpose of a first simple baseline model.\n\n\n\nProject ID\nLink\ntarget variable \\(y\\)\n\n\n\n\n1.1\nwine data\nwine quality\n\n\n1.2\ngapminder\nlifeExpectancy\n\n\n1.3\nbreast cancer\ncancer status\n\n\n1.4\nMNIST\ndigit label"
+  },
+  {
+    "objectID": "projects/01_MachineLearning.html#data-loading-hints",
+    "href": "projects/01_MachineLearning.html#data-loading-hints",
+    "title": "01 Machine Learning",
+    "section": "Data Loading Hints",
+    "text": "Data Loading Hints\nThere are many ways to obtain these data sets. Below are just a few suggestions.\nPlease explore the data carefully - transform and normalize where necessary.\n\n\nCode\nimport pandas as pd\ndf = pd.read_csv(\n    \"https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv\",\n    sep=\";\"\n)\nprint(df.describe())\ny = df['quality']\n\n\n\n\nCode\nimport plotly.express as px\ndf = px.data.gapminder() \ny = df['lifeExp']\n\n\n\n\nCode\nfrom sklearn.datasets import load_breast_cancer\nimport pandas as pd\n\nbc = load_breast_cancer(as_frame=True)\nX = bc.data\ny = pd.Series(bc.target).map({0: \"malignant\", 1: \"benign\"}).rename(\"status\")\ndf = pd.concat([X, y], axis=1)\n\n\n\n\nCode\nfrom torchvision import datasets, transforms\nfrom torch.utils.data import DataLoader\n\n# this dataset already comes split in train and test\ntransform = transforms.ToTensor()\ntrain = datasets.MNIST(root=\"data\", train=True, download=True, transform=transform)\ntest  = datasets.MNIST(root=\"data\", train=False, download=True, transform=transform)\ntrain_loader = DataLoader(train, batch_size=64, shuffle=True)"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Neural Networks and Deep Learning",
+    "section": "",
+    "text": "Upon successful completion of this course, you will\n\nunderstand the key concepts and challenges of neural networks\nbe proficient in common software solutions for deep learning (pytorch)\nbe able to define, train and evaluate your own models\nhave completed concrete data analysis projects and provide reproducible code\nhave worked in teams and presented your work\nwant to learn more and deeper …"
+  },
+  {
+    "objectID": "index.html#objectives",
+    "href": "index.html#objectives",
+    "title": "Neural Networks and Deep Learning",
+    "section": "",
+    "text": "Upon successful completion of this course, you will\n\nunderstand the key concepts and challenges of neural networks\nbe proficient in common software solutions for deep learning (pytorch)\nbe able to define, train and evaluate your own models\nhave completed concrete data analysis projects and provide reproducible code\nhave worked in teams and presented your work\nwant to learn more and deeper …"
+  },
+  {
+    "objectID": "index.html#content",
+    "href": "index.html#content",
+    "title": "Neural Networks and Deep Learning",
+    "section": "Content",
+    "text": "Content\n\nMachine Learning 101\nNeural Networks\nConvolutional Neural Networks"
+  },
+  {
+    "objectID": "index.html#format",
+    "href": "index.html#format",
+    "title": "Neural Networks and Deep Learning",
+    "section": "Format",
+    "text": "Format\nThe course comprises the following blocks:\n\nLectures: will provide an introduction and overview\nProjects: larger assignments that are solved in teams of 2 students. Each team will submit a fully documented and executable notebook per project.\nTutorials: weekly tutorials will focus on practical implementations and the review of lecture material. Up to 2 teams will present their project solutions (~30 min / team)."
+  },
+  {
+    "objectID": "index.html#evaluation",
+    "href": "index.html#evaluation",
+    "title": "Neural Networks and Deep Learning",
+    "section": "Evaluation",
+    "text": "Evaluation\n\nProject Submissions. Completed projects are submitted as single jupyter noteboooks and are evaluated per team. Notebooks have to be fully documented to explain both the analysis goals and the code. They should clearly state software dependencies and be fully executable.\nProject Presentation. Presentation and submission of a reproducible data analysis project in an executable markdown format.\nExam: this will be a written individual exam with conceptual questions, including multiple choice and short essays."
+  },
+  {
+    "objectID": "index.html#materials-and-references",
+    "href": "index.html#materials-and-references",
+    "title": "Neural Networks and Deep Learning",
+    "section": "Materials and References",
+    "text": "Materials and References\n\nClassic Books (Theory & Maths)\n\nGoodfellow et al (2016)\nBishop & Bishop (2024)\n\nClassic Courses (YouTube)\n\nAndrew Ng @ Coursera\nStandford CS230, 2018\n\nPytorch Tutorials (Practical)\nHuggingFace Learning (Next Steps)"
   },
   {
     "objectID": "homework/traditional_ml_to_generative.html#define-class-label",
@@ -518,347 +609,137 @@
     "text": "10. Summary\nThis example shows how a nonlinear, complex distribution p(x) can be constructed from a simple latent variable z ~ N(0,1). Without any neural networks, we explored: - Clustering with GMM - Binary classification with logistic regression - Evaluation and interpretability - Latent space approximation and data generation\nThis prepares the stage for introducing Autoencoders, VAEs, and GANs.\n\n\n\n\n\n\n\n\nConcept\nTraditional Method\nMapping to Deep Learning\n\n\n\n\nLatent variable z\nN(0,1)\nLatent code\n\n\nComplex p(x)\nsin(3z) + noise\nGenerator network\n\n\nInverse mapping x → z\nRidge regression\nEncoder network\n\n\nDimensionality reduction\nPCA, GMM\nAutoencoder\n\n\np(z) → x\ndeterministic function\nDecoder or GAN generator\n\n\nLearning p(x)\nKDE or histograms\nLikelihood via VAE, GANs\n\n\nSupervised y\nLogistic regression\nClassifier layer"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Neural Networks and Deep Learning",
+    "objectID": "homework/04_Autoencoder.html",
+    "href": "homework/04_Autoencoder.html",
+    "title": "01 Autoencoder",
     "section": "",
-    "text": "Upon successful completion of this course, you will\n\nunderstand the key concepts and challenges of neural networks\nbe proficient in common software solutions for deep learning (pytorch)\nbe able to define, train and evaluate your own models\nhave completed concrete data analysis projects and provide reproducible code\nhave worked in teams and presented your work\nwant to learn more and deeper …"
+    "text": "Data Download: Obtain both train and test data for the MNIST data set of handwritten digits from torchvision.datasets\nData Massage: For numerical efficiency use pytorch dataloaders and split the dataset into train, test and validation. Check data values and if normalization is required.\nModel Definition: Define a simple autoencoder (model1) with 4 layers to reduce dimensions: 728 -&gt; 128 -&gt; 64 -&gt; 16 -&gt; 3 count dimensions and parameters\nGoal and Strategy: Define a loss function and a suitable optimizer\nModel Training: Train the model and track the following parameters for each epochs\n\n\nloss and validation loss\ntraining images, latent representations, reconstructred images\n\n\nModel Evaluation:\n\n\nplot traing and validation loss.\nFor the best model calculate loss on. test data\ncompare several real images and compare to their reconstruction\n\n\nLatent Assessment: Compare the latent representation of images with the PCA embedding\n\n\nhow much variability is encoded by the first 3 components of PCA(X) compared to PCA(Z)\n\n\n\nData Generation: For a given image, generate new images by changing selected latent variable in PCA space or latent space.\noptional: replace the simple autoencoder model1 by a neural network with 3 convolutional layers (model2)\n\n\ncount parameters and compare to model1\ncompare learning curves with model1\n\n\nexplore what happens if you reduce the size of the data set"
   },
   {
-    "objectID": "index.html#objectives",
-    "href": "index.html#objectives",
-    "title": "Neural Networks and Deep Learning",
+    "objectID": "homework/04_Autoencoder.html#tasks",
+    "href": "homework/04_Autoencoder.html#tasks",
+    "title": "01 Autoencoder",
     "section": "",
-    "text": "Upon successful completion of this course, you will\n\nunderstand the key concepts and challenges of neural networks\nbe proficient in common software solutions for deep learning (pytorch)\nbe able to define, train and evaluate your own models\nhave completed concrete data analysis projects and provide reproducible code\nhave worked in teams and presented your work\nwant to learn more and deeper …"
+    "text": "Data Download: Obtain both train and test data for the MNIST data set of handwritten digits from torchvision.datasets\nData Massage: For numerical efficiency use pytorch dataloaders and split the dataset into train, test and validation. Check data values and if normalization is required.\nModel Definition: Define a simple autoencoder (model1) with 4 layers to reduce dimensions: 728 -&gt; 128 -&gt; 64 -&gt; 16 -&gt; 3 count dimensions and parameters\nGoal and Strategy: Define a loss function and a suitable optimizer\nModel Training: Train the model and track the following parameters for each epochs\n\n\nloss and validation loss\ntraining images, latent representations, reconstructred images\n\n\nModel Evaluation:\n\n\nplot traing and validation loss.\nFor the best model calculate loss on. test data\ncompare several real images and compare to their reconstruction\n\n\nLatent Assessment: Compare the latent representation of images with the PCA embedding\n\n\nhow much variability is encoded by the first 3 components of PCA(X) compared to PCA(Z)\n\n\n\nData Generation: For a given image, generate new images by changing selected latent variable in PCA space or latent space.\noptional: replace the simple autoencoder model1 by a neural network with 3 convolutional layers (model2)\n\n\ncount parameters and compare to model1\ncompare learning curves with model1\n\n\nexplore what happens if you reduce the size of the data set"
   },
   {
-    "objectID": "index.html#content",
-    "href": "index.html#content",
-    "title": "Neural Networks and Deep Learning",
-    "section": "Content",
-    "text": "Content\n\nMachine Learning 101\nNeural Networks\nConvolutional Neural Networks"
-  },
-  {
-    "objectID": "index.html#format",
-    "href": "index.html#format",
-    "title": "Neural Networks and Deep Learning",
-    "section": "Format",
-    "text": "Format\nThe course comprises the following blocks:\n\nLectures: will provide an introduction and overview\nProjects: larger assignments that are solved in teams of 2 students. Each team will submit a fully documented and executable notebook per project.\nTutorials: weekly tutorials will focus on practical implementations and the review of lecture material. Up to 2 teams will present their project solutions (~30 min / team)."
-  },
-  {
-    "objectID": "index.html#evaluation",
-    "href": "index.html#evaluation",
-    "title": "Neural Networks and Deep Learning",
-    "section": "Evaluation",
-    "text": "Evaluation\n\nProject Submissions. Completed projects are submitted as single jupyter noteboooks and are evaluated per team. Notebooks have to be fully documented to explain both the analysis goals and the code. They should clearly state software dependencies and be fully executable.\nProject Presentation. Presentation and submission of a reproducible data analysis project in an executable markdown format.\nExam: this will be a written individual exam with conceptual questions, including multiple choice and short essays."
-  },
-  {
-    "objectID": "index.html#materials-and-references",
-    "href": "index.html#materials-and-references",
-    "title": "Neural Networks and Deep Learning",
-    "section": "Materials and References",
-    "text": "Materials and References\n\nClassic Books (Theory & Maths)\n\nGoodfellow et al (2016)\nBishop & Bishop (2024)\n\nClassic Courses (YouTube)\n\nAndrew Ng @ Coursera\nStandford CS230, 2018\n\nPytorch Tutorials (Practical)\nHuggingFace Learning (Next Steps)"
-  },
-  {
-    "objectID": "projects/01_MachineLearningIris.html",
-    "href": "projects/01_MachineLearningIris.html",
-    "title": "01 Machine Learning",
+    "objectID": "tutorials/numpy_pytorch_tutorial_template.html",
+    "href": "tutorials/numpy_pytorch_tutorial_template.html",
+    "title": "Tutorial Template: NumPy Basics and a First Look at PyTorch",
     "section": "",
-    "text": "Code\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport pandas as pd\nimport seaborn as sns\nfrom sklearn import datasets"
+    "text": "This notebook has two parts:\nEach part also contains a short exercise designed for about 10 minutes of work."
   },
   {
-    "objectID": "projects/01_MachineLearningIris.html#import-packages",
-    "href": "projects/01_MachineLearningIris.html#import-packages",
-    "title": "01 Machine Learning",
-    "section": "",
-    "text": "Code\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport pandas as pd\nimport seaborn as sns\nfrom sklearn import datasets"
+    "objectID": "tutorials/numpy_pytorch_tutorial_template.html#learning-goals",
+    "href": "tutorials/numpy_pytorch_tutorial_template.html#learning-goals",
+    "title": "Tutorial Template: NumPy Basics and a First Look at PyTorch",
+    "section": "Learning goals",
+    "text": "Learning goals\nBy the end of this notebook, students should be able to:\n\ncreate and inspect NumPy arrays\nuse array shapes, indexing, and simple computations\ncreate PyTorch tensors\ndefine a very small neural network model\nrun a forward pass and inspect model outputs"
   },
   {
-    "objectID": "projects/01_MachineLearningIris.html#obtain-iris-data-set",
-    "href": "projects/01_MachineLearningIris.html#obtain-iris-data-set",
-    "title": "01 Machine Learning",
-    "section": "Obtain Iris data set",
-    "text": "Obtain Iris data set\n\n\nCode\niris = datasets.load_iris()\nX = iris.data    # measurements\ny = iris.target  # species label\n\nprint(f\"type(X) = {type(X)}\")\nprint(f\"type(y)  = {type(y)}\")\nprint(f\"shape(X)   = {X.shape}\")\nprint(f\"shape(y) = {y.shape}\")\n\n# define number of observations and number of variables\nn_obs, n_var = iris.data.shape\n\n\ntype(X) = &lt;class 'numpy.ndarray'&gt;\ntype(y)  = &lt;class 'numpy.ndarray'&gt;\nshape(X)   = (150, 4)\nshape(y) = (150,)"
+    "objectID": "tutorials/numpy_pytorch_tutorial_template.html#creating-arrays",
+    "href": "tutorials/numpy_pytorch_tutorial_template.html#creating-arrays",
+    "title": "Tutorial Template: NumPy Basics and a First Look at PyTorch",
+    "section": "1. Creating arrays",
+    "text": "1. Creating arrays\n\n\nCode\n# A 1D array\nA = np.array([2, 4, 6, 8])\nA\n\n\narray([2, 4, 6, 8])\n\n\n\n\nCode\n# A 2D array (matrix)\nX = np.array([\n    [1, 2, 3],\n    [4, 5, 6],\n    [7, 8, 9]\n])\nX\n\n\narray([[1, 2, 3],\n       [4, 5, 6],\n       [7, 8, 9]])"
   },
   {
-    "objectID": "projects/01_MachineLearningIris.html#convert-and-reshape",
-    "href": "projects/01_MachineLearningIris.html#convert-and-reshape",
-    "title": "01 Machine Learning",
-    "section": "Convert and Reshape",
-    "text": "Convert and Reshape\n… use pandas dataframe for convenience\n\n\nCode\ndf = pd.DataFrame(X, columns=iris.feature_names)\nprint(\"Numerical Summaries\")\nprint(df.describe())\n\nprint(\"Wide Format - top\")\nprint(df.head())\n\n# reshape to long format\ndf_long = df.melt(var_name=\"Feature\", value_name=\"Value\")\nprint('Long Format - top')\nprint(df_long.head())\n\n\nNumerical Summaries\n       sepal length (cm)  sepal width (cm)  petal length (cm)  \\\ncount         150.000000        150.000000         150.000000   \nmean            5.843333          3.057333           3.758000   \nstd             0.828066          0.435866           1.765298   \nmin             4.300000          2.000000           1.000000   \n25%             5.100000          2.800000           1.600000   \n50%             5.800000          3.000000           4.350000   \n75%             6.400000          3.300000           5.100000   \nmax             7.900000          4.400000           6.900000   \n\n       petal width (cm)  \ncount        150.000000  \nmean           1.199333  \nstd            0.762238  \nmin            0.100000  \n25%            0.300000  \n50%            1.300000  \n75%            1.800000  \nmax            2.500000  \nWide Format - top\n   sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm)\n0                5.1               3.5                1.4               0.2\n1                4.9               3.0                1.4               0.2\n2                4.7               3.2                1.3               0.2\n3                4.6               3.1                1.5               0.2\n4                5.0               3.6                1.4               0.2\nLong Format - top\n             Feature  Value\n0  sepal length (cm)    5.1\n1  sepal length (cm)    4.9\n2  sepal length (cm)    4.7\n3  sepal length (cm)    4.6\n4  sepal length (cm)    5.0"
+    "objectID": "tutorials/numpy_pytorch_tutorial_template.html#shape-dimension-and-size",
+    "href": "tutorials/numpy_pytorch_tutorial_template.html#shape-dimension-and-size",
+    "title": "Tutorial Template: NumPy Basics and a First Look at PyTorch",
+    "section": "2. Shape, dimension, and size",
+    "text": "2. Shape, dimension, and size\nUseful properties:\n\nshape: size along each axis\nndim: number of dimensions\nsize: total number of elements\n\n\n\nCode\nprint('A.shape =', A.shape)\nprint('A.ndim  =', A.ndim)\nprint('A.size  =', A.size)\n\nprint('X.shape =', X.shape)\nprint('X.ndim  =', X.ndim)\nprint('X.size  =', X.size)\n\n\nA.shape = (4,)\nA.ndim  = 1\nA.size  = 4\nX.shape = (3, 3)\nX.ndim  = 2\nX.size  = 9"
   },
   {
-    "objectID": "projects/01_MachineLearningIris.html#histogram",
-    "href": "projects/01_MachineLearningIris.html#histogram",
-    "title": "01 Machine Learning",
-    "section": "Histogram",
-    "text": "Histogram\n\n\nCode\nplt.figure()\nsns.histplot(df_long[\"Value\"], bins=30)\nplt.title(\"Histogram\")\nplt.xlabel(\"Value\")\nplt.ylabel(\"Count\")\nplt.tight_layout()\nplt.show()"
+    "objectID": "tutorials/numpy_pytorch_tutorial_template.html#indexing-and-slicing",
+    "href": "tutorials/numpy_pytorch_tutorial_template.html#indexing-and-slicing",
+    "title": "Tutorial Template: NumPy Basics and a First Look at PyTorch",
+    "section": "3. Indexing and slicing",
+    "text": "3. Indexing and slicing\nPython uses zero-based indexing.\n\nX[0, 0] means first row, first column\nX[1, :] means second row, all columns\nX[:, 2] means all rows, third column\n\n\n\nCode\nprint('Top-left element:', X[0, 0])\nprint('Second row:', X[1, :])\nprint('Third column:', X[:, 2])\n\n\nTop-left element: 1\nSecond row: [4 5 6]\nThird column: [3 6 9]"
   },
   {
-    "objectID": "projects/01_MachineLearningIris.html#violin-plots",
-    "href": "projects/01_MachineLearningIris.html#violin-plots",
-    "title": "01 Machine Learning",
-    "section": "Violin Plots",
-    "text": "Violin Plots\n\n\nCode\nprint(f\"variable means: {np.mean(X, axis=0)})\")\nplt.figure()\nsns.violinplot(x=\"Feature\", y=\"Value\", data=df_long)\nplt.title(\"Violin plots for all variables\")\nplt.tight_layout()\nplt.show()\n\n\nvariable means: [5.84333333 3.05733333 3.758      1.19933333])"
+    "objectID": "tutorials/numpy_pytorch_tutorial_template.html#element-wise-operations",
+    "href": "tutorials/numpy_pytorch_tutorial_template.html#element-wise-operations",
+    "title": "Tutorial Template: NumPy Basics and a First Look at PyTorch",
+    "section": "4. Element-wise operations",
+    "text": "4. Element-wise operations\nMany operations in NumPy are applied element by element.\n\n\nCode\ny = np.array([1, 10, 100, 1000])\n\nprint('A      =', A)\nprint('y      =', y)\nprint('A + y  =', A + y)\nprint('A * 2  =', A * 2)\nprint('A ** 2 =', A ** 2)\n\n\nA      = [2 4 6 8]\ny      = [   1   10  100 1000]\nA + y  = [   3   14  106 1008]\nA * 2  = [ 4  8 12 16]\nA ** 2 = [ 4 16 36 64]"
   },
   {
-    "objectID": "projects/01_MachineLearningIris.html#missing-values",
-    "href": "projects/01_MachineLearningIris.html#missing-values",
-    "title": "01 Machine Learning",
-    "section": "Missing Values",
-    "text": "Missing Values\n\n\nCode\nna_counts = df.isna().sum() # pandas\n#na_counts = np.isnan(X).sum(axis=0) # numpy\nprint(\"Missing values:\\n\", na_counts)\n\nsns.scatterplot(x=na_counts.index, y=na_counts.values)\nplt.title(\"Number of missing values per feature\")\nplt.xlabel(\"Variable\")\nplt.ylabel(\"# missing\")\nplt.tight_layout()\nplt.show()\n\n\nMissing values:\n sepal length (cm)    0\nsepal width (cm)     0\npetal length (cm)    0\npetal width (cm)     0\ndtype: int64"
+    "objectID": "tutorials/numpy_pytorch_tutorial_template.html#simple-summaries",
+    "href": "tutorials/numpy_pytorch_tutorial_template.html#simple-summaries",
+    "title": "Tutorial Template: NumPy Basics and a First Look at PyTorch",
+    "section": "5. Simple summaries",
+    "text": "5. Simple summaries\n\n\nCode\nprint('sum of A   =', np.sum(A))\nprint('mean of A  =', np.mean(A))\nprint('mean of X by column =', np.mean(X, axis=0))\nprint('mean of X by row    =', np.mean(X, axis=1))\n\n\nsum of A   = 20\nmean of A  = 5.0\nmean of X by column = [4. 5. 6.]\nmean of X by row    = [2. 5. 8.]"
   },
   {
-    "objectID": "projects/01_MachineLearningIris.html#heatmap",
-    "href": "projects/01_MachineLearningIris.html#heatmap",
-    "title": "01 Machine Learning",
-    "section": "Heatmap",
-    "text": "Heatmap\n\n\nCode\n# don't use heatmaps before you know what you get ;-)\nplt.figure()\nsns.heatmap(df, cmap=\"Blues\", cbar_kws={'label': 'Value'})\nplt.xlabel(\"Variables (features)\")\nplt.ylabel(\"Samples (observations)\")\nplt.tight_layout()\nplt.show()"
+    "objectID": "tutorials/numpy_pytorch_tutorial_template.html#mini-exercise-1-numpy-practice-about-10-minutes",
+    "href": "tutorials/numpy_pytorch_tutorial_template.html#mini-exercise-1-numpy-practice-about-10-minutes",
+    "title": "Tutorial Template: NumPy Basics and a First Look at PyTorch",
+    "section": "Mini exercise 1 — NumPy practice (about 10 minutes)",
+    "text": "Mini exercise 1 — NumPy practice (about 10 minutes)\nCreate the following array:\n[\n\\[\\begin{pmatrix}\n1 & 2 & 3 & 4 \\\\\n5 & 6 & 7 & 8 \\\\\n9 & 10 & 11 & 12\n\\end{pmatrix}\\]\n]\nThen solve these tasks:\n\nStore the array in a variable called A.\nPrint its shape.\nExtract the second row.\nExtract the third column.\nCompute the mean of each column.\nCreate a new array B that contains the square of each entry of A.\n\nWrite your solution in the next code cell.\n\n\nCode\n# Your solution here"
   },
   {
-    "objectID": "projects/01_MachineLearningIris.html#correlations",
-    "href": "projects/01_MachineLearningIris.html#correlations",
-    "title": "01 Machine Learning",
-    "section": "Correlations",
-    "text": "Correlations\n\n\nCode\nsns.pairplot(df, height=1.5, aspect=1.0)\n\n\n\n\n\n\n\n\n\n\n\nCode\ncorr = df.corr()\n\nplt.figure()\nsns.heatmap(\n    corr,\n    vmin=-1, vmax=1,\n    cmap=\"coolwarm\",    \n    annot=True,        # show correlation values\n    fmt=\".2f\",         # format to 2 decimals\n    square=True,       # make cells square\n    cbar_kws={\"label\": \"Pearson r\"}\n)\nplt.title(\"Correlation Matrix\")\nplt.tight_layout()\nplt.show()"
+    "objectID": "tutorials/numpy_pytorch_tutorial_template.html#possible-solution",
+    "href": "tutorials/numpy_pytorch_tutorial_template.html#possible-solution",
+    "title": "Tutorial Template: NumPy Basics and a First Look at PyTorch",
+    "section": "Possible solution",
+    "text": "Possible solution\n\n\nCode\nA = np.array([\n    [1, 2, 3, 4],\n    [5, 6, 7, 8],\n    [9, 10, 11, 12]\n])\n\nprint('A =')\nprint(A)\nprint('shape:', A.shape)\nprint('second row:', A[1, :])\nprint('third column:', A[:, 2])\nprint('column means:', np.mean(A, axis=0))\n\nB = A ** 2\nprint('B =')\nprint(B)\n\n\nA =\n[[ 1  2  3  4]\n [ 5  6  7  8]\n [ 9 10 11 12]]\nshape: (3, 4)\nsecond row: [5 6 7 8]\nthird column: [ 3  7 11]\ncolumn means: [5. 6. 7. 8.]\nB =\n[[  1   4   9  16]\n [ 25  36  49  64]\n [ 81 100 121 144]]"
   },
   {
-    "objectID": "projects/01_MachineLearningIris.html#scale-transformation",
-    "href": "projects/01_MachineLearningIris.html#scale-transformation",
-    "title": "01 Machine Learning",
-    "section": "Scale Transformation",
-    "text": "Scale Transformation\n… is almost always useful (esp. when variables live on different scales)\n\n\nCode\nfrom sklearn.preprocessing import StandardScaler\nscaler = StandardScaler()\nXs = scaler.fit_transform(X)\n\n# numpy2pandas (mostly for plotting convenience)\ncol_names = [\"SL\", \"SW\", \"PL\", \"PW\"]\ndf_scaled = pd.DataFrame(Xs, columns=col_names)\ndf_scaled_long = df_scaled.melt(var_name=\"Feature\", value_name=\"Value\")\n\nprint(f\"variable means: \\n{df_scaled.mean()})\")\nplt.figure()\nsns.violinplot(x=\"Feature\", y=\"Value\", data=df_scaled_long)\nplt.title(\"Violin plots for scaled variables\")\nplt.tight_layout()\nplt.show()\n\n\nvariable means: \nSL   -1.690315e-15\nSW   -1.842970e-15\nPL   -1.698641e-15\nPW   -1.409243e-15\ndtype: float64)"
+    "objectID": "tutorials/numpy_pytorch_tutorial_template.html#creating-tensors",
+    "href": "tutorials/numpy_pytorch_tutorial_template.html#creating-tensors",
+    "title": "Tutorial Template: NumPy Basics and a First Look at PyTorch",
+    "section": "1. Creating tensors",
+    "text": "1. Creating tensors\n\n\nCode\nx = torch.tensor([1.0, 2.0, 3.0])\nx\n\n\n\n\nCode\nX_torch = torch.tensor([\n    [1.0, 2.0],\n    [3.0, 4.0],\n    [5.0, 6.0]\n])\nX_torch"
   },
   {
-    "objectID": "projects/01_MachineLearningIris.html#unsupervised-clustering-kmeans",
-    "href": "projects/01_MachineLearningIris.html#unsupervised-clustering-kmeans",
-    "title": "01 Machine Learning",
-    "section": "Unsupervised: Clustering (kmeans)",
-    "text": "Unsupervised: Clustering (kmeans)\n\n\nCode\nfrom sklearn.cluster import KMeans\n\nkmeans = KMeans(n_clusters=3)\nlabels = kmeans.fit_predict(Xs)\n\ndf_scaled[\"cluster\"] = labels.astype(str)\nsns.pairplot(df_scaled, hue=\"cluster\", height=1.5, aspect=1.0)"
+    "objectID": "tutorials/numpy_pytorch_tutorial_template.html#tensor-properties",
+    "href": "tutorials/numpy_pytorch_tutorial_template.html#tensor-properties",
+    "title": "Tutorial Template: NumPy Basics and a First Look at PyTorch",
+    "section": "2. Tensor properties",
+    "text": "2. Tensor properties\n\n\nCode\nprint('shape:', X_torch.shape)\nprint('dtype:', X_torch.dtype)"
   },
   {
-    "objectID": "projects/01_MachineLearningIris.html#unsupervised-principle-component-analysis",
-    "href": "projects/01_MachineLearningIris.html#unsupervised-principle-component-analysis",
-    "title": "01 Machine Learning",
-    "section": "Unsupervised: Principle Component Analysis",
-    "text": "Unsupervised: Principle Component Analysis\n…. provides very convenient low-dimensional representation of the data\n\n\nCode\nfrom sklearn.decomposition import PCA\n\npca = PCA(n_components=2)\nX_pca = pca.fit_transform(Xs)\nvar_exp = pca.explained_variance_ratio_\n\nxlab = f\"PC1 ({var_exp[0]:.3f})\"\nylab = f\"PC2 ({var_exp[1]:.3f})\"\nsns.scatterplot(x=X_pca[:,0], y=X_pca[:,1])\nplt.title(\"PCA plot\")\nplt.xlabel(xlab)\nplt.ylabel(ylab)\nplt.tight_layout()\nplt.show()"
+    "objectID": "tutorials/numpy_pytorch_tutorial_template.html#numpy-arrays-and-pytorch-tensors",
+    "href": "tutorials/numpy_pytorch_tutorial_template.html#numpy-arrays-and-pytorch-tensors",
+    "title": "Tutorial Template: NumPy Basics and a First Look at PyTorch",
+    "section": "3. NumPy arrays and PyTorch tensors",
+    "text": "3. NumPy arrays and PyTorch tensors\nYou can often convert between NumPy arrays and PyTorch tensors.\n\n\nCode\narr = np.array([[1, 2], [3, 4]], dtype=np.float32)\nten = torch.tensor(arr)\n\nprint('NumPy array:')\nprint(arr)\nprint(type(arr))\n\nprint('\\nPyTorch tensor:')\nprint(ten)\nprint(type(ten))"
   },
   {
-    "objectID": "projects/01_MachineLearningIris.html#supervised-linear-model-x-to-y",
-    "href": "projects/01_MachineLearningIris.html#supervised-linear-model-x-to-y",
-    "title": "01 Machine Learning",
-    "section": "Supervised: Linear Model \\(x \\to y\\)",
-    "text": "Supervised: Linear Model \\(x \\to y\\)\nUse PyTorch to define a linear model (with one input and one output), a suitable loss function, and an optimizer.\n\n\nCode\nimport numpy as np\nimport torch\nimport torch.nn as nn\nprint('torch version:', torch.__version__)\n\n# identical to the 1st lecture (same model)\nmodel = nn.Linear(1, 1) # n_in = 1, n_out = 1\nloss_func = nn.MSELoss()\noptimizer = torch.optim.SGD(model.parameters())\n\n\ntorch version: 2.7.1"
+    "objectID": "tutorials/numpy_pytorch_tutorial_template.html#a-very-small-neural-network",
+    "href": "tutorials/numpy_pytorch_tutorial_template.html#a-very-small-neural-network",
+    "title": "Tutorial Template: NumPy Basics and a First Look at PyTorch",
+    "section": "4. A very small neural network",
+    "text": "4. A very small neural network\nHere we define a tiny feed-forward neural network:\n\ninput size: 2\none hidden layer with 4 neurons\noutput size: 1\n\nWe use nn.Sequential to stack layers.\n\n\nCode\nmodel = nn.Sequential(\n    nn.Linear(2, 4),\n    nn.ReLU(),\n    nn.Linear(4, 1)\n)\n\nmodel"
   },
   {
-    "objectID": "projects/01_MachineLearningIris.html#define-data",
-    "href": "projects/01_MachineLearningIris.html#define-data",
-    "title": "01 Machine Learning",
-    "section": "Define Data",
-    "text": "Define Data\nAgain we need some reformating (numpy \\(\\to\\) pytorch tensor) to make the data fit with the pytorch framework. We also need to define the input data (x_t) and output data (y_t). Their shape and dimensionality should correspond to the model defined above.\n\n\nCode\n# select two arbitrary variables as x=X[:,2] and y=X[:,3] \n# just for illustration - feel free to change\nx_t = torch.as_tensor(X[:,2], dtype=torch.float32).view(-1, 1)\ny_t = torch.as_tensor(X[:,3], dtype=torch.float32).view(-1, 1)\nprint(f\"shape(x_t): {x_t.shape}\")\nprint(f\"shape(y_t): {y_t.shape}\")\n\n\nshape(x_t): torch.Size([150, 1])\nshape(y_t): torch.Size([150, 1])"
+    "objectID": "tutorials/numpy_pytorch_tutorial_template.html#running-a-forward-pass",
+    "href": "tutorials/numpy_pytorch_tutorial_template.html#running-a-forward-pass",
+    "title": "Tutorial Template: NumPy Basics and a First Look at PyTorch",
+    "section": "5. Running a forward pass",
+    "text": "5. Running a forward pass\nA forward pass means: give some input to the model and compute the output.\n\n\nCode\nX_input = torch.tensor([\n    [0.0, 0.0],\n    [1.0, 0.0],\n    [0.0, 1.0],\n    [1.0, 1.0]\n])\n\ny_pred = model(X_input)\nprint(y_pred)\nprint('output shape:', y_pred.shape)"
   },
   {
-    "objectID": "projects/01_MachineLearningIris.html#train-the-model",
-    "href": "projects/01_MachineLearningIris.html#train-the-model",
-    "title": "01 Machine Learning",
-    "section": "Train the Model",
-    "text": "Train the Model\nChose a number of iterations (e.g 100 “epochs”) and keep track of the loss at each iteration.\n\n\nCode\nlosses = []\nmodel.train()\nfor epoch in range(200):\n    y_pred = model(x_t)\n    loss = loss_func(y_pred, y_t)\n    optimizer.zero_grad()\n    loss.backward()\n    optimizer.step()\n\n    losses.append(loss.item()) # keep track of losses\n\n# finished training. inspect model \nprint('Mean Squared Error (loss):    ',loss.item())\nprint('Parameters:')\nfor name, p in model.named_parameters():\n    print(name, p.detach())\n\n\nMean Squared Error (loss):     0.19705839455127716\nParameters:\nweight tensor([[0.2114]])\nbias tensor([0.5649])\n\n\n\n\n\n\n\n\nNote\n\n\n\n\n“weight” = slope parameter\n“bias” = intercept"
+    "objectID": "tutorials/numpy_pytorch_tutorial_template.html#model-parameters",
+    "href": "tutorials/numpy_pytorch_tutorial_template.html#model-parameters",
+    "title": "Tutorial Template: NumPy Basics and a First Look at PyTorch",
+    "section": "6. Model parameters",
+    "text": "6. Model parameters\nThe model contains trainable parameters, mainly weights and biases.\n\n\nCode\nfor name, param in model.named_parameters():\n    print(name, param.shape)"
   },
   {
-    "objectID": "projects/01_MachineLearningIris.html#inspect-losses",
-    "href": "projects/01_MachineLearningIris.html#inspect-losses",
-    "title": "01 Machine Learning",
-    "section": "Inspect losses",
-    "text": "Inspect losses\nPlot the losses against the number of iterations an check if they are reducing\n\n\nCode\nplt.figure()\nplt.plot(losses)\nplt.ylabel('loss')\nplt.xlabel('epoch')\nplt.show()"
+    "objectID": "tutorials/numpy_pytorch_tutorial_template.html#mini-exercise-2-first-pytorch-steps-about-10-minutes",
+    "href": "tutorials/numpy_pytorch_tutorial_template.html#mini-exercise-2-first-pytorch-steps-about-10-minutes",
+    "title": "Tutorial Template: NumPy Basics and a First Look at PyTorch",
+    "section": "Mini exercise 2 — First PyTorch steps (about 10 minutes)",
+    "text": "Mini exercise 2 — First PyTorch steps (about 10 minutes)\nBuild your own small neural network for inputs with 3 features.\nTasks:\n\nCreate a model with:\n\ninput size 3\nhidden layer size 5\noutput size 2\n\nCreate a tensor X_new with shape (4, 3) containing any four input examples.\nRun a forward pass.\nPrint the output and its shape.\n\nWrite your solution in the next code cell.\n\n\nCode\n# Your solution here"
   },
   {
-    "objectID": "projects/01_MachineLearningIris.html#predicitons",
-    "href": "projects/01_MachineLearningIris.html#predicitons",
-    "title": "01 Machine Learning",
-    "section": "Predicitons",
-    "text": "Predicitons\nUse the trained model to make predction for 50 new \\(x\\)-values in a range \\((-10,10)\\). Overlay the model predictions with the original data on which the model was learned.\n\n\nCode\n# pick any range of new x-values (meaningful?)\nx_new = np.arange(-10,10,0.5)\n# convert to tensor\nx_new_t = torch.as_tensor(x_new, dtype=torch.float32).view(-1, 1)\n# run predictions\nyp  = model(x_new_t)\n\n# convert from tensor to numpy and reshape\ny_pred = yp.detach().numpy().flatten()\n\nplt.scatter(x_t, y_t, label=\"Data\")\nplt.plot(x_new,y_pred, c=\"orange\", label=\"Model\")\nplt.legend()\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nModel Critique\n\n\n\n\nthere is no perfect fit because\n\nlearning has not yet converged\nreal data is noisy MSE \\(\\ne 0\\)\n\nModels are ignorant: What is the Petal.Width for Petal.Length = -1cm ?\nAssessments of predicted performance should invoke some left out data (test set)\nModels are not necessarily causal\nall models are wrong, some are useful"
-  },
-  {
-    "objectID": "projects/01_MachineLearningIris.html#multivariate-multinomial-regression",
-    "href": "projects/01_MachineLearningIris.html#multivariate-multinomial-regression",
-    "title": "01 Machine Learning",
-    "section": "Multivariate Multinomial Regression",
-    "text": "Multivariate Multinomial Regression\n… with test-train split\n\n\nCode\nimport numpy as np\nimport torch\nimport torch.nn as nn\nfrom sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay\n\nX = torch.tensor(iris.data, dtype=torch.float32) # numeric measurements\nY = torch.tensor(iris.target, dtype=torch.long)  # class labels\nprint(f\"X.shape = {X.shape}, Y.shape = {Y.shape}\")\n\n# define train and test data sets\nn_samples = X.shape[0] # number of all samples\nn_train = int(0.8 * n_samples) # number of training samples\nperm = torch.randperm(n_samples) # shuffled random indicies\ni_train = perm[:n_train] # train indices\ni_test = perm[n_train:] # test indices\n\nmodel = nn.Linear(4, 3) # n_in = 4, n_out = 3\nloss_func = nn.CrossEntropyLoss()\noptimizer = torch.optim.SGD(model.parameters())\n\nmodel.train()\nfor epoch in range(5000):\n    yp = model(X[i_train])\n    loss = loss_func(yp, Y[i_train])\n    optimizer.zero_grad()\n    loss.backward()\n    optimizer.step()\n\nmodel.eval()\nz = model(X[i_test])\ny_pred_class = torch.argmax(z, dim=1)\ny_true_class = Y[i_test].numpy()\nacc = accuracy_score(y_true_class, y_pred_class)\nprint('Accuracy: ', acc)   \n\ncm = confusion_matrix(y_true_class, y_pred_class)\ndisp = ConfusionMatrixDisplay(confusion_matrix=cm,\n                              display_labels=iris.target_names)\ndisp.plot(cmap='Blues')\n\n\nX.shape = torch.Size([150, 4]), Y.shape = torch.Size([150])\nAccuracy:  0.9333333333333333"
-  },
-  {
-    "objectID": "projects/02_DeepNeuralNetworks.html",
-    "href": "projects/02_DeepNeuralNetworks.html",
-    "title": "02 Deep Neural Networks",
-    "section": "",
-    "text": "In this project, each team will apply multi-layer perceptrons (MLPs) to learn and approximate nonlinear relationships from data. By constructing, training, and evaluating neural networks, you will explore how MLPs can approximate complex relationships and how architecture, hyperparameters and optimization affect performance."
-  },
-  {
-    "objectID": "projects/02_DeepNeuralNetworks.html#overview",
-    "href": "projects/02_DeepNeuralNetworks.html#overview",
-    "title": "02 Deep Neural Networks",
-    "section": "",
-    "text": "In this project, each team will apply multi-layer perceptrons (MLPs) to learn and approximate nonlinear relationships from data. By constructing, training, and evaluating neural networks, you will explore how MLPs can approximate complex relationships and how architecture, hyperparameters and optimization affect performance."
-  },
-  {
-    "objectID": "projects/02_DeepNeuralNetworks.html#project-assignment-table",
-    "href": "projects/02_DeepNeuralNetworks.html#project-assignment-table",
-    "title": "02 Deep Neural Networks",
-    "section": "Project Assignment Table",
-    "text": "Project Assignment Table\nTeams will receive different subtasks based on their assigned dataset (Project ID). See more details below.\n\n\n\n\n\n\n\n\n\nProject ID\nData Type\nTask Description\nTarget Variable (\\(y\\))\n\n\n\n\n2.1\nNon-linear function\nNon-linear regression\ncontinuous values\n\n\n2.2\nNon-linear function\nNon-linear classification\ndiscrete classes\n\n\n2.3\nComplex shapes\nPixel classification complex boundaries\nbinary classes (inside/outside)\n\n\n2.4\nDNA sequences\nSequence Classification (DNA)\nsequence labels"
-  },
-  {
-    "objectID": "projects/02_DeepNeuralNetworks.html#tasks-and-deliverables",
-    "href": "projects/02_DeepNeuralNetworks.html#tasks-and-deliverables",
-    "title": "02 Deep Neural Networks",
-    "section": "Tasks and Deliverables",
-    "text": "Tasks and Deliverables\n\n\n\n\n\n\n\n\n#\nTask\nDescription\n\n\n\n\n1\nData loading and inspection\nLoad the dataset, inspect its structure and dimensions, and briefly describe its content.\n\n\n2\nData preprocessing\nTransform the data into a form suitable for MLP input:– Convert to numpy / torch tensors– Flatten or reshape inputs as needed– Split into training and test sets\n\n\n3\nModel definition\nDefine an appropriate MLP architecture (e.g with PyTorch nn.Sequential). Include number of layers, activation functions, and output dimensions. Report structure and number of parameters\n\n\n4\nModel training\nImplement a full training loop including:– Loss function and optimizer– Iterative training with loss updates– Plot the loss history\n\n\n5\nModel evaluation\nGenerate predictions on the test set and compute suitable metrics:– Regression: MSE or R²– Classification: overall accuracy and class-wise metrices\n\n\n6\nVisualization\nPlot training and validation loss curves, and visualize model results e.g. predicted vs. true values, or confusion matrices.\n\n\n7\nDiscussion\nProvide a short reflection on model behavior and performance."
-  },
-  {
-    "objectID": "projects/02_DeepNeuralNetworks.html#submission-guidelines",
-    "href": "projects/02_DeepNeuralNetworks.html#submission-guidelines",
-    "title": "02 Deep Neural Networks",
-    "section": "Submission Guidelines",
-    "text": "Submission Guidelines\nPlease submit a single notebook per team. It will be the basis for your presentation and it will be shared with the class.\nThe notebook must\n\ninclude a statement of orginality and contributions at the beginning\nbe clean, well-structured, and reproducible.\nrun from start to finish without modification (ideally in less than 5 minutes)\ninclude all necessary installation instructions, imports and random seeds for reproducibility.\ninclude short text cells and clear comments describing what you do in each section.\nshould use concise and readable visualizations.\nbe submitted before the deadline.\nfollow filename convention: Project1.3_Team02.ipynb (adjust your Project-ID and Team-ID)."
-  },
-  {
-    "objectID": "projects/02_DeepNeuralNetworks.html#data-loads",
-    "href": "projects/02_DeepNeuralNetworks.html#data-loads",
-    "title": "02 Deep Neural Networks",
-    "section": "Data Loads",
-    "text": "Data Loads\n\nProject 2.1\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\n\ndef f_composed(x):\n    return np.sin(10*np.pi*x + np.sin(15*np.pi*x)) * np.cos(3*x) \n\ndef f_logistic(u=0.321,steps=1000):\n    y=np.empty(steps)\n    for i in range(steps):\n        u = 4*u*(1 - u)\n        y[i] = u\n    y = np.array(y)\n    return y\n\nn = 2500\nn_train = int(0.8 * n)\n\nx = np.linspace(-1, 1, n)\ny = f_composed(x) # try f_logistic() for a challenge\n\n\n\n\nProject 2.2\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.datasets import make_moons\n\ndef make_spirals(n_samples=1000, noise=0.2, n_classes=2, random_state=None):\n    \"\"\"\n    This function creates n_samples x n_classes data points in 2D\n    where each data points belongs to one of n_classes spirals (+ noise)\n    Output: \n        - X: X.shape [n_samples,2]  (coordinates)\n        - y: y.shape [n_samples,]    (class ID)\n    \"\"\"\n    rng = np.random.default_rng(random_state)\n    X = np.empty((n_samples * n_classes, 2), dtype=float)\n    y = np.repeat(np.arange(n_classes), n_samples)\n\n    r = np.linspace(0.0, 1.0, n_samples)\n\n    for k in range(n_classes):\n        t = np.linspace(4*k, 4*(k+1), n_samples) + rng.normal(scale=noise, size=n_samples)\n        start = k * n_samples\n        X[start:start+n_samples] = np.column_stack((r * np.sin(t), r * np.cos(t)))\n\n    return X, y\n\nn, nc = 1000, 3 \nsig = 0.1\nseed = 42\n\n# choose one or both\nX, y = make_moons(n_samples=n, noise=sig, random_state = seed) \nX, y = make_spirals(n_samples=n, n_classes=nc, noise=sig, random_state=seed)\n\n\n\n\nProject 2.3\n\n\nCode\nimport requests\nfrom io import BytesIO\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom PIL import Image\n\n# some suggestions - feel free to try your own shapes\nurl=\"https://github.com/thomasmanke/DataSets/blob/main/Berlin_50x50.png?raw=true\"\nurl=\"https://github.com/thomasmanke/DataSets/blob/main/Mandelbrot.png?raw=true\"\n\nwidth=50\nheight=50\nthreshold=100 # adjust grey-BW threshold if neccessary\nimg = Image.open(BytesIO(requests.get(url).content)).convert(\"RGB\")\nimg = img.resize((width, height), Image.LANCZOS) # resize for speed\nimg = img.convert(\"L\")                          # 8-bit grayscale\nimg_np = np.array(img, dtype=np.uint8)          # convert to numpy\nimg_np = (img_np &gt;= threshold).astype(np.uint8) # convert to BW\n\n\n\n\nProject 2.4\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport pandas as pd\n\nurl=\"https://github.com/thomasmanke/DataSets/raw/refs/heads/main/labeled_sequences.csv.gz\"\n\ndf = pd.read_csv(url)\nseqs = df[\"sequence\"].tolist()\ny    = df[\"label\"].values\n\nN = len(seqs)    # number of sequences\nL = len(seqs[0]) # same length for all (!!!) sequences\n\n\n\n\nHow to convert sequences to numbers\nimport torch\nimport torch.nn.functional as F\n\n# Some hints to convert: DNA seqs -&gt; X\n# There are other ways, but feel free to follow the recipe below\n# chr -&gt; int -&gt; bool (one-hot encoding)\n# but please make sure you understand the steps\n\n# maps to switch chr &lt;-&gt; int\nmapping = dict(zip(\"ACGT\", range(4)))\nidx2base = {v: k for k, v in mapping.items()}\n\n# integer encoding of sequence: \"AAGTCCA\" -&gt; [0,0,2,3,1,1,0]\nseqs_int = torch.tensor([[mapping[ch] for ch in s] for s in seqs], dtype=torch.long)\n\n# one-hot encoding of seqs_int: \nX = F.one_hot(seqs_int, num_classes=4).float() \n\n# flatten one-hot encoding\nX = X.view(N, 4*L)\nprint(f\"X.shape: {X.shape}, y.shape: {y.shape}, L = {L}\")"
-  },
-  {
-    "objectID": "projects/03_ConvolutionalNeuralNetworks.html",
-    "href": "projects/03_ConvolutionalNeuralNetworks.html",
-    "title": "03 Convolutional Neural Networks",
-    "section": "",
-    "text": "In this project, you will build and evaluate Convolutional Neural Network models (CNN) for image classification."
-  },
-  {
-    "objectID": "projects/03_ConvolutionalNeuralNetworks.html#datasets",
-    "href": "projects/03_ConvolutionalNeuralNetworks.html#datasets",
-    "title": "03 Convolutional Neural Networks",
-    "section": "Datasets",
-    "text": "Datasets\nThe project-specific datasets and the target variable of interest are\n\n\n\nProject ID\nData Set\nTarget Variable (\\(y\\))\n\n\n\n\n3.1\nWikiArt\nArtist (optionally: style/genre)\n\n\n3.2\nX-rays\nNormal/Pneumonia"
-  },
-  {
-    "objectID": "projects/03_ConvolutionalNeuralNetworks.html#tasks",
-    "href": "projects/03_ConvolutionalNeuralNetworks.html#tasks",
-    "title": "03 Convolutional Neural Networks",
-    "section": "Tasks",
-    "text": "Tasks\n\n\n\n\n\n\n\n\nTask\nWhat to Do\nKey Points / Checks\n\n\n\n\nData Exploration\nExplore dataset origin, structure, dimensions, metadata;\nplot class distribution; check class balance;\n\n\nData Filtering\nRemove rare classes (&lt;100 samples).\nKeep label indices consistent; Hint: keep mapping dictionaries.\n\n\nStratified Split\nCreate train/val/test sets = 80/10/10\nUse stratified sampling to preserve class distribution.\n\n\nImage Transformations\nDefine and apply data transformations + augmentation\nResize; fix channels; normalize; augment; convert to tensors; Hint: inverse function tensor2image() may also be useful\n\n\nLabel Transformations\nEnsure consistent label encoding; reindex if needed.\nCheck labels after filtering; update mappings.\n\n\nData Loaders\nBuild train/val/test DataLoaders.\nVerify shapes, label formats, and data augmentation behavior.\n\n\nSimple CNN Model\nbuild a CNN with at least 2 convolutional layers (incl. ReLU, MaxPool + optional dropout).\nDefine input and output dimensions; ensure appropriate layer dimensions; report trainable parameter count.\n\n\nLoss & Optimizer\nDefine and explain a suitable loss function and optimizer\nEnsure compatibility with problem type and consider possible regularization\n\n\nModel Training\nTrain for sufficient number of epochs using mini-batches\nPlot loss curves for train + validation set. Discuss the observed behaviour (optionally: implement early stopping criteria)\n\n\nModel Evaluation\nEvaluate trained model on test set\nCompute confusion matrix and report per-class metrics. Critique model and suggest possible improvements\n\n\nTransfer Learning\nLoad pretrained ResNet50; freeze all backbone parameters but replace final fully connected layer with suitable last layer\nTrain as before and compare performance gain vs. simple CNN."
-  },
-  {
-    "objectID": "projects/03_ConvolutionalNeuralNetworks.html#get-data",
-    "href": "projects/03_ConvolutionalNeuralNetworks.html#get-data",
-    "title": "03 Convolutional Neural Networks",
-    "section": "Get Data",
-    "text": "Get Data\n\nProject 3.1: WikiArt\n\nimport torch\nfrom datasets import load_dataset, load_dataset_builder\nfrom itertools import islice\n\n# dataset name: Be careful what you get from huggingface!\nds_name=\"huggan/wikiart\"  \n\n# get metadata\nbuilder = load_dataset_builder(ds_name)\nfeatures = builder.info.features\n\n# get data (subset)\nN_SUB = 1000 # feel free to change (not too big, not too small)\nds_stream = load_dataset(ds_name, split=\"train\", streaming=True)\nds = list(islice(ds_stream, N_SUB))\n\n# the full data would be quite big and slow!\n#ds = load_dataset(ds_name) \n\n\n\nProject 3.2 X-Rays\n\n\nCode\nimport torch\nfrom datasets import load_dataset, load_dataset_builder\nfrom datasets import load_dataset\n\n# orginal source: https://data.mendeley.com/datasets/rscbjbr9sj/2\nds_name=\"Ewakaa/pneumonia_classification_chest_xray\"\n\n# metadata\nbuilder = load_dataset_builder(ds_name)\nfeatures = builder.info.features\n# features['label'].names = ['NORMAL', 'PNEUMONIA']\n\n# load dataset dictionary. contains 3 datasets: train, validation, test\nds = load_dataset(ds_name)"
-  },
-  {
-    "objectID": "projects/03_ConvolutionalNeuralNetworks.html#get-model",
-    "href": "projects/03_ConvolutionalNeuralNetworks.html#get-model",
-    "title": "03 Convolutional Neural Networks",
-    "section": "Get Model",
-    "text": "Get Model\nBoth projects will use (and modify) the ResNet50 model.\nThis pre-trained model can be obtained from torchvisison, like so:\n\nfrom torchvision.models import resnet50, ResNet50_Weights\n\nweights = ResNet50_Weights.IMAGENET1K_V1\nmodel = resnet50(weights=weights)\n\n# freeze pretrained parameters\nfor param in model.parameters():\n    param.requires_grad = False\n\n# Replace last fully connected layer `model.fc`\nmodel.fc = nn.Sequential(\n    # edit here for transfer learning\n)"
-  },
-  {
-    "objectID": "projects/01_MachineLearning.html",
-    "href": "projects/01_MachineLearning.html",
-    "title": "01 Machine Learning",
-    "section": "",
-    "text": "This project serves a introduction to the key challenges in machine learning and data analysis. Upon successful completion you should be able to conduct such analysis tasks independently and apply them to other problems.\n\nSetup Jupyter Notebook which includes\n\ndetail environment in which this nodebook was developed and tested\ninstallation of versioned packages (if necessary)\nload required software packages and report their version\nother custom functions (if necessary)\nproject-wide variables\n\nLoad Data (see examples below) and describe in detail their origin, content, structures and data types.\nData Exploration. Prepare statistical and visual data summaries. How many variables/features does the data contain, how many samples? Are there missing values? Explore correlations among variables and conduct at least one unsupervised analysis. Consider variable transformations and normalizations where applicable.\nData Model. Define what you want to model (following the table below) and choose an appropriate model framework. Define a simple baseline model and a loss function - theoretically and practically. Explain the model in terms of input-output data structures and dimensions.\nTrain Model. Define a Train Define Train and Test Data and run the training loop. Monitor the behaviour of the loss function.\nEvaluate Model. Run model predictions on the test data set. Calculate and visualize the appropriate metrics to evaluate model performance. Explain why a separate test data set should be used for such evaluations.\nImprove Model. Suggest extensions to your baseline model and repeat steps 4. - 6. Do these extensions improve the model?\n\n\n\n\n\n\n\nSummary\n\n\n\nProvide a concise summary and critical reflection of this project and all analysis steps. What are the assumptions and limits? Document and annotate all steps above carefully in a single jupyter notebook and ensure that it will execute reproducibly and without error. Upon completion, submit the project as a single notebook per team. This notebook will be the basis for your presentation and it will be shared with the whole class.\nInclude a statement of originality and contributions at the beginning"
-  },
-  {
-    "objectID": "projects/01_MachineLearning.html#tasks",
-    "href": "projects/01_MachineLearning.html#tasks",
-    "title": "01 Machine Learning",
-    "section": "",
-    "text": "This project serves a introduction to the key challenges in machine learning and data analysis. Upon successful completion you should be able to conduct such analysis tasks independently and apply them to other problems.\n\nSetup Jupyter Notebook which includes\n\ndetail environment in which this nodebook was developed and tested\ninstallation of versioned packages (if necessary)\nload required software packages and report their version\nother custom functions (if necessary)\nproject-wide variables\n\nLoad Data (see examples below) and describe in detail their origin, content, structures and data types.\nData Exploration. Prepare statistical and visual data summaries. How many variables/features does the data contain, how many samples? Are there missing values? Explore correlations among variables and conduct at least one unsupervised analysis. Consider variable transformations and normalizations where applicable.\nData Model. Define what you want to model (following the table below) and choose an appropriate model framework. Define a simple baseline model and a loss function - theoretically and practically. Explain the model in terms of input-output data structures and dimensions.\nTrain Model. Define a Train Define Train and Test Data and run the training loop. Monitor the behaviour of the loss function.\nEvaluate Model. Run model predictions on the test data set. Calculate and visualize the appropriate metrics to evaluate model performance. Explain why a separate test data set should be used for such evaluations.\nImprove Model. Suggest extensions to your baseline model and repeat steps 4. - 6. Do these extensions improve the model?\n\n\n\n\n\n\n\nSummary\n\n\n\nProvide a concise summary and critical reflection of this project and all analysis steps. What are the assumptions and limits? Document and annotate all steps above carefully in a single jupyter notebook and ensure that it will execute reproducibly and without error. Upon completion, submit the project as a single notebook per team. This notebook will be the basis for your presentation and it will be shared with the whole class.\nInclude a statement of originality and contributions at the beginning"
-  },
-  {
-    "objectID": "projects/01_MachineLearning.html#originality-and-contributions",
-    "href": "projects/01_MachineLearning.html#originality-and-contributions",
-    "title": "01 Machine Learning",
-    "section": "Originality and Contributions",
-    "text": "Originality and Contributions\nAuthors: X.Y., A.I.\nThis notebook is our own work. Any other sources have been clearly marked and cited.\nAll authors contributed equally. (alternative: state specific contributions explicitly)"
-  },
-  {
-    "objectID": "projects/01_MachineLearning.html#references",
-    "href": "projects/01_MachineLearning.html#references",
-    "title": "01 Machine Learning",
-    "section": "References",
-    "text": "References\nProvide references and citations where necessary"
-  },
-  {
-    "objectID": "projects/01_MachineLearning.html#data-sets",
-    "href": "projects/01_MachineLearning.html#data-sets",
-    "title": "01 Machine Learning",
-    "section": "Data Sets",
-    "text": "Data Sets\nThe data sets below are heavily used in machine learning. They also have the advantage of being easily accessible and highly standardized.\nEach team should work with the data set (Project ID) assigned to them.\nWhen modelling the given target variable \\(y\\), it should be modelled as a multivariate function of other variables/features \\(X\\) in the data set. You can also consider relevant subsets of features, if you can argue to exclude some features, or for the purpose of a first simple baseline model.\n\n\n\nProject ID\nLink\ntarget variable \\(y\\)\n\n\n\n\n1.1\nwine data\nwine quality\n\n\n1.2\ngapminder\nlifeExpectancy\n\n\n1.3\nbreast cancer\ncancer status\n\n\n1.4\nMNIST\ndigit label"
-  },
-  {
-    "objectID": "projects/01_MachineLearning.html#data-loading-hints",
-    "href": "projects/01_MachineLearning.html#data-loading-hints",
-    "title": "01 Machine Learning",
-    "section": "Data Loading Hints",
-    "text": "Data Loading Hints\nThere are many ways to obtain these data sets. Below are just a few suggestions.\nPlease explore the data carefully - transform and normalize where necessary.\n\n\nCode\nimport pandas as pd\ndf = pd.read_csv(\n    \"https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv\",\n    sep=\";\"\n)\nprint(df.describe())\ny = df['quality']\n\n\n\n\nCode\nimport plotly.express as px\ndf = px.data.gapminder() \ny = df['lifeExp']\n\n\n\n\nCode\nfrom sklearn.datasets import load_breast_cancer\nimport pandas as pd\n\nbc = load_breast_cancer(as_frame=True)\nX = bc.data\ny = pd.Series(bc.target).map({0: \"malignant\", 1: \"benign\"}).rename(\"status\")\ndf = pd.concat([X, y], axis=1)\n\n\n\n\nCode\nfrom torchvision import datasets, transforms\nfrom torch.utils.data import DataLoader\n\n# this dataset already comes split in train and test\ntransform = transforms.ToTensor()\ntrain = datasets.MNIST(root=\"data\", train=True, download=True, transform=transform)\ntest  = datasets.MNIST(root=\"data\", train=False, download=True, transform=transform)\ntrain_loader = DataLoader(train, batch_size=64, shuffle=True)"
-  },
-  {
-    "objectID": "homework/02_MNIST.html",
-    "href": "homework/02_MNIST.html",
-    "title": "01 Homework",
-    "section": "",
-    "text": "Reference:\n\nhttps://www.kaggle.com/code/kanncaa1/pytorch-tutorial-for-deep-learning-lovers\n\nRun a classification on the MNIST data with\n\nA simple logistic (10 classes)\nA three layer NN (128, 128, 128, 10) with ReLU\nA CNN\n\ncompare the accuracies on a test data"
-  },
-  {
-    "objectID": "homework/02_MNIST.html#task",
-    "href": "homework/02_MNIST.html#task",
-    "title": "01 Homework",
-    "section": "",
-    "text": "Reference:\n\nhttps://www.kaggle.com/code/kanncaa1/pytorch-tutorial-for-deep-learning-lovers\n\nRun a classification on the MNIST data with\n\nA simple logistic (10 classes)\nA three layer NN (128, 128, 128, 10) with ReLU\nA CNN\n\ncompare the accuracies on a test data"
-  },
-  {
-    "objectID": "homework/02_MNIST.html#packages",
-    "href": "homework/02_MNIST.html#packages",
-    "title": "01 Homework",
-    "section": "Packages",
-    "text": "Packages"
-  },
-  {
-    "objectID": "homework/02_MNIST.html#data",
-    "href": "homework/02_MNIST.html#data",
-    "title": "01 Homework",
-    "section": "Data",
-    "text": "Data\nVerify mean and std"
-  },
-  {
-    "objectID": "homework/02_MNIST.html#model-definition",
-    "href": "homework/02_MNIST.html#model-definition",
-    "title": "01 Homework",
-    "section": "Model Definition",
-    "text": "Model Definition"
-  },
-  {
-    "objectID": "homework/02_MNIST.html#parameters",
-    "href": "homework/02_MNIST.html#parameters",
-    "title": "01 Homework",
-    "section": "Parameters",
-    "text": "Parameters"
-  },
-  {
-    "objectID": "homework/02_MNIST.html#define-traing-loop",
-    "href": "homework/02_MNIST.html#define-traing-loop",
-    "title": "01 Homework",
-    "section": "Define Traing Loop",
-    "text": "Define Traing Loop"
-  },
-  {
-    "objectID": "homework/02_MNIST.html#run-training",
-    "href": "homework/02_MNIST.html#run-training",
-    "title": "01 Homework",
-    "section": "Run Training",
-    "text": "Run Training"
+    "objectID": "tutorials/numpy_pytorch_tutorial_template.html#possible-solution-1",
+    "href": "tutorials/numpy_pytorch_tutorial_template.html#possible-solution-1",
+    "title": "Tutorial Template: NumPy Basics and a First Look at PyTorch",
+    "section": "Possible solution",
+    "text": "Possible solution\n\n\nCode\nmodel2 = nn.Sequential(\n    nn.Linear(3, 5),\n    nn.ReLU(),\n    nn.Linear(5, 2)\n)\n\nX_new = torch.tensor([\n    [1.0, 0.0, 2.0],\n    [0.5, 1.5, 0.0],\n    [2.0, 1.0, 3.0],\n    [0.0, 0.0, 1.0]\n])\n\ny_new = model2(X_new)\nprint(y_new)\nprint('shape:', y_new.shape)"
   },
   {
     "objectID": "lectures/01_MachineLearning/01_Data.html",
@@ -1349,19 +1230,5 @@
     "title": "Help",
     "section": "",
     "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nFrameworks\n\n\n\nsklearn\n\npytorch\n\ntensorflow\n\n\n\npowerful tools for neural networks\n\n\n\nThomas Manke\n\n\nApr 9, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nBig Data\n\n\n\nbig data\n\n\n\nFamous image sets and other Big Data\n\n\n\nThomas Manke\n\n\nApr 9, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nPytorch Starter\n\n\na basic intro\n\n\n\nThomas Manke\n\n\nApr 13, 2026\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "help/03_Pytorch.html#computational-graph-and-autograd",
-    "href": "help/03_Pytorch.html#computational-graph-and-autograd",
-    "title": "Pytorch Starter",
-    "section": "Computational Graph and Autograd",
-    "text": "Computational Graph and Autograd\n\\[\nL = x \\cdot (a + 2b) \\quad \\text{with} \\quad (a=2, b=3, x=1)\n\\]\n\n\nCode\n# Lead nodes; inputs to the graph\na = torch.tensor(2.0, requires_grad=True)\nb = torch.tensor(3.0, requires_grad=True)\nx = torch.tensor(1.0, requires_grad=True)\n\n# operations in computational graph: nodes z and L\nz = a + 2*b\nL = x*z  # L = x*(a+2b);  dL/dx = z; dL/dz = x\n\n# endows also inner nodes (z and L) with gradient functions\nprint(f'z_grad = {z.grad_fn}')\nprint(f'L_grad = {L.grad_fn}')\n\n\nz_grad = &lt;AddBackward0 object at 0x33702a4d0&gt;\nL_grad = &lt;MulBackward0 object at 0x336ff8bb0&gt;\n\n\n\n\nCode\na.grad = b.grad = x.grad = None  # clear old grads if any\nz.retain_grad() # per default pytorch keeps gradients only for leave nodes\nL.backward()    # fill gradients with respect to L\n\nprint('x.grad:', x.grad) # dL/dx = z  = a + 2*b = 5\nprint('a.grad:', a.grad) # dL/da = (dL/dz) (dz/da) = x * 1\nprint('b.grad:', b.grad) # dL/db = (dL/dz) (dz/db) = x * 2\nprint('z.grad:', z.grad) # dL/dz = x\n\n\nx.grad: tensor(8.)\na.grad: tensor(1.)\nb.grad: tensor(2.)\nz.grad: tensor(1.)"
-  },
-  {
-    "objectID": "help/03_Pytorch.html#building-larger-models-later",
-    "href": "help/03_Pytorch.html#building-larger-models-later",
-    "title": "Pytorch Starter",
-    "section": "Building Larger Models (later)",
-    "text": "Building Larger Models (later)\nWe can define larger models from small building blocks. Ultimately this will help to abstract from individual layers, their initialization, normalization, dropouts etc.\n\n\nCode\nimport torch.nn as nn\n\nclass MyModel(nn.Module):\n    def __init__(self, n_in, n_out):\n        # inherit stuff from nn.Module\n        super().__init__()\n        # define layers: just some random examples\n        self.linear = nn.Linear(n_in, n_out)\n        self.norm = nn.Dropout(p=0.3)\n\n    # conncect layers defined above\n    def forward(self, x):\n        x = self.linear(x)\n        x = self.norm(x)\n        x = nn.functional.sigmoid(x)\n        return x\n\nmodel = MyModel(10, 1)\nprint(model)\n\n\nMyModel(\n  (linear): Linear(in_features=10, out_features=1, bias=True)\n  (norm): Dropout(p=0.3, inplace=False)\n)\n\n\n\nOptimizer and Loss Function\n\n\nCode\nimport torch.optim as optim\n\nlearning_rate = 0.01 # hyperparameter\n\noptimizer = optim.Adam(model.parameters(), lr = learning_rate)\n\nloss_function = nn.MSELoss()\n\n\n\n\nmodel.train() vs. model.eval()\ntwo different modes for training and evaluation\n\n\n\n\n\n\n\n\nFeature\nmodel.train() (Training Mode)\nmodel.eval() (Evaluation Mode)\n\n\n\n\nDropout\nRandomly disables neurons (adds noise)\nAll neurons active (no dropout)\n\n\nBatchNorm\nUses current batch stats (mean/var)\nUses running (saved) stats\n\n\nGradient Tracking\nYes\nUse with torch.no_grad() to disable\n\n\nWhen to use\nDuring training loop\nDuring validation/testing/inference\n\n\n\nTypical use:\n\n\nCode\n# train data\nn_samples, m_features = 100, 10\nx = torch.rand((n_samples, m_features))\ny = torch.bernoulli(x[:,0], 0.5).reshape(-1,1)\n\n# Training\nn_epochs = 10\nmodel.train()\nfor epoch in range(n_epochs):\n\n    output = model(x)           # forward path x -&gt; output\n\n    loss = loss_function(output, y) # loss calculation\n\n    optimizer.zero_grad() # reset gradients (do not accumulate)\n    loss.backward()       # backward path L -&gt; x (gradient calc)\n    optimizer.step()      # update parm = parm - learning_rate * grad\n\n    # print loss\n    if(epoch % 20 == 0):\n        print('epoch {}, loss {}'.format(epoch, loss.data))\n\n# Evaluation (Validation or Test or Prediction)\nx_val = torch.rand((n_samples, m_features))\ny_val = torch.bernoulli(x_val[:,0], 0.5).reshape(-1,1)\n\nmodel.eval()\n# disable grad calculation for speed\nwith torch.no_grad():\n    val_output = model(x_val)\n    val_loss = loss_function(val_output, y_val)\n\n\nepoch 0, loss 0.2446327805519104\n\n\n\n\nSaving models\nYou may want to save (and share) your final model. But for long-running jobs it may also be good to save occasional checkpoints during training\n\n\nCode\nimport os\nsave_dir = \"checkpoints\"\nos.makedirs(save_dir, exist_ok=True)\n\n# 1. only saves state_dict, need to know model class\ntorch.save(model.state_dict(), os.path.join(save_dir, \"model_dict.pt\"))\nmodel.load_state_dict(torch.load(\"checkpoints/model_dict.pt\"))\n\n# 2. save full model. Warning: may not port across pytorch versions!!! \ntorch.save(model, os.path.join(save_dir, \"model_full.pth\"))\nmodel = torch.load(\"checkpoints/model_full.pth\", weights_only=False)\n\n\n\n\nSaving histories\n\n\nCode\n# 1. npz format (most general and robust)\nnp.savez(os.path.join(save_dir, \"loss_history.npz\"),\n         train=train_losses, val=val_losses)\n\ndata = np.load(\"checkpoints/loss_history.npz\")\ntrain_losses = data[\"train\"]\nval_losses = data[\"val\"]\n\n# 2. pickle format (more flexible less portable)\nwith open(os.path.join(save_dir, \"loss_history.pkl\"), \"wb\") as f:\n    pickle.dump({\"train\": train_losses, \"val\": val_losses}, f)\n\nwith open(\"checkpoints/loss_history.pkl\", \"rb\") as f:\n    losses = pickle.load(f)\ntrain_losses = losses[\"train\"]\nval_losses = losses[\"val\"]\n\n\n\n\nSaving Everything\n\n\nCode\ntorch.save({\n    'model_state': model.state_dict(),\n    'optimizer_state': optimizer.state_dict(),\n    'train_losses': train_losses,\n    'val_losses': val_losses,\n}, os.path.join(save_dir, \"checkpoint_all.pt\"))\n\ncheckpoint = torch.load(\"checkpoints/checkpoint_all.pt\")\nmodel.load_state_dict(checkpoint['model_state'])\noptimizer.load_state_dict(checkpoint['optimizer_state'])\ntrain_losses = checkpoint['train_losses']\nval_losses = checkpoint['val_losses']\n\n\n\n\nMonitoring with Tensorboard\ntensorboard is a popular tool to inspect neural networks and training progress\n\n\nCode\nfrom torch.utils.tensorboard import SummaryWriter\n\n# default `log_dir` is \"runs\" - we'll be more specific here\nwriter = SummaryWriter('log_dir/mnist_experiment')\n\n# typical uses\nwriter.add_graph(model)\nfor epoch in range(100):\n    # training loop\n    # ...\n    # train_loss = loss_function(logits, y)\n    writer.add_scalar(\"Loss\", train_loss, epoch)\n\nwriter.close()"
   }
 ]
