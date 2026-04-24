@@ -34,7 +34,8 @@
   {
     "listing": "/lectures/01_MachineLearning/index.html",
     "items": [
-      "/lectures/01_MachineLearning/01_Data.html"
+      "/lectures/01_MachineLearning/01_Data.html",
+      "/lectures/01_MachineLearning/02_LinearRegression.html"
     ]
   },
   {
