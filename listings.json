@@ -35,7 +35,10 @@
     "items": [
       "/lectures/01_MachineLearning/01_Data.html",
       "/lectures/01_MachineLearning/02_LinearRegression.html",
-      "/lectures/01_MachineLearning/03_Models101.html"
+      "/lectures/01_MachineLearning/03_Models101.html",
+      "/lectures/01_MachineLearning/04_MultivariateRegression.html",
+      "/lectures/01_MachineLearning/05_MultinomialRegression.html",
+      "/lectures/01_MachineLearning/06_TrainingAndTesting.html"
     ]
   },
   {
@@ -59,6 +62,7 @@
       "/help/01_Frameworks.html",
       "/help/01_MachineLearningIrisDescript.html",
       "/help/01_MachineLearningIrisModel.html",
+      "/help/01_MachineLearningIrisMultiVarMultinomial.html",
       "/help/03_BigData.html",
       "/help/03_Pytorch.html"
     ]

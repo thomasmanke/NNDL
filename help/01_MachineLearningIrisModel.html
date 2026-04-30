@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Thomas Manke">
-<meta name="dcterms.date" content="2026-04-28">
+<meta name="dcterms.date" content="2026-04-30">
 <meta name="description" content="Unsupervised and Supervised Analysis">
 
 <title>Iris Models – Neural Networks and Deep Learning</title>
@@ -433,7 +433,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 28, 2026</p>
+      <p class="date">April 30, 2026</p>
     </div>
   </div>
   
@@ -450,11 +450,11 @@ window.Quarto = {
 <div id="import" class="cell" data-execution_count="1">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> datasets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="im">from</span> sklearn <span class="im">import</span> datasets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -463,12 +463,12 @@ window.Quarto = {
 <div id="iris_get_data" class="cell" data-execution_count="2">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>iris <span class="op">=</span> datasets.load_iris()</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> iris.data    <span class="co"># measurements</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> iris.target  <span class="co"># species label</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"shape(X)   = </span><span class="sc">{</span>X<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"shape(y) = </span><span class="sc">{</span>y<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>iris <span class="op">=</span> datasets.load_iris()</span>
+<span id="cb2-2"><a href="#cb2-2"></a>X <span class="op">=</span> iris.data    <span class="co"># measurements</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>y <span class="op">=</span> iris.target  <span class="co"># species label</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="bu">print</span>(<span class="ss">f"shape(X)   = </span><span class="sc">{</span>X<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="bu">print</span>(<span class="ss">f"shape(y) = </span><span class="sc">{</span>y<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape(X)   = (150, 4)
@@ -481,17 +481,17 @@ shape(y) = (150,)</code></pre>
 <div id="cell-scaling" class="cell" data-execution_count="3">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># scale transformation</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> scaler.fit_transform(X)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># create data frame</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>col_names <span class="op">=</span> [<span class="st">"SL"</span>, <span class="st">"SW"</span>, <span class="st">"PL"</span>, <span class="st">"PW"</span>]</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(Z, columns<span class="op">=</span>col_names)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"species"</span>] <span class="op">=</span> pd.Categorical.from_codes(y, iris.target_names)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co"># scale transformation</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb4-5"><a href="#cb4-5"></a>Z <span class="op">=</span> scaler.fit_transform(X)</span>
+<span id="cb4-6"><a href="#cb4-6"></a></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co"># create data frame</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>col_names <span class="op">=</span> [<span class="st">"SL"</span>, <span class="st">"SW"</span>, <span class="st">"PL"</span>, <span class="st">"PW"</span>]</span>
+<span id="cb4-9"><a href="#cb4-9"></a>df <span class="op">=</span> pd.DataFrame(Z, columns<span class="op">=</span>col_names)</span>
+<span id="cb4-10"><a href="#cb4-10"></a>df[<span class="st">"species"</span>] <span class="op">=</span> pd.Categorical.from_codes(y, iris.target_names)</span>
+<span id="cb4-11"><a href="#cb4-11"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div id="scaling" class="cell-output cell-output-display" data-execution_count="3">
 <div>
@@ -564,22 +564,22 @@ shape(y) = (150,)</code></pre>
 <div id="cell-PCA" class="cell" data-execution_count="4">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>Z_pca <span class="op">=</span> pca.fit_transform(Z)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>var_exp <span class="op">=</span> pca.explained_variance_ratio_</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>xlab <span class="op">=</span> <span class="ss">f"PC1 (</span><span class="sc">{</span>var_exp[<span class="dv">0</span>]<span class="sc">:.3f}</span><span class="ss">)"</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>ylab <span class="op">=</span> <span class="ss">f"PC2 (</span><span class="sc">{</span>var_exp[<span class="dv">1</span>]<span class="sc">:.3f}</span><span class="ss">)"</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(x<span class="op">=</span>Z_pca[:,<span class="dv">0</span>], y<span class="op">=</span>Z_pca[:,<span class="dv">1</span>])</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#sns.scatterplot(x=Z_pca[:,0], y=Z_pca[:,1], hue=df["species"])</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"PCA plot"</span>)</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>plt.xlabel(xlab)</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>plt.ylabel(ylab)</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb5-2"><a href="#cb5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb5-4"><a href="#cb5-4"></a>Z_pca <span class="op">=</span> pca.fit_transform(Z)</span>
+<span id="cb5-5"><a href="#cb5-5"></a>var_exp <span class="op">=</span> pca.explained_variance_ratio_</span>
+<span id="cb5-6"><a href="#cb5-6"></a></span>
+<span id="cb5-7"><a href="#cb5-7"></a>xlab <span class="op">=</span> <span class="ss">f"PC1 (</span><span class="sc">{</span>var_exp[<span class="dv">0</span>]<span class="sc">:.3f}</span><span class="ss">)"</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a>ylab <span class="op">=</span> <span class="ss">f"PC2 (</span><span class="sc">{</span>var_exp[<span class="dv">1</span>]<span class="sc">:.3f}</span><span class="ss">)"</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a></span>
+<span id="cb5-10"><a href="#cb5-10"></a>sns.scatterplot(x<span class="op">=</span>Z_pca[:,<span class="dv">0</span>], y<span class="op">=</span>Z_pca[:,<span class="dv">1</span>])</span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="co">#sns.scatterplot(x=Z_pca[:,0], y=Z_pca[:,1], hue=df["species"])</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a>plt.title(<span class="st">"PCA plot"</span>)</span>
+<span id="cb5-13"><a href="#cb5-13"></a>plt.xlabel(xlab)</span>
+<span id="cb5-14"><a href="#cb5-14"></a>plt.ylabel(ylab)</span>
+<span id="cb5-15"><a href="#cb5-15"></a>plt.tight_layout()</span>
+<span id="cb5-16"><a href="#cb5-16"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -596,23 +596,23 @@ shape(y) = (150,)</code></pre>
 <div id="cell-kmeans_clustering" class="cell" data-execution_count="5">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>kmeans <span class="op">=</span> KMeans(n_clusters<span class="op">=</span><span class="dv">3</span>, random_state<span class="op">=</span><span class="dv">42</span>, n_init<span class="op">=</span><span class="dv">5</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"cluster"</span>] <span class="op">=</span> kmeans.fit_predict(Z)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df,</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>df.index,</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"cluster"</span>,</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"species"</span>,</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">0.7</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>plt.yticks(<span class="bu">sorted</span>(df[<span class="st">"cluster"</span>].unique()))</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Data point index"</span>)</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Cluster ID"</span>)</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a>kmeans <span class="op">=</span> KMeans(n_clusters<span class="op">=</span><span class="dv">3</span>, random_state<span class="op">=</span><span class="dv">42</span>, n_init<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb6-4"><a href="#cb6-4"></a></span>
+<span id="cb6-5"><a href="#cb6-5"></a>df[<span class="st">"cluster"</span>] <span class="op">=</span> kmeans.fit_predict(Z)</span>
+<span id="cb6-6"><a href="#cb6-6"></a></span>
+<span id="cb6-7"><a href="#cb6-7"></a>sns.scatterplot(</span>
+<span id="cb6-8"><a href="#cb6-8"></a>    data<span class="op">=</span>df,</span>
+<span id="cb6-9"><a href="#cb6-9"></a>    x<span class="op">=</span>df.index,</span>
+<span id="cb6-10"><a href="#cb6-10"></a>    y<span class="op">=</span><span class="st">"cluster"</span>,</span>
+<span id="cb6-11"><a href="#cb6-11"></a>    hue<span class="op">=</span><span class="st">"species"</span>,</span>
+<span id="cb6-12"><a href="#cb6-12"></a>    alpha<span class="op">=</span><span class="fl">0.7</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a>)</span>
+<span id="cb6-14"><a href="#cb6-14"></a>plt.yticks(<span class="bu">sorted</span>(df[<span class="st">"cluster"</span>].unique()))</span>
+<span id="cb6-15"><a href="#cb6-15"></a>plt.xlabel(<span class="st">"Data point index"</span>)</span>
+<span id="cb6-16"><a href="#cb6-16"></a>plt.ylabel(<span class="st">"Cluster ID"</span>)</span>
+<span id="cb6-17"><a href="#cb6-17"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -625,12 +625,12 @@ shape(y) = (150,)</code></pre>
 <div id="cell-crosstab" class="cell" data-execution_count="6">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compare cluster with species annotation</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ct <span class="op">=</span> pd.crosstab(df[<span class="st">"cluster"</span>], df[<span class="st">"species"</span>])</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>plt.figure()</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>sns.heatmap(ct, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">"d"</span>, cmap<span class="op">=</span><span class="st">"coolwarm"</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># compare cluster with species annotation</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>ct <span class="op">=</span> pd.crosstab(df[<span class="st">"cluster"</span>], df[<span class="st">"species"</span>])</span>
+<span id="cb7-3"><a href="#cb7-3"></a></span>
+<span id="cb7-4"><a href="#cb7-4"></a>plt.figure()</span>
+<span id="cb7-5"><a href="#cb7-5"></a>sns.heatmap(ct, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">"d"</span>, cmap<span class="op">=</span><span class="st">"coolwarm"</span>)</span>
+<span id="cb7-6"><a href="#cb7-6"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -672,22 +672,22 @@ Note
 <div id="define_data" class="cell" data-execution_count="8">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'torch version:'</span>, torch.__version__)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># select two arbitrary Iris variables: x=X[:,2] and y=X[:,3]</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.as_tensor(X[:,<span class="dv">2</span>], dtype<span class="op">=</span>torch.float32)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> torch.as_tensor(X[:,<span class="dv">3</span>], dtype<span class="op">=</span>torch.float32)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># add dimension if missing: shape (n,) --&gt; (n,1)</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x.ndim <span class="op">==</span> <span class="dv">1</span>: </span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> x.unsqueeze(<span class="dv">1</span>) </span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> y.ndim <span class="op">==</span> <span class="dv">1</span>: </span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> y.unsqueeze(<span class="dv">1</span>)</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"x.shape: </span><span class="sc">{</span>x<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"y.shape: </span><span class="sc">{</span>y<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="im">import</span> torch</span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="bu">print</span>(<span class="st">'torch version:'</span>, torch.__version__)</span>
+<span id="cb8-4"><a href="#cb8-4"></a></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="co"># select two arbitrary Iris variables: x=X[:,2] and y=X[:,3]</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>x <span class="op">=</span> torch.as_tensor(X[:,<span class="dv">2</span>], dtype<span class="op">=</span>torch.float32)</span>
+<span id="cb8-7"><a href="#cb8-7"></a>y <span class="op">=</span> torch.as_tensor(X[:,<span class="dv">3</span>], dtype<span class="op">=</span>torch.float32)</span>
+<span id="cb8-8"><a href="#cb8-8"></a></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="co"># add dimension if missing: shape (n,) --&gt; (n,1)</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="cf">if</span> x.ndim <span class="op">==</span> <span class="dv">1</span>: </span>
+<span id="cb8-11"><a href="#cb8-11"></a>    x <span class="op">=</span> x.unsqueeze(<span class="dv">1</span>) </span>
+<span id="cb8-12"><a href="#cb8-12"></a><span class="cf">if</span> y.ndim <span class="op">==</span> <span class="dv">1</span>: </span>
+<span id="cb8-13"><a href="#cb8-13"></a>    y <span class="op">=</span> y.unsqueeze(<span class="dv">1</span>)</span>
+<span id="cb8-14"><a href="#cb8-14"></a></span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="bu">print</span>(<span class="ss">f"x.shape: </span><span class="sc">{</span>x<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-16"><a href="#cb8-16"></a><span class="bu">print</span>(<span class="ss">f"y.shape: </span><span class="sc">{</span>y<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>torch version: 2.7.1
@@ -707,11 +707,11 @@ y.shape: torch.Size([150, 1])</code></pre>
 <div id="iris_model" class="cell" data-execution_count="9">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># identical to the 1st lecture (same model)</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">42</span>)                 <span class="co"># set for reproducibility</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> torch.nn.Linear(<span class="dv">1</span>, <span class="dv">1</span>)         <span class="co"># n_in = 1, n_out = 1</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>loss_func <span class="op">=</span> torch.nn.MSELoss()        </span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>optimizer <span class="op">=</span> torch.optim.SGD(model.parameters())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># identical to the 1st lecture (same model)</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>torch.manual_seed(<span class="dv">42</span>)                 <span class="co"># set for reproducibility</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>model <span class="op">=</span> torch.nn.Linear(<span class="dv">1</span>, <span class="dv">1</span>)         <span class="co"># n_in = 1, n_out = 1</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>loss_func <span class="op">=</span> torch.nn.MSELoss()        </span>
+<span id="cb10-5"><a href="#cb10-5"></a>optimizer <span class="op">=</span> torch.optim.SGD(model.parameters())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -721,23 +721,23 @@ y.shape: torch.Size([150, 1])</code></pre>
 <div id="iris_training" class="cell" data-execution_count="10">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>losses <span class="op">=</span> []</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>model.train()</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2000</span>):</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    y_pred <span class="op">=</span> model(x)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> loss_func(y_pred, y)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    optimizer.zero_grad()</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    loss.backward()</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    optimizer.step()</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    losses.append(loss.item()) <span class="co"># keep track of losses</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co"># finished training. inspect model </span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean Squared Error (loss):    '</span>,loss.item())</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Parameters:'</span>)</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, p <span class="kw">in</span> model.named_parameters():</span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(name, p.detach())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>losses <span class="op">=</span> []</span>
+<span id="cb11-2"><a href="#cb11-2"></a>model.train()</span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2000</span>):</span>
+<span id="cb11-4"><a href="#cb11-4"></a>    y_pred <span class="op">=</span> model(x)</span>
+<span id="cb11-5"><a href="#cb11-5"></a>    loss <span class="op">=</span> loss_func(y_pred, y)</span>
+<span id="cb11-6"><a href="#cb11-6"></a></span>
+<span id="cb11-7"><a href="#cb11-7"></a>    optimizer.zero_grad()</span>
+<span id="cb11-8"><a href="#cb11-8"></a>    loss.backward()</span>
+<span id="cb11-9"><a href="#cb11-9"></a>    optimizer.step()</span>
+<span id="cb11-10"><a href="#cb11-10"></a></span>
+<span id="cb11-11"><a href="#cb11-11"></a>    losses.append(loss.item()) <span class="co"># keep track of losses</span></span>
+<span id="cb11-12"><a href="#cb11-12"></a></span>
+<span id="cb11-13"><a href="#cb11-13"></a><span class="co"># finished training. inspect model </span></span>
+<span id="cb11-14"><a href="#cb11-14"></a><span class="bu">print</span>(<span class="st">'Mean Squared Error (loss):    '</span>,loss.item())</span>
+<span id="cb11-15"><a href="#cb11-15"></a><span class="bu">print</span>(<span class="st">'Parameters:'</span>)</span>
+<span id="cb11-16"><a href="#cb11-16"></a><span class="cf">for</span> name, p <span class="kw">in</span> model.named_parameters():</span>
+<span id="cb11-17"><a href="#cb11-17"></a>    <span class="bu">print</span>(name, p.detach())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Mean Squared Error (loss):     0.0937623456120491
@@ -769,11 +769,11 @@ Note
 <div id="cell-iris_losses" class="cell" data-execution_count="11">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plt.figure()</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>plt.plot(losses)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'loss'</span>)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'epoch'</span>)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>plt.figure()</span>
+<span id="cb13-2"><a href="#cb13-2"></a>plt.plot(losses)</span>
+<span id="cb13-3"><a href="#cb13-3"></a>plt.ylabel(<span class="st">'loss'</span>)</span>
+<span id="cb13-4"><a href="#cb13-4"></a>plt.xlabel(<span class="st">'epoch'</span>)</span>
+<span id="cb13-5"><a href="#cb13-5"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -790,16 +790,16 @@ Note
 <div id="cell-model_evaluate" class="cell" data-execution_count="12">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">eval</span>()</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> torch.no_grad():</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    y_pred <span class="op">=</span> model(x)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_pred, y)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>plt.axline((<span class="dv">0</span>, <span class="dv">0</span>), slope<span class="op">=</span><span class="dv">1</span>, color<span class="op">=</span><span class="st">"orange"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'MSE = </span><span class="sc">{</span>loss<span class="sc">.</span>item()<span class="sc">:.4f}</span><span class="ss">'</span>)</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'y_pred'</span>)</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'y'</span>)</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>model.<span class="bu">eval</span>()</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="cf">with</span> torch.no_grad():</span>
+<span id="cb14-3"><a href="#cb14-3"></a>    y_pred <span class="op">=</span> model(x)</span>
+<span id="cb14-4"><a href="#cb14-4"></a></span>
+<span id="cb14-5"><a href="#cb14-5"></a>plt.scatter(y_pred, y)</span>
+<span id="cb14-6"><a href="#cb14-6"></a>plt.axline((<span class="dv">0</span>, <span class="dv">0</span>), slope<span class="op">=</span><span class="dv">1</span>, color<span class="op">=</span><span class="st">"orange"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>)</span>
+<span id="cb14-7"><a href="#cb14-7"></a>plt.title(<span class="ss">f'MSE = </span><span class="sc">{</span>loss<span class="sc">.</span>item()<span class="sc">:.4f}</span><span class="ss">'</span>)</span>
+<span id="cb14-8"><a href="#cb14-8"></a>plt.xlabel(<span class="st">'y_pred'</span>)</span>
+<span id="cb14-9"><a href="#cb14-9"></a>plt.ylabel(<span class="st">'y'</span>)</span>
+<span id="cb14-10"><a href="#cb14-10"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -836,21 +836,21 @@ Model Critique
 <div id="cell-iris_predict" class="cell preview-image" data-execution_count="13">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pick some range of new x-values (meaningful?)</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>x_new <span class="op">=</span> torch.arange(<span class="op">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="fl">0.5</span>).unsqueeze(<span class="dv">1</span>) <span class="co"># view(-1, 1)</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">eval</span>()</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> torch.no_grad():</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    y_pred <span class="op">=</span> model(x_new)</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># y_pred = y_pred.detach() # alternative: detach y_pred from computational graph</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>plt.scatter(x, y, label<span class="op">=</span><span class="st">"Data"</span>)</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>plt.plot(x_new, y_pred, c<span class="op">=</span><span class="st">"orange"</span>, label<span class="op">=</span><span class="st">"Model"</span>)</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'petal length'</span>)</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'petal width'</span>)</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># pick some range of new x-values (meaningful?)</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>x_new <span class="op">=</span> torch.arange(<span class="op">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="fl">0.5</span>).unsqueeze(<span class="dv">1</span>) <span class="co"># view(-1, 1)</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a></span>
+<span id="cb15-4"><a href="#cb15-4"></a>model.<span class="bu">eval</span>()</span>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="cf">with</span> torch.no_grad():</span>
+<span id="cb15-6"><a href="#cb15-6"></a>    y_pred <span class="op">=</span> model(x_new)</span>
+<span id="cb15-7"><a href="#cb15-7"></a></span>
+<span id="cb15-8"><a href="#cb15-8"></a><span class="co"># y_pred = y_pred.detach() # alternative: detach y_pred from computational graph</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a></span>
+<span id="cb15-10"><a href="#cb15-10"></a>plt.scatter(x, y, label<span class="op">=</span><span class="st">"Data"</span>)</span>
+<span id="cb15-11"><a href="#cb15-11"></a>plt.plot(x_new, y_pred, c<span class="op">=</span><span class="st">"orange"</span>, label<span class="op">=</span><span class="st">"Model"</span>)</span>
+<span id="cb15-12"><a href="#cb15-12"></a>plt.xlabel(<span class="st">'petal length'</span>)</span>
+<span id="cb15-13"><a href="#cb15-13"></a>plt.ylabel(<span class="st">'petal width'</span>)</span>
+<span id="cb15-14"><a href="#cb15-14"></a>plt.legend()</span>
+<span id="cb15-15"><a href="#cb15-15"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -903,45 +903,45 @@ Task: Improving the model
 <div id="cell-multivariate_multinomial" class="cell" data-execution_count="14">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, confusion_matrix, ConfusionMatrixDisplay</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> torch.tensor(iris.data, dtype<span class="op">=</span>torch.float32) <span class="co"># numeric measurements</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> torch.tensor(iris.target, dtype<span class="op">=</span>torch.<span class="bu">long</span>)  <span class="co"># class labels</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"X.shape = </span><span class="sc">{</span>X<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">, Y.shape = </span><span class="sc">{</span>Y<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co"># define train and test data sets</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>n_samples <span class="op">=</span> X.shape[<span class="dv">0</span>] <span class="co"># number of all samples</span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>n_train <span class="op">=</span> <span class="bu">int</span>(<span class="fl">0.8</span> <span class="op">*</span> n_samples) <span class="co"># number of training samples</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>perm <span class="op">=</span> torch.randperm(n_samples) <span class="co"># shuffled random indicies</span></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>i_train <span class="op">=</span> perm[:n_train] <span class="co"># train indices</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>i_test <span class="op">=</span> perm[n_train:] <span class="co"># test indices</span></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> nn.Linear(<span class="dv">4</span>, <span class="dv">3</span>) <span class="co"># n_in = 4, n_out = 3</span></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>loss_func <span class="op">=</span> nn.CrossEntropyLoss()</span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>optimizer <span class="op">=</span> torch.optim.SGD(model.parameters())</span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>model.train()</span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5000</span>):</span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>    yp <span class="op">=</span> model(X[i_train])</span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> loss_func(yp, Y[i_train])</span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>    optimizer.zero_grad()</span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>    loss.backward()</span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>    optimizer.step()</span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">eval</span>()</span>
-<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> model(X[i_test])</span>
-<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>y_pred_class <span class="op">=</span> torch.argmax(z, dim<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>y_true_class <span class="op">=</span> Y[i_test].numpy()</span>
-<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>acc <span class="op">=</span> accuracy_score(y_true_class, y_pred_class)</span>
-<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Accuracy: '</span>, acc)   </span>
-<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(y_true_class, y_pred_class)</span>
-<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>disp <span class="op">=</span> ConfusionMatrixDisplay(confusion_matrix<span class="op">=</span>cm,</span>
-<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>                              display_labels<span class="op">=</span>iris.target_names)</span>
-<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>disp.plot(cmap<span class="op">=</span><span class="st">'Blues'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="im">import</span> torch</span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, confusion_matrix, ConfusionMatrixDisplay</span>
+<span id="cb16-5"><a href="#cb16-5"></a></span>
+<span id="cb16-6"><a href="#cb16-6"></a>X <span class="op">=</span> torch.tensor(iris.data, dtype<span class="op">=</span>torch.float32) <span class="co"># numeric measurements</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a>Y <span class="op">=</span> torch.tensor(iris.target, dtype<span class="op">=</span>torch.<span class="bu">long</span>)  <span class="co"># class labels</span></span>
+<span id="cb16-8"><a href="#cb16-8"></a><span class="bu">print</span>(<span class="ss">f"X.shape = </span><span class="sc">{</span>X<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">, Y.shape = </span><span class="sc">{</span>Y<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb16-9"><a href="#cb16-9"></a></span>
+<span id="cb16-10"><a href="#cb16-10"></a><span class="co"># define train and test data sets</span></span>
+<span id="cb16-11"><a href="#cb16-11"></a>n_samples <span class="op">=</span> X.shape[<span class="dv">0</span>] <span class="co"># number of all samples</span></span>
+<span id="cb16-12"><a href="#cb16-12"></a>n_train <span class="op">=</span> <span class="bu">int</span>(<span class="fl">0.8</span> <span class="op">*</span> n_samples) <span class="co"># number of training samples</span></span>
+<span id="cb16-13"><a href="#cb16-13"></a>perm <span class="op">=</span> torch.randperm(n_samples) <span class="co"># shuffled random indicies</span></span>
+<span id="cb16-14"><a href="#cb16-14"></a>i_train <span class="op">=</span> perm[:n_train] <span class="co"># train indices</span></span>
+<span id="cb16-15"><a href="#cb16-15"></a>i_test <span class="op">=</span> perm[n_train:] <span class="co"># test indices</span></span>
+<span id="cb16-16"><a href="#cb16-16"></a></span>
+<span id="cb16-17"><a href="#cb16-17"></a>model <span class="op">=</span> nn.Linear(<span class="dv">4</span>, <span class="dv">3</span>) <span class="co"># n_in = 4, n_out = 3</span></span>
+<span id="cb16-18"><a href="#cb16-18"></a>loss_func <span class="op">=</span> nn.CrossEntropyLoss()</span>
+<span id="cb16-19"><a href="#cb16-19"></a>optimizer <span class="op">=</span> torch.optim.SGD(model.parameters())</span>
+<span id="cb16-20"><a href="#cb16-20"></a></span>
+<span id="cb16-21"><a href="#cb16-21"></a>model.train()</span>
+<span id="cb16-22"><a href="#cb16-22"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5000</span>):</span>
+<span id="cb16-23"><a href="#cb16-23"></a>    yp <span class="op">=</span> model(X[i_train])</span>
+<span id="cb16-24"><a href="#cb16-24"></a>    loss <span class="op">=</span> loss_func(yp, Y[i_train])</span>
+<span id="cb16-25"><a href="#cb16-25"></a>    optimizer.zero_grad()</span>
+<span id="cb16-26"><a href="#cb16-26"></a>    loss.backward()</span>
+<span id="cb16-27"><a href="#cb16-27"></a>    optimizer.step()</span>
+<span id="cb16-28"><a href="#cb16-28"></a></span>
+<span id="cb16-29"><a href="#cb16-29"></a>model.<span class="bu">eval</span>()</span>
+<span id="cb16-30"><a href="#cb16-30"></a>z <span class="op">=</span> model(X[i_test])</span>
+<span id="cb16-31"><a href="#cb16-31"></a>y_pred_class <span class="op">=</span> torch.argmax(z, dim<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb16-32"><a href="#cb16-32"></a>y_true_class <span class="op">=</span> Y[i_test].numpy()</span>
+<span id="cb16-33"><a href="#cb16-33"></a>acc <span class="op">=</span> accuracy_score(y_true_class, y_pred_class)</span>
+<span id="cb16-34"><a href="#cb16-34"></a><span class="bu">print</span>(<span class="st">'Accuracy: '</span>, acc)   </span>
+<span id="cb16-35"><a href="#cb16-35"></a></span>
+<span id="cb16-36"><a href="#cb16-36"></a>cm <span class="op">=</span> confusion_matrix(y_true_class, y_pred_class)</span>
+<span id="cb16-37"><a href="#cb16-37"></a>disp <span class="op">=</span> ConfusionMatrixDisplay(confusion_matrix<span class="op">=</span>cm,</span>
+<span id="cb16-38"><a href="#cb16-38"></a>                              display_labels<span class="op">=</span>iris.target_names)</span>
+<span id="cb16-39"><a href="#cb16-39"></a>disp.plot(cmap<span class="op">=</span><span class="st">'Blues'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>X.shape = torch.Size([150, 4]), Y.shape = torch.Size([150])
@@ -1425,385 +1425,385 @@ Accuracy:  1.0</code></pre>
     }
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb18" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Iris Models</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="an">jupyter:</span><span class="co"> pytorch</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> Unsupervised and Supervised Analysis</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="an">eval:</span><span class="co"> true</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="an">echo:</span><span class="co"> true</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="an">draft:</span><span class="co"> false</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## Import Packages</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: import</span></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> datasets</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Obtain Iris data set</span></span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: iris_get_data</span></span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>iris <span class="op">=</span> datasets.load_iris()</span>
-<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> iris.data    <span class="co"># measurements</span></span>
-<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> iris.target  <span class="co"># species label</span></span>
-<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"shape(X)   = </span><span class="sc">{</span>X<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"shape(y) = </span><span class="sc">{</span>y<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a><span class="fu">## Normalization</span></span>
-<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: scaling</span></span>
-<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a><span class="co"># scale transformation</span></span>
-<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
-<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> scaler.fit_transform(X)</span>
-<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a><span class="co"># create data frame</span></span>
-<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a>col_names <span class="op">=</span> [<span class="st">"SL"</span>, <span class="st">"SW"</span>, <span class="st">"PL"</span>, <span class="st">"PW"</span>]</span>
-<span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(Z, columns<span class="op">=</span>col_names)</span>
-<span id="cb18-54"><a href="#cb18-54" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"species"</span>] <span class="op">=</span> pd.Categorical.from_codes(y, iris.target_names)</span>
-<span id="cb18-55"><a href="#cb18-55" aria-hidden="true" tabindex="-1"></a>df.head()</span>
-<span id="cb18-56"><a href="#cb18-56" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-57"><a href="#cb18-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-58"><a href="#cb18-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-59"><a href="#cb18-59" aria-hidden="true" tabindex="-1"></a><span class="fu">## Unsupervised Analysis</span></span>
-<span id="cb18-60"><a href="#cb18-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-61"><a href="#cb18-61" aria-hidden="true" tabindex="-1"></a><span class="fu">### Principle Component Analysis</span></span>
-<span id="cb18-62"><a href="#cb18-62" aria-hidden="true" tabindex="-1"></a>.... provides very convenient low-dimensional representation of the data</span>
-<span id="cb18-65"><a href="#cb18-65" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-66"><a href="#cb18-66" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: PCA</span></span>
-<span id="cb18-67"><a href="#cb18-67" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
-<span id="cb18-68"><a href="#cb18-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-69"><a href="#cb18-69" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb18-70"><a href="#cb18-70" aria-hidden="true" tabindex="-1"></a>Z_pca <span class="op">=</span> pca.fit_transform(Z)</span>
-<span id="cb18-71"><a href="#cb18-71" aria-hidden="true" tabindex="-1"></a>var_exp <span class="op">=</span> pca.explained_variance_ratio_</span>
-<span id="cb18-72"><a href="#cb18-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-73"><a href="#cb18-73" aria-hidden="true" tabindex="-1"></a>xlab <span class="op">=</span> <span class="ss">f"PC1 (</span><span class="sc">{</span>var_exp[<span class="dv">0</span>]<span class="sc">:.3f}</span><span class="ss">)"</span></span>
-<span id="cb18-74"><a href="#cb18-74" aria-hidden="true" tabindex="-1"></a>ylab <span class="op">=</span> <span class="ss">f"PC2 (</span><span class="sc">{</span>var_exp[<span class="dv">1</span>]<span class="sc">:.3f}</span><span class="ss">)"</span></span>
-<span id="cb18-75"><a href="#cb18-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-76"><a href="#cb18-76" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(x<span class="op">=</span>Z_pca[:,<span class="dv">0</span>], y<span class="op">=</span>Z_pca[:,<span class="dv">1</span>])</span>
-<span id="cb18-77"><a href="#cb18-77" aria-hidden="true" tabindex="-1"></a><span class="co">#sns.scatterplot(x=Z_pca[:,0], y=Z_pca[:,1], hue=df["species"])</span></span>
-<span id="cb18-78"><a href="#cb18-78" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"PCA plot"</span>)</span>
-<span id="cb18-79"><a href="#cb18-79" aria-hidden="true" tabindex="-1"></a>plt.xlabel(xlab)</span>
-<span id="cb18-80"><a href="#cb18-80" aria-hidden="true" tabindex="-1"></a>plt.ylabel(ylab)</span>
-<span id="cb18-81"><a href="#cb18-81" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb18-82"><a href="#cb18-82" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb18-83"><a href="#cb18-83" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-84"><a href="#cb18-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-85"><a href="#cb18-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-86"><a href="#cb18-86" aria-hidden="true" tabindex="-1"></a><span class="fu">### Cluster Analysis (kmeans)</span></span>
-<span id="cb18-87"><a href="#cb18-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-88"><a href="#cb18-88" aria-hidden="true" tabindex="-1"></a>... represent 4D data points by simple cluster-ID</span>
-<span id="cb18-89"><a href="#cb18-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-90"><a href="#cb18-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-93"><a href="#cb18-93" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-94"><a href="#cb18-94" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: kmeans_clustering</span></span>
-<span id="cb18-95"><a href="#cb18-95" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
-<span id="cb18-96"><a href="#cb18-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-97"><a href="#cb18-97" aria-hidden="true" tabindex="-1"></a>kmeans <span class="op">=</span> KMeans(n_clusters<span class="op">=</span><span class="dv">3</span>, random_state<span class="op">=</span><span class="dv">42</span>, n_init<span class="op">=</span><span class="dv">5</span>)</span>
-<span id="cb18-98"><a href="#cb18-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-99"><a href="#cb18-99" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"cluster"</span>] <span class="op">=</span> kmeans.fit_predict(Z)</span>
-<span id="cb18-100"><a href="#cb18-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-101"><a href="#cb18-101" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(</span>
-<span id="cb18-102"><a href="#cb18-102" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df,</span>
-<span id="cb18-103"><a href="#cb18-103" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>df.index,</span>
-<span id="cb18-104"><a href="#cb18-104" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"cluster"</span>,</span>
-<span id="cb18-105"><a href="#cb18-105" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"species"</span>,</span>
-<span id="cb18-106"><a href="#cb18-106" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">0.7</span></span>
-<span id="cb18-107"><a href="#cb18-107" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-108"><a href="#cb18-108" aria-hidden="true" tabindex="-1"></a>plt.yticks(<span class="bu">sorted</span>(df[<span class="st">"cluster"</span>].unique()))</span>
-<span id="cb18-109"><a href="#cb18-109" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Data point index"</span>)</span>
-<span id="cb18-110"><a href="#cb18-110" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Cluster ID"</span>)</span>
-<span id="cb18-111"><a href="#cb18-111" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb18-112"><a href="#cb18-112" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-113"><a href="#cb18-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-114"><a href="#cb18-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-117"><a href="#cb18-117" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-118"><a href="#cb18-118" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: crosstab</span></span>
-<span id="cb18-119"><a href="#cb18-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-120"><a href="#cb18-120" aria-hidden="true" tabindex="-1"></a><span class="co"># compare cluster with species annotation</span></span>
-<span id="cb18-121"><a href="#cb18-121" aria-hidden="true" tabindex="-1"></a>ct <span class="op">=</span> pd.crosstab(df[<span class="st">"cluster"</span>], df[<span class="st">"species"</span>])</span>
-<span id="cb18-122"><a href="#cb18-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-123"><a href="#cb18-123" aria-hidden="true" tabindex="-1"></a>plt.figure()</span>
-<span id="cb18-124"><a href="#cb18-124" aria-hidden="true" tabindex="-1"></a>sns.heatmap(ct, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">"d"</span>, cmap<span class="op">=</span><span class="st">"coolwarm"</span>)</span>
-<span id="cb18-125"><a href="#cb18-125" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb18-126"><a href="#cb18-126" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-127"><a href="#cb18-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-130"><a href="#cb18-130" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-131"><a href="#cb18-131" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: heatmap_cluster_species</span></span>
-<span id="cb18-132"><a href="#cb18-132" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb18-133"><a href="#cb18-133" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb18-134"><a href="#cb18-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-135"><a href="#cb18-135" aria-hidden="true" tabindex="-1"></a>clusters <span class="op">=</span> df[<span class="st">"cluster"</span>].unique()</span>
-<span id="cb18-136"><a href="#cb18-136" aria-hidden="true" tabindex="-1"></a>nc <span class="op">=</span> <span class="bu">len</span>(clusters)</span>
-<span id="cb18-137"><a href="#cb18-137" aria-hidden="true" tabindex="-1"></a>species <span class="op">=</span> df[<span class="st">"species"</span>].unique().astype(<span class="bu">str</span>)</span>
-<span id="cb18-138"><a href="#cb18-138" aria-hidden="true" tabindex="-1"></a>ns<span class="op">=</span><span class="bu">len</span>(species)</span>
-<span id="cb18-139"><a href="#cb18-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-140"><a href="#cb18-140" aria-hidden="true" tabindex="-1"></a>palette <span class="op">=</span> sns.color_palette(<span class="st">"tab10"</span>, nc <span class="op">+</span> ns)</span>
-<span id="cb18-141"><a href="#cb18-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-142"><a href="#cb18-142" aria-hidden="true" tabindex="-1"></a>cluster_lut <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(</span>
-<span id="cb18-143"><a href="#cb18-143" aria-hidden="true" tabindex="-1"></a>    <span class="bu">sorted</span>(clusters),</span>
-<span id="cb18-144"><a href="#cb18-144" aria-hidden="true" tabindex="-1"></a>    palette[:nc]</span>
-<span id="cb18-145"><a href="#cb18-145" aria-hidden="true" tabindex="-1"></a>))</span>
-<span id="cb18-146"><a href="#cb18-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-147"><a href="#cb18-147" aria-hidden="true" tabindex="-1"></a>species_lut <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(</span>
-<span id="cb18-148"><a href="#cb18-148" aria-hidden="true" tabindex="-1"></a>    species,</span>
-<span id="cb18-149"><a href="#cb18-149" aria-hidden="true" tabindex="-1"></a>    palette[nc:(nc<span class="op">+</span>ns)]</span>
-<span id="cb18-150"><a href="#cb18-150" aria-hidden="true" tabindex="-1"></a>))</span>
-<span id="cb18-151"><a href="#cb18-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-152"><a href="#cb18-152" aria-hidden="true" tabindex="-1"></a>row_colors <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb18-153"><a href="#cb18-153" aria-hidden="true" tabindex="-1"></a>    <span class="st">"cluster"</span>: df[<span class="st">"cluster"</span>].astype(<span class="bu">object</span>).<span class="bu">map</span>(cluster_lut),</span>
-<span id="cb18-154"><a href="#cb18-154" aria-hidden="true" tabindex="-1"></a>    <span class="st">"species"</span>: df[<span class="st">"species"</span>].astype(<span class="bu">str</span>).<span class="bu">map</span>(species_lut)</span>
-<span id="cb18-155"><a href="#cb18-155" aria-hidden="true" tabindex="-1"></a>}, index<span class="op">=</span>df.index)</span>
-<span id="cb18-156"><a href="#cb18-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-157"><a href="#cb18-157" aria-hidden="true" tabindex="-1"></a>Z_df <span class="op">=</span> pd.DataFrame(Z, index<span class="op">=</span>df.index)</span>
-<span id="cb18-158"><a href="#cb18-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-159"><a href="#cb18-159" aria-hidden="true" tabindex="-1"></a>sns.clustermap(</span>
-<span id="cb18-160"><a href="#cb18-160" aria-hidden="true" tabindex="-1"></a>    Z_df,</span>
-<span id="cb18-161"><a href="#cb18-161" aria-hidden="true" tabindex="-1"></a>    row_colors<span class="op">=</span>row_colors,</span>
-<span id="cb18-162"><a href="#cb18-162" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">"vlag"</span>,</span>
-<span id="cb18-163"><a href="#cb18-163" aria-hidden="true" tabindex="-1"></a>    row_cluster<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb18-164"><a href="#cb18-164" aria-hidden="true" tabindex="-1"></a>    col_cluster<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb18-165"><a href="#cb18-165" aria-hidden="true" tabindex="-1"></a>    yticklabels<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb18-166"><a href="#cb18-166" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">10</span>)</span>
-<span id="cb18-167"><a href="#cb18-167" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-168"><a href="#cb18-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-169"><a href="#cb18-169" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb18-170"><a href="#cb18-170" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-171"><a href="#cb18-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-172"><a href="#cb18-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-173"><a href="#cb18-173" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb18-174"><a href="#cb18-174" aria-hidden="true" tabindex="-1"></a><span class="fu">### Note</span></span>
-<span id="cb18-175"><a href="#cb18-175" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>each data point is mapped onto a cluster-ID</span>
-<span id="cb18-176"><a href="#cb18-176" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>need to specify number of clusters, initializations</span>
-<span id="cb18-177"><a href="#cb18-177" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>iterative solutions</span>
-<span id="cb18-178"><a href="#cb18-178" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>requires sample distances and feature normalization</span>
-<span id="cb18-179"><a href="#cb18-179" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>no "target" information ($y$ is not used) $\to$ **unsupervised**</span>
-<span id="cb18-180"><a href="#cb18-180" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>clusterID != species label</span>
-<span id="cb18-181"><a href="#cb18-181" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>many more cluster algorithms</span>
-<span id="cb18-182"><a href="#cb18-182" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb18-183"><a href="#cb18-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-184"><a href="#cb18-184" aria-hidden="true" tabindex="-1"></a><span class="fu">## Supervised Model: $x \to y$</span></span>
-<span id="cb18-185"><a href="#cb18-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-186"><a href="#cb18-186" aria-hidden="true" tabindex="-1"></a><span class="fu">### Process Data</span></span>
-<span id="cb18-187"><a href="#cb18-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-188"><a href="#cb18-188" aria-hidden="true" tabindex="-1"></a>First we need to define input data (<span class="in">`x`</span>) and output/target data (<span class="in">`y`</span>).</span>
-<span id="cb18-189"><a href="#cb18-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-190"><a href="#cb18-190" aria-hidden="true" tabindex="-1"></a>Usually necessary: reformating and reshaping (numpy $\to$ tensor)</span>
-<span id="cb18-191"><a href="#cb18-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-194"><a href="#cb18-194" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-195"><a href="#cb18-195" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: define_data</span></span>
-<span id="cb18-196"><a href="#cb18-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-197"><a href="#cb18-197" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb18-198"><a href="#cb18-198" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb18-199"><a href="#cb18-199" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'torch version:'</span>, torch.__version__)</span>
-<span id="cb18-200"><a href="#cb18-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-201"><a href="#cb18-201" aria-hidden="true" tabindex="-1"></a><span class="co"># select two arbitrary Iris variables: x=X[:,2] and y=X[:,3]</span></span>
-<span id="cb18-202"><a href="#cb18-202" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.as_tensor(X[:,<span class="dv">2</span>], dtype<span class="op">=</span>torch.float32)</span>
-<span id="cb18-203"><a href="#cb18-203" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> torch.as_tensor(X[:,<span class="dv">3</span>], dtype<span class="op">=</span>torch.float32)</span>
-<span id="cb18-204"><a href="#cb18-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-205"><a href="#cb18-205" aria-hidden="true" tabindex="-1"></a><span class="co"># add dimension if missing: shape (n,) --&gt; (n,1)</span></span>
-<span id="cb18-206"><a href="#cb18-206" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x.ndim <span class="op">==</span> <span class="dv">1</span>: </span>
-<span id="cb18-207"><a href="#cb18-207" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> x.unsqueeze(<span class="dv">1</span>) </span>
-<span id="cb18-208"><a href="#cb18-208" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> y.ndim <span class="op">==</span> <span class="dv">1</span>: </span>
-<span id="cb18-209"><a href="#cb18-209" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> y.unsqueeze(<span class="dv">1</span>)</span>
-<span id="cb18-210"><a href="#cb18-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-211"><a href="#cb18-211" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"x.shape: </span><span class="sc">{</span>x<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb18-212"><a href="#cb18-212" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"y.shape: </span><span class="sc">{</span>y<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb18-213"><a href="#cb18-213" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-214"><a href="#cb18-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-215"><a href="#cb18-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-216"><a href="#cb18-216" aria-hidden="true" tabindex="-1"></a><span class="fu">### Define Model</span></span>
-<span id="cb18-217"><a href="#cb18-217" aria-hidden="true" tabindex="-1"></a>Use PyTorch to define </span>
-<span id="cb18-218"><a href="#cb18-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-219"><a href="#cb18-219" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>a simple linear model (with one input and one output),</span>
-<span id="cb18-220"><a href="#cb18-220" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>a suitable loss function, and </span>
-<span id="cb18-221"><a href="#cb18-221" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>an optimizer.</span>
-<span id="cb18-222"><a href="#cb18-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-225"><a href="#cb18-225" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-226"><a href="#cb18-226" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: iris_model</span></span>
-<span id="cb18-227"><a href="#cb18-227" aria-hidden="true" tabindex="-1"></a><span class="co"># identical to the 1st lecture (same model)</span></span>
-<span id="cb18-228"><a href="#cb18-228" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">42</span>)                 <span class="co"># set for reproducibility</span></span>
-<span id="cb18-229"><a href="#cb18-229" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> torch.nn.Linear(<span class="dv">1</span>, <span class="dv">1</span>)         <span class="co"># n_in = 1, n_out = 1</span></span>
-<span id="cb18-230"><a href="#cb18-230" aria-hidden="true" tabindex="-1"></a>loss_func <span class="op">=</span> torch.nn.MSELoss()        </span>
-<span id="cb18-231"><a href="#cb18-231" aria-hidden="true" tabindex="-1"></a>optimizer <span class="op">=</span> torch.optim.SGD(model.parameters())</span>
-<span id="cb18-232"><a href="#cb18-232" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-233"><a href="#cb18-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-234"><a href="#cb18-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-235"><a href="#cb18-235" aria-hidden="true" tabindex="-1"></a><span class="fu">### Train the Model </span></span>
-<span id="cb18-236"><a href="#cb18-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-237"><a href="#cb18-237" aria-hidden="true" tabindex="-1"></a>Chose a number of iterations (e.g 100 "epochs") and keep track of the loss</span>
-<span id="cb18-238"><a href="#cb18-238" aria-hidden="true" tabindex="-1"></a>at each iteration. </span>
-<span id="cb18-239"><a href="#cb18-239" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-242"><a href="#cb18-242" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-243"><a href="#cb18-243" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: iris_training</span></span>
-<span id="cb18-244"><a href="#cb18-244" aria-hidden="true" tabindex="-1"></a>losses <span class="op">=</span> []</span>
-<span id="cb18-245"><a href="#cb18-245" aria-hidden="true" tabindex="-1"></a>model.train()</span>
-<span id="cb18-246"><a href="#cb18-246" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2000</span>):</span>
-<span id="cb18-247"><a href="#cb18-247" aria-hidden="true" tabindex="-1"></a>    y_pred <span class="op">=</span> model(x)</span>
-<span id="cb18-248"><a href="#cb18-248" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> loss_func(y_pred, y)</span>
-<span id="cb18-249"><a href="#cb18-249" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-250"><a href="#cb18-250" aria-hidden="true" tabindex="-1"></a>    optimizer.zero_grad()</span>
-<span id="cb18-251"><a href="#cb18-251" aria-hidden="true" tabindex="-1"></a>    loss.backward()</span>
-<span id="cb18-252"><a href="#cb18-252" aria-hidden="true" tabindex="-1"></a>    optimizer.step()</span>
-<span id="cb18-253"><a href="#cb18-253" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-254"><a href="#cb18-254" aria-hidden="true" tabindex="-1"></a>    losses.append(loss.item()) <span class="co"># keep track of losses</span></span>
-<span id="cb18-255"><a href="#cb18-255" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-256"><a href="#cb18-256" aria-hidden="true" tabindex="-1"></a><span class="co"># finished training. inspect model </span></span>
-<span id="cb18-257"><a href="#cb18-257" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean Squared Error (loss):    '</span>,loss.item())</span>
-<span id="cb18-258"><a href="#cb18-258" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Parameters:'</span>)</span>
-<span id="cb18-259"><a href="#cb18-259" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, p <span class="kw">in</span> model.named_parameters():</span>
-<span id="cb18-260"><a href="#cb18-260" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(name, p.detach())</span>
-<span id="cb18-261"><a href="#cb18-261" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-262"><a href="#cb18-262" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-263"><a href="#cb18-263" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb18-264"><a href="#cb18-264" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>"weight" = slope parameter</span>
-<span id="cb18-265"><a href="#cb18-265" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>"bias" = intercept</span>
-<span id="cb18-266"><a href="#cb18-266" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb18-267"><a href="#cb18-267" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-268"><a href="#cb18-268" aria-hidden="true" tabindex="-1"></a><span class="fu">### Evaluate Training: loss history</span></span>
-<span id="cb18-269"><a href="#cb18-269" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-270"><a href="#cb18-270" aria-hidden="true" tabindex="-1"></a>Plot the losses against the number of iterations: reduction &amp; plateau?</span>
-<span id="cb18-273"><a href="#cb18-273" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-274"><a href="#cb18-274" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: iris_losses</span></span>
-<span id="cb18-275"><a href="#cb18-275" aria-hidden="true" tabindex="-1"></a>plt.figure()</span>
-<span id="cb18-276"><a href="#cb18-276" aria-hidden="true" tabindex="-1"></a>plt.plot(losses)</span>
-<span id="cb18-277"><a href="#cb18-277" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'loss'</span>)</span>
-<span id="cb18-278"><a href="#cb18-278" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'epoch'</span>)</span>
-<span id="cb18-279"><a href="#cb18-279" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb18-280"><a href="#cb18-280" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-281"><a href="#cb18-281" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-282"><a href="#cb18-282" aria-hidden="true" tabindex="-1"></a><span class="fu">### Evaluate Model</span></span>
-<span id="cb18-283"><a href="#cb18-283" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-284"><a href="#cb18-284" aria-hidden="true" tabindex="-1"></a>Compare model output $y_{pred}$ to known output $y$.</span>
-<span id="cb18-285"><a href="#cb18-285" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-288"><a href="#cb18-288" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-289"><a href="#cb18-289" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: model_evaluate</span></span>
-<span id="cb18-290"><a href="#cb18-290" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-291"><a href="#cb18-291" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">eval</span>()</span>
-<span id="cb18-292"><a href="#cb18-292" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> torch.no_grad():</span>
-<span id="cb18-293"><a href="#cb18-293" aria-hidden="true" tabindex="-1"></a>    y_pred <span class="op">=</span> model(x)</span>
-<span id="cb18-294"><a href="#cb18-294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-295"><a href="#cb18-295" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_pred, y)</span>
-<span id="cb18-296"><a href="#cb18-296" aria-hidden="true" tabindex="-1"></a>plt.axline((<span class="dv">0</span>, <span class="dv">0</span>), slope<span class="op">=</span><span class="dv">1</span>, color<span class="op">=</span><span class="st">"orange"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>)</span>
-<span id="cb18-297"><a href="#cb18-297" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'MSE = </span><span class="sc">{</span>loss<span class="sc">.</span>item()<span class="sc">:.4f}</span><span class="ss">'</span>)</span>
-<span id="cb18-298"><a href="#cb18-298" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'y_pred'</span>)</span>
-<span id="cb18-299"><a href="#cb18-299" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'y'</span>)</span>
-<span id="cb18-300"><a href="#cb18-300" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb18-301"><a href="#cb18-301" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-302"><a href="#cb18-302" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-303"><a href="#cb18-303" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-304"><a href="#cb18-304" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-305"><a href="#cb18-305" aria-hidden="true" tabindex="-1"></a>::: callout-warning</span>
-<span id="cb18-306"><a href="#cb18-306" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model Critique</span></span>
-<span id="cb18-307"><a href="#cb18-307" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>there is no perfect fit because </span>
-<span id="cb18-308"><a href="#cb18-308" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>learning has not yet converged</span>
-<span id="cb18-309"><a href="#cb18-309" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>real data is noisy MSE $\ne 0$</span>
-<span id="cb18-310"><a href="#cb18-310" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Model Evaluation is too optimistic: why?</span>
-<span id="cb18-311"><a href="#cb18-311" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb18-312"><a href="#cb18-312" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-313"><a href="#cb18-313" aria-hidden="true" tabindex="-1"></a><span class="fu">### Make Predicitons</span></span>
-<span id="cb18-314"><a href="#cb18-314" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-315"><a href="#cb18-315" aria-hidden="true" tabindex="-1"></a>Use the trained model to predict output $y_{pred}$ for **new** $x$-values.</span>
-<span id="cb18-316"><a href="#cb18-316" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-319"><a href="#cb18-319" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-320"><a href="#cb18-320" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: iris_predict</span></span>
-<span id="cb18-321"><a href="#cb18-321" aria-hidden="true" tabindex="-1"></a><span class="co">#| classes: preview-image</span></span>
-<span id="cb18-322"><a href="#cb18-322" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-323"><a href="#cb18-323" aria-hidden="true" tabindex="-1"></a><span class="co"># pick some range of new x-values (meaningful?)</span></span>
-<span id="cb18-324"><a href="#cb18-324" aria-hidden="true" tabindex="-1"></a>x_new <span class="op">=</span> torch.arange(<span class="op">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="fl">0.5</span>).unsqueeze(<span class="dv">1</span>) <span class="co"># view(-1, 1)</span></span>
-<span id="cb18-325"><a href="#cb18-325" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-326"><a href="#cb18-326" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">eval</span>()</span>
-<span id="cb18-327"><a href="#cb18-327" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> torch.no_grad():</span>
-<span id="cb18-328"><a href="#cb18-328" aria-hidden="true" tabindex="-1"></a>    y_pred <span class="op">=</span> model(x_new)</span>
-<span id="cb18-329"><a href="#cb18-329" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-330"><a href="#cb18-330" aria-hidden="true" tabindex="-1"></a><span class="co"># y_pred = y_pred.detach() # alternative: detach y_pred from computational graph</span></span>
-<span id="cb18-331"><a href="#cb18-331" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-332"><a href="#cb18-332" aria-hidden="true" tabindex="-1"></a>plt.scatter(x, y, label<span class="op">=</span><span class="st">"Data"</span>)</span>
-<span id="cb18-333"><a href="#cb18-333" aria-hidden="true" tabindex="-1"></a>plt.plot(x_new, y_pred, c<span class="op">=</span><span class="st">"orange"</span>, label<span class="op">=</span><span class="st">"Model"</span>)</span>
-<span id="cb18-334"><a href="#cb18-334" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'petal length'</span>)</span>
-<span id="cb18-335"><a href="#cb18-335" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'petal width'</span>)</span>
-<span id="cb18-336"><a href="#cb18-336" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb18-337"><a href="#cb18-337" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb18-338"><a href="#cb18-338" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-339"><a href="#cb18-339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-340"><a href="#cb18-340" aria-hidden="true" tabindex="-1"></a>::: callout-warning</span>
-<span id="cb18-341"><a href="#cb18-341" aria-hidden="true" tabindex="-1"></a><span class="fu">### More Critique</span></span>
-<span id="cb18-342"><a href="#cb18-342" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Models are ignorant:  What is the Petal.Width for Petal.Length = -5cm ?</span>
-<span id="cb18-343"><a href="#cb18-343" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Models are not necessarily causal</span>
-<span id="cb18-344"><a href="#cb18-344" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>"All models are wrong, some are useful."</span>
-<span id="cb18-345"><a href="#cb18-345" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb18-346"><a href="#cb18-346" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-347"><a href="#cb18-347" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-348"><a href="#cb18-348" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb18-349"><a href="#cb18-349" aria-hidden="true" tabindex="-1"></a><span class="fu">## Task: Improving the model</span></span>
-<span id="cb18-350"><a href="#cb18-350" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-351"><a href="#cb18-351" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Go back to the data definition an replace $x$ (predictor = Petal Length) with the first 3 variables of the iris data. Goal: predict $y$ ( = target = Petal Width = 4th variable) </span>
-<span id="cb18-352"><a href="#cb18-352" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Adjust the linear model to make it a "multivariate" linear model</span>
-<span id="cb18-353"><a href="#cb18-353" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Train the model for a suitable number of iterations - and plot the loss history</span>
-<span id="cb18-354"><a href="#cb18-354" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Take note of the final loss (MSE). Compare it between the simple and multivariate linear model. Has it improved (reduced)?</span>
-<span id="cb18-355"><a href="#cb18-355" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb18-356"><a href="#cb18-356" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-357"><a href="#cb18-357" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-358"><a href="#cb18-358" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-359"><a href="#cb18-359" aria-hidden="true" tabindex="-1"></a><span class="fu">## Multivariate Multinomial Regression</span></span>
-<span id="cb18-360"><a href="#cb18-360" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-361"><a href="#cb18-361" aria-hidden="true" tabindex="-1"></a>... with test-train split</span>
-<span id="cb18-362"><a href="#cb18-362" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-365"><a href="#cb18-365" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-366"><a href="#cb18-366" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: multivariate_multinomial</span></span>
-<span id="cb18-367"><a href="#cb18-367" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-368"><a href="#cb18-368" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb18-369"><a href="#cb18-369" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb18-370"><a href="#cb18-370" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
-<span id="cb18-371"><a href="#cb18-371" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, confusion_matrix, ConfusionMatrixDisplay</span>
-<span id="cb18-372"><a href="#cb18-372" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-373"><a href="#cb18-373" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> torch.tensor(iris.data, dtype<span class="op">=</span>torch.float32) <span class="co"># numeric measurements</span></span>
-<span id="cb18-374"><a href="#cb18-374" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> torch.tensor(iris.target, dtype<span class="op">=</span>torch.<span class="bu">long</span>)  <span class="co"># class labels</span></span>
-<span id="cb18-375"><a href="#cb18-375" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"X.shape = </span><span class="sc">{</span>X<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">, Y.shape = </span><span class="sc">{</span>Y<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb18-376"><a href="#cb18-376" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-377"><a href="#cb18-377" aria-hidden="true" tabindex="-1"></a><span class="co"># define train and test data sets</span></span>
-<span id="cb18-378"><a href="#cb18-378" aria-hidden="true" tabindex="-1"></a>n_samples <span class="op">=</span> X.shape[<span class="dv">0</span>] <span class="co"># number of all samples</span></span>
-<span id="cb18-379"><a href="#cb18-379" aria-hidden="true" tabindex="-1"></a>n_train <span class="op">=</span> <span class="bu">int</span>(<span class="fl">0.8</span> <span class="op">*</span> n_samples) <span class="co"># number of training samples</span></span>
-<span id="cb18-380"><a href="#cb18-380" aria-hidden="true" tabindex="-1"></a>perm <span class="op">=</span> torch.randperm(n_samples) <span class="co"># shuffled random indicies</span></span>
-<span id="cb18-381"><a href="#cb18-381" aria-hidden="true" tabindex="-1"></a>i_train <span class="op">=</span> perm[:n_train] <span class="co"># train indices</span></span>
-<span id="cb18-382"><a href="#cb18-382" aria-hidden="true" tabindex="-1"></a>i_test <span class="op">=</span> perm[n_train:] <span class="co"># test indices</span></span>
-<span id="cb18-383"><a href="#cb18-383" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-384"><a href="#cb18-384" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> nn.Linear(<span class="dv">4</span>, <span class="dv">3</span>) <span class="co"># n_in = 4, n_out = 3</span></span>
-<span id="cb18-385"><a href="#cb18-385" aria-hidden="true" tabindex="-1"></a>loss_func <span class="op">=</span> nn.CrossEntropyLoss()</span>
-<span id="cb18-386"><a href="#cb18-386" aria-hidden="true" tabindex="-1"></a>optimizer <span class="op">=</span> torch.optim.SGD(model.parameters())</span>
-<span id="cb18-387"><a href="#cb18-387" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-388"><a href="#cb18-388" aria-hidden="true" tabindex="-1"></a>model.train()</span>
-<span id="cb18-389"><a href="#cb18-389" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5000</span>):</span>
-<span id="cb18-390"><a href="#cb18-390" aria-hidden="true" tabindex="-1"></a>    yp <span class="op">=</span> model(X[i_train])</span>
-<span id="cb18-391"><a href="#cb18-391" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> loss_func(yp, Y[i_train])</span>
-<span id="cb18-392"><a href="#cb18-392" aria-hidden="true" tabindex="-1"></a>    optimizer.zero_grad()</span>
-<span id="cb18-393"><a href="#cb18-393" aria-hidden="true" tabindex="-1"></a>    loss.backward()</span>
-<span id="cb18-394"><a href="#cb18-394" aria-hidden="true" tabindex="-1"></a>    optimizer.step()</span>
-<span id="cb18-395"><a href="#cb18-395" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-396"><a href="#cb18-396" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">eval</span>()</span>
-<span id="cb18-397"><a href="#cb18-397" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> model(X[i_test])</span>
-<span id="cb18-398"><a href="#cb18-398" aria-hidden="true" tabindex="-1"></a>y_pred_class <span class="op">=</span> torch.argmax(z, dim<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb18-399"><a href="#cb18-399" aria-hidden="true" tabindex="-1"></a>y_true_class <span class="op">=</span> Y[i_test].numpy()</span>
-<span id="cb18-400"><a href="#cb18-400" aria-hidden="true" tabindex="-1"></a>acc <span class="op">=</span> accuracy_score(y_true_class, y_pred_class)</span>
-<span id="cb18-401"><a href="#cb18-401" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Accuracy: '</span>, acc)   </span>
-<span id="cb18-402"><a href="#cb18-402" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-403"><a href="#cb18-403" aria-hidden="true" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(y_true_class, y_pred_class)</span>
-<span id="cb18-404"><a href="#cb18-404" aria-hidden="true" tabindex="-1"></a>disp <span class="op">=</span> ConfusionMatrixDisplay(confusion_matrix<span class="op">=</span>cm,</span>
-<span id="cb18-405"><a href="#cb18-405" aria-hidden="true" tabindex="-1"></a>                              display_labels<span class="op">=</span>iris.target_names)</span>
-<span id="cb18-406"><a href="#cb18-406" aria-hidden="true" tabindex="-1"></a>disp.plot(cmap<span class="op">=</span><span class="st">'Blues'</span>)</span>
-<span id="cb18-407"><a href="#cb18-407" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<div class="sourceCode" id="cb18" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb18-1"><a href="#cb18-1"></a><span class="co">---</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="an">title:</span><span class="co"> Iris Models</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="an">jupyter:</span><span class="co"> pytorch</span></span>
+<span id="cb18-4"><a href="#cb18-4"></a><span class="an">description:</span><span class="co"> Unsupervised and Supervised Analysis</span></span>
+<span id="cb18-5"><a href="#cb18-5"></a><span class="an">eval:</span><span class="co"> true</span></span>
+<span id="cb18-6"><a href="#cb18-6"></a><span class="an">echo:</span><span class="co"> true</span></span>
+<span id="cb18-7"><a href="#cb18-7"></a><span class="an">draft:</span><span class="co"> false</span></span>
+<span id="cb18-8"><a href="#cb18-8"></a><span class="co">---</span></span>
+<span id="cb18-9"><a href="#cb18-9"></a></span>
+<span id="cb18-10"><a href="#cb18-10"></a><span class="fu">## Import Packages</span></span>
+<span id="cb18-11"><a href="#cb18-11"></a></span>
+<span id="cb18-14"><a href="#cb18-14"></a><span class="in">```{python}</span></span>
+<span id="cb18-15"><a href="#cb18-15"></a><span class="co">#| label: import</span></span>
+<span id="cb18-16"><a href="#cb18-16"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb18-17"><a href="#cb18-17"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb18-18"><a href="#cb18-18"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb18-19"><a href="#cb18-19"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb18-20"><a href="#cb18-20"></a><span class="im">from</span> sklearn <span class="im">import</span> datasets</span>
+<span id="cb18-21"><a href="#cb18-21"></a><span class="in">```</span></span>
+<span id="cb18-22"><a href="#cb18-22"></a></span>
+<span id="cb18-23"><a href="#cb18-23"></a><span class="fu">## Obtain Iris data set</span></span>
+<span id="cb18-24"><a href="#cb18-24"></a></span>
+<span id="cb18-27"><a href="#cb18-27"></a><span class="in">```{python}</span></span>
+<span id="cb18-28"><a href="#cb18-28"></a><span class="co">#| label: iris_get_data</span></span>
+<span id="cb18-29"><a href="#cb18-29"></a><span class="co">#| echo: true</span></span>
+<span id="cb18-30"><a href="#cb18-30"></a></span>
+<span id="cb18-31"><a href="#cb18-31"></a>iris <span class="op">=</span> datasets.load_iris()</span>
+<span id="cb18-32"><a href="#cb18-32"></a>X <span class="op">=</span> iris.data    <span class="co"># measurements</span></span>
+<span id="cb18-33"><a href="#cb18-33"></a>y <span class="op">=</span> iris.target  <span class="co"># species label</span></span>
+<span id="cb18-34"><a href="#cb18-34"></a></span>
+<span id="cb18-35"><a href="#cb18-35"></a><span class="bu">print</span>(<span class="ss">f"shape(X)   = </span><span class="sc">{</span>X<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb18-36"><a href="#cb18-36"></a><span class="bu">print</span>(<span class="ss">f"shape(y) = </span><span class="sc">{</span>y<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb18-37"><a href="#cb18-37"></a><span class="in">```</span></span>
+<span id="cb18-38"><a href="#cb18-38"></a></span>
+<span id="cb18-39"><a href="#cb18-39"></a></span>
+<span id="cb18-40"><a href="#cb18-40"></a><span class="fu">## Normalization</span></span>
+<span id="cb18-43"><a href="#cb18-43"></a><span class="in">```{python}</span></span>
+<span id="cb18-44"><a href="#cb18-44"></a><span class="co">#| label: scaling</span></span>
+<span id="cb18-45"><a href="#cb18-45"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb18-46"><a href="#cb18-46"></a></span>
+<span id="cb18-47"><a href="#cb18-47"></a><span class="co"># scale transformation</span></span>
+<span id="cb18-48"><a href="#cb18-48"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb18-49"><a href="#cb18-49"></a>Z <span class="op">=</span> scaler.fit_transform(X)</span>
+<span id="cb18-50"><a href="#cb18-50"></a></span>
+<span id="cb18-51"><a href="#cb18-51"></a><span class="co"># create data frame</span></span>
+<span id="cb18-52"><a href="#cb18-52"></a>col_names <span class="op">=</span> [<span class="st">"SL"</span>, <span class="st">"SW"</span>, <span class="st">"PL"</span>, <span class="st">"PW"</span>]</span>
+<span id="cb18-53"><a href="#cb18-53"></a>df <span class="op">=</span> pd.DataFrame(Z, columns<span class="op">=</span>col_names)</span>
+<span id="cb18-54"><a href="#cb18-54"></a>df[<span class="st">"species"</span>] <span class="op">=</span> pd.Categorical.from_codes(y, iris.target_names)</span>
+<span id="cb18-55"><a href="#cb18-55"></a>df.head()</span>
+<span id="cb18-56"><a href="#cb18-56"></a><span class="in">```</span></span>
+<span id="cb18-57"><a href="#cb18-57"></a></span>
+<span id="cb18-58"><a href="#cb18-58"></a></span>
+<span id="cb18-59"><a href="#cb18-59"></a><span class="fu">## Unsupervised Analysis</span></span>
+<span id="cb18-60"><a href="#cb18-60"></a></span>
+<span id="cb18-61"><a href="#cb18-61"></a><span class="fu">### Principle Component Analysis</span></span>
+<span id="cb18-62"><a href="#cb18-62"></a>.... provides very convenient low-dimensional representation of the data</span>
+<span id="cb18-65"><a href="#cb18-65"></a><span class="in">```{python}</span></span>
+<span id="cb18-66"><a href="#cb18-66"></a><span class="co">#| label: PCA</span></span>
+<span id="cb18-67"><a href="#cb18-67"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb18-68"><a href="#cb18-68"></a></span>
+<span id="cb18-69"><a href="#cb18-69"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb18-70"><a href="#cb18-70"></a>Z_pca <span class="op">=</span> pca.fit_transform(Z)</span>
+<span id="cb18-71"><a href="#cb18-71"></a>var_exp <span class="op">=</span> pca.explained_variance_ratio_</span>
+<span id="cb18-72"><a href="#cb18-72"></a></span>
+<span id="cb18-73"><a href="#cb18-73"></a>xlab <span class="op">=</span> <span class="ss">f"PC1 (</span><span class="sc">{</span>var_exp[<span class="dv">0</span>]<span class="sc">:.3f}</span><span class="ss">)"</span></span>
+<span id="cb18-74"><a href="#cb18-74"></a>ylab <span class="op">=</span> <span class="ss">f"PC2 (</span><span class="sc">{</span>var_exp[<span class="dv">1</span>]<span class="sc">:.3f}</span><span class="ss">)"</span></span>
+<span id="cb18-75"><a href="#cb18-75"></a></span>
+<span id="cb18-76"><a href="#cb18-76"></a>sns.scatterplot(x<span class="op">=</span>Z_pca[:,<span class="dv">0</span>], y<span class="op">=</span>Z_pca[:,<span class="dv">1</span>])</span>
+<span id="cb18-77"><a href="#cb18-77"></a><span class="co">#sns.scatterplot(x=Z_pca[:,0], y=Z_pca[:,1], hue=df["species"])</span></span>
+<span id="cb18-78"><a href="#cb18-78"></a>plt.title(<span class="st">"PCA plot"</span>)</span>
+<span id="cb18-79"><a href="#cb18-79"></a>plt.xlabel(xlab)</span>
+<span id="cb18-80"><a href="#cb18-80"></a>plt.ylabel(ylab)</span>
+<span id="cb18-81"><a href="#cb18-81"></a>plt.tight_layout()</span>
+<span id="cb18-82"><a href="#cb18-82"></a>plt.show()</span>
+<span id="cb18-83"><a href="#cb18-83"></a><span class="in">```</span></span>
+<span id="cb18-84"><a href="#cb18-84"></a></span>
+<span id="cb18-85"><a href="#cb18-85"></a></span>
+<span id="cb18-86"><a href="#cb18-86"></a><span class="fu">### Cluster Analysis (kmeans)</span></span>
+<span id="cb18-87"><a href="#cb18-87"></a></span>
+<span id="cb18-88"><a href="#cb18-88"></a>... represent 4D data points by simple cluster-ID</span>
+<span id="cb18-89"><a href="#cb18-89"></a></span>
+<span id="cb18-90"><a href="#cb18-90"></a></span>
+<span id="cb18-93"><a href="#cb18-93"></a><span class="in">```{python}</span></span>
+<span id="cb18-94"><a href="#cb18-94"></a><span class="co">#| label: kmeans_clustering</span></span>
+<span id="cb18-95"><a href="#cb18-95"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb18-96"><a href="#cb18-96"></a></span>
+<span id="cb18-97"><a href="#cb18-97"></a>kmeans <span class="op">=</span> KMeans(n_clusters<span class="op">=</span><span class="dv">3</span>, random_state<span class="op">=</span><span class="dv">42</span>, n_init<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb18-98"><a href="#cb18-98"></a></span>
+<span id="cb18-99"><a href="#cb18-99"></a>df[<span class="st">"cluster"</span>] <span class="op">=</span> kmeans.fit_predict(Z)</span>
+<span id="cb18-100"><a href="#cb18-100"></a></span>
+<span id="cb18-101"><a href="#cb18-101"></a>sns.scatterplot(</span>
+<span id="cb18-102"><a href="#cb18-102"></a>    data<span class="op">=</span>df,</span>
+<span id="cb18-103"><a href="#cb18-103"></a>    x<span class="op">=</span>df.index,</span>
+<span id="cb18-104"><a href="#cb18-104"></a>    y<span class="op">=</span><span class="st">"cluster"</span>,</span>
+<span id="cb18-105"><a href="#cb18-105"></a>    hue<span class="op">=</span><span class="st">"species"</span>,</span>
+<span id="cb18-106"><a href="#cb18-106"></a>    alpha<span class="op">=</span><span class="fl">0.7</span></span>
+<span id="cb18-107"><a href="#cb18-107"></a>)</span>
+<span id="cb18-108"><a href="#cb18-108"></a>plt.yticks(<span class="bu">sorted</span>(df[<span class="st">"cluster"</span>].unique()))</span>
+<span id="cb18-109"><a href="#cb18-109"></a>plt.xlabel(<span class="st">"Data point index"</span>)</span>
+<span id="cb18-110"><a href="#cb18-110"></a>plt.ylabel(<span class="st">"Cluster ID"</span>)</span>
+<span id="cb18-111"><a href="#cb18-111"></a>plt.show()</span>
+<span id="cb18-112"><a href="#cb18-112"></a><span class="in">```</span></span>
+<span id="cb18-113"><a href="#cb18-113"></a></span>
+<span id="cb18-114"><a href="#cb18-114"></a></span>
+<span id="cb18-117"><a href="#cb18-117"></a><span class="in">```{python}</span></span>
+<span id="cb18-118"><a href="#cb18-118"></a><span class="co">#| label: crosstab</span></span>
+<span id="cb18-119"><a href="#cb18-119"></a></span>
+<span id="cb18-120"><a href="#cb18-120"></a><span class="co"># compare cluster with species annotation</span></span>
+<span id="cb18-121"><a href="#cb18-121"></a>ct <span class="op">=</span> pd.crosstab(df[<span class="st">"cluster"</span>], df[<span class="st">"species"</span>])</span>
+<span id="cb18-122"><a href="#cb18-122"></a></span>
+<span id="cb18-123"><a href="#cb18-123"></a>plt.figure()</span>
+<span id="cb18-124"><a href="#cb18-124"></a>sns.heatmap(ct, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">"d"</span>, cmap<span class="op">=</span><span class="st">"coolwarm"</span>)</span>
+<span id="cb18-125"><a href="#cb18-125"></a>plt.show()</span>
+<span id="cb18-126"><a href="#cb18-126"></a><span class="in">```</span></span>
+<span id="cb18-127"><a href="#cb18-127"></a></span>
+<span id="cb18-130"><a href="#cb18-130"></a><span class="in">```{python}</span></span>
+<span id="cb18-131"><a href="#cb18-131"></a><span class="co">#| label: heatmap_cluster_species</span></span>
+<span id="cb18-132"><a href="#cb18-132"></a><span class="co">#| echo: false</span></span>
+<span id="cb18-133"><a href="#cb18-133"></a><span class="co">#| eval: false</span></span>
+<span id="cb18-134"><a href="#cb18-134"></a></span>
+<span id="cb18-135"><a href="#cb18-135"></a>clusters <span class="op">=</span> df[<span class="st">"cluster"</span>].unique()</span>
+<span id="cb18-136"><a href="#cb18-136"></a>nc <span class="op">=</span> <span class="bu">len</span>(clusters)</span>
+<span id="cb18-137"><a href="#cb18-137"></a>species <span class="op">=</span> df[<span class="st">"species"</span>].unique().astype(<span class="bu">str</span>)</span>
+<span id="cb18-138"><a href="#cb18-138"></a>ns<span class="op">=</span><span class="bu">len</span>(species)</span>
+<span id="cb18-139"><a href="#cb18-139"></a></span>
+<span id="cb18-140"><a href="#cb18-140"></a>palette <span class="op">=</span> sns.color_palette(<span class="st">"tab10"</span>, nc <span class="op">+</span> ns)</span>
+<span id="cb18-141"><a href="#cb18-141"></a></span>
+<span id="cb18-142"><a href="#cb18-142"></a>cluster_lut <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(</span>
+<span id="cb18-143"><a href="#cb18-143"></a>    <span class="bu">sorted</span>(clusters),</span>
+<span id="cb18-144"><a href="#cb18-144"></a>    palette[:nc]</span>
+<span id="cb18-145"><a href="#cb18-145"></a>))</span>
+<span id="cb18-146"><a href="#cb18-146"></a></span>
+<span id="cb18-147"><a href="#cb18-147"></a>species_lut <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(</span>
+<span id="cb18-148"><a href="#cb18-148"></a>    species,</span>
+<span id="cb18-149"><a href="#cb18-149"></a>    palette[nc:(nc<span class="op">+</span>ns)]</span>
+<span id="cb18-150"><a href="#cb18-150"></a>))</span>
+<span id="cb18-151"><a href="#cb18-151"></a></span>
+<span id="cb18-152"><a href="#cb18-152"></a>row_colors <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb18-153"><a href="#cb18-153"></a>    <span class="st">"cluster"</span>: df[<span class="st">"cluster"</span>].astype(<span class="bu">object</span>).<span class="bu">map</span>(cluster_lut),</span>
+<span id="cb18-154"><a href="#cb18-154"></a>    <span class="st">"species"</span>: df[<span class="st">"species"</span>].astype(<span class="bu">str</span>).<span class="bu">map</span>(species_lut)</span>
+<span id="cb18-155"><a href="#cb18-155"></a>}, index<span class="op">=</span>df.index)</span>
+<span id="cb18-156"><a href="#cb18-156"></a></span>
+<span id="cb18-157"><a href="#cb18-157"></a>Z_df <span class="op">=</span> pd.DataFrame(Z, index<span class="op">=</span>df.index)</span>
+<span id="cb18-158"><a href="#cb18-158"></a></span>
+<span id="cb18-159"><a href="#cb18-159"></a>sns.clustermap(</span>
+<span id="cb18-160"><a href="#cb18-160"></a>    Z_df,</span>
+<span id="cb18-161"><a href="#cb18-161"></a>    row_colors<span class="op">=</span>row_colors,</span>
+<span id="cb18-162"><a href="#cb18-162"></a>    cmap<span class="op">=</span><span class="st">"vlag"</span>,</span>
+<span id="cb18-163"><a href="#cb18-163"></a>    row_cluster<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb18-164"><a href="#cb18-164"></a>    col_cluster<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb18-165"><a href="#cb18-165"></a>    yticklabels<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb18-166"><a href="#cb18-166"></a>    figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">10</span>)</span>
+<span id="cb18-167"><a href="#cb18-167"></a>)</span>
+<span id="cb18-168"><a href="#cb18-168"></a></span>
+<span id="cb18-169"><a href="#cb18-169"></a>plt.show()</span>
+<span id="cb18-170"><a href="#cb18-170"></a><span class="in">```</span></span>
+<span id="cb18-171"><a href="#cb18-171"></a></span>
+<span id="cb18-172"><a href="#cb18-172"></a></span>
+<span id="cb18-173"><a href="#cb18-173"></a>::: {.callout-note}</span>
+<span id="cb18-174"><a href="#cb18-174"></a><span class="fu">### Note</span></span>
+<span id="cb18-175"><a href="#cb18-175"></a><span class="ss">- </span>each data point is mapped onto a cluster-ID</span>
+<span id="cb18-176"><a href="#cb18-176"></a><span class="ss">- </span>need to specify number of clusters, initializations</span>
+<span id="cb18-177"><a href="#cb18-177"></a><span class="ss">- </span>iterative solutions</span>
+<span id="cb18-178"><a href="#cb18-178"></a><span class="ss">- </span>requires sample distances and feature normalization</span>
+<span id="cb18-179"><a href="#cb18-179"></a><span class="ss">- </span>no "target" information ($y$ is not used) $\to$ **unsupervised**</span>
+<span id="cb18-180"><a href="#cb18-180"></a><span class="ss">- </span>clusterID != species label</span>
+<span id="cb18-181"><a href="#cb18-181"></a><span class="ss">- </span>many more cluster algorithms</span>
+<span id="cb18-182"><a href="#cb18-182"></a>:::</span>
+<span id="cb18-183"><a href="#cb18-183"></a></span>
+<span id="cb18-184"><a href="#cb18-184"></a><span class="fu">## Supervised Model: $x \to y$</span></span>
+<span id="cb18-185"><a href="#cb18-185"></a></span>
+<span id="cb18-186"><a href="#cb18-186"></a><span class="fu">### Process Data</span></span>
+<span id="cb18-187"><a href="#cb18-187"></a></span>
+<span id="cb18-188"><a href="#cb18-188"></a>First we need to define input data (<span class="in">`x`</span>) and output/target data (<span class="in">`y`</span>).</span>
+<span id="cb18-189"><a href="#cb18-189"></a></span>
+<span id="cb18-190"><a href="#cb18-190"></a>Usually necessary: reformating and reshaping (numpy $\to$ tensor)</span>
+<span id="cb18-191"><a href="#cb18-191"></a></span>
+<span id="cb18-194"><a href="#cb18-194"></a><span class="in">```{python}</span></span>
+<span id="cb18-195"><a href="#cb18-195"></a><span class="co">#| label: define_data</span></span>
+<span id="cb18-196"><a href="#cb18-196"></a></span>
+<span id="cb18-197"><a href="#cb18-197"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb18-198"><a href="#cb18-198"></a><span class="im">import</span> torch</span>
+<span id="cb18-199"><a href="#cb18-199"></a><span class="bu">print</span>(<span class="st">'torch version:'</span>, torch.__version__)</span>
+<span id="cb18-200"><a href="#cb18-200"></a></span>
+<span id="cb18-201"><a href="#cb18-201"></a><span class="co"># select two arbitrary Iris variables: x=X[:,2] and y=X[:,3]</span></span>
+<span id="cb18-202"><a href="#cb18-202"></a>x <span class="op">=</span> torch.as_tensor(X[:,<span class="dv">2</span>], dtype<span class="op">=</span>torch.float32)</span>
+<span id="cb18-203"><a href="#cb18-203"></a>y <span class="op">=</span> torch.as_tensor(X[:,<span class="dv">3</span>], dtype<span class="op">=</span>torch.float32)</span>
+<span id="cb18-204"><a href="#cb18-204"></a></span>
+<span id="cb18-205"><a href="#cb18-205"></a><span class="co"># add dimension if missing: shape (n,) --&gt; (n,1)</span></span>
+<span id="cb18-206"><a href="#cb18-206"></a><span class="cf">if</span> x.ndim <span class="op">==</span> <span class="dv">1</span>: </span>
+<span id="cb18-207"><a href="#cb18-207"></a>    x <span class="op">=</span> x.unsqueeze(<span class="dv">1</span>) </span>
+<span id="cb18-208"><a href="#cb18-208"></a><span class="cf">if</span> y.ndim <span class="op">==</span> <span class="dv">1</span>: </span>
+<span id="cb18-209"><a href="#cb18-209"></a>    y <span class="op">=</span> y.unsqueeze(<span class="dv">1</span>)</span>
+<span id="cb18-210"><a href="#cb18-210"></a></span>
+<span id="cb18-211"><a href="#cb18-211"></a><span class="bu">print</span>(<span class="ss">f"x.shape: </span><span class="sc">{</span>x<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb18-212"><a href="#cb18-212"></a><span class="bu">print</span>(<span class="ss">f"y.shape: </span><span class="sc">{</span>y<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb18-213"><a href="#cb18-213"></a><span class="in">```</span></span>
+<span id="cb18-214"><a href="#cb18-214"></a></span>
+<span id="cb18-215"><a href="#cb18-215"></a></span>
+<span id="cb18-216"><a href="#cb18-216"></a><span class="fu">### Define Model</span></span>
+<span id="cb18-217"><a href="#cb18-217"></a>Use PyTorch to define </span>
+<span id="cb18-218"><a href="#cb18-218"></a></span>
+<span id="cb18-219"><a href="#cb18-219"></a><span class="ss">- </span>a simple linear model (with one input and one output),</span>
+<span id="cb18-220"><a href="#cb18-220"></a><span class="ss">- </span>a suitable loss function, and </span>
+<span id="cb18-221"><a href="#cb18-221"></a><span class="ss">- </span>an optimizer.</span>
+<span id="cb18-222"><a href="#cb18-222"></a></span>
+<span id="cb18-225"><a href="#cb18-225"></a><span class="in">```{python}</span></span>
+<span id="cb18-226"><a href="#cb18-226"></a><span class="co">#| label: iris_model</span></span>
+<span id="cb18-227"><a href="#cb18-227"></a><span class="co"># identical to the 1st lecture (same model)</span></span>
+<span id="cb18-228"><a href="#cb18-228"></a>torch.manual_seed(<span class="dv">42</span>)                 <span class="co"># set for reproducibility</span></span>
+<span id="cb18-229"><a href="#cb18-229"></a>model <span class="op">=</span> torch.nn.Linear(<span class="dv">1</span>, <span class="dv">1</span>)         <span class="co"># n_in = 1, n_out = 1</span></span>
+<span id="cb18-230"><a href="#cb18-230"></a>loss_func <span class="op">=</span> torch.nn.MSELoss()        </span>
+<span id="cb18-231"><a href="#cb18-231"></a>optimizer <span class="op">=</span> torch.optim.SGD(model.parameters())</span>
+<span id="cb18-232"><a href="#cb18-232"></a><span class="in">```</span></span>
+<span id="cb18-233"><a href="#cb18-233"></a></span>
+<span id="cb18-234"><a href="#cb18-234"></a></span>
+<span id="cb18-235"><a href="#cb18-235"></a><span class="fu">### Train the Model </span></span>
+<span id="cb18-236"><a href="#cb18-236"></a></span>
+<span id="cb18-237"><a href="#cb18-237"></a>Chose a number of iterations (e.g 100 "epochs") and keep track of the loss</span>
+<span id="cb18-238"><a href="#cb18-238"></a>at each iteration. </span>
+<span id="cb18-239"><a href="#cb18-239"></a></span>
+<span id="cb18-242"><a href="#cb18-242"></a><span class="in">```{python}</span></span>
+<span id="cb18-243"><a href="#cb18-243"></a><span class="co">#| label: iris_training</span></span>
+<span id="cb18-244"><a href="#cb18-244"></a>losses <span class="op">=</span> []</span>
+<span id="cb18-245"><a href="#cb18-245"></a>model.train()</span>
+<span id="cb18-246"><a href="#cb18-246"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2000</span>):</span>
+<span id="cb18-247"><a href="#cb18-247"></a>    y_pred <span class="op">=</span> model(x)</span>
+<span id="cb18-248"><a href="#cb18-248"></a>    loss <span class="op">=</span> loss_func(y_pred, y)</span>
+<span id="cb18-249"><a href="#cb18-249"></a></span>
+<span id="cb18-250"><a href="#cb18-250"></a>    optimizer.zero_grad()</span>
+<span id="cb18-251"><a href="#cb18-251"></a>    loss.backward()</span>
+<span id="cb18-252"><a href="#cb18-252"></a>    optimizer.step()</span>
+<span id="cb18-253"><a href="#cb18-253"></a></span>
+<span id="cb18-254"><a href="#cb18-254"></a>    losses.append(loss.item()) <span class="co"># keep track of losses</span></span>
+<span id="cb18-255"><a href="#cb18-255"></a></span>
+<span id="cb18-256"><a href="#cb18-256"></a><span class="co"># finished training. inspect model </span></span>
+<span id="cb18-257"><a href="#cb18-257"></a><span class="bu">print</span>(<span class="st">'Mean Squared Error (loss):    '</span>,loss.item())</span>
+<span id="cb18-258"><a href="#cb18-258"></a><span class="bu">print</span>(<span class="st">'Parameters:'</span>)</span>
+<span id="cb18-259"><a href="#cb18-259"></a><span class="cf">for</span> name, p <span class="kw">in</span> model.named_parameters():</span>
+<span id="cb18-260"><a href="#cb18-260"></a>    <span class="bu">print</span>(name, p.detach())</span>
+<span id="cb18-261"><a href="#cb18-261"></a><span class="in">```</span></span>
+<span id="cb18-262"><a href="#cb18-262"></a></span>
+<span id="cb18-263"><a href="#cb18-263"></a>::: {.callout-note}</span>
+<span id="cb18-264"><a href="#cb18-264"></a><span class="ss"> - </span>"weight" = slope parameter</span>
+<span id="cb18-265"><a href="#cb18-265"></a><span class="ss"> - </span>"bias" = intercept</span>
+<span id="cb18-266"><a href="#cb18-266"></a>:::</span>
+<span id="cb18-267"><a href="#cb18-267"></a></span>
+<span id="cb18-268"><a href="#cb18-268"></a><span class="fu">### Evaluate Training: loss history</span></span>
+<span id="cb18-269"><a href="#cb18-269"></a></span>
+<span id="cb18-270"><a href="#cb18-270"></a>Plot the losses against the number of iterations: reduction &amp; plateau?</span>
+<span id="cb18-273"><a href="#cb18-273"></a><span class="in">```{python}</span></span>
+<span id="cb18-274"><a href="#cb18-274"></a><span class="co">#| label: iris_losses</span></span>
+<span id="cb18-275"><a href="#cb18-275"></a>plt.figure()</span>
+<span id="cb18-276"><a href="#cb18-276"></a>plt.plot(losses)</span>
+<span id="cb18-277"><a href="#cb18-277"></a>plt.ylabel(<span class="st">'loss'</span>)</span>
+<span id="cb18-278"><a href="#cb18-278"></a>plt.xlabel(<span class="st">'epoch'</span>)</span>
+<span id="cb18-279"><a href="#cb18-279"></a>plt.show()</span>
+<span id="cb18-280"><a href="#cb18-280"></a><span class="in">```</span></span>
+<span id="cb18-281"><a href="#cb18-281"></a></span>
+<span id="cb18-282"><a href="#cb18-282"></a><span class="fu">### Evaluate Model</span></span>
+<span id="cb18-283"><a href="#cb18-283"></a></span>
+<span id="cb18-284"><a href="#cb18-284"></a>Compare model output $y_{pred}$ to known output $y$.</span>
+<span id="cb18-285"><a href="#cb18-285"></a></span>
+<span id="cb18-288"><a href="#cb18-288"></a><span class="in">```{python}</span></span>
+<span id="cb18-289"><a href="#cb18-289"></a><span class="co">#| label: model_evaluate</span></span>
+<span id="cb18-290"><a href="#cb18-290"></a></span>
+<span id="cb18-291"><a href="#cb18-291"></a>model.<span class="bu">eval</span>()</span>
+<span id="cb18-292"><a href="#cb18-292"></a><span class="cf">with</span> torch.no_grad():</span>
+<span id="cb18-293"><a href="#cb18-293"></a>    y_pred <span class="op">=</span> model(x)</span>
+<span id="cb18-294"><a href="#cb18-294"></a></span>
+<span id="cb18-295"><a href="#cb18-295"></a>plt.scatter(y_pred, y)</span>
+<span id="cb18-296"><a href="#cb18-296"></a>plt.axline((<span class="dv">0</span>, <span class="dv">0</span>), slope<span class="op">=</span><span class="dv">1</span>, color<span class="op">=</span><span class="st">"orange"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>)</span>
+<span id="cb18-297"><a href="#cb18-297"></a>plt.title(<span class="ss">f'MSE = </span><span class="sc">{</span>loss<span class="sc">.</span>item()<span class="sc">:.4f}</span><span class="ss">'</span>)</span>
+<span id="cb18-298"><a href="#cb18-298"></a>plt.xlabel(<span class="st">'y_pred'</span>)</span>
+<span id="cb18-299"><a href="#cb18-299"></a>plt.ylabel(<span class="st">'y'</span>)</span>
+<span id="cb18-300"><a href="#cb18-300"></a>plt.show()</span>
+<span id="cb18-301"><a href="#cb18-301"></a><span class="in">```</span></span>
+<span id="cb18-302"><a href="#cb18-302"></a></span>
+<span id="cb18-303"><a href="#cb18-303"></a></span>
+<span id="cb18-304"><a href="#cb18-304"></a></span>
+<span id="cb18-305"><a href="#cb18-305"></a>::: callout-warning</span>
+<span id="cb18-306"><a href="#cb18-306"></a><span class="fu">### Model Critique</span></span>
+<span id="cb18-307"><a href="#cb18-307"></a><span class="ss">- </span>there is no perfect fit because </span>
+<span id="cb18-308"><a href="#cb18-308"></a><span class="ss">    - </span>learning has not yet converged</span>
+<span id="cb18-309"><a href="#cb18-309"></a><span class="ss">    - </span>real data is noisy MSE $\ne 0$</span>
+<span id="cb18-310"><a href="#cb18-310"></a><span class="ss">- </span>Model Evaluation is too optimistic: why?</span>
+<span id="cb18-311"><a href="#cb18-311"></a>:::</span>
+<span id="cb18-312"><a href="#cb18-312"></a></span>
+<span id="cb18-313"><a href="#cb18-313"></a><span class="fu">### Make Predicitons</span></span>
+<span id="cb18-314"><a href="#cb18-314"></a></span>
+<span id="cb18-315"><a href="#cb18-315"></a>Use the trained model to predict output $y_{pred}$ for **new** $x$-values.</span>
+<span id="cb18-316"><a href="#cb18-316"></a></span>
+<span id="cb18-319"><a href="#cb18-319"></a><span class="in">```{python}</span></span>
+<span id="cb18-320"><a href="#cb18-320"></a><span class="co">#| label: iris_predict</span></span>
+<span id="cb18-321"><a href="#cb18-321"></a><span class="co">#| classes: preview-image</span></span>
+<span id="cb18-322"><a href="#cb18-322"></a></span>
+<span id="cb18-323"><a href="#cb18-323"></a><span class="co"># pick some range of new x-values (meaningful?)</span></span>
+<span id="cb18-324"><a href="#cb18-324"></a>x_new <span class="op">=</span> torch.arange(<span class="op">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="fl">0.5</span>).unsqueeze(<span class="dv">1</span>) <span class="co"># view(-1, 1)</span></span>
+<span id="cb18-325"><a href="#cb18-325"></a></span>
+<span id="cb18-326"><a href="#cb18-326"></a>model.<span class="bu">eval</span>()</span>
+<span id="cb18-327"><a href="#cb18-327"></a><span class="cf">with</span> torch.no_grad():</span>
+<span id="cb18-328"><a href="#cb18-328"></a>    y_pred <span class="op">=</span> model(x_new)</span>
+<span id="cb18-329"><a href="#cb18-329"></a></span>
+<span id="cb18-330"><a href="#cb18-330"></a><span class="co"># y_pred = y_pred.detach() # alternative: detach y_pred from computational graph</span></span>
+<span id="cb18-331"><a href="#cb18-331"></a></span>
+<span id="cb18-332"><a href="#cb18-332"></a>plt.scatter(x, y, label<span class="op">=</span><span class="st">"Data"</span>)</span>
+<span id="cb18-333"><a href="#cb18-333"></a>plt.plot(x_new, y_pred, c<span class="op">=</span><span class="st">"orange"</span>, label<span class="op">=</span><span class="st">"Model"</span>)</span>
+<span id="cb18-334"><a href="#cb18-334"></a>plt.xlabel(<span class="st">'petal length'</span>)</span>
+<span id="cb18-335"><a href="#cb18-335"></a>plt.ylabel(<span class="st">'petal width'</span>)</span>
+<span id="cb18-336"><a href="#cb18-336"></a>plt.legend()</span>
+<span id="cb18-337"><a href="#cb18-337"></a>plt.show()</span>
+<span id="cb18-338"><a href="#cb18-338"></a><span class="in">```</span></span>
+<span id="cb18-339"><a href="#cb18-339"></a></span>
+<span id="cb18-340"><a href="#cb18-340"></a>::: callout-warning</span>
+<span id="cb18-341"><a href="#cb18-341"></a><span class="fu">### More Critique</span></span>
+<span id="cb18-342"><a href="#cb18-342"></a><span class="ss">- </span>Models are ignorant:  What is the Petal.Width for Petal.Length = -5cm ?</span>
+<span id="cb18-343"><a href="#cb18-343"></a><span class="ss">- </span>Models are not necessarily causal</span>
+<span id="cb18-344"><a href="#cb18-344"></a><span class="ss">- </span>"All models are wrong, some are useful."</span>
+<span id="cb18-345"><a href="#cb18-345"></a>:::</span>
+<span id="cb18-346"><a href="#cb18-346"></a></span>
+<span id="cb18-347"><a href="#cb18-347"></a></span>
+<span id="cb18-348"><a href="#cb18-348"></a>::: {.callout-important}</span>
+<span id="cb18-349"><a href="#cb18-349"></a><span class="fu">## Task: Improving the model</span></span>
+<span id="cb18-350"><a href="#cb18-350"></a></span>
+<span id="cb18-351"><a href="#cb18-351"></a><span class="ss">- </span>Go back to the data definition an replace $x$ (predictor = Petal Length) with the first 3 variables of the iris data. Goal: predict $y$ ( = target = Petal Width = 4th variable) </span>
+<span id="cb18-352"><a href="#cb18-352"></a><span class="ss">- </span>Adjust the linear model to make it a "multivariate" linear model</span>
+<span id="cb18-353"><a href="#cb18-353"></a><span class="ss">- </span>Train the model for a suitable number of iterations - and plot the loss history</span>
+<span id="cb18-354"><a href="#cb18-354"></a><span class="ss">- </span>Take note of the final loss (MSE). Compare it between the simple and multivariate linear model. Has it improved (reduced)?</span>
+<span id="cb18-355"><a href="#cb18-355"></a>:::</span>
+<span id="cb18-356"><a href="#cb18-356"></a></span>
+<span id="cb18-357"><a href="#cb18-357"></a></span>
+<span id="cb18-358"><a href="#cb18-358"></a></span>
+<span id="cb18-359"><a href="#cb18-359"></a><span class="fu">## Multivariate Multinomial Regression</span></span>
+<span id="cb18-360"><a href="#cb18-360"></a></span>
+<span id="cb18-361"><a href="#cb18-361"></a>... with test-train split</span>
+<span id="cb18-362"><a href="#cb18-362"></a></span>
+<span id="cb18-365"><a href="#cb18-365"></a><span class="in">```{python}</span></span>
+<span id="cb18-366"><a href="#cb18-366"></a><span class="co">#| label: multivariate_multinomial</span></span>
+<span id="cb18-367"><a href="#cb18-367"></a></span>
+<span id="cb18-368"><a href="#cb18-368"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb18-369"><a href="#cb18-369"></a><span class="im">import</span> torch</span>
+<span id="cb18-370"><a href="#cb18-370"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
+<span id="cb18-371"><a href="#cb18-371"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, confusion_matrix, ConfusionMatrixDisplay</span>
+<span id="cb18-372"><a href="#cb18-372"></a></span>
+<span id="cb18-373"><a href="#cb18-373"></a>X <span class="op">=</span> torch.tensor(iris.data, dtype<span class="op">=</span>torch.float32) <span class="co"># numeric measurements</span></span>
+<span id="cb18-374"><a href="#cb18-374"></a>Y <span class="op">=</span> torch.tensor(iris.target, dtype<span class="op">=</span>torch.<span class="bu">long</span>)  <span class="co"># class labels</span></span>
+<span id="cb18-375"><a href="#cb18-375"></a><span class="bu">print</span>(<span class="ss">f"X.shape = </span><span class="sc">{</span>X<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">, Y.shape = </span><span class="sc">{</span>Y<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb18-376"><a href="#cb18-376"></a></span>
+<span id="cb18-377"><a href="#cb18-377"></a><span class="co"># define train and test data sets</span></span>
+<span id="cb18-378"><a href="#cb18-378"></a>n_samples <span class="op">=</span> X.shape[<span class="dv">0</span>] <span class="co"># number of all samples</span></span>
+<span id="cb18-379"><a href="#cb18-379"></a>n_train <span class="op">=</span> <span class="bu">int</span>(<span class="fl">0.8</span> <span class="op">*</span> n_samples) <span class="co"># number of training samples</span></span>
+<span id="cb18-380"><a href="#cb18-380"></a>perm <span class="op">=</span> torch.randperm(n_samples) <span class="co"># shuffled random indicies</span></span>
+<span id="cb18-381"><a href="#cb18-381"></a>i_train <span class="op">=</span> perm[:n_train] <span class="co"># train indices</span></span>
+<span id="cb18-382"><a href="#cb18-382"></a>i_test <span class="op">=</span> perm[n_train:] <span class="co"># test indices</span></span>
+<span id="cb18-383"><a href="#cb18-383"></a></span>
+<span id="cb18-384"><a href="#cb18-384"></a>model <span class="op">=</span> nn.Linear(<span class="dv">4</span>, <span class="dv">3</span>) <span class="co"># n_in = 4, n_out = 3</span></span>
+<span id="cb18-385"><a href="#cb18-385"></a>loss_func <span class="op">=</span> nn.CrossEntropyLoss()</span>
+<span id="cb18-386"><a href="#cb18-386"></a>optimizer <span class="op">=</span> torch.optim.SGD(model.parameters())</span>
+<span id="cb18-387"><a href="#cb18-387"></a></span>
+<span id="cb18-388"><a href="#cb18-388"></a>model.train()</span>
+<span id="cb18-389"><a href="#cb18-389"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5000</span>):</span>
+<span id="cb18-390"><a href="#cb18-390"></a>    yp <span class="op">=</span> model(X[i_train])</span>
+<span id="cb18-391"><a href="#cb18-391"></a>    loss <span class="op">=</span> loss_func(yp, Y[i_train])</span>
+<span id="cb18-392"><a href="#cb18-392"></a>    optimizer.zero_grad()</span>
+<span id="cb18-393"><a href="#cb18-393"></a>    loss.backward()</span>
+<span id="cb18-394"><a href="#cb18-394"></a>    optimizer.step()</span>
+<span id="cb18-395"><a href="#cb18-395"></a></span>
+<span id="cb18-396"><a href="#cb18-396"></a>model.<span class="bu">eval</span>()</span>
+<span id="cb18-397"><a href="#cb18-397"></a>z <span class="op">=</span> model(X[i_test])</span>
+<span id="cb18-398"><a href="#cb18-398"></a>y_pred_class <span class="op">=</span> torch.argmax(z, dim<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb18-399"><a href="#cb18-399"></a>y_true_class <span class="op">=</span> Y[i_test].numpy()</span>
+<span id="cb18-400"><a href="#cb18-400"></a>acc <span class="op">=</span> accuracy_score(y_true_class, y_pred_class)</span>
+<span id="cb18-401"><a href="#cb18-401"></a><span class="bu">print</span>(<span class="st">'Accuracy: '</span>, acc)   </span>
+<span id="cb18-402"><a href="#cb18-402"></a></span>
+<span id="cb18-403"><a href="#cb18-403"></a>cm <span class="op">=</span> confusion_matrix(y_true_class, y_pred_class)</span>
+<span id="cb18-404"><a href="#cb18-404"></a>disp <span class="op">=</span> ConfusionMatrixDisplay(confusion_matrix<span class="op">=</span>cm,</span>
+<span id="cb18-405"><a href="#cb18-405"></a>                              display_labels<span class="op">=</span>iris.target_names)</span>
+<span id="cb18-406"><a href="#cb18-406"></a>disp.plot(cmap<span class="op">=</span><span class="st">'Blues'</span>)</span>
+<span id="cb18-407"><a href="#cb18-407"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
