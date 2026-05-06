@@ -459,7 +459,7 @@
     "href": "projects/index.html",
     "title": "Projects",
     "section": "",
-    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n01 Machine Learning\n\n\nAn ML starter\n\n\n\nThomas Manke\n\n\nApr 27, 2026\n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n01 Machine Learning\n\n\nAn ML starter\n\n\n\nThomas Manke\n\n\nApr 27, 2026\n\n\n\n\n\n\n\n\n\n\n\n02 Deep Neural Networks\n\n\nMLP for universal approximations\n\n\n\nThomas Manke\n\n\nMay 7, 2026\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "projects/01_MachineLearning.html",
@@ -1951,5 +1951,47 @@
     "title": "Training And Testing Data",
     "section": "Appendix: More splitting",
     "text": "Appendix: More splitting\nThere is also a powerful (and frequently used) method to conduct the train-test split with sklearn functionality. But this requires changing from torch tensors to numpy arrays (and convert back to tensors).\n\n\nCode\nfrom sklearn.model_selection import train_test_split\n\nprint(f'x.shape: {x.shape} y.shape {y.shape}')\nx_train, x_test, y_train, y_test = train_test_split(\n    x.numpy(), y.numpy(), test_size=0.2, random_state=42\n)\n\n# Convert back to torch\nx_train = torch.tensor(x_train, dtype=torch.float32)\nx_test  = torch.tensor(x_test, dtype=torch.float32)\ny_train = torch.tensor(y_train, dtype=torch.float32)\ny_test  = torch.tensor(y_test, dtype=torch.float32)\n\nprint(f'x_train.shape: {x_train.shape} y_train.shape {y_train.shape}')\nprint(f'x_test.shape: {x_test.shape} y_test.shape {y_test.shape}')\n\n\nx.shape: torch.Size([10, 1]) y.shape torch.Size([10, 1])\nx_train.shape: torch.Size([8, 1]) y_train.shape torch.Size([8, 1])\nx_test.shape: torch.Size([2, 1]) y_test.shape torch.Size([2, 1])"
+  },
+  {
+    "objectID": "projects/02_DeepNeuralNetworks.html",
+    "href": "projects/02_DeepNeuralNetworks.html",
+    "title": "02 Deep Neural Networks",
+    "section": "",
+    "text": "In this project, each team will apply multi-layer perceptrons (MLPs) to learn and approximate nonlinear relationships from data. By constructing, training, and evaluating neural networks, you will explore how MLPs can approximate complex relationships and how architecture, hyperparameters and optimization affect performance."
+  },
+  {
+    "objectID": "projects/02_DeepNeuralNetworks.html#overview",
+    "href": "projects/02_DeepNeuralNetworks.html#overview",
+    "title": "02 Deep Neural Networks",
+    "section": "",
+    "text": "In this project, each team will apply multi-layer perceptrons (MLPs) to learn and approximate nonlinear relationships from data. By constructing, training, and evaluating neural networks, you will explore how MLPs can approximate complex relationships and how architecture, hyperparameters and optimization affect performance."
+  },
+  {
+    "objectID": "projects/02_DeepNeuralNetworks.html#project-assignment-table",
+    "href": "projects/02_DeepNeuralNetworks.html#project-assignment-table",
+    "title": "02 Deep Neural Networks",
+    "section": "Project Assignment Table",
+    "text": "Project Assignment Table\nTeams will receive different subtasks based on their assigned dataset (Project ID). See more details below.\n\n\n\n\n\n\n\n\n\nProject ID\nData Type\nTask Description\nTarget Variable (\\(y\\))\n\n\n\n\n2.1\nNon-linear function\nNon-linear regression\ncontinuous values\n\n\n2.2\nNon-linear function\nNon-linear classification\ndiscrete classes\n\n\n2.3\nComplex shapes\nPixel classification complex boundaries\nbinary classes (inside/outside)\n\n\n2.4\nDNA sequences\nSequence Classification (DNA)\nsequence labels"
+  },
+  {
+    "objectID": "projects/02_DeepNeuralNetworks.html#tasks-and-deliverables",
+    "href": "projects/02_DeepNeuralNetworks.html#tasks-and-deliverables",
+    "title": "02 Deep Neural Networks",
+    "section": "Tasks and Deliverables",
+    "text": "Tasks and Deliverables\n\n\n\n\n\n\n\n\n#\nTask\nDescription\n\n\n\n\n1\nData loading and inspection\nLoad the dataset, inspect its structure and dimensions, and briefly describe its content.\n\n\n2\nData preprocessing\nTransform the data into a form suitable for MLP input:– Convert to numpy / torch tensors– Flatten or reshape inputs as needed– Split into training and test sets\n\n\n3\nModel definition\nDefine an appropriate MLP architecture (e.g with PyTorch nn.Sequential). Include number of layers, activation functions, and output dimensions. Report structure and number of parameters\n\n\n4\nModel training\nImplement a full training loop including:– Loss function and optimizer– Iterative training with loss updates– Plot the loss history\n\n\n5\nModel evaluation\nGenerate predictions on the test set and compute suitable metrics:– Regression: MSE or R²– Classification: overall accuracy and class-wise metrices\n\n\n6\nVisualization\nPlot training and validation loss curves, and visualize model results e.g. predicted vs. true values, or confusion matrices.\n\n\n7\nDiscussion\nProvide a short reflection on model behavior and performance."
+  },
+  {
+    "objectID": "projects/02_DeepNeuralNetworks.html#submission-guidelines",
+    "href": "projects/02_DeepNeuralNetworks.html#submission-guidelines",
+    "title": "02 Deep Neural Networks",
+    "section": "Submission Guidelines",
+    "text": "Submission Guidelines\nPlease submit a single notebook per team. It will be the basis for your presentation and it will be shared with the class.\nThe notebook must\n\ninclude a statement of orginality and contributions at the beginning\nbe clean, well-structured, and reproducible.\nrun from start to finish without modification (ideally in less than 5 minutes)\ninclude all necessary installation instructions, imports and random seeds for reproducibility.\ninclude short text cells and clear comments describing what you do in each section.\nshould use concise and readable visualizations.\nbe submitted before the deadline.\nfollow filename convention: Project1.3_Team02.ipynb (adjust your Project-ID and Team-ID)."
+  },
+  {
+    "objectID": "projects/02_DeepNeuralNetworks.html#data-loads",
+    "href": "projects/02_DeepNeuralNetworks.html#data-loads",
+    "title": "02 Deep Neural Networks",
+    "section": "Data Loads",
+    "text": "Data Loads\n\nProject 2.1\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\n\ndef f_composed(x):\n    return np.sin(10*np.pi*x + np.sin(15*np.pi*x)) * np.cos(3*x) \n\ndef f_logistic(u=0.321,steps=1000):\n    y=np.empty(steps)\n    for i in range(steps):\n        u = 4*u*(1 - u)\n        y[i] = u\n    y = np.array(y)\n    return y\n\nn = 2500\nn_train = int(0.8 * n)\n\nx = np.linspace(-1, 1, n)\ny = f_composed(x) # try f_logistic() for a challenge\n\n\n\n\nProject 2.2\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.datasets import make_moons\n\ndef make_spirals(n_samples=1000, noise=0.2, n_classes=2, random_state=None):\n    \"\"\"\n    This function creates n_samples x n_classes data points in 2D\n    where each data points belongs to one of n_classes spirals (+ noise)\n    Output: \n        - X: X.shape [n_samples,2]  (coordinates)\n        - y: y.shape [n_samples,]    (class ID)\n    \"\"\"\n    rng = np.random.default_rng(random_state)\n    X = np.empty((n_samples * n_classes, 2), dtype=float)\n    y = np.repeat(np.arange(n_classes), n_samples)\n\n    r = np.linspace(0.0, 1.0, n_samples)\n\n    for k in range(n_classes):\n        t = np.linspace(4*k, 4*(k+1), n_samples) + rng.normal(scale=noise, size=n_samples)\n        start = k * n_samples\n        X[start:start+n_samples] = np.column_stack((r * np.sin(t), r * np.cos(t)))\n\n    return X, y\n\nn, nc = 1000, 3 \nsig = 0.1\nseed = 42\n\n# choose one or both\nX, y = make_moons(n_samples=n, noise=sig, random_state = seed) \nX, y = make_spirals(n_samples=n, n_classes=nc, noise=sig, random_state=seed)\n\n\n\n\nProject 2.3\n\n\nCode\nimport requests\nfrom io import BytesIO\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom PIL import Image\n\n# some suggestions - feel free to try your own shapes\nurl=\"https://github.com/thomasmanke/DataSets/blob/main/Berlin_50x50.png?raw=true\"\nurl=\"https://github.com/thomasmanke/DataSets/blob/main/Mandelbrot.png?raw=true\"\n\nwidth=50\nheight=50\nthreshold=100 # adjust grey-BW threshold if neccessary\nimg = Image.open(BytesIO(requests.get(url).content)).convert(\"RGB\")\nimg = img.resize((width, height), Image.LANCZOS) # resize for speed\nimg = img.convert(\"L\")                          # 8-bit grayscale\nimg_np = np.array(img, dtype=np.uint8)          # convert to numpy\nimg_np = (img_np &gt;= threshold).astype(np.uint8) # convert to BW\n\n\n\n\nProject 2.4\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport pandas as pd\n\nurl=\"https://github.com/thomasmanke/DataSets/raw/refs/heads/main/labeled_sequences.csv.gz\"\n\ndf = pd.read_csv(url)\nseqs = df[\"sequence\"].tolist()\ny    = df[\"label\"].values\n\nN = len(seqs)    # number of sequences\nL = len(seqs[0]) # same length for all (!!!) sequences\n\n\n\n\nHow to convert sequences to numbers\nimport torch\nimport torch.nn.functional as F\n\n# Some hints to convert: DNA seqs -&gt; X\n# There are other ways, but feel free to follow the recipe below\n# chr -&gt; int -&gt; bool (one-hot encoding)\n# but please make sure you understand the steps\n\n# maps to switch chr &lt;-&gt; int\nmapping = dict(zip(\"ACGT\", range(4)))\nidx2base = {v: k for k, v in mapping.items()}\n\n# integer encoding of sequence: \"AAGTCCA\" -&gt; [0,0,2,3,1,1,0]\nseqs_int = torch.tensor([[mapping[ch] for ch in s] for s in seqs], dtype=torch.long)\n\n# one-hot encoding of seqs_int: \nX = F.one_hot(seqs_int, num_classes=4).float() \n\n# flatten one-hot encoding\nX = X.view(N, 4*L)\nprint(f\"X.shape: {X.shape}, y.shape: {y.shape}, L = {L}\")"
   }
 ]
