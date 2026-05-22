@@ -154,76 +154,6 @@
     "text": "DNN challenges\n\n\n\n\n\n\n\n\nChallenge\nSymptoms\nRemedy\n\n\n\n\nFind optimal parameters (non-convex optimization)\nslow or unstable loss reduction\nUse advanced optimizers (SGD, ADAM); learning-rate scheduling; weight initialization;\n\n\nOverparameterization\n#parameters &gt; #observations\nsmaller networks, constraints or symmetries\n\n\nOverfitting (poor generalization)\ndecrease training loss, increased validation/test loss\nDropout; L2 regularization; early stopping; increase dataset (data augmentation)\n\n\nVanishing gradients (no learning)\nGradients \\(\\approx 0\\) in early layers\nuse better activation functions (ReLU, siLU); normalization layers\n\n\nExploding gradients (divergent training)\nLoss or parameters become NaN/∞\nGradient clipping; lower learning rate; normalization layers\n\n\nSmall Data\nPoor performance on small datasets\nData augmentation, Transfer learning\n\n\nComputational cost\nslow and memory-intensive\nGPU, batch processing, quantization\n\n\nUncertainty Estimation\nOverconfident predictions\nMonte Carlo dropouts, Calibration\n\n\nInterpretability\ndifficult to interprete parameters\nFeature attribution map"
   },
   {
-    "objectID": "lectures/02_NeuralNetworks/03_EngineeringWithGradients.html",
-    "href": "lectures/02_NeuralNetworks/03_EngineeringWithGradients.html",
-    "title": "Engineering with Gradients",
-    "section": "",
-    "text": "Tip\n\n\n\nWant to make Gradient Descent faster and more robust"
-  },
-  {
-    "objectID": "lectures/02_NeuralNetworks/03_EngineeringWithGradients.html#goal",
-    "href": "lectures/02_NeuralNetworks/03_EngineeringWithGradients.html#goal",
-    "title": "Engineering with Gradients",
-    "section": "",
-    "text": "Tip\n\n\n\nWant to make Gradient Descent faster and more robust"
-  },
-  {
-    "objectID": "lectures/02_NeuralNetworks/03_EngineeringWithGradients.html#use-mini-batches",
-    "href": "lectures/02_NeuralNetworks/03_EngineeringWithGradients.html#use-mini-batches",
-    "title": "Engineering with Gradients",
-    "section": "Use Mini-Batches",
-    "text": "Use Mini-Batches\nCalcuating the gradient for the full dataset can be expensive.\n\nBreak task and data into mini-batches: \\(N_b &lt; N\\) (e.g. \\(N_b = 64\\))\ngradient estimates will be more noisy\n\n\\[\n\\frac{dL}{dW} \\approx g_t = \\frac{1}{N_b}\\sum_{i}^{N_b} \\frac{dL_i}{dW}\n\\]\nNotice: \\(dL/dW\\) denotes gradient vector for all parameters (weights and biases)\n\n\n\n\n\n\nStochastic Gradient Descent (SGD)\n\n\n\n\nmore rapid\nmore memory efficient\nescape shallow local minima\nnoisy updates as regularization\nearly convergence\nefficiency more important than exactness !"
-  },
-  {
-    "objectID": "lectures/02_NeuralNetworks/03_EngineeringWithGradients.html#consider-momentum",
-    "href": "lectures/02_NeuralNetworks/03_EngineeringWithGradients.html#consider-momentum",
-    "title": "Engineering with Gradients",
-    "section": "Consider Momentum",
-    "text": "Consider Momentum\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nw1 = np.linspace(-1, 1, 401)\nw2 = np.linspace(-1, 1, 401)\nW1, W2 = np.meshgrid(w1, w2)\nsigma1 = 0.5   # wide in w1\nsigma2 = 0.2   # narrow in w2\nZ = 1 - np.exp(-((W1**2) / (2 * sigma1**2) + (W2**2) / (2 * sigma2**2)))\n\nfig, ax = plt.subplots(figsize=(7, 5))\ncont = plt.contourf(W1, W2, Z, cmap=\"Reds\", levels=10)\nax.set_title(\"Loss Function (contour plot)\")\nax.set_xlabel(\"w1\")\nax.set_ylabel(\"w2\")\nplt.colorbar(cont, ax=ax, label=\"loss\")\nplt.show()\n\n\n\n\n\nNot all parameters are created equal.\n\n\n\n\n\ndifferent parameters can have different impact on loss function\nadjust learning rate or gradient depending on parameters (faster/slower learning)\nprevent overshooting/oscillation in “narrow” directions\n\n\n\n\n\n\n\nExponential weighted averages\n\n\n\nAverage gradient estimates over minibatch iterations \\(g_t \\to v_t\\)\n\\[\n\\begin{aligned}\nv_t &= \\beta_1 v_{t-1} + (1-\\beta_1) g_t \\\\\nW &= W - \\alpha v_t\n\\end{aligned}\n\\]\n\nsmoothed gradient (“velocity”)\nnew hyperparameter: e.g. \\(\\beta_1=0.9\\)\nweighted average over \\(1/(1-\\beta_1)\\) batches\ninclude friction term (\\(\\beta_1\\)) and acceleration (\\(1-\\beta\\))\n\n\n\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nnp.random.seed(42)\nx = np.linspace(0,64,65)\neps = np.random.normal(0, 0.2, size=x.shape)\n# simulate decay to true value (y=1)\nW = 1 + np.exp(-0.5*(x+eps))\nG = np.random.normal(1, 0.2, size=x.shape)\n\nbeta = 0.9\nG_smooth = np.zeros_like(G)\nG_smooth[0] = W[0]\nfor t in range(1, len(G)):\n    G_smooth[t] = beta * G_smooth[t-1] + (1 - beta) * G[t]\n\nplt.scatter(x,G, label=\"mini-batch\")\nplt.plot(x, G_smooth, color='orange',label=\"smoothed\")\nplt.title(f'Exponential Weighted Average (beta = {beta})')\nplt.xlabel('minibatch t')\nplt.ylabel('gradient')\nplt.legend()\nplt.grid(True)\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n\nefficient implementation of averaging\nbias for small time \\(t\\) (early minibatches)\naverages out strong fluctuations"
-  },
-  {
-    "objectID": "lectures/02_NeuralNetworks/03_EngineeringWithGradients.html#rmsprop-root-mean-square-prop",
-    "href": "lectures/02_NeuralNetworks/03_EngineeringWithGradients.html#rmsprop-root-mean-square-prop",
-    "title": "Engineering with Gradients",
-    "section": "RMSProp (root-mean-square prop)",
-    "text": "RMSProp (root-mean-square prop)\nSimilar idea; scale gradients by their squared running average\n\\[\n\\begin{aligned}\nS_t &= \\beta_2 S_{t-1} + (1-\\beta_2) g_t^2 \\\\\nW & = W - \\alpha \\left(\\frac{g_t}{\\sqrt{S_t}}\\right)\n\\end{aligned}\n\\]\n\n\\(g_t^2\\): element-wise squares of gradient\nupdate direction of \\(W\\) with small gradients stronger than large gradients\ndampen oscillations in high gradient directions\nsmoother updates permit increased learning rate"
-  },
-  {
-    "objectID": "lectures/02_NeuralNetworks/03_EngineeringWithGradients.html#adam-adaptive-moment-estimation",
-    "href": "lectures/02_NeuralNetworks/03_EngineeringWithGradients.html#adam-adaptive-moment-estimation",
-    "title": "Engineering with Gradients",
-    "section": "ADAM (Adaptive Moment Estimation)",
-    "text": "ADAM (Adaptive Moment Estimation)\n\\[\n\\begin{aligned}\nv_t &= \\beta_1 v_{t-1} + (1-\\beta_1) g_t \\\\\nS_t &= \\beta_2 S_{t-1} + (1-\\beta_2) g_t^2 \\\\\nW & = W - \\alpha \\left(\\frac{v_t}{\\sqrt{S_t}}\\right)\n\\end{aligned}\n\\]\n\ncombines Momentum with RMSprop\nreal ADAM also contains some bias correction\nmost commonly used in modern application: (\\(\\beta_1 = 0.9, \\beta_2=0.999)\\), tune \\(\\alpha\\)"
-  },
-  {
-    "objectID": "lectures/02_NeuralNetworks/03_EngineeringWithGradients.html#learning-rate-decay",
-    "href": "lectures/02_NeuralNetworks/03_EngineeringWithGradients.html#learning-rate-decay",
-    "title": "Engineering with Gradients",
-    "section": "Learning Rate Decay",
-    "text": "Learning Rate Decay\nReduce learning steps closer to minimum\n\\[\n\\alpha_t =  \\alpha_0 \\left(\\frac{1}{1+\\tau*{\\mbox epoch}}\\right)\n\\]\n\nDecay rate \\(\\tau\\)\ndifferent ways to specify decay: exponential, manually"
-  },
-  {
-    "objectID": "lectures/02_NeuralNetworks/03_EngineeringWithGradients.html#local-minima-plateaus",
-    "href": "lectures/02_NeuralNetworks/03_EngineeringWithGradients.html#local-minima-plateaus",
-    "title": "Engineering with Gradients",
-    "section": "Local Minima & Plateaus",
-    "text": "Local Minima & Plateaus\n(Local) Ninima: - curvature (second derivative) has to be positive into all directions - increasingly unlikely in high-dimensions\nSaddle Point:\n\ncurvature positive into some direction, negative in others\nincreasingly likely in high-dimensions\n\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nw1 = np.linspace(-3, 3, 400)\nw2 = np.linspace(-3, 3, 400)\nW1, W2 = np.meshgrid(w1, w2)\n\nZ = W1**2 - W2**2\n\nfig, ax = plt.subplots(figsize=(6, 5))\ncont = ax.contourf(W1, W2, Z, levels=30, cmap=\"RdBu_r\") \nplt.colorbar(cont, ax=ax, label=\"f(w1, w2)\")\n\nax.contour(W1, W2, Z, levels=[0], colors='black', linewidths=1.2)\nax.axhline(0, color='k', lw=0.8)\nax.axvline(0, color='k', lw=0.8)\n\nax.set_aspect('equal', 'box')\nax.set_xlabel(r\"$w_1$\")\nax.set_ylabel(r\"$w_2$\")\nax.set_title(\"Saddle Point:  $Loss = w_1^2 - w_2^2$\")\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n\nIn high dimensions of parameter space it is more common to have saddle points rather than local minima\nMain concern is long plateaus = slow learning"
-  },
-  {
-    "objectID": "lectures/02_NeuralNetworks/03_EngineeringWithGradients.html#parameter-initialization",
-    "href": "lectures/02_NeuralNetworks/03_EngineeringWithGradients.html#parameter-initialization",
-    "title": "Engineering with Gradients",
-    "section": "Parameter Initialization",
-    "text": "Parameter Initialization\n\ndifferent initialization can lead to different solutions\navoid node symmetry: random initialization, not zero\navoid large weights \\(\\to\\) vanishing gradients (w/ sigmoid) \\(\\to\\) no learning\navoid small weights \\(\\to\\) small activation \\(\\to\\) small gradients\n\n\\[\n(\\partial L / \\partial w_i) = (\\partial L / \\partial a)   (\\partial a / \\partial w_i)\n\\]\n\n\n\n\n\n\nDifferent Initializations at different layers:\n\n\n\nFor layer with \\(n_l\\) nodes \\[\n\\begin{aligned}\nz &= \\sum_i w_i x_i \\\\\nVar(z) &= n_l Var(w) Var(x)\n\\end{aligned}\n\\]\nWe want that Var(output) \\(\\propto\\) Var(input)\n\nXavier Initialization (for tanh): \\(Var(w) = 1/n_l\\)\nKaiming Initialization (for ReLU); \\(Var(w) = 2/n_l\\)\nmany more: e.g. torch.nn.init"
-  },
-  {
-    "objectID": "lectures/02_NeuralNetworks/03_EngineeringWithGradients.html#vectorization-gpu",
-    "href": "lectures/02_NeuralNetworks/03_EngineeringWithGradients.html#vectorization-gpu",
-    "title": "Engineering with Gradients",
-    "section": "Vectorization & GPU",
-    "text": "Vectorization & GPU\nMatrix Multiplication:\n\n\\(n\\) samples\n\\(k\\) input features\n\\(m\\) output features\n\n\\[\n\\begin{aligned}\nz &= X &\\cdot& W &+ b\\\\\n[n,m] &= [n,k] &\\cdot& [k,m] &+ [m]\n\\end{aligned}\n\\]\nBe aware of conventions and possible matrix transposition.\nUsing GPU:\n\n\nCode\nimport torch\nimport torch.nn as nn\n\n#detect GPU\ndevice = torch.device(\"cuda\" if torch.cuda.is_available() else \"cpu\")\n\nmodel = nn.Linear(10, 2).to(device) # model --&gt; Device\nx = torch.randn(16, 10).to(device)  # data --&gt; device\ny = model(x)                        # output on device\nprint(\"y.device:\", y.device)        # inspect device\ny_cpu = y.cpu()                     # change device"
-  },
-  {
     "objectID": "lectures/03_ConvolutionalNeuralNetworks/07_CNN_BiggerModels.html",
     "href": "lectures/03_ConvolutionalNeuralNetworks/07_CNN_BiggerModels.html",
     "title": "Big CNN",
@@ -1943,6 +1873,62 @@
     "href": "lectures/02_NeuralNetworks/index.html",
     "title": "02 Deep Neural Networks",
     "section": "",
-    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nPerceptron\n\n\n\nperceptron\n\ndecision boundaries\n\nneuron\n\n\n\nBrain Connections\n\n\n\nThomas Manke\n\n\nMay 7, 2026\n\n\n\n\n\n\n\n\n\n\n\nNon-linearities\n\n\nInserting non-linearities in neural networks\n\n\n\nThomas Manke\n\n\nApr 9, 2026\n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nPerceptron\n\n\n\nperceptron\n\ndecision boundaries\n\nneuron\n\n\n\nBrain Connections\n\n\n\nThomas Manke\n\n\nMay 7, 2026\n\n\n\n\n\n\n\n\n\n\n\nNon-linearities\n\n\nInserting non-linearities in neural networks\n\n\n\nThomas Manke\n\n\nMay 21, 2026\n\n\n\n\n\n\n\n\n\n\n\nLoss and Gradients\n\n\n\nchain rule\n\nbackpropagation\n\ngradient descent\n\n\n\nChain rules on networks\n\n\n\nThomas Manke\n\n\nMay 22, 2026\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/02_LossAndGradientDescent.html",
+    "href": "lectures/02_NeuralNetworks/02_LossAndGradientDescent.html",
+    "title": "Loss and Gradients",
+    "section": "",
+    "text": "Find loss minimum numerically and efficiently.\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\n\ndef sigmoid(z):\n    return 1 / (1 + np.exp(-z))\n\n# define truth (possibly simple)\ndef y_true_fn(theta, x):\n    y_true = ( theta[0] + \n        theta[1]*np.sin(theta[2] * x + theta[3]) +\n        theta[4]*np.cos(theta[4] * x - theta[6]) +\n        theta[7]*np.sin(theta[8] * x + theta[9])\n    )\n    # complexity of true model is irrelevant for shape of loss surface\n    y_true = theta[0] + theta[1]*x \n\n#   optional: turn into binary\n#    y_true = (y_true &gt; np.median(y_true)).astype(int) \n    return y_true\n\n# define model predictions (complex)\ndef y_pred_fn(w1, w2, x):\n#    y_pred = sigmoid(w1 + w2 * x)\n    y_pred = np.sin(np.pi*x + np.sin(w1*np.pi*x)) * np.cos(w2*x)\n    return y_pred\n\ndef MSEloss(w1, w2):\n    y_pred = y_pred_fn(w1, w2, x[:, None, None])\n    return np.mean((y_true[:, None, None] - y_pred)**2, axis=0)\n\ndef CEloss(w1, w2):\n    y_pred = y_pred_fn(w1, w2, x[:, None, None])\n    eps = 1e-12 # avoid log(0)\n    y_pred = np.clip(y_pred, eps, 1 - eps)\n    # binary cross entropy\n    bce = -(y_true[:, None, None] * np.log(y_pred) +\n            (1 - y_true[:, None, None]) * np.log(1 - y_pred))\n    return np.mean(bce, axis=0)\n\nn = 240\nx = np.linspace(-np.pi, np.pi, n)\ntheta = [9, 1.2, 3.0, 0.3, -0.8, 5.0, -0.1, 0.6, 7.0, 0.7, 0.2]\ny_true = y_true_fn(theta,x)\n\n#plt.figure(figsize=(6, 5))\n#plt.scatter(x,y_true)\n#plt.show()\n\n# construct 2D parameter grid\nw1 = np.linspace(-6, 6, 200)\nw2 = np.linspace(-6, 6, 200)\nW1, W2 = np.meshgrid(w1, w2)\n\nZ = MSEloss(W1, W2)\n\nplt.figure(figsize=(6,5))\nplt.contourf(W1, W2, Z, levels=100, cmap='viridis')\nplt.colorbar(label='Loss')\nplt.xlabel('w1')\nplt.ylabel('w2')\nplt.title('Non-convex Loss Surface')\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n\nChallenge: find (global) minimum for non-convex landscapes\nNon-convexity is problem of (non-linear) model, not the complex data distribution\nneed efficient numerical algorithm to navigate in complex loss landscapes"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/02_LossAndGradientDescent.html#goal",
+    "href": "lectures/02_NeuralNetworks/02_LossAndGradientDescent.html#goal",
+    "title": "Loss and Gradients",
+    "section": "",
+    "text": "Find loss minimum numerically and efficiently.\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\n\ndef sigmoid(z):\n    return 1 / (1 + np.exp(-z))\n\n# define truth (possibly simple)\ndef y_true_fn(theta, x):\n    y_true = ( theta[0] + \n        theta[1]*np.sin(theta[2] * x + theta[3]) +\n        theta[4]*np.cos(theta[4] * x - theta[6]) +\n        theta[7]*np.sin(theta[8] * x + theta[9])\n    )\n    # complexity of true model is irrelevant for shape of loss surface\n    y_true = theta[0] + theta[1]*x \n\n#   optional: turn into binary\n#    y_true = (y_true &gt; np.median(y_true)).astype(int) \n    return y_true\n\n# define model predictions (complex)\ndef y_pred_fn(w1, w2, x):\n#    y_pred = sigmoid(w1 + w2 * x)\n    y_pred = np.sin(np.pi*x + np.sin(w1*np.pi*x)) * np.cos(w2*x)\n    return y_pred\n\ndef MSEloss(w1, w2):\n    y_pred = y_pred_fn(w1, w2, x[:, None, None])\n    return np.mean((y_true[:, None, None] - y_pred)**2, axis=0)\n\ndef CEloss(w1, w2):\n    y_pred = y_pred_fn(w1, w2, x[:, None, None])\n    eps = 1e-12 # avoid log(0)\n    y_pred = np.clip(y_pred, eps, 1 - eps)\n    # binary cross entropy\n    bce = -(y_true[:, None, None] * np.log(y_pred) +\n            (1 - y_true[:, None, None]) * np.log(1 - y_pred))\n    return np.mean(bce, axis=0)\n\nn = 240\nx = np.linspace(-np.pi, np.pi, n)\ntheta = [9, 1.2, 3.0, 0.3, -0.8, 5.0, -0.1, 0.6, 7.0, 0.7, 0.2]\ny_true = y_true_fn(theta,x)\n\n#plt.figure(figsize=(6, 5))\n#plt.scatter(x,y_true)\n#plt.show()\n\n# construct 2D parameter grid\nw1 = np.linspace(-6, 6, 200)\nw2 = np.linspace(-6, 6, 200)\nW1, W2 = np.meshgrid(w1, w2)\n\nZ = MSEloss(W1, W2)\n\nplt.figure(figsize=(6,5))\nplt.contourf(W1, W2, Z, levels=100, cmap='viridis')\nplt.colorbar(label='Loss')\nplt.xlabel('w1')\nplt.ylabel('w2')\nplt.title('Non-convex Loss Surface')\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n\nChallenge: find (global) minimum for non-convex landscapes\nNon-convexity is problem of (non-linear) model, not the complex data distribution\nneed efficient numerical algorithm to navigate in complex loss landscapes"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/02_LossAndGradientDescent.html#gradients",
+    "href": "lectures/02_NeuralNetworks/02_LossAndGradientDescent.html#gradients",
+    "title": "Loss and Gradients",
+    "section": "Gradients",
+    "text": "Gradients\n\n\n\n\n\n\nIdea & Hope\n\n\n\nuse local properties of loss lanscape to update parameters\n\n\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n# Define the loss function and its derivative (gradient)\ndef L(w):\n    return (w - 2)**2 + 1   # Parabola with minimum at w=2\n\ndef dL(w):\n    return 2 * (w - 2)\n\n# Choose a point away from the minimum\nw0 = 0.5\nL0 = L(w0)\ngrad = dL(w0)\n\n# Define tangent line at w0\ndef tangent(w):\n    return L0 + grad * (w - w0)\n\n# Create range for plotting\nw = np.linspace(-1, 3, 200)\n\n# Plot\nplt.figure(figsize=(6, 6))\nplt.plot(w, L(w), label='Loss $L(w)$', color='blue')\nplt.plot(w, tangent(w), '--', color='red', label='Tangent at $w_0$')\nplt.scatter([w0], [L0], color='red', zorder=5, label=f'initial $w_0 = {w0}$')\nplt.scatter([2], [L(2)], color='green', zorder=5, label='Minimum')\n\n# Annotate gradient direction\nplt.arrow(w0, L0, 0.6, grad*0.6, head_width=0.1, head_length=0.3, fc='red', ec='red')\n\n# Labels and style\nplt.xlabel('Weight $w$')\nplt.ylabel('Loss $L(w)$')\nplt.title('Simple Loss Function')\nplt.legend()\nplt.grid(True)\nplt.tight_layout()\nplt.show()\n\n\n\n\n\nA more realistic loss function will depend on many weights and have non-convex shape\n\n\n\n\n\n\n\n\n\n\nGradient Descent\n\n\n\n\nchanges in parameter \\(w\\) will propagates through network to affect \\(L\\)\nParameter Update \\[\nw = w - \\alpha \\frac{dL}{dw}\n\\]\nsimilar for bias term \\(b\\)\nlocal derivative: \\(\\frac{dL}{dw} = f(w)\\)\nvectorization: \\(w\\) and \\(\\frac{dL}{dw}\\) are vectors of same dimension. Derivatives \\(\\to\\) Gradients\n\\(\\alpha\\): learning rate (hyperparameter)\n\n\n\n\nImportant Derivatives\nHow to calculate local slopes\n\n\n\n\n\n\n\nFunction \\(f(x)\\)\nDerivative \\(f'(x)=\\frac{df}{dx}\\)\n\n\n\n\n\\(5x\\)\n\\(5\\)\n\n\n\\(5x^2\\)\n\\(10x\\)\n\n\n\\(e^x\\)\n\\(e^x\\)\n\n\n\\(e^{-x}\\)\n\\(-e^{-x}\\)\n\n\nSigmoid: \\(\\frac{1}{1 + e^{-x}}\\)\n\\(\\frac{e^{-x}}{(1 + e^{-x})^2} = f(x)(1 - f(x))\\)\n\n\n\\(\\tanh(x)\\)\n\\(1 - f(x)^2\\)\n\n\nReLU: \\(max(0, x)\\)\n\\((0,1)\\)\n\n\n\\(f(g(x))\\)\n\\(f'(g(x)) \\cdot g'(x) \\longrightarrow\\) chain rule"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/02_LossAndGradientDescent.html#gradient-descent-1",
+    "href": "lectures/02_NeuralNetworks/02_LossAndGradientDescent.html#gradient-descent-1",
+    "title": "Loss and Gradients",
+    "section": "Gradient Descent",
+    "text": "Gradient Descent\neach sample \\(i\\) contributes to overall loss and overall gradient \\[\n\\begin{aligned}\nL(w) &= \\frac{1}{N}\\sum_i L_i(w) \\\\\n\\frac{dL}{dw} &= \\frac{1}{N}\\sum_i \\frac{dL_i}{dw} \\\\\nw &= w - \\alpha \\frac{d L}{dw}\n\\end{aligned}\n\\]\n\nInitialization (random): \\(w_0\\)\nstep-wise update is expensive (sum over all data)\nin practice this is done for batches of training samples"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/02_LossAndGradientDescent.html#forward-calculation",
+    "href": "lectures/02_NeuralNetworks/02_LossAndGradientDescent.html#forward-calculation",
+    "title": "Loss and Gradients",
+    "section": "Forward Calculation",
+    "text": "Forward Calculation\n\nExample: Logistic regression\n\n\n\nLogistic regression with two input \\((x_1, x_2\\)) and one output activation \\(a \\in [0,1]\\). This network encodes a computation that is applied to each input sample \\((x_1, x_2)\\).\n\n\nThe loss function (binary cross entropy): \\[\nL(a,y) = -y \\log(a) - (1-y)\\log(1-a)\n\\]\n\n\n\n\n\n\nMinimal Loss = Maximal Likelihood\n\n\n\n\n\n\nobserved data: \\(x\\)\ntrue label: \\(y\\)\npredicted label probability: \\(p =f(x, \\theta)\\)\n\nConditional Probability: \\[\nPr(\\mbox{Label}=y|x, \\theta) = p^y (1-p)^{(1-y)} \\to \\mbox{maximize !}\n\\]\nLoss for one sample \\(x\\): \\[\nL(p, y) = - \\log Pr(y|x, \\theta) =  - y \\log p - (1-y) \\log (1 - p) \\to \\mbox{minimize !}\n\\]\nLoss for all \\(N\\) samples \\((x_1,y_1), (x_2,y_2) \\ldots (x_N, y_N)\\) and predicted probabilities \\(p_i = f(x_i, \\theta)\\): \\[\nL(x,y) = \\frac{1}{N} \\sum_i L(p_i, y_i)\n\\]\n\n\n\n\n\nComputational Graph\n\n\n\nComputational Graph shows how data flows through a graph of basic operations (nodes)"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/02_LossAndGradientDescent.html#backpropagation",
+    "href": "lectures/02_NeuralNetworks/02_LossAndGradientDescent.html#backpropagation",
+    "title": "Loss and Gradients",
+    "section": "Backpropagation",
+    "text": "Backpropagation\n\n\n\n\n\n\nChain Rule\n\n\n\n\\[\n\\begin{aligned}\n\\frac{\\partial L}{\\partial w} &= \\left(\\frac{\\partial L}{\\partial a}\\right)\\left(\\frac{\\partial a}{\\partial z}\\right) \\left(\\frac{\\partial z}{\\partial w}\\right)\n\\end{aligned}\n\\]\n\nLoss \\(L\\)\nActivations: \\(a\\)\nOutputs: \\(z\\)\nWeights (or biases): \\(w\\)\n\n\n\n\\[\n\\begin{aligned}\n\\frac{\\partial L}{\\partial a} &= -\\frac{y}{a} + \\frac{1-y}{1-a}\\\\\n\\frac{\\partial a}{\\partial z} &= a(1-a)~~~\\mbox{for sigmoid}\\\\\n\\frac{\\partial z}{\\partial w_j} &= x_j~~~; ~~~\\frac{\\partial z}{\\partial b} = 1\n\\end{aligned}\n\\]\n\n\n\n\n\n\nBackward Calculation\n\n\n\n\nderivatives = lookup and multiplication\ndecompose larger calculation into smaller local parts\nstrict computational flow ensures that all required contributions are known\nimportance of differentiable activation functions: \\(\\frac{\\partial a}{\\partial z}\\)\nattaches a gradient to each forward value: \\(a \\to da \\equiv \\frac{\\partial L}{\\partial a}\\)\nflexibility: other loss functions, other inputs, more layers\n\n\n\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\n\ndef sigmoid(x):\n    return 1 / (1 + np.exp(-x))\n\nx = np.linspace(-3, 3, 50)\ny_sigmoid = sigmoid(x)\ny_prime = y_sigmoid * ( 1 - y_sigmoid) \nplt.figure(figsize=(8, 5))\nplt.plot(x, y_sigmoid, label='Sigmoid', linewidth=2)\nplt.plot(x, y_prime, label='Derviative', linewidth=2)\nplt.title(\"Sigmoid and Derivative\")\nplt.legend()\nplt.show()"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/02_LossAndGradientDescent.html#summary-forward-and-backward-flows",
+    "href": "lectures/02_NeuralNetworks/02_LossAndGradientDescent.html#summary-forward-and-backward-flows",
+    "title": "Loss and Gradients",
+    "section": "Summary: Forward and Backward Flows",
+    "text": "Summary: Forward and Backward Flows\nThe simple example (1 layer logistic regression) generalizes\n\nto deeper neural network with multiple layers\nparameters (weights and biases) at each layer \\(l\\)\nactivities \\(a\\) are calculated forward\ngradients \\(dL/da \\equiv da\\) are calculated backward\n\n\n\n\nForward and Backward Propagation through layer \\(l\\). Number of samples in mini-batch: \\(m\\)\n\n\n\n\n\n\n\n\nImportant\n\n\n\n\ngradients are byproduct of backpropagation\nshapes of gradients agree with shape of tensors: \\([\\frac{\\partial L}{\\partial a}] = [da] = [a]\\)\nmatrix notation for book-keeping/simplification and vectorized speedup\nlookup and matrix multiplication"
+  },
+  {
+    "objectID": "lectures/02_NeuralNetworks/02_LossAndGradientDescent.html#further-reading",
+    "href": "lectures/02_NeuralNetworks/02_LossAndGradientDescent.html#further-reading",
+    "title": "Loss and Gradients",
+    "section": "Further reading",
+    "text": "Further reading\n\n3Blue1Brown. Backpropagation.\nAutomatic Differentiation.\nAndrew Ng @ 6:23h"
   }
 ]

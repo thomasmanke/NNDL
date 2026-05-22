@@ -50,7 +50,8 @@
     "listing": "/lectures/02_NeuralNetworks/index.html",
     "items": [
       "/lectures/02_NeuralNetworks/00_Perceptron.html",
-      "/lectures/02_NeuralNetworks/01_Non-Linearities.html"
+      "/lectures/02_NeuralNetworks/01_Non-Linearities.html",
+      "/lectures/02_NeuralNetworks/02_LossAndGradientDescent.html"
     ]
   },
   {
