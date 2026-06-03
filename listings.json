@@ -5,16 +5,7 @@
   },
   {
     "listing": "/lectures/03_ConvolutionalNeuralNetworks/index.html",
-    "items": [
-      "/lectures/03_ConvolutionalNeuralNetworks/01_CNN_Intro.html",
-      "/lectures/03_ConvolutionalNeuralNetworks/02_CNN_Convolutions.html",
-      "/lectures/03_ConvolutionalNeuralNetworks/03_CNN_Implementation.html",
-      "/lectures/03_ConvolutionalNeuralNetworks/04_CNN_Inspection.html",
-      "/lectures/03_ConvolutionalNeuralNetworks/05_DataAugmentation.html",
-      "/lectures/03_ConvolutionalNeuralNetworks/06_HuggingFace.html",
-      "/lectures/03_ConvolutionalNeuralNetworks/07_CNN_BiggerModels.html",
-      "/lectures/03_ConvolutionalNeuralNetworks/08_CNN_GradCam.html"
-    ]
+    "items": []
   },
   {
     "listing": "/homework/index.html",
@@ -28,7 +19,8 @@
     "listing": "/projects/index.html",
     "items": [
       "/projects/01_MachineLearning.html",
-      "/projects/02_DeepNeuralNetworks.html"
+      "/projects/02_DeepNeuralNetworks.html",
+      "/projects/03_ConvolutionalNeuralNetworks.html"
     ]
   },
   {
@@ -51,7 +43,10 @@
     "items": [
       "/lectures/02_NeuralNetworks/00_Perceptron.html",
       "/lectures/02_NeuralNetworks/01_Non-Linearities.html",
-      "/lectures/02_NeuralNetworks/02_LossAndGradientDescent.html"
+      "/lectures/02_NeuralNetworks/02_LossAndGradientDescent.html",
+      "/lectures/02_NeuralNetworks/03_EngineeringWithGradients.html",
+      "/lectures/02_NeuralNetworks/04_Overfitting.html",
+      "/lectures/02_NeuralNetworks/05_Summary.html"
     ]
   },
   {

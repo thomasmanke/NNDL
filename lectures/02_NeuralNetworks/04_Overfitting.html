@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Thomas Manke">
-<meta name="dcterms.date" content="2026-04-09">
+<meta name="dcterms.date" content="2026-05-28">
 <meta name="description" content="Universal Approximations can also overfit">
 
 <title>Overfitting with DNN – Neural Networks and Deep Learning</title>
@@ -426,7 +426,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 9, 2026</p>
+      <p class="date">May 28, 2026</p>
     </div>
   </div>
   
@@ -459,26 +459,26 @@ Great power comes with great responsibility
 <div id="cell-generate_data" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>seed <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(seed)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>np.random.seed(seed)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>noise_sigma <span class="op">=</span> <span class="fl">0.75</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># synthetic data: y = x + epsilon</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.linspace(<span class="op">-</span><span class="fl">2.0</span>, <span class="fl">2.0</span>, n).unsqueeze(<span class="dv">1</span>) </span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x <span class="op">+</span> noise_sigma <span class="op">*</span> torch.randn_like(x) </span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>,<span class="dv">5</span>))</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>plt.scatter(x, y, color<span class="op">=</span><span class="st">'black'</span>, label<span class="op">=</span><span class="st">'train data'</span>, s<span class="op">=</span><span class="dv">50</span>)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"A simple example - again"</span>)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"x"</span>)</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"y"</span>)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> torch</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a>seed <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>torch.manual_seed(seed)</span>
+<span id="cb1-8"><a href="#cb1-8"></a>np.random.seed(seed)</span>
+<span id="cb1-9"><a href="#cb1-9"></a>n <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>noise_sigma <span class="op">=</span> <span class="fl">0.75</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co"># synthetic data: y = x + epsilon</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>x <span class="op">=</span> torch.linspace(<span class="op">-</span><span class="fl">2.0</span>, <span class="fl">2.0</span>, n).unsqueeze(<span class="dv">1</span>) </span>
+<span id="cb1-13"><a href="#cb1-13"></a>y <span class="op">=</span> x <span class="op">+</span> noise_sigma <span class="op">*</span> torch.randn_like(x) </span>
+<span id="cb1-14"><a href="#cb1-14"></a></span>
+<span id="cb1-15"><a href="#cb1-15"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>,<span class="dv">5</span>))</span>
+<span id="cb1-16"><a href="#cb1-16"></a>plt.scatter(x, y, color<span class="op">=</span><span class="st">'black'</span>, label<span class="op">=</span><span class="st">'train data'</span>, s<span class="op">=</span><span class="dv">50</span>)</span>
+<span id="cb1-17"><a href="#cb1-17"></a>plt.title(<span class="st">"A simple example - again"</span>)</span>
+<span id="cb1-18"><a href="#cb1-18"></a>plt.xlabel(<span class="st">"x"</span>)</span>
+<span id="cb1-19"><a href="#cb1-19"></a>plt.ylabel(<span class="st">"y"</span>)</span>
+<span id="cb1-20"><a href="#cb1-20"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -496,35 +496,35 @@ Great power comes with great responsibility
 <div id="define_model" class="cell" data-execution_count="2">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Model1(nn.Module):</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, delta<span class="op">=</span><span class="fl">0.0</span>):</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.delta <span class="op">=</span> delta</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.net <span class="op">=</span> nn.Sequential(</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>            nn.Linear(<span class="dv">1</span>, <span class="dv">16</span>),</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>            nn.ReLU(),</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>            nn.Dropout(delta),</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>            nn.Linear(<span class="dv">16</span>, <span class="dv">1</span>),</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.net(x)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> model_train(model, X, y, epochs<span class="op">=</span><span class="dv">1000</span>, lr<span class="op">=</span><span class="fl">0.05</span>, lam<span class="op">=</span><span class="fl">0.0</span>):</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># standard training loop with MSE loss</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    loss_func <span class="op">=</span> torch.nn.MSELoss()</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    opt <span class="op">=</span> torch.optim.Adam(model.parameters(), lr<span class="op">=</span>lr)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    loss_hist <span class="op">=</span> []</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    model.train()</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(epochs):</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        opt.zero_grad()</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        loss_reg <span class="op">=</span> lam <span class="op">*</span> <span class="bu">sum</span>(p.<span class="bu">pow</span>(<span class="dv">2</span>).<span class="bu">sum</span>() <span class="cf">for</span> p <span class="kw">in</span> model.parameters())</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> loss_func(model(X), y) <span class="op">+</span> loss_reg</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        loss.backward()</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        opt.step()</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        loss_hist.append(loss.detach().numpy())</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> loss_hist</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">class</span> Model1(nn.Module):</span>
+<span id="cb2-2"><a href="#cb2-2"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, delta<span class="op">=</span><span class="fl">0.0</span>):</span>
+<span id="cb2-3"><a href="#cb2-3"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb2-4"><a href="#cb2-4"></a>        <span class="va">self</span>.delta <span class="op">=</span> delta</span>
+<span id="cb2-5"><a href="#cb2-5"></a>        <span class="va">self</span>.net <span class="op">=</span> nn.Sequential(</span>
+<span id="cb2-6"><a href="#cb2-6"></a>            nn.Linear(<span class="dv">1</span>, <span class="dv">16</span>),</span>
+<span id="cb2-7"><a href="#cb2-7"></a>            nn.ReLU(),</span>
+<span id="cb2-8"><a href="#cb2-8"></a>            nn.Dropout(delta),</span>
+<span id="cb2-9"><a href="#cb2-9"></a>            nn.Linear(<span class="dv">16</span>, <span class="dv">1</span>),</span>
+<span id="cb2-10"><a href="#cb2-10"></a>        )</span>
+<span id="cb2-11"><a href="#cb2-11"></a></span>
+<span id="cb2-12"><a href="#cb2-12"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb2-13"><a href="#cb2-13"></a>        <span class="cf">return</span> <span class="va">self</span>.net(x)</span>
+<span id="cb2-14"><a href="#cb2-14"></a></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="kw">def</span> model_train(model, X, y, epochs<span class="op">=</span><span class="dv">1000</span>, lr<span class="op">=</span><span class="fl">0.05</span>, lam<span class="op">=</span><span class="fl">0.0</span>):</span>
+<span id="cb2-16"><a href="#cb2-16"></a>    <span class="co"># standard training loop with MSE loss</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a>    loss_func <span class="op">=</span> torch.nn.MSELoss()</span>
+<span id="cb2-18"><a href="#cb2-18"></a>    opt <span class="op">=</span> torch.optim.Adam(model.parameters(), lr<span class="op">=</span>lr)</span>
+<span id="cb2-19"><a href="#cb2-19"></a>    loss_hist <span class="op">=</span> []</span>
+<span id="cb2-20"><a href="#cb2-20"></a>    model.train()</span>
+<span id="cb2-21"><a href="#cb2-21"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(epochs):</span>
+<span id="cb2-22"><a href="#cb2-22"></a>        opt.zero_grad()</span>
+<span id="cb2-23"><a href="#cb2-23"></a>        loss_reg <span class="op">=</span> lam <span class="op">*</span> <span class="bu">sum</span>(p.<span class="bu">pow</span>(<span class="dv">2</span>).<span class="bu">sum</span>() <span class="cf">for</span> p <span class="kw">in</span> model.parameters())</span>
+<span id="cb2-24"><a href="#cb2-24"></a>        loss <span class="op">=</span> loss_func(model(X), y) <span class="op">+</span> loss_reg</span>
+<span id="cb2-25"><a href="#cb2-25"></a>        loss.backward()</span>
+<span id="cb2-26"><a href="#cb2-26"></a>        opt.step()</span>
+<span id="cb2-27"><a href="#cb2-27"></a></span>
+<span id="cb2-28"><a href="#cb2-28"></a>        loss_hist.append(loss.detach().numpy())</span>
+<span id="cb2-29"><a href="#cb2-29"></a>    <span class="cf">return</span> loss_hist</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -533,12 +533,12 @@ Great power comes with great responsibility
 <div id="model_train" class="cell" data-execution_count="3">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torchinfo <span class="im">import</span> summary</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Model1(delta<span class="op">=</span><span class="fl">0.0</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(summary(model))</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>loss_hist <span class="op">=</span> model_train(model, x, y, epochs<span class="op">=</span><span class="dv">10000</span>, lr<span class="op">=</span><span class="fl">1e-3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="op">%%</span>time</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="im">from</span> torchinfo <span class="im">import</span> summary</span>
+<span id="cb3-3"><a href="#cb3-3"></a>model <span class="op">=</span> Model1(delta<span class="op">=</span><span class="fl">0.0</span>)</span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="bu">print</span>(summary(model))</span>
+<span id="cb3-5"><a href="#cb3-5"></a></span>
+<span id="cb3-6"><a href="#cb3-6"></a>loss_hist <span class="op">=</span> model_train(model, x, y, epochs<span class="op">=</span><span class="dv">10000</span>, lr<span class="op">=</span><span class="fl">1e-3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>=================================================================
@@ -555,8 +555,8 @@ Total params: 49
 Trainable params: 49
 Non-trainable params: 0
 =================================================================
-CPU times: user 1.93 s, sys: 92.6 ms, total: 2.03 s
-Wall time: 2.33 s</code></pre>
+CPU times: user 2.02 s, sys: 88.3 ms, total: 2.11 s
+Wall time: 2.25 s</code></pre>
 </div>
 </div>
 </section>
@@ -565,15 +565,15 @@ Wall time: 2.33 s</code></pre>
 <div id="cell-plot_history" class="cell" data-execution_count="4">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_losses(losses):</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    plt.figure()</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    plt.plot(losses)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'loss'</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">'epoch'</span>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="ss">f'Loss history. Final Loss: </span><span class="sc">{</span>losses[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss">'</span>)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>plot_losses(loss_hist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">def</span> plot_losses(losses):</span>
+<span id="cb5-2"><a href="#cb5-2"></a>    plt.figure()</span>
+<span id="cb5-3"><a href="#cb5-3"></a>    plt.plot(losses)</span>
+<span id="cb5-4"><a href="#cb5-4"></a>    plt.ylabel(<span class="st">'loss'</span>)</span>
+<span id="cb5-5"><a href="#cb5-5"></a>    plt.xlabel(<span class="st">'epoch'</span>)</span>
+<span id="cb5-6"><a href="#cb5-6"></a>    plt.title(<span class="ss">f'Loss history. Final Loss: </span><span class="sc">{</span>losses[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss">'</span>)</span>
+<span id="cb5-7"><a href="#cb5-7"></a>    plt.show()</span>
+<span id="cb5-8"><a href="#cb5-8"></a></span>
+<span id="cb5-9"><a href="#cb5-9"></a>plot_losses(loss_hist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -589,29 +589,29 @@ Wall time: 2.33 s</code></pre>
 <div id="cell-predict" class="cell preview-image" data-execution_count="5">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_pred(x,y, x_new, model, title<span class="op">=</span><span class="st">""</span>):</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot training data and model predictions</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># no not use dropout during evaluation !</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    model.<span class="bu">eval</span>() </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> torch.no_grad():</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        y_pred <span class="op">=</span> model(x_new)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>,<span class="dv">5</span>))</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># training data</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    plt.scatter(x, y, color<span class="op">=</span><span class="st">'black'</span>, label<span class="op">=</span><span class="st">'train data'</span>, s<span class="op">=</span><span class="dv">50</span>)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># predictions</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    plt.plot(x_new, y_pred.detach(), color<span class="op">=</span><span class="st">'orange'</span>, lw<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="ss">f"model (delta=</span><span class="sc">{</span>model<span class="sc">.</span>delta<span class="sc">:.2f}</span><span class="ss">)"</span>)</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"x"</span>)</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"y"</span>)</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    plt.title(title)</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    plt.grid(<span class="va">True</span>)</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>x_plot <span class="op">=</span> torch.linspace(<span class="op">-</span><span class="fl">2.1</span>, <span class="fl">2.1</span>, <span class="dv">200</span>).unsqueeze(<span class="dv">1</span>)</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>plot_pred(x,y, x_plot, model, title<span class="op">=</span><span class="st">"Universality and Overfitting"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">def</span> plot_pred(x,y, x_new, model, title<span class="op">=</span><span class="st">""</span>):</span>
+<span id="cb6-2"><a href="#cb6-2"></a>    <span class="co"># plot training data and model predictions</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4"></a>    <span class="co"># no not use dropout during evaluation !</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>    model.<span class="bu">eval</span>() </span>
+<span id="cb6-6"><a href="#cb6-6"></a>    <span class="cf">with</span> torch.no_grad():</span>
+<span id="cb6-7"><a href="#cb6-7"></a>        y_pred <span class="op">=</span> model(x_new)</span>
+<span id="cb6-8"><a href="#cb6-8"></a></span>
+<span id="cb6-9"><a href="#cb6-9"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>,<span class="dv">5</span>))</span>
+<span id="cb6-10"><a href="#cb6-10"></a>    <span class="co"># training data</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a>    plt.scatter(x, y, color<span class="op">=</span><span class="st">'black'</span>, label<span class="op">=</span><span class="st">'train data'</span>, s<span class="op">=</span><span class="dv">50</span>)</span>
+<span id="cb6-12"><a href="#cb6-12"></a>    <span class="co"># predictions</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a>    plt.plot(x_new, y_pred.detach(), color<span class="op">=</span><span class="st">'orange'</span>, lw<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="ss">f"model (delta=</span><span class="sc">{</span>model<span class="sc">.</span>delta<span class="sc">:.2f}</span><span class="ss">)"</span>)</span>
+<span id="cb6-14"><a href="#cb6-14"></a>    plt.xlabel(<span class="st">"x"</span>)</span>
+<span id="cb6-15"><a href="#cb6-15"></a>    plt.ylabel(<span class="st">"y"</span>)</span>
+<span id="cb6-16"><a href="#cb6-16"></a>    plt.title(title)</span>
+<span id="cb6-17"><a href="#cb6-17"></a>    plt.grid(<span class="va">True</span>)</span>
+<span id="cb6-18"><a href="#cb6-18"></a>    plt.legend()</span>
+<span id="cb6-19"><a href="#cb6-19"></a>    plt.tight_layout()</span>
+<span id="cb6-20"><a href="#cb6-20"></a>    plt.show()</span>
+<span id="cb6-21"><a href="#cb6-21"></a></span>
+<span id="cb6-22"><a href="#cb6-22"></a>x_plot <span class="op">=</span> torch.linspace(<span class="op">-</span><span class="fl">2.1</span>, <span class="fl">2.1</span>, <span class="dv">200</span>).unsqueeze(<span class="dv">1</span>)</span>
+<span id="cb6-23"><a href="#cb6-23"></a>plot_pred(x,y, x_plot, model, title<span class="op">=</span><span class="st">"Universality and Overfitting"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -629,11 +629,11 @@ Wall time: 2.33 s</code></pre>
 <div id="model_dropout" class="cell" data-execution_count="6">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Model1(delta<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#print(summary(model))</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>loss_hist <span class="op">=</span> model_train(model, x, y, epochs<span class="op">=</span><span class="dv">10000</span>, lr<span class="op">=</span><span class="fl">1e-3</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>plot_losses(loss_hist)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>plot_pred(x,y, x_plot, model, title<span class="op">=</span><span class="ss">f"delta=</span><span class="sc">{</span>model<span class="sc">.</span>delta<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>model <span class="op">=</span> Model1(delta<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="co">#print(summary(model))</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>loss_hist <span class="op">=</span> model_train(model, x, y, epochs<span class="op">=</span><span class="dv">10000</span>, lr<span class="op">=</span><span class="fl">1e-3</span>)</span>
+<span id="cb7-4"><a href="#cb7-4"></a>plot_losses(loss_hist)</span>
+<span id="cb7-5"><a href="#cb7-5"></a>plot_pred(x,y, x_plot, model, title<span class="op">=</span><span class="ss">f"delta=</span><span class="sc">{</span>model<span class="sc">.</span>delta<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -656,7 +656,7 @@ Wall time: 2.33 s</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Dropout (<span class="math inline">\(delta&gt;0\)</span>)
+Dropout (delta&gt;0)
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -683,17 +683,17 @@ L(\theta) \to L(\theta) + \frac{\lambda}{2} \sum_l \theta_l^2
 \]</span></p>
 <p>This is also know as “L2 regularization” which encourages more balanced distribution of weights <span class="math inline">\(\theta_l\)</span>.</p>
 <p>… and parameter update <span class="math display">\[
-\theta_{t+1} = \theta_t - \alpha \fract{\partial L}{\partial \theta_t} - \lambda \theta_t
+\theta_{t+1} = \theta_t - \alpha \frac{\partial L}{\partial \theta_t} - \lambda \theta_t
 \]</span></p>
 <div id="loss_regularization" class="cell" data-execution_count="7">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>delta, lam <span class="op">=</span> <span class="fl">0.0</span>, <span class="fl">0.1</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Model1(delta<span class="op">=</span>delta)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#print(summary(model))</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>loss_hist <span class="op">=</span> model_train(model, x, y, epochs<span class="op">=</span><span class="dv">10000</span>, lr<span class="op">=</span><span class="fl">1e-3</span>, lam<span class="op">=</span>lam)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>plot_losses(loss_hist)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>plot_pred(x,y, x_plot, model,title<span class="op">=</span><span class="ss">f"delta=</span><span class="sc">{</span>delta<span class="sc">:.2f}</span><span class="ss">, lambda=</span><span class="sc">{</span>lam<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>delta, lam <span class="op">=</span> <span class="fl">0.0</span>, <span class="fl">0.1</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>model <span class="op">=</span> Model1(delta<span class="op">=</span>delta)</span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="co">#print(summary(model))</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>loss_hist <span class="op">=</span> model_train(model, x, y, epochs<span class="op">=</span><span class="dv">10000</span>, lr<span class="op">=</span><span class="fl">1e-3</span>, lam<span class="op">=</span>lam)</span>
+<span id="cb8-5"><a href="#cb8-5"></a>plot_losses(loss_hist)</span>
+<span id="cb8-6"><a href="#cb8-6"></a>plot_pred(x,y, x_plot, model,title<span class="op">=</span><span class="ss">f"delta=</span><span class="sc">{</span>delta<span class="sc">:.2f}</span><span class="ss">, lambda=</span><span class="sc">{</span>lam<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -716,7 +716,7 @@ L(\theta) \to L(\theta) + \frac{\lambda}{2} \sum_l \theta_l^2
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Loss Regularization
+Loss Regularization (lambda&gt;0)
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1231,248 +1231,248 @@ Important
     }
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb9" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Overfitting with DNN"</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="an">jupyter:</span><span class="co"> pytorch</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">  - overfitting</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">  - dropout</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">  - regularization</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="an">draft:</span><span class="co"> false</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> Universal Approximations can also overfit</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Great power comes with great responsibility</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>universal approximation theorem $\to$ great flexibility to fit *any* function</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>methods to control overfitting</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Generate synthetic data</span></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: generate_data</span></span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>seed <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(seed)</span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>np.random.seed(seed)</span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>noise_sigma <span class="op">=</span> <span class="fl">0.75</span></span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="co"># synthetic data: y = x + epsilon</span></span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.linspace(<span class="op">-</span><span class="fl">2.0</span>, <span class="fl">2.0</span>, n).unsqueeze(<span class="dv">1</span>) </span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x <span class="op">+</span> noise_sigma <span class="op">*</span> torch.randn_like(x) </span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>,<span class="dv">5</span>))</span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>plt.scatter(x, y, color<span class="op">=</span><span class="st">'black'</span>, label<span class="op">=</span><span class="st">'train data'</span>, s<span class="op">=</span><span class="dv">50</span>)</span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"A simple example - again"</span>)</span>
-<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"x"</span>)</span>
-<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"y"</span>)</span>
-<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a><span class="fu">## Define Model and Training Loop</span></span>
-<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>Here we define a relatively simple model class</span>
-<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>and a standardard training loop for convenience.</span>
-<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>Notice: two parameters, $\delta$ and $\lambda$, to be used later.</span>
-<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: define_model</span></span>
-<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Model1(nn.Module):</span>
-<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, delta<span class="op">=</span><span class="fl">0.0</span>):</span>
-<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
-<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.delta <span class="op">=</span> delta</span>
-<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.net <span class="op">=</span> nn.Sequential(</span>
-<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>            nn.Linear(<span class="dv">1</span>, <span class="dv">16</span>),</span>
-<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a>            nn.ReLU(),</span>
-<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>            nn.Dropout(delta),</span>
-<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a>            nn.Linear(<span class="dv">16</span>, <span class="dv">1</span>),</span>
-<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
-<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.net(x)</span>
-<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> model_train(model, X, y, epochs<span class="op">=</span><span class="dv">1000</span>, lr<span class="op">=</span><span class="fl">0.05</span>, lam<span class="op">=</span><span class="fl">0.0</span>):</span>
-<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a>    <span class="co"># standard training loop with MSE loss</span></span>
-<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a>    loss_func <span class="op">=</span> torch.nn.MSELoss()</span>
-<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a>    opt <span class="op">=</span> torch.optim.Adam(model.parameters(), lr<span class="op">=</span>lr)</span>
-<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a>    loss_hist <span class="op">=</span> []</span>
-<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a>    model.train()</span>
-<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(epochs):</span>
-<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a>        opt.zero_grad()</span>
-<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a>        loss_reg <span class="op">=</span> lam <span class="op">*</span> <span class="bu">sum</span>(p.<span class="bu">pow</span>(<span class="dv">2</span>).<span class="bu">sum</span>() <span class="cf">for</span> p <span class="kw">in</span> model.parameters())</span>
-<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> loss_func(model(X), y) <span class="op">+</span> loss_reg</span>
-<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a>        loss.backward()</span>
-<span id="cb9-85"><a href="#cb9-85" aria-hidden="true" tabindex="-1"></a>        opt.step()</span>
-<span id="cb9-86"><a href="#cb9-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-87"><a href="#cb9-87" aria-hidden="true" tabindex="-1"></a>        loss_hist.append(loss.detach().numpy())</span>
-<span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> loss_hist</span>
-<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-90"><a href="#cb9-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-91"><a href="#cb9-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-92"><a href="#cb9-92" aria-hidden="true" tabindex="-1"></a><span class="fu">## Train Model</span></span>
-<span id="cb9-95"><a href="#cb9-95" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb9-96"><a href="#cb9-96" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: model_train</span></span>
-<span id="cb9-97"><a href="#cb9-97" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
-<span id="cb9-98"><a href="#cb9-98" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torchinfo <span class="im">import</span> summary</span>
-<span id="cb9-99"><a href="#cb9-99" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Model1(delta<span class="op">=</span><span class="fl">0.0</span>)</span>
-<span id="cb9-100"><a href="#cb9-100" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(summary(model))</span>
-<span id="cb9-101"><a href="#cb9-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-102"><a href="#cb9-102" aria-hidden="true" tabindex="-1"></a>loss_hist <span class="op">=</span> model_train(model, x, y, epochs<span class="op">=</span><span class="dv">10000</span>, lr<span class="op">=</span><span class="fl">1e-3</span>)</span>
-<span id="cb9-103"><a href="#cb9-103" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-104"><a href="#cb9-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-105"><a href="#cb9-105" aria-hidden="true" tabindex="-1"></a><span class="fu">## Loss History</span></span>
-<span id="cb9-108"><a href="#cb9-108" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb9-109"><a href="#cb9-109" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: plot_history</span></span>
-<span id="cb9-110"><a href="#cb9-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-111"><a href="#cb9-111" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_losses(losses):</span>
-<span id="cb9-112"><a href="#cb9-112" aria-hidden="true" tabindex="-1"></a>    plt.figure()</span>
-<span id="cb9-113"><a href="#cb9-113" aria-hidden="true" tabindex="-1"></a>    plt.plot(losses)</span>
-<span id="cb9-114"><a href="#cb9-114" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'loss'</span>)</span>
-<span id="cb9-115"><a href="#cb9-115" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">'epoch'</span>)</span>
-<span id="cb9-116"><a href="#cb9-116" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="ss">f'Loss history. Final Loss: </span><span class="sc">{</span>losses[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss">'</span>)</span>
-<span id="cb9-117"><a href="#cb9-117" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
-<span id="cb9-118"><a href="#cb9-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-119"><a href="#cb9-119" aria-hidden="true" tabindex="-1"></a>plot_losses(loss_hist)</span>
-<span id="cb9-120"><a href="#cb9-120" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-121"><a href="#cb9-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-122"><a href="#cb9-122" aria-hidden="true" tabindex="-1"></a><span class="fu">## Model Predictions</span></span>
-<span id="cb9-125"><a href="#cb9-125" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb9-126"><a href="#cb9-126" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: predict</span></span>
-<span id="cb9-127"><a href="#cb9-127" aria-hidden="true" tabindex="-1"></a><span class="co">#| classes: preview-image</span></span>
-<span id="cb9-128"><a href="#cb9-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-129"><a href="#cb9-129" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_pred(x,y, x_new, model, title<span class="op">=</span><span class="st">""</span>):</span>
-<span id="cb9-130"><a href="#cb9-130" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot training data and model predictions</span></span>
-<span id="cb9-131"><a href="#cb9-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-132"><a href="#cb9-132" aria-hidden="true" tabindex="-1"></a>    <span class="co"># no not use dropout during evaluation !</span></span>
-<span id="cb9-133"><a href="#cb9-133" aria-hidden="true" tabindex="-1"></a>    model.<span class="bu">eval</span>() </span>
-<span id="cb9-134"><a href="#cb9-134" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> torch.no_grad():</span>
-<span id="cb9-135"><a href="#cb9-135" aria-hidden="true" tabindex="-1"></a>        y_pred <span class="op">=</span> model(x_new)</span>
-<span id="cb9-136"><a href="#cb9-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-137"><a href="#cb9-137" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>,<span class="dv">5</span>))</span>
-<span id="cb9-138"><a href="#cb9-138" aria-hidden="true" tabindex="-1"></a>    <span class="co"># training data</span></span>
-<span id="cb9-139"><a href="#cb9-139" aria-hidden="true" tabindex="-1"></a>    plt.scatter(x, y, color<span class="op">=</span><span class="st">'black'</span>, label<span class="op">=</span><span class="st">'train data'</span>, s<span class="op">=</span><span class="dv">50</span>)</span>
-<span id="cb9-140"><a href="#cb9-140" aria-hidden="true" tabindex="-1"></a>    <span class="co"># predictions</span></span>
-<span id="cb9-141"><a href="#cb9-141" aria-hidden="true" tabindex="-1"></a>    plt.plot(x_new, y_pred.detach(), color<span class="op">=</span><span class="st">'orange'</span>, lw<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="ss">f"model (delta=</span><span class="sc">{</span>model<span class="sc">.</span>delta<span class="sc">:.2f}</span><span class="ss">)"</span>)</span>
-<span id="cb9-142"><a href="#cb9-142" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"x"</span>)</span>
-<span id="cb9-143"><a href="#cb9-143" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"y"</span>)</span>
-<span id="cb9-144"><a href="#cb9-144" aria-hidden="true" tabindex="-1"></a>    plt.title(title)</span>
-<span id="cb9-145"><a href="#cb9-145" aria-hidden="true" tabindex="-1"></a>    plt.grid(<span class="va">True</span>)</span>
-<span id="cb9-146"><a href="#cb9-146" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
-<span id="cb9-147"><a href="#cb9-147" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
-<span id="cb9-148"><a href="#cb9-148" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
-<span id="cb9-149"><a href="#cb9-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-150"><a href="#cb9-150" aria-hidden="true" tabindex="-1"></a>x_plot <span class="op">=</span> torch.linspace(<span class="op">-</span><span class="fl">2.1</span>, <span class="fl">2.1</span>, <span class="dv">200</span>).unsqueeze(<span class="dv">1</span>)</span>
-<span id="cb9-151"><a href="#cb9-151" aria-hidden="true" tabindex="-1"></a>plot_pred(x,y, x_plot, model, title<span class="op">=</span><span class="st">"Universality and Overfitting"</span>)</span>
-<span id="cb9-152"><a href="#cb9-152" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-153"><a href="#cb9-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-154"><a href="#cb9-154" aria-hidden="true" tabindex="-1"></a><span class="fu">## With Dropout</span></span>
-<span id="cb9-155"><a href="#cb9-155" aria-hidden="true" tabindex="-1"></a>... adjust model (during training). </span>
-<span id="cb9-156"><a href="#cb9-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-157"><a href="#cb9-157" aria-hidden="true" tabindex="-1"></a>This sets to zero the output of a random fraction (10-20%) of neurons</span>
-<span id="cb9-158"><a href="#cb9-158" aria-hidden="true" tabindex="-1"></a>for each mini-batch (epochs in the simple example below). </span>
-<span id="cb9-159"><a href="#cb9-159" aria-hidden="true" tabindex="-1"></a>In this way the model predictions should be robust against the presence or absence of individual neurons and overfit less.</span>
-<span id="cb9-162"><a href="#cb9-162" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb9-163"><a href="#cb9-163" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: model_dropout</span></span>
-<span id="cb9-164"><a href="#cb9-164" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Model1(delta<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb9-165"><a href="#cb9-165" aria-hidden="true" tabindex="-1"></a><span class="co">#print(summary(model))</span></span>
-<span id="cb9-166"><a href="#cb9-166" aria-hidden="true" tabindex="-1"></a>loss_hist <span class="op">=</span> model_train(model, x, y, epochs<span class="op">=</span><span class="dv">10000</span>, lr<span class="op">=</span><span class="fl">1e-3</span>)</span>
-<span id="cb9-167"><a href="#cb9-167" aria-hidden="true" tabindex="-1"></a>plot_losses(loss_hist)</span>
-<span id="cb9-168"><a href="#cb9-168" aria-hidden="true" tabindex="-1"></a>plot_pred(x,y, x_plot, model, title<span class="op">=</span><span class="ss">f"delta=</span><span class="sc">{</span>model<span class="sc">.</span>delta<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb9-169"><a href="#cb9-169" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-170"><a href="#cb9-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-171"><a href="#cb9-171" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb9-172"><a href="#cb9-172" aria-hidden="true" tabindex="-1"></a><span class="fu">### Dropout ($delta&gt;0$)</span></span>
-<span id="cb9-173"><a href="#cb9-173" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>corresponds to ensemble of smaller networks within big one</span>
-<span id="cb9-174"><a href="#cb9-174" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>makes learning harder</span>
-<span id="cb9-175"><a href="#cb9-175" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>increases loss and loss fluctuations </span>
-<span id="cb9-176"><a href="#cb9-176" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>reduces network capacity $\to$ increased training time</span>
-<span id="cb9-177"><a href="#cb9-177" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>forces redundant representations (c.f neurobiology: neurons are not reliable </span>
-<span id="cb9-178"><a href="#cb9-178" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>makes model more robust $\to$ less overfitting</span>
-<span id="cb9-179"><a href="#cb9-179" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>accuracy $\to$ *reliability*</span>
-<span id="cb9-180"><a href="#cb9-180" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>only at training (pyTorch: <span class="in">`model.eval`</span> at inference!)</span>
-<span id="cb9-181"><a href="#cb9-181" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>or run multiple evaluations to estimate empirical probabilities</span>
-<span id="cb9-182"><a href="#cb9-182" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb9-183"><a href="#cb9-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-184"><a href="#cb9-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-185"><a href="#cb9-185" aria-hidden="true" tabindex="-1"></a><span class="fu">## With regularization</span></span>
-<span id="cb9-186"><a href="#cb9-186" aria-hidden="true" tabindex="-1"></a>... adjust cost function</span>
-<span id="cb9-187"><a href="#cb9-187" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb9-188"><a href="#cb9-188" aria-hidden="true" tabindex="-1"></a>L(\theta) \to L(\theta) + \frac{\lambda}{2} \sum_l \theta_l^2</span>
-<span id="cb9-189"><a href="#cb9-189" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb9-190"><a href="#cb9-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-191"><a href="#cb9-191" aria-hidden="true" tabindex="-1"></a>This is also know as "L2 regularization" which encourages more balanced distribution of weights $\theta_l$. </span>
-<span id="cb9-192"><a href="#cb9-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-193"><a href="#cb9-193" aria-hidden="true" tabindex="-1"></a>... and parameter update</span>
-<span id="cb9-194"><a href="#cb9-194" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb9-195"><a href="#cb9-195" aria-hidden="true" tabindex="-1"></a>\theta_{t+1} = \theta_t - \alpha \fract{\partial L}{\partial \theta_t} - \lambda \theta_t</span>
-<span id="cb9-196"><a href="#cb9-196" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb9-197"><a href="#cb9-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-200"><a href="#cb9-200" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb9-201"><a href="#cb9-201" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: loss_regularization</span></span>
-<span id="cb9-202"><a href="#cb9-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-203"><a href="#cb9-203" aria-hidden="true" tabindex="-1"></a>delta, lam <span class="op">=</span> <span class="fl">0.0</span>, <span class="fl">0.1</span></span>
-<span id="cb9-204"><a href="#cb9-204" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Model1(delta<span class="op">=</span>delta)</span>
-<span id="cb9-205"><a href="#cb9-205" aria-hidden="true" tabindex="-1"></a><span class="co">#print(summary(model))</span></span>
-<span id="cb9-206"><a href="#cb9-206" aria-hidden="true" tabindex="-1"></a>loss_hist <span class="op">=</span> model_train(model, x, y, epochs<span class="op">=</span><span class="dv">10000</span>, lr<span class="op">=</span><span class="fl">1e-3</span>, lam<span class="op">=</span>lam)</span>
-<span id="cb9-207"><a href="#cb9-207" aria-hidden="true" tabindex="-1"></a>plot_losses(loss_hist)</span>
-<span id="cb9-208"><a href="#cb9-208" aria-hidden="true" tabindex="-1"></a>plot_pred(x,y, x_plot, model,title<span class="op">=</span><span class="ss">f"delta=</span><span class="sc">{</span>delta<span class="sc">:.2f}</span><span class="ss">, lambda=</span><span class="sc">{</span>lam<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb9-209"><a href="#cb9-209" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-210"><a href="#cb9-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-211"><a href="#cb9-211" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb9-212"><a href="#cb9-212" aria-hidden="true" tabindex="-1"></a><span class="fu">### Loss Regularization</span></span>
-<span id="cb9-213"><a href="#cb9-213" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>no change to model</span>
-<span id="cb9-214"><a href="#cb9-214" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>learning less affected $\to$ smoother loss history</span>
-<span id="cb9-215"><a href="#cb9-215" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>model is more robust $\to$ less overfitting</span>
-<span id="cb9-216"><a href="#cb9-216" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>new hyperparameters</span>
-<span id="cb9-217"><a href="#cb9-217" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb9-218"><a href="#cb9-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-219"><a href="#cb9-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-220"><a href="#cb9-220" aria-hidden="true" tabindex="-1"></a><span class="fu">## Get more data: Data Augementation</span></span>
-<span id="cb9-221"><a href="#cb9-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-222"><a href="#cb9-222" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>embedd into ML workflow</span>
-<span id="cb9-223"><a href="#cb9-223" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>identify symmetries (invariances): shift, rotate, scale, crop, brightness</span>
-<span id="cb9-224"><a href="#cb9-224" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>augment only training data</span>
-<span id="cb9-225"><a href="#cb9-225" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>augment all samples of the training data in same proportions</span>
-<span id="cb9-226"><a href="#cb9-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-227"><a href="#cb9-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-228"><a href="#cb9-228" aria-hidden="true" tabindex="-1"></a><span class="fu">## Summary: Overfitting</span></span>
-<span id="cb9-229"><a href="#cb9-229" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-230"><a href="#cb9-230" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb9-231"><a href="#cb9-231" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>universal approximation theorem</span>
-<span id="cb9-232"><a href="#cb9-232" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>arbitrary functions can be constructed ("piecewise-linear")</span>
-<span id="cb9-233"><a href="#cb9-233" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>non-linearity in model is crucial (here: ReLU)</span>
-<span id="cb9-234"><a href="#cb9-234" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>relatively simple models: 49 parameters</span>
-<span id="cb9-235"><a href="#cb9-235" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>number of data points: $n = 10 \to$ overfitting</span>
-<span id="cb9-236"><a href="#cb9-236" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>use regularizations: e.g. $\lambda &gt; 0$ or dropout $\delta&gt;0$</span>
-<span id="cb9-237"><a href="#cb9-237" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>always assess generalizability with **test data**</span>
-<span id="cb9-238"><a href="#cb9-238" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb9-239"><a href="#cb9-239" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-242"><a href="#cb9-242" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb9-243"><a href="#cb9-243" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: param_distribtion</span></span>
-<span id="cb9-244"><a href="#cb9-244" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb9-245"><a href="#cb9-245" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb9-246"><a href="#cb9-246" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-247"><a href="#cb9-247" aria-hidden="true" tabindex="-1"></a><span class="co"># actually the parameters in this simple example do not get overly large</span></span>
-<span id="cb9-248"><a href="#cb9-248" aria-hidden="true" tabindex="-1"></a><span class="co"># (unlike polynomial models)</span></span>
-<span id="cb9-249"><a href="#cb9-249" aria-hidden="true" tabindex="-1"></a><span class="co"># but the effect of L2 regularization can none-theless be observed </span></span>
-<span id="cb9-250"><a href="#cb9-250" aria-hidden="true" tabindex="-1"></a><span class="co"># in shrinking the variance of the histogram </span></span>
-<span id="cb9-251"><a href="#cb9-251" aria-hidden="true" tabindex="-1"></a>all_params <span class="op">=</span> torch.cat([p.data.flatten() <span class="cf">for</span> p <span class="kw">in</span> model.parameters()])</span>
-<span id="cb9-252"><a href="#cb9-252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-253"><a href="#cb9-253" aria-hidden="true" tabindex="-1"></a>plt.hist(all_params.numpy(), bins<span class="op">=</span><span class="dv">50</span>, edgecolor<span class="op">=</span><span class="st">'k'</span>)</span>
-<span id="cb9-254"><a href="#cb9-254" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Parameter value"</span>)</span>
-<span id="cb9-255"><a href="#cb9-255" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Frequency"</span>)</span>
-<span id="cb9-256"><a href="#cb9-256" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Distribution of all model parameters"</span>)</span>
-<span id="cb9-257"><a href="#cb9-257" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb9-258"><a href="#cb9-258" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<div class="sourceCode" id="cb9" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">---</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="an">title:</span><span class="co"> "Overfitting with DNN"</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="an">jupyter:</span><span class="co"> pytorch</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="an">categories:</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="co">  - overfitting</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="co">  - dropout</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="co">  - regularization</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="an">draft:</span><span class="co"> false</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="an">description:</span><span class="co"> Universal Approximations can also overfit</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a><span class="co">---</span></span>
+<span id="cb9-11"><a href="#cb9-11"></a></span>
+<span id="cb9-12"><a href="#cb9-12"></a>::: {.callout-important}</span>
+<span id="cb9-13"><a href="#cb9-13"></a><span class="fu">## Great power comes with great responsibility</span></span>
+<span id="cb9-14"><a href="#cb9-14"></a></span>
+<span id="cb9-15"><a href="#cb9-15"></a><span class="ss">- </span>universal approximation theorem $\to$ great flexibility to fit *any* function</span>
+<span id="cb9-16"><a href="#cb9-16"></a><span class="ss">- </span>methods to control overfitting</span>
+<span id="cb9-17"><a href="#cb9-17"></a>:::</span>
+<span id="cb9-18"><a href="#cb9-18"></a></span>
+<span id="cb9-19"><a href="#cb9-19"></a></span>
+<span id="cb9-20"><a href="#cb9-20"></a><span class="fu">## Generate synthetic data</span></span>
+<span id="cb9-23"><a href="#cb9-23"></a><span class="in">```{python}</span></span>
+<span id="cb9-24"><a href="#cb9-24"></a><span class="co">#| label: generate_data</span></span>
+<span id="cb9-25"><a href="#cb9-25"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb9-26"><a href="#cb9-26"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb9-27"><a href="#cb9-27"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb9-28"><a href="#cb9-28"></a><span class="im">import</span> torch</span>
+<span id="cb9-29"><a href="#cb9-29"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
+<span id="cb9-30"><a href="#cb9-30"></a></span>
+<span id="cb9-31"><a href="#cb9-31"></a>seed <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb9-32"><a href="#cb9-32"></a>torch.manual_seed(seed)</span>
+<span id="cb9-33"><a href="#cb9-33"></a>np.random.seed(seed)</span>
+<span id="cb9-34"><a href="#cb9-34"></a>n <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb9-35"><a href="#cb9-35"></a>noise_sigma <span class="op">=</span> <span class="fl">0.75</span></span>
+<span id="cb9-36"><a href="#cb9-36"></a><span class="co"># synthetic data: y = x + epsilon</span></span>
+<span id="cb9-37"><a href="#cb9-37"></a>x <span class="op">=</span> torch.linspace(<span class="op">-</span><span class="fl">2.0</span>, <span class="fl">2.0</span>, n).unsqueeze(<span class="dv">1</span>) </span>
+<span id="cb9-38"><a href="#cb9-38"></a>y <span class="op">=</span> x <span class="op">+</span> noise_sigma <span class="op">*</span> torch.randn_like(x) </span>
+<span id="cb9-39"><a href="#cb9-39"></a></span>
+<span id="cb9-40"><a href="#cb9-40"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>,<span class="dv">5</span>))</span>
+<span id="cb9-41"><a href="#cb9-41"></a>plt.scatter(x, y, color<span class="op">=</span><span class="st">'black'</span>, label<span class="op">=</span><span class="st">'train data'</span>, s<span class="op">=</span><span class="dv">50</span>)</span>
+<span id="cb9-42"><a href="#cb9-42"></a>plt.title(<span class="st">"A simple example - again"</span>)</span>
+<span id="cb9-43"><a href="#cb9-43"></a>plt.xlabel(<span class="st">"x"</span>)</span>
+<span id="cb9-44"><a href="#cb9-44"></a>plt.ylabel(<span class="st">"y"</span>)</span>
+<span id="cb9-45"><a href="#cb9-45"></a>plt.show()</span>
+<span id="cb9-46"><a href="#cb9-46"></a><span class="in">```</span></span>
+<span id="cb9-47"><a href="#cb9-47"></a></span>
+<span id="cb9-48"><a href="#cb9-48"></a><span class="fu">## Define Model and Training Loop</span></span>
+<span id="cb9-49"><a href="#cb9-49"></a></span>
+<span id="cb9-50"><a href="#cb9-50"></a>Here we define a relatively simple model class</span>
+<span id="cb9-51"><a href="#cb9-51"></a>and a standardard training loop for convenience.</span>
+<span id="cb9-52"><a href="#cb9-52"></a></span>
+<span id="cb9-53"><a href="#cb9-53"></a>Notice: two parameters, $\delta$ and $\lambda$, to be used later.</span>
+<span id="cb9-54"><a href="#cb9-54"></a></span>
+<span id="cb9-57"><a href="#cb9-57"></a><span class="in">```{python}</span></span>
+<span id="cb9-58"><a href="#cb9-58"></a><span class="co">#| label: define_model</span></span>
+<span id="cb9-59"><a href="#cb9-59"></a></span>
+<span id="cb9-60"><a href="#cb9-60"></a><span class="kw">class</span> Model1(nn.Module):</span>
+<span id="cb9-61"><a href="#cb9-61"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, delta<span class="op">=</span><span class="fl">0.0</span>):</span>
+<span id="cb9-62"><a href="#cb9-62"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb9-63"><a href="#cb9-63"></a>        <span class="va">self</span>.delta <span class="op">=</span> delta</span>
+<span id="cb9-64"><a href="#cb9-64"></a>        <span class="va">self</span>.net <span class="op">=</span> nn.Sequential(</span>
+<span id="cb9-65"><a href="#cb9-65"></a>            nn.Linear(<span class="dv">1</span>, <span class="dv">16</span>),</span>
+<span id="cb9-66"><a href="#cb9-66"></a>            nn.ReLU(),</span>
+<span id="cb9-67"><a href="#cb9-67"></a>            nn.Dropout(delta),</span>
+<span id="cb9-68"><a href="#cb9-68"></a>            nn.Linear(<span class="dv">16</span>, <span class="dv">1</span>),</span>
+<span id="cb9-69"><a href="#cb9-69"></a>        )</span>
+<span id="cb9-70"><a href="#cb9-70"></a></span>
+<span id="cb9-71"><a href="#cb9-71"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb9-72"><a href="#cb9-72"></a>        <span class="cf">return</span> <span class="va">self</span>.net(x)</span>
+<span id="cb9-73"><a href="#cb9-73"></a></span>
+<span id="cb9-74"><a href="#cb9-74"></a><span class="kw">def</span> model_train(model, X, y, epochs<span class="op">=</span><span class="dv">1000</span>, lr<span class="op">=</span><span class="fl">0.05</span>, lam<span class="op">=</span><span class="fl">0.0</span>):</span>
+<span id="cb9-75"><a href="#cb9-75"></a>    <span class="co"># standard training loop with MSE loss</span></span>
+<span id="cb9-76"><a href="#cb9-76"></a>    loss_func <span class="op">=</span> torch.nn.MSELoss()</span>
+<span id="cb9-77"><a href="#cb9-77"></a>    opt <span class="op">=</span> torch.optim.Adam(model.parameters(), lr<span class="op">=</span>lr)</span>
+<span id="cb9-78"><a href="#cb9-78"></a>    loss_hist <span class="op">=</span> []</span>
+<span id="cb9-79"><a href="#cb9-79"></a>    model.train()</span>
+<span id="cb9-80"><a href="#cb9-80"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(epochs):</span>
+<span id="cb9-81"><a href="#cb9-81"></a>        opt.zero_grad()</span>
+<span id="cb9-82"><a href="#cb9-82"></a>        loss_reg <span class="op">=</span> lam <span class="op">*</span> <span class="bu">sum</span>(p.<span class="bu">pow</span>(<span class="dv">2</span>).<span class="bu">sum</span>() <span class="cf">for</span> p <span class="kw">in</span> model.parameters())</span>
+<span id="cb9-83"><a href="#cb9-83"></a>        loss <span class="op">=</span> loss_func(model(X), y) <span class="op">+</span> loss_reg</span>
+<span id="cb9-84"><a href="#cb9-84"></a>        loss.backward()</span>
+<span id="cb9-85"><a href="#cb9-85"></a>        opt.step()</span>
+<span id="cb9-86"><a href="#cb9-86"></a></span>
+<span id="cb9-87"><a href="#cb9-87"></a>        loss_hist.append(loss.detach().numpy())</span>
+<span id="cb9-88"><a href="#cb9-88"></a>    <span class="cf">return</span> loss_hist</span>
+<span id="cb9-89"><a href="#cb9-89"></a><span class="in">```</span></span>
+<span id="cb9-90"><a href="#cb9-90"></a></span>
+<span id="cb9-91"><a href="#cb9-91"></a></span>
+<span id="cb9-92"><a href="#cb9-92"></a><span class="fu">## Train Model</span></span>
+<span id="cb9-95"><a href="#cb9-95"></a><span class="in">```{python}</span></span>
+<span id="cb9-96"><a href="#cb9-96"></a><span class="co">#| label: model_train</span></span>
+<span id="cb9-97"><a href="#cb9-97"></a><span class="op">%%</span>time</span>
+<span id="cb9-98"><a href="#cb9-98"></a><span class="im">from</span> torchinfo <span class="im">import</span> summary</span>
+<span id="cb9-99"><a href="#cb9-99"></a>model <span class="op">=</span> Model1(delta<span class="op">=</span><span class="fl">0.0</span>)</span>
+<span id="cb9-100"><a href="#cb9-100"></a><span class="bu">print</span>(summary(model))</span>
+<span id="cb9-101"><a href="#cb9-101"></a></span>
+<span id="cb9-102"><a href="#cb9-102"></a>loss_hist <span class="op">=</span> model_train(model, x, y, epochs<span class="op">=</span><span class="dv">10000</span>, lr<span class="op">=</span><span class="fl">1e-3</span>)</span>
+<span id="cb9-103"><a href="#cb9-103"></a><span class="in">```</span></span>
+<span id="cb9-104"><a href="#cb9-104"></a></span>
+<span id="cb9-105"><a href="#cb9-105"></a><span class="fu">## Loss History</span></span>
+<span id="cb9-108"><a href="#cb9-108"></a><span class="in">```{python}</span></span>
+<span id="cb9-109"><a href="#cb9-109"></a><span class="co">#| label: plot_history</span></span>
+<span id="cb9-110"><a href="#cb9-110"></a></span>
+<span id="cb9-111"><a href="#cb9-111"></a><span class="kw">def</span> plot_losses(losses):</span>
+<span id="cb9-112"><a href="#cb9-112"></a>    plt.figure()</span>
+<span id="cb9-113"><a href="#cb9-113"></a>    plt.plot(losses)</span>
+<span id="cb9-114"><a href="#cb9-114"></a>    plt.ylabel(<span class="st">'loss'</span>)</span>
+<span id="cb9-115"><a href="#cb9-115"></a>    plt.xlabel(<span class="st">'epoch'</span>)</span>
+<span id="cb9-116"><a href="#cb9-116"></a>    plt.title(<span class="ss">f'Loss history. Final Loss: </span><span class="sc">{</span>losses[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss">'</span>)</span>
+<span id="cb9-117"><a href="#cb9-117"></a>    plt.show()</span>
+<span id="cb9-118"><a href="#cb9-118"></a></span>
+<span id="cb9-119"><a href="#cb9-119"></a>plot_losses(loss_hist)</span>
+<span id="cb9-120"><a href="#cb9-120"></a><span class="in">```</span></span>
+<span id="cb9-121"><a href="#cb9-121"></a></span>
+<span id="cb9-122"><a href="#cb9-122"></a><span class="fu">## Model Predictions</span></span>
+<span id="cb9-125"><a href="#cb9-125"></a><span class="in">```{python}</span></span>
+<span id="cb9-126"><a href="#cb9-126"></a><span class="co">#| label: predict</span></span>
+<span id="cb9-127"><a href="#cb9-127"></a><span class="co">#| classes: preview-image</span></span>
+<span id="cb9-128"><a href="#cb9-128"></a></span>
+<span id="cb9-129"><a href="#cb9-129"></a><span class="kw">def</span> plot_pred(x,y, x_new, model, title<span class="op">=</span><span class="st">""</span>):</span>
+<span id="cb9-130"><a href="#cb9-130"></a>    <span class="co"># plot training data and model predictions</span></span>
+<span id="cb9-131"><a href="#cb9-131"></a></span>
+<span id="cb9-132"><a href="#cb9-132"></a>    <span class="co"># no not use dropout during evaluation !</span></span>
+<span id="cb9-133"><a href="#cb9-133"></a>    model.<span class="bu">eval</span>() </span>
+<span id="cb9-134"><a href="#cb9-134"></a>    <span class="cf">with</span> torch.no_grad():</span>
+<span id="cb9-135"><a href="#cb9-135"></a>        y_pred <span class="op">=</span> model(x_new)</span>
+<span id="cb9-136"><a href="#cb9-136"></a></span>
+<span id="cb9-137"><a href="#cb9-137"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>,<span class="dv">5</span>))</span>
+<span id="cb9-138"><a href="#cb9-138"></a>    <span class="co"># training data</span></span>
+<span id="cb9-139"><a href="#cb9-139"></a>    plt.scatter(x, y, color<span class="op">=</span><span class="st">'black'</span>, label<span class="op">=</span><span class="st">'train data'</span>, s<span class="op">=</span><span class="dv">50</span>)</span>
+<span id="cb9-140"><a href="#cb9-140"></a>    <span class="co"># predictions</span></span>
+<span id="cb9-141"><a href="#cb9-141"></a>    plt.plot(x_new, y_pred.detach(), color<span class="op">=</span><span class="st">'orange'</span>, lw<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="ss">f"model (delta=</span><span class="sc">{</span>model<span class="sc">.</span>delta<span class="sc">:.2f}</span><span class="ss">)"</span>)</span>
+<span id="cb9-142"><a href="#cb9-142"></a>    plt.xlabel(<span class="st">"x"</span>)</span>
+<span id="cb9-143"><a href="#cb9-143"></a>    plt.ylabel(<span class="st">"y"</span>)</span>
+<span id="cb9-144"><a href="#cb9-144"></a>    plt.title(title)</span>
+<span id="cb9-145"><a href="#cb9-145"></a>    plt.grid(<span class="va">True</span>)</span>
+<span id="cb9-146"><a href="#cb9-146"></a>    plt.legend()</span>
+<span id="cb9-147"><a href="#cb9-147"></a>    plt.tight_layout()</span>
+<span id="cb9-148"><a href="#cb9-148"></a>    plt.show()</span>
+<span id="cb9-149"><a href="#cb9-149"></a></span>
+<span id="cb9-150"><a href="#cb9-150"></a>x_plot <span class="op">=</span> torch.linspace(<span class="op">-</span><span class="fl">2.1</span>, <span class="fl">2.1</span>, <span class="dv">200</span>).unsqueeze(<span class="dv">1</span>)</span>
+<span id="cb9-151"><a href="#cb9-151"></a>plot_pred(x,y, x_plot, model, title<span class="op">=</span><span class="st">"Universality and Overfitting"</span>)</span>
+<span id="cb9-152"><a href="#cb9-152"></a><span class="in">```</span></span>
+<span id="cb9-153"><a href="#cb9-153"></a></span>
+<span id="cb9-154"><a href="#cb9-154"></a><span class="fu">## With Dropout</span></span>
+<span id="cb9-155"><a href="#cb9-155"></a>... adjust model (during training). </span>
+<span id="cb9-156"><a href="#cb9-156"></a></span>
+<span id="cb9-157"><a href="#cb9-157"></a>This sets to zero the output of a random fraction (10-20%) of neurons</span>
+<span id="cb9-158"><a href="#cb9-158"></a>for each mini-batch (epochs in the simple example below). </span>
+<span id="cb9-159"><a href="#cb9-159"></a>In this way the model predictions should be robust against the presence or absence of individual neurons and overfit less.</span>
+<span id="cb9-162"><a href="#cb9-162"></a><span class="in">```{python}</span></span>
+<span id="cb9-163"><a href="#cb9-163"></a><span class="co">#| label: model_dropout</span></span>
+<span id="cb9-164"><a href="#cb9-164"></a>model <span class="op">=</span> Model1(delta<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb9-165"><a href="#cb9-165"></a><span class="co">#print(summary(model))</span></span>
+<span id="cb9-166"><a href="#cb9-166"></a>loss_hist <span class="op">=</span> model_train(model, x, y, epochs<span class="op">=</span><span class="dv">10000</span>, lr<span class="op">=</span><span class="fl">1e-3</span>)</span>
+<span id="cb9-167"><a href="#cb9-167"></a>plot_losses(loss_hist)</span>
+<span id="cb9-168"><a href="#cb9-168"></a>plot_pred(x,y, x_plot, model, title<span class="op">=</span><span class="ss">f"delta=</span><span class="sc">{</span>model<span class="sc">.</span>delta<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb9-169"><a href="#cb9-169"></a><span class="in">```</span></span>
+<span id="cb9-170"><a href="#cb9-170"></a></span>
+<span id="cb9-171"><a href="#cb9-171"></a>::: {.callout-note}</span>
+<span id="cb9-172"><a href="#cb9-172"></a><span class="fu">### Dropout (delta&gt;0)</span></span>
+<span id="cb9-173"><a href="#cb9-173"></a><span class="ss">- </span>corresponds to ensemble of smaller networks within big one</span>
+<span id="cb9-174"><a href="#cb9-174"></a><span class="ss">- </span>makes learning harder</span>
+<span id="cb9-175"><a href="#cb9-175"></a><span class="ss">- </span>increases loss and loss fluctuations </span>
+<span id="cb9-176"><a href="#cb9-176"></a><span class="ss">- </span>reduces network capacity $\to$ increased training time</span>
+<span id="cb9-177"><a href="#cb9-177"></a><span class="ss">- </span>forces redundant representations (c.f neurobiology: neurons are not reliable </span>
+<span id="cb9-178"><a href="#cb9-178"></a><span class="ss">- </span>makes model more robust $\to$ less overfitting</span>
+<span id="cb9-179"><a href="#cb9-179"></a><span class="ss">- </span>accuracy $\to$ *reliability*</span>
+<span id="cb9-180"><a href="#cb9-180"></a><span class="ss">- </span>only at training (pyTorch: <span class="in">`model.eval`</span> at inference!)</span>
+<span id="cb9-181"><a href="#cb9-181"></a><span class="ss">    - </span>or run multiple evaluations to estimate empirical probabilities</span>
+<span id="cb9-182"><a href="#cb9-182"></a>:::</span>
+<span id="cb9-183"><a href="#cb9-183"></a></span>
+<span id="cb9-184"><a href="#cb9-184"></a></span>
+<span id="cb9-185"><a href="#cb9-185"></a><span class="fu">## With regularization</span></span>
+<span id="cb9-186"><a href="#cb9-186"></a>... adjust cost function</span>
+<span id="cb9-187"><a href="#cb9-187"></a>$$</span>
+<span id="cb9-188"><a href="#cb9-188"></a>L(\theta) \to L(\theta) + \frac{\lambda}{2} \sum_l \theta_l^2</span>
+<span id="cb9-189"><a href="#cb9-189"></a>$$</span>
+<span id="cb9-190"><a href="#cb9-190"></a></span>
+<span id="cb9-191"><a href="#cb9-191"></a>This is also know as "L2 regularization" which encourages more balanced distribution of weights $\theta_l$. </span>
+<span id="cb9-192"><a href="#cb9-192"></a></span>
+<span id="cb9-193"><a href="#cb9-193"></a>... and parameter update</span>
+<span id="cb9-194"><a href="#cb9-194"></a>$$</span>
+<span id="cb9-195"><a href="#cb9-195"></a>\theta_{t+1} = \theta_t - \alpha \frac{\partial L}{\partial \theta_t} - \lambda \theta_t</span>
+<span id="cb9-196"><a href="#cb9-196"></a>$$</span>
+<span id="cb9-197"><a href="#cb9-197"></a></span>
+<span id="cb9-200"><a href="#cb9-200"></a><span class="in">```{python}</span></span>
+<span id="cb9-201"><a href="#cb9-201"></a><span class="co">#| label: loss_regularization</span></span>
+<span id="cb9-202"><a href="#cb9-202"></a></span>
+<span id="cb9-203"><a href="#cb9-203"></a>delta, lam <span class="op">=</span> <span class="fl">0.0</span>, <span class="fl">0.1</span></span>
+<span id="cb9-204"><a href="#cb9-204"></a>model <span class="op">=</span> Model1(delta<span class="op">=</span>delta)</span>
+<span id="cb9-205"><a href="#cb9-205"></a><span class="co">#print(summary(model))</span></span>
+<span id="cb9-206"><a href="#cb9-206"></a>loss_hist <span class="op">=</span> model_train(model, x, y, epochs<span class="op">=</span><span class="dv">10000</span>, lr<span class="op">=</span><span class="fl">1e-3</span>, lam<span class="op">=</span>lam)</span>
+<span id="cb9-207"><a href="#cb9-207"></a>plot_losses(loss_hist)</span>
+<span id="cb9-208"><a href="#cb9-208"></a>plot_pred(x,y, x_plot, model,title<span class="op">=</span><span class="ss">f"delta=</span><span class="sc">{</span>delta<span class="sc">:.2f}</span><span class="ss">, lambda=</span><span class="sc">{</span>lam<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb9-209"><a href="#cb9-209"></a><span class="in">```</span></span>
+<span id="cb9-210"><a href="#cb9-210"></a></span>
+<span id="cb9-211"><a href="#cb9-211"></a>::: {.callout-note}</span>
+<span id="cb9-212"><a href="#cb9-212"></a><span class="fu">### Loss Regularization (lambda&gt;0)</span></span>
+<span id="cb9-213"><a href="#cb9-213"></a><span class="ss">- </span>no change to model</span>
+<span id="cb9-214"><a href="#cb9-214"></a><span class="ss">- </span>learning less affected $\to$ smoother loss history</span>
+<span id="cb9-215"><a href="#cb9-215"></a><span class="ss">- </span>model is more robust $\to$ less overfitting</span>
+<span id="cb9-216"><a href="#cb9-216"></a><span class="ss">- </span>new hyperparameters</span>
+<span id="cb9-217"><a href="#cb9-217"></a>:::</span>
+<span id="cb9-218"><a href="#cb9-218"></a></span>
+<span id="cb9-219"><a href="#cb9-219"></a></span>
+<span id="cb9-220"><a href="#cb9-220"></a><span class="fu">## Get more data: Data Augementation</span></span>
+<span id="cb9-221"><a href="#cb9-221"></a></span>
+<span id="cb9-222"><a href="#cb9-222"></a><span class="ss">- </span>embedd into ML workflow</span>
+<span id="cb9-223"><a href="#cb9-223"></a><span class="ss">- </span>identify symmetries (invariances): shift, rotate, scale, crop, brightness</span>
+<span id="cb9-224"><a href="#cb9-224"></a><span class="ss">- </span>augment only training data</span>
+<span id="cb9-225"><a href="#cb9-225"></a><span class="ss">- </span>augment all samples of the training data in same proportions</span>
+<span id="cb9-226"><a href="#cb9-226"></a></span>
+<span id="cb9-227"><a href="#cb9-227"></a></span>
+<span id="cb9-228"><a href="#cb9-228"></a><span class="fu">## Summary: Overfitting</span></span>
+<span id="cb9-229"><a href="#cb9-229"></a></span>
+<span id="cb9-230"><a href="#cb9-230"></a>::: {.callout-important}</span>
+<span id="cb9-231"><a href="#cb9-231"></a><span class="ss">- </span>universal approximation theorem</span>
+<span id="cb9-232"><a href="#cb9-232"></a><span class="ss">- </span>arbitrary functions can be constructed ("piecewise-linear")</span>
+<span id="cb9-233"><a href="#cb9-233"></a><span class="ss">- </span>non-linearity in model is crucial (here: ReLU)</span>
+<span id="cb9-234"><a href="#cb9-234"></a><span class="ss">- </span>relatively simple models: 49 parameters</span>
+<span id="cb9-235"><a href="#cb9-235"></a><span class="ss">- </span>number of data points: $n = 10 \to$ overfitting</span>
+<span id="cb9-236"><a href="#cb9-236"></a><span class="ss">- </span>use regularizations: e.g. $\lambda &gt; 0$ or dropout $\delta&gt;0$</span>
+<span id="cb9-237"><a href="#cb9-237"></a><span class="ss">- </span>always assess generalizability with **test data**</span>
+<span id="cb9-238"><a href="#cb9-238"></a>:::</span>
+<span id="cb9-239"><a href="#cb9-239"></a></span>
+<span id="cb9-242"><a href="#cb9-242"></a><span class="in">```{python}</span></span>
+<span id="cb9-243"><a href="#cb9-243"></a><span class="co">#| label: param_distribtion</span></span>
+<span id="cb9-244"><a href="#cb9-244"></a><span class="co">#| eval: false</span></span>
+<span id="cb9-245"><a href="#cb9-245"></a><span class="co">#| echo: false</span></span>
+<span id="cb9-246"><a href="#cb9-246"></a></span>
+<span id="cb9-247"><a href="#cb9-247"></a><span class="co"># actually the parameters in this simple example do not get overly large</span></span>
+<span id="cb9-248"><a href="#cb9-248"></a><span class="co"># (unlike polynomial models)</span></span>
+<span id="cb9-249"><a href="#cb9-249"></a><span class="co"># but the effect of L2 regularization can none-theless be observed </span></span>
+<span id="cb9-250"><a href="#cb9-250"></a><span class="co"># in shrinking the variance of the histogram </span></span>
+<span id="cb9-251"><a href="#cb9-251"></a>all_params <span class="op">=</span> torch.cat([p.data.flatten() <span class="cf">for</span> p <span class="kw">in</span> model.parameters()])</span>
+<span id="cb9-252"><a href="#cb9-252"></a></span>
+<span id="cb9-253"><a href="#cb9-253"></a>plt.hist(all_params.numpy(), bins<span class="op">=</span><span class="dv">50</span>, edgecolor<span class="op">=</span><span class="st">'k'</span>)</span>
+<span id="cb9-254"><a href="#cb9-254"></a>plt.xlabel(<span class="st">"Parameter value"</span>)</span>
+<span id="cb9-255"><a href="#cb9-255"></a>plt.ylabel(<span class="st">"Frequency"</span>)</span>
+<span id="cb9-256"><a href="#cb9-256"></a>plt.title(<span class="st">"Distribution of all model parameters"</span>)</span>
+<span id="cb9-257"><a href="#cb9-257"></a>plt.show()</span>
+<span id="cb9-258"><a href="#cb9-258"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
