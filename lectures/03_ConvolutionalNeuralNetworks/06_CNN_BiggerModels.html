@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Thomas Manke">
-<meta name="dcterms.date" content="2026-06-25">
+<meta name="dcterms.date" content="2026-06-30">
 <meta name="description" content="deeper and deeper">
 
 <title>Big CNN – Neural Networks and Deep Learning</title>
@@ -437,7 +437,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 25, 2026</p>
+      <p class="date">June 30, 2026</p>
     </div>
   </div>
   
@@ -1073,7 +1073,7 @@ Non-trainable params: 23,508,032
 <div id="train_model" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>NUM_EPOCHS <span class="op">=</span> <span class="dv">5</span> <span class="co"># keep small for faster execution</span></span>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>NUM_EPOCHS <span class="op">=</span> <span class="dv">10</span> <span class="co"># keep small for faster execution</span></span>
 <span id="cb13-2"><a href="#cb13-2"></a>history <span class="op">=</span> {<span class="st">'loss'</span>: [], <span class="st">'val_loss'</span>: []}</span>
 <span id="cb13-3"><a href="#cb13-3"></a><span class="co"># loop over epochs</span></span>
 <span id="cb13-4"><a href="#cb13-4"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(NUM_EPOCHS):</span>
@@ -1108,11 +1108,16 @@ Non-trainable params: 23,508,032
 <span id="cb13-33"><a href="#cb13-33"></a>    <span class="bu">print</span>(<span class="ss">f"Epoch </span><span class="sc">{</span>epoch<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">: train_loss=</span><span class="sc">{</span>train_loss<span class="sc">:.4f}</span><span class="ss">, val_loss=</span><span class="sc">{</span>val_loss<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 1: train_loss=0.0708, val_loss=0.0618
-Epoch 2: train_loss=0.0518, val_loss=0.0465
-Epoch 3: train_loss=0.0359, val_loss=0.0362
-Epoch 4: train_loss=0.0257, val_loss=0.0292
-Epoch 5: train_loss=0.0186, val_loss=0.0249</code></pre>
+<pre><code>Epoch 1: train_loss=0.0697, val_loss=0.0610
+Epoch 2: train_loss=0.0496, val_loss=0.0458
+Epoch 3: train_loss=0.0348, val_loss=0.0361
+Epoch 4: train_loss=0.0249, val_loss=0.0302
+Epoch 5: train_loss=0.0188, val_loss=0.0250
+Epoch 6: train_loss=0.0148, val_loss=0.0218
+Epoch 7: train_loss=0.0117, val_loss=0.0194
+Epoch 8: train_loss=0.0092, val_loss=0.0181
+Epoch 9: train_loss=0.0081, val_loss=0.0168
+Epoch 10: train_loss=0.0069, val_loss=0.0157</code></pre>
 </div>
 </div>
 </section>
@@ -1169,7 +1174,7 @@ Epoch 5: train_loss=0.0186, val_loss=0.0249</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="06_CNN_BiggerModels_files/figure-html/confusion_matrix-output-1.png" id="confusion_matrix" width="774" height="650" class="figure-img"></p>
+<p><img src="06_CNN_BiggerModels_files/figure-html/confusion_matrix-output-1.png" id="confusion_matrix" width="774" height="658" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -2012,7 +2017,7 @@ Epoch 5: train_loss=0.0186, val_loss=0.0249</code></pre>
 <span id="cb17-383"><a href="#cb17-383"></a><span class="co">#| label: train_model</span></span>
 <span id="cb17-384"><a href="#cb17-384"></a><span class="co">#| code-fold: true</span></span>
 <span id="cb17-385"><a href="#cb17-385"></a></span>
-<span id="cb17-386"><a href="#cb17-386"></a>NUM_EPOCHS <span class="op">=</span> <span class="dv">5</span> <span class="co"># keep small for faster execution</span></span>
+<span id="cb17-386"><a href="#cb17-386"></a>NUM_EPOCHS <span class="op">=</span> <span class="dv">10</span> <span class="co"># keep small for faster execution</span></span>
 <span id="cb17-387"><a href="#cb17-387"></a>history <span class="op">=</span> {<span class="st">'loss'</span>: [], <span class="st">'val_loss'</span>: []}</span>
 <span id="cb17-388"><a href="#cb17-388"></a><span class="co"># loop over epochs</span></span>
 <span id="cb17-389"><a href="#cb17-389"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(NUM_EPOCHS):</span>
