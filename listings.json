@@ -27,7 +27,9 @@
   },
   {
     "listing": "/projects/index.html",
-    "items": []
+    "items": [
+      "/projects/01_MachineLearning.html"
+    ]
   },
   {
     "listing": "/lectures/01_MachineLearning/index.html",
