@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Thomas Manke">
-<meta name="dcterms.date" content="2026-11-02">
+<meta name="dcterms.date" content="2026-11-03">
 <meta name="description" content="Brain Connections">
 
 <title>Perceptron – Neural Networks and Deep Learning</title>
@@ -427,7 +427,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 2, 2026</p>
+      <p class="date">November 3, 2026</p>
     </div>
   </div>
   
@@ -659,7 +659,7 @@ BUT
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>device <span class="op">=</span> detect_device()</span>
-<span id="cb3-2"><a href="#cb3-2"></a>n_epochs <span class="op">=</span> <span class="dv">8000</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>n_epochs <span class="op">=</span> <span class="dv">9000</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a>model <span class="op">=</span> MinimalModel().to(device)</span>
 <span id="cb3-4"><a href="#cb3-4"></a>X <span class="op">=</span> X.to(device)</span>
 <span id="cb3-5"><a href="#cb3-5"></a>labels <span class="op">=</span> labels.to(device)</span>
@@ -674,8 +674,8 @@ BUT
 <span id="cb3-14"><a href="#cb3-14"></a>complex_model, complex_loss <span class="op">=</span> train_model(model, X, labels, n_epochs<span class="op">=</span>n_epochs, lr<span class="op">=</span><span class="fl">0.001</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch [8000/8000], Loss: 0.2527
-Epoch [8000/8000], Loss: 0.0088</code></pre>
+<pre><code>Epoch [9000/9000], Loss: 0.1096
+Epoch [9000/9000], Loss: 0.0077</code></pre>
 </div>
 </div>
 <div id="cell-plot" class="cell" data-execution_count="4">
@@ -1419,7 +1419,7 @@ Universal Approximation Theorem
 <span id="cb6-193"><a href="#cb6-193"></a><span class="co">#| code-fold: true</span></span>
 <span id="cb6-194"><a href="#cb6-194"></a></span>
 <span id="cb6-195"><a href="#cb6-195"></a>device <span class="op">=</span> detect_device()</span>
-<span id="cb6-196"><a href="#cb6-196"></a>n_epochs <span class="op">=</span> <span class="dv">8000</span></span>
+<span id="cb6-196"><a href="#cb6-196"></a>n_epochs <span class="op">=</span> <span class="dv">9000</span></span>
 <span id="cb6-197"><a href="#cb6-197"></a>model <span class="op">=</span> MinimalModel().to(device)</span>
 <span id="cb6-198"><a href="#cb6-198"></a>X <span class="op">=</span> X.to(device)</span>
 <span id="cb6-199"><a href="#cb6-199"></a>labels <span class="op">=</span> labels.to(device)</span>
