@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Thomas Manke">
-<meta name="dcterms.date" content="2026-05-28">
+<meta name="dcterms.date" content="2026-11-23">
 <meta name="description" content="Summary">
 
 <title>Summary: DNN Challenges – Neural Networks and Deep Learning</title>
@@ -414,7 +414,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 28, 2026</p>
+      <p class="date">November 23, 2026</p>
     </div>
   </div>
   
@@ -441,6 +441,12 @@ window.Quarto = {
 <li>Infrastructure</li>
 <li>Community</li>
 </ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/summary_panel.png" class="img-fluid figure-img"></p>
+<figcaption>Deep Neural Networks: Successes and Dangers.</figcaption>
+</figure>
+</div>
 </section>
 <section id="dnn-challenges" class="level2">
 <h2 class="anchored" data-anchor-id="dnn-challenges">DNN challenges</h2>
@@ -992,20 +998,22 @@ window.Quarto = {
 <span id="cb1-15"><a href="#cb1-15"></a><span class="ss">- </span>Infrastructure</span>
 <span id="cb1-16"><a href="#cb1-16"></a><span class="ss">- </span>Community</span>
 <span id="cb1-17"><a href="#cb1-17"></a></span>
-<span id="cb1-18"><a href="#cb1-18"></a><span class="fu">## DNN challenges</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="al">![Deep Neural Networks: Successes and Dangers.](images/summary_panel.png)</span></span>
 <span id="cb1-19"><a href="#cb1-19"></a></span>
-<span id="cb1-20"><a href="#cb1-20"></a></span>
-<span id="cb1-21"><a href="#cb1-21"></a><span class="pp">|</span> **Challenge**       |   **Symptoms**                 | **Remedy**              <span class="pp">|</span></span>
-<span id="cb1-22"><a href="#cb1-22"></a><span class="pp">| --------------------------------------------------------</span> <span class="pp">| --------------------------------------------------------------------------------------------------------</span> <span class="pp">| ----------------------------------------------------------------------------------------------------------------------------------------------------</span> <span class="pp">|</span></span>
-<span id="cb1-23"><a href="#cb1-23"></a><span class="pp">|</span> **Find optimal parameters**     (non-convex optimization) <span class="pp">|</span> slow or unstable loss reduction <span class="pp">|</span> Use advanced optimizers (SGD, ADAM); learning-rate scheduling; weight initialization; <span class="pp">|</span></span>
-<span id="cb1-24"><a href="#cb1-24"></a><span class="pp">|</span> **Overparameterization**      <span class="pp">|</span> #parameters &gt; #observations   <span class="pp">|</span> smaller networks, constraints or symmetries                  <span class="pp">|</span></span>
-<span id="cb1-25"><a href="#cb1-25"></a><span class="pp">|</span> **Overfitting**       (poor generalization)                               <span class="pp">|</span> decrease training loss, increased validation/test loss     <span class="pp">|</span> Dropout; L2 regularization; early stopping; increase dataset (data augmentation)  <span class="pp">|</span></span>
-<span id="cb1-26"><a href="#cb1-26"></a><span class="pp">|</span> **Vanishing gradients**  (no learning)      <span class="pp">|</span> Gradients $\approx 0$ in early layers     <span class="pp">|</span> use better activation functions (ReLU, siLU); normalization layers       <span class="pp">|</span></span>
-<span id="cb1-27"><a href="#cb1-27"></a><span class="pp">|</span> **Exploding gradients**   (divergent training)                               <span class="pp">|</span> Loss or parameters become NaN/∞   <span class="pp">|</span> Gradient clipping; lower learning rate; normalization layers            <span class="pp">|</span></span>
-<span id="cb1-28"><a href="#cb1-28"></a><span class="pp">|</span> **Small Data**  <span class="pp">|</span> Poor performance on small datasets     <span class="pp">|</span> Data augmentation, Transfer learning     <span class="pp">|</span></span>
-<span id="cb1-29"><a href="#cb1-29"></a><span class="pp">|</span> **Computational cost** <span class="pp">|</span> slow and memory-intensive <span class="pp">|</span> GPU, batch processing, quantization <span class="pp">|</span>        </span>
-<span id="cb1-30"><a href="#cb1-30"></a><span class="pp">|</span> **Uncertainty Estimation** <span class="pp">|</span> Overconfident predictions <span class="pp">|</span> Monte Carlo dropouts, Calibration <span class="pp">|</span></span>
-<span id="cb1-31"><a href="#cb1-31"></a><span class="pp">|</span> **Interpretability**    <span class="pp">|</span> difficult to interprete parameters <span class="pp">|</span> Feature attribution map  <span class="pp">|</span></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb1-20"><a href="#cb1-20"></a><span class="fu">## DNN challenges</span></span>
+<span id="cb1-21"><a href="#cb1-21"></a></span>
+<span id="cb1-22"><a href="#cb1-22"></a></span>
+<span id="cb1-23"><a href="#cb1-23"></a><span class="pp">|</span> **Challenge**       |   **Symptoms**                 | **Remedy**              <span class="pp">|</span></span>
+<span id="cb1-24"><a href="#cb1-24"></a><span class="pp">| --------------------------------------------------------</span> <span class="pp">| --------------------------------------------------------------------------------------------------------</span> <span class="pp">| ----------------------------------------------------------------------------------------------------------------------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb1-25"><a href="#cb1-25"></a><span class="pp">|</span> **Find optimal parameters**     (non-convex optimization) <span class="pp">|</span> slow or unstable loss reduction <span class="pp">|</span> Use advanced optimizers (SGD, ADAM); learning-rate scheduling; weight initialization; <span class="pp">|</span></span>
+<span id="cb1-26"><a href="#cb1-26"></a><span class="pp">|</span> **Overparameterization**      <span class="pp">|</span> #parameters &gt; #observations   <span class="pp">|</span> smaller networks, constraints or symmetries                  <span class="pp">|</span></span>
+<span id="cb1-27"><a href="#cb1-27"></a><span class="pp">|</span> **Overfitting**       (poor generalization)                               <span class="pp">|</span> decrease training loss, increased validation/test loss     <span class="pp">|</span> Dropout; L2 regularization; early stopping; increase dataset (data augmentation)  <span class="pp">|</span></span>
+<span id="cb1-28"><a href="#cb1-28"></a><span class="pp">|</span> **Vanishing gradients**  (no learning)      <span class="pp">|</span> Gradients $\approx 0$ in early layers     <span class="pp">|</span> use better activation functions (ReLU, siLU); normalization layers       <span class="pp">|</span></span>
+<span id="cb1-29"><a href="#cb1-29"></a><span class="pp">|</span> **Exploding gradients**   (divergent training)                               <span class="pp">|</span> Loss or parameters become NaN/∞   <span class="pp">|</span> Gradient clipping; lower learning rate; normalization layers            <span class="pp">|</span></span>
+<span id="cb1-30"><a href="#cb1-30"></a><span class="pp">|</span> **Small Data**  <span class="pp">|</span> Poor performance on small datasets     <span class="pp">|</span> Data augmentation, Transfer learning     <span class="pp">|</span></span>
+<span id="cb1-31"><a href="#cb1-31"></a><span class="pp">|</span> **Computational cost** <span class="pp">|</span> slow and memory-intensive <span class="pp">|</span> GPU, batch processing, quantization <span class="pp">|</span>        </span>
+<span id="cb1-32"><a href="#cb1-32"></a><span class="pp">|</span> **Uncertainty Estimation** <span class="pp">|</span> Overconfident predictions <span class="pp">|</span> Monte Carlo dropouts, Calibration <span class="pp">|</span></span>
+<span id="cb1-33"><a href="#cb1-33"></a><span class="pp">|</span> **Interpretability**    <span class="pp">|</span> difficult to interprete parameters <span class="pp">|</span> Feature attribution map  <span class="pp">|</span></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

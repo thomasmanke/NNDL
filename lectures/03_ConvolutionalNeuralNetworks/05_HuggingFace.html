@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Thomas Manke">
-<meta name="dcterms.date" content="2026-06-25">
+<meta name="dcterms.date" content="2026-11-25">
 <meta name="description" content="Resources for Data and Models">
 
 <title>Huggingface – Neural Networks and Deep Learning</title>
@@ -394,8 +394,8 @@ window.Quarto = {
   </ul></li>
   <li><a href="#models-from-huggingface" id="toc-models-from-huggingface" class="nav-link" data-scroll-target="#models-from-huggingface">Models from Huggingface</a>
   <ul class="collapse">
-  <li><a href="#hf-api" id="toc-hf-api" class="nav-link" data-scroll-target="#hf-api">HF API</a></li>
-  <li><a href="#hf-pipeline-local" id="toc-hf-pipeline-local" class="nav-link" data-scroll-target="#hf-pipeline-local">HF Pipeline (local)</a></li>
+  <li><a href="#hf-api-cloud-inference" id="toc-hf-api-cloud-inference" class="nav-link" data-scroll-target="#hf-api-cloud-inference">HF API (Cloud Inference)</a></li>
+  <li><a href="#hf-pipeline-local-inference" id="toc-hf-pipeline-local-inference" class="nav-link" data-scroll-target="#hf-pipeline-local-inference">HF Pipeline (Local Inference)</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -433,7 +433,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 25, 2026</p>
+      <p class="date">November 25, 2026</p>
     </div>
   </div>
   
@@ -740,7 +740,7 @@ Task (10 min)
 <div class="callout-body-container callout-body">
 <ul>
 <li>Browse and Explore other Image Classification Models</li>
-<li>Find and Run Inference Providers if possible</li>
+<li>Optional: Find and Run Inference Providers if possible (may require credits)</li>
 <li>Report back:
 <ul>
 <li>model name</li>
@@ -772,12 +772,13 @@ Warnings
 </ul>
 </div>
 </div>
-<section id="hf-api" class="level3">
-<h3 class="anchored" data-anchor-id="hf-api">HF API</h3>
-<p>If you have an account and an HF access token, put it in <code>.env</code>.</p>
+<section id="hf-api-cloud-inference" class="level3">
+<h3 class="anchored" data-anchor-id="hf-api-cloud-inference">HF API (Cloud Inference)</h3>
+<p>Hugging Face also provides an <code>InferenceClient</code> to query some models hosted on remote cloud infrastructure without downloading weights locally. This requires an HF account and an API token.</p>
+<p>Historical note (Nov 2026): inference providers are no longer free and inference credits are required.</p>
 <div id="hf_api" class="cell" data-execution_count="11">
-<details open="" class="code-fold">
-<summary>Code</summary>
+<details class="code-fold">
+<summary>Inference costs! Code kept only for reference</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="im">import</span> os</span>
 <span id="cb11-2"><a href="#cb11-2"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
 <span id="cb11-3"><a href="#cb11-3"></a><span class="im">from</span> huggingface_hub <span class="im">import</span> InferenceClient</span>
@@ -802,81 +803,90 @@ Warnings
 <span id="cb11-22"><a href="#cb11-22"></a>    model<span class="op">=</span>mod_name</span>
 <span id="cb11-23"><a href="#cb11-23"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stderr">
-<pre><code>/Users/manke/micromamba/envs/pytorch/lib/python3.13/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
-  from .autonotebook import tqdm as notebook_tqdm</code></pre>
-</div>
-</div>
-<div id="cell-vis_pred" class="cell" data-execution_count="12">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb13-2"><a href="#cb13-2"></a></span>
-<span id="cb13-3"><a href="#cb13-3"></a><span class="kw">def</span> show_pred(output, img_path):</span>
-<span id="cb13-4"><a href="#cb13-4"></a></span>
-<span id="cb13-5"><a href="#cb13-5"></a>    <span class="co"># Extract scores and (short) labels from output</span></span>
-<span id="cb13-6"><a href="#cb13-6"></a>    labels <span class="op">=</span> [o[<span class="st">'label'</span>] <span class="cf">for</span> o <span class="kw">in</span> output]</span>
-<span id="cb13-7"><a href="#cb13-7"></a>    scores <span class="op">=</span> [o[<span class="st">'score'</span>] <span class="cf">for</span> o <span class="kw">in</span> output]</span>
-<span id="cb13-8"><a href="#cb13-8"></a><span class="co">#    labels = [res.label for res in output]</span></span>
-<span id="cb13-9"><a href="#cb13-9"></a><span class="co">#    scores = [res.score for res in output]</span></span>
-<span id="cb13-10"><a href="#cb13-10"></a>    short_lab <span class="op">=</span> [lbl.split(<span class="st">","</span>)[<span class="dv">0</span>] <span class="cf">for</span> lbl <span class="kw">in</span> labels]</span>
-<span id="cb13-11"><a href="#cb13-11"></a></span>
-<span id="cb13-12"><a href="#cb13-12"></a>    <span class="co"># get image from img_path</span></span>
-<span id="cb13-13"><a href="#cb13-13"></a>    img <span class="op">=</span> Image.<span class="bu">open</span>(img_path)</span>
-<span id="cb13-14"><a href="#cb13-14"></a></span>
-<span id="cb13-15"><a href="#cb13-15"></a>    fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
-<span id="cb13-16"><a href="#cb13-16"></a></span>
-<span id="cb13-17"><a href="#cb13-17"></a>    ax[<span class="dv">0</span>].imshow(img)</span>
-<span id="cb13-18"><a href="#cb13-18"></a>    ax[<span class="dv">0</span>].set_title(img_path)</span>
-<span id="cb13-19"><a href="#cb13-19"></a>    ax[<span class="dv">0</span>].axis(<span class="st">'off'</span>)</span>
-<span id="cb13-20"><a href="#cb13-20"></a></span>
-<span id="cb13-21"><a href="#cb13-21"></a>    ax[<span class="dv">1</span>].barh(short_lab, scores)</span>
-<span id="cb13-22"><a href="#cb13-22"></a>    ax[<span class="dv">1</span>].set_xlabel(<span class="st">"Score"</span>)</span>
-<span id="cb13-23"><a href="#cb13-23"></a>    ax[<span class="dv">1</span>].set_title(<span class="st">"Image classification scores"</span>)</span>
-<span id="cb13-24"><a href="#cb13-24"></a>    ax[<span class="dv">1</span>].invert_yaxis()</span>
-<span id="cb13-25"><a href="#cb13-25"></a>    plt.tight_layout()</span>
-<span id="cb13-26"><a href="#cb13-26"></a>    plt.show()</span>
-<span id="cb13-27"><a href="#cb13-27"></a></span>
-<span id="cb13-28"><a href="#cb13-28"></a>show_pred(output, img_path)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="05_HuggingFace_files/figure-html/vis_pred-output-1.png" id="vis_pred" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
 </div>
 </section>
-<section id="hf-pipeline-local" class="level3">
-<h3 class="anchored" data-anchor-id="hf-pipeline-local">HF Pipeline (local)</h3>
+<section id="hf-pipeline-local-inference" class="level3">
+<h3 class="anchored" data-anchor-id="hf-pipeline-local-inference">HF Pipeline (Local Inference)</h3>
+<p>Public Hugging Face models can also be used to run inference directly on your local machine (CPU or GPU) using the <code>transformers</code> library, this includes pipelines to handle</p>
 <ul>
-<li>Pre-processing - Model - Post-Processing</li>
+<li>Pre-processing (resizing, normalization)</li>
+<li>Model forward pass</li>
+<li>Post-processing (Softmax &amp; label lookup).</li>
 </ul>
-<div id="cell-hf_image_class" class="cell" data-execution_count="13">
+<p>Below I use Google’s <code>vit-base-patch16-224</code> (~86M parameters) for illustration, but you can try many different alternatives.</p>
+<div id="hf_image_class" class="cell" data-message="false" data-execution_count="12">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
-<span id="cb14-2"><a href="#cb14-2"></a></span>
-<span id="cb14-3"><a href="#cb14-3"></a>clf <span class="op">=</span> pipeline(</span>
-<span id="cb14-4"><a href="#cb14-4"></a>    task<span class="op">=</span><span class="st">"image-classification"</span>,</span>
-<span id="cb14-5"><a href="#cb14-5"></a><span class="co">#    model="WinKawaks/vit-tiny-patch16-224",</span></span>
-<span id="cb14-6"><a href="#cb14-6"></a><span class="co">#    model="deepmind/vision-perceiver-learned",</span></span>
-<span id="cb14-7"><a href="#cb14-7"></a><span class="co">#    model="nvidia/mit-b0",</span></span>
-<span id="cb14-8"><a href="#cb14-8"></a>    model<span class="op">=</span><span class="st">"microsoft/resnet-50"</span>,</span>
-<span id="cb14-9"><a href="#cb14-9"></a>)</span>
-<span id="cb14-10"><a href="#cb14-10"></a></span>
-<span id="cb14-11"><a href="#cb14-11"></a>output <span class="op">=</span> clf(img_path)</span>
-<span id="cb14-12"><a href="#cb14-12"></a>show_pred(output, img_path)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
+<span id="cb12-2"><a href="#cb12-2"></a></span>
+<span id="cb12-3"><a href="#cb12-3"></a>img_path <span class="op">=</span> <span class="st">"images/confused_cat.jpg"</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a>mod_name <span class="op">=</span> <span class="st">"google/vit-base-patch16-224"</span> </span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="co"># alts: nvidia/mit-b0, microsoft/resnet-50, deepmind/vision-perceiver-learned...</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a></span>
+<span id="cb12-7"><a href="#cb12-7"></a><span class="co"># Downloads model weights locally </span></span>
+<span id="cb12-8"><a href="#cb12-8"></a><span class="co"># model cached in ~/.cache/huggingface/)</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a>clf <span class="op">=</span> pipeline(</span>
+<span id="cb12-10"><a href="#cb12-10"></a>    task<span class="op">=</span><span class="st">"image-classification"</span>,</span>
+<span id="cb12-11"><a href="#cb12-11"></a>    model<span class="op">=</span>mod_name,</span>
+<span id="cb12-12"><a href="#cb12-12"></a>)</span>
+<span id="cb12-13"><a href="#cb12-13"></a></span>
+<span id="cb12-14"><a href="#cb12-14"></a><span class="co"># run locally on CPU/GPU</span></span>
+<span id="cb12-15"><a href="#cb12-15"></a>output <span class="op">=</span> clf(img_path)</span>
+<span id="cb12-16"><a href="#cb12-16"></a><span class="cf">for</span> pred <span class="kw">in</span> output:</span>
+<span id="cb12-17"><a href="#cb12-17"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>pred[<span class="st">'score'</span>]<span class="sc">:6.4f}</span><span class="ss"> : </span><span class="sc">{</span>pred[<span class="st">'label'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
-Device set to use mps:0</code></pre>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.6949 : golden retriever
+0.2243 : worm fence, snake fence, snake-rail fence, Virginia fence
+0.0259 : picket fence, paling
+0.0070 : Labrador retriever
+0.0026 : tennis ball</code></pre>
 </div>
+</div>
+<section id="visualize-predictions" class="level4">
+<h4 class="anchored" data-anchor-id="visualize-predictions">Visualize Predictions</h4>
+<div id="show_pred_helper" class="cell" data-execution_count="13">
+<details class="code-fold">
+<summary>Helper Function</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
+<span id="cb14-3"><a href="#cb14-3"></a></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="kw">def</span> show_pred(output, img_path):</span>
+<span id="cb14-5"><a href="#cb14-5"></a>    <span class="co"># print output from classifier next to image</span></span>
+<span id="cb14-6"><a href="#cb14-6"></a></span>
+<span id="cb14-7"><a href="#cb14-7"></a>    <span class="co"># Extract scores and (short) labels from output</span></span>
+<span id="cb14-8"><a href="#cb14-8"></a>    labels <span class="op">=</span> [o[<span class="st">'label'</span>] <span class="cf">for</span> o <span class="kw">in</span> output]</span>
+<span id="cb14-9"><a href="#cb14-9"></a>    scores <span class="op">=</span> [o[<span class="st">'score'</span>] <span class="cf">for</span> o <span class="kw">in</span> output]</span>
+<span id="cb14-10"><a href="#cb14-10"></a><span class="co">#    labels = [res.label for res in output]</span></span>
+<span id="cb14-11"><a href="#cb14-11"></a><span class="co">#    scores = [res.score for res in output]</span></span>
+<span id="cb14-12"><a href="#cb14-12"></a>    short_lab <span class="op">=</span> [lbl.split(<span class="st">","</span>)[<span class="dv">0</span>] <span class="cf">for</span> lbl <span class="kw">in</span> labels]</span>
+<span id="cb14-13"><a href="#cb14-13"></a></span>
+<span id="cb14-14"><a href="#cb14-14"></a>    <span class="co"># get image from img_path</span></span>
+<span id="cb14-15"><a href="#cb14-15"></a>    img <span class="op">=</span> Image.<span class="bu">open</span>(img_path)</span>
+<span id="cb14-16"><a href="#cb14-16"></a></span>
+<span id="cb14-17"><a href="#cb14-17"></a>    fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb14-18"><a href="#cb14-18"></a></span>
+<span id="cb14-19"><a href="#cb14-19"></a>    ax[<span class="dv">0</span>].imshow(img)</span>
+<span id="cb14-20"><a href="#cb14-20"></a>    ax[<span class="dv">0</span>].set_title(img_path)</span>
+<span id="cb14-21"><a href="#cb14-21"></a>    ax[<span class="dv">0</span>].axis(<span class="st">'off'</span>)</span>
+<span id="cb14-22"><a href="#cb14-22"></a></span>
+<span id="cb14-23"><a href="#cb14-23"></a>    ax[<span class="dv">1</span>].barh(short_lab, scores)</span>
+<span id="cb14-24"><a href="#cb14-24"></a>    ax[<span class="dv">1</span>].set_xlabel(<span class="st">"Score"</span>)</span>
+<span id="cb14-25"><a href="#cb14-25"></a>    ax[<span class="dv">1</span>].set_title(<span class="st">"Image classification scores"</span>)</span>
+<span id="cb14-26"><a href="#cb14-26"></a>    ax[<span class="dv">1</span>].invert_yaxis()</span>
+<span id="cb14-27"><a href="#cb14-27"></a>    plt.tight_layout()</span>
+<span id="cb14-28"><a href="#cb14-28"></a>    plt.show()    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-show_pred" class="cell" data-execution_count="14">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>show_pred(output, img_path)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05_HuggingFace_files/figure-html/hf_image_class-output-2.png" id="hf_image_class" class="img-fluid figure-img"></p>
+<p><img src="05_HuggingFace_files/figure-html/show_pred-output-1.png" id="show_pred" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -885,6 +895,7 @@ Device set to use mps:0</code></pre>
 
 <!-- -->
 
+</section>
 </section>
 </section>
 
@@ -1616,7 +1627,7 @@ Device set to use mps:0</code></pre>
 <span id="cb16-282"><a href="#cb16-282"></a>::: {.callout-important}</span>
 <span id="cb16-283"><a href="#cb16-283"></a><span class="fu">### Task (10 min)</span></span>
 <span id="cb16-284"><a href="#cb16-284"></a><span class="ss">- </span>Browse and Explore other Image Classification Models</span>
-<span id="cb16-285"><a href="#cb16-285"></a><span class="ss">- </span>Find and Run Inference Providers if possible</span>
+<span id="cb16-285"><a href="#cb16-285"></a><span class="ss">- </span>Optional: Find and Run Inference Providers if possible (may require credits)</span>
 <span id="cb16-286"><a href="#cb16-286"></a><span class="ss">- </span>Report back: </span>
 <span id="cb16-287"><a href="#cb16-287"></a><span class="ss">    - </span>model name</span>
 <span id="cb16-288"><a href="#cb16-288"></a><span class="ss">    - </span>intended use</span>
@@ -1637,101 +1648,133 @@ Device set to use mps:0</code></pre>
 <span id="cb16-303"><a href="#cb16-303"></a>:::</span>
 <span id="cb16-304"><a href="#cb16-304"></a></span>
 <span id="cb16-305"><a href="#cb16-305"></a></span>
-<span id="cb16-306"><a href="#cb16-306"></a><span class="fu">### HF API</span></span>
+<span id="cb16-306"><a href="#cb16-306"></a><span class="fu">### HF API (Cloud Inference)</span></span>
 <span id="cb16-307"><a href="#cb16-307"></a></span>
-<span id="cb16-308"><a href="#cb16-308"></a>If you have an account and an HF access token, put it in <span class="in">`.env`</span>.</span>
-<span id="cb16-311"><a href="#cb16-311"></a><span class="in">```{python}</span></span>
-<span id="cb16-312"><a href="#cb16-312"></a><span class="co">#| label: hf_api</span></span>
-<span id="cb16-313"><a href="#cb16-313"></a><span class="co">#| eval: true</span></span>
-<span id="cb16-314"><a href="#cb16-314"></a><span class="im">import</span> os</span>
-<span id="cb16-315"><a href="#cb16-315"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
-<span id="cb16-316"><a href="#cb16-316"></a><span class="im">from</span> huggingface_hub <span class="im">import</span> InferenceClient</span>
-<span id="cb16-317"><a href="#cb16-317"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
-<span id="cb16-318"><a href="#cb16-318"></a></span>
-<span id="cb16-319"><a href="#cb16-319"></a><span class="co"># get token for HF access</span></span>
-<span id="cb16-320"><a href="#cb16-320"></a>load_dotenv()</span>
-<span id="cb16-321"><a href="#cb16-321"></a>token <span class="op">=</span> os.getenv(<span class="st">"HF_TOKEN"</span>)</span>
-<span id="cb16-322"><a href="#cb16-322"></a><span class="cf">if</span> token <span class="kw">is</span> <span class="va">None</span>:</span>
-<span id="cb16-323"><a href="#cb16-323"></a>    <span class="cf">raise</span> <span class="pp">RuntimeError</span>(<span class="st">"HF_TOKEN not found. Check `.env`"</span>)</span>
+<span id="cb16-308"><a href="#cb16-308"></a>Hugging Face also provides an <span class="in">`InferenceClient`</span> to query some models hosted on remote cloud infrastructure without downloading weights locally.</span>
+<span id="cb16-309"><a href="#cb16-309"></a>This requires an HF account and an API token. </span>
+<span id="cb16-310"><a href="#cb16-310"></a></span>
+<span id="cb16-311"><a href="#cb16-311"></a>Historical note (Nov 2026): inference providers are no longer free and inference credits are required.</span>
+<span id="cb16-312"><a href="#cb16-312"></a></span>
+<span id="cb16-315"><a href="#cb16-315"></a><span class="in">```{python}</span></span>
+<span id="cb16-316"><a href="#cb16-316"></a><span class="co">#| label: hf_api</span></span>
+<span id="cb16-317"><a href="#cb16-317"></a><span class="co">#| eval: false</span></span>
+<span id="cb16-318"><a href="#cb16-318"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb16-319"><a href="#cb16-319"></a><span class="co">#| code-summary: Inference costs! Code kept only for reference</span></span>
+<span id="cb16-320"><a href="#cb16-320"></a><span class="im">import</span> os</span>
+<span id="cb16-321"><a href="#cb16-321"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
+<span id="cb16-322"><a href="#cb16-322"></a><span class="im">from</span> huggingface_hub <span class="im">import</span> InferenceClient</span>
+<span id="cb16-323"><a href="#cb16-323"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
 <span id="cb16-324"><a href="#cb16-324"></a></span>
-<span id="cb16-325"><a href="#cb16-325"></a>client <span class="op">=</span> InferenceClient(</span>
-<span id="cb16-326"><a href="#cb16-326"></a>    headers<span class="op">=</span>{<span class="st">"Content-Type"</span>: <span class="st">"image/jpeg"</span>},</span>
-<span id="cb16-327"><a href="#cb16-327"></a>    api_key<span class="op">=</span>token,</span>
-<span id="cb16-328"><a href="#cb16-328"></a>)</span>
-<span id="cb16-329"><a href="#cb16-329"></a></span>
-<span id="cb16-330"><a href="#cb16-330"></a>img_path <span class="op">=</span> <span class="st">"images/confused_cat.jpg"</span></span>
-<span id="cb16-331"><a href="#cb16-331"></a>mod_name <span class="op">=</span> <span class="st">"google/vit-base-patch16-224"</span></span>
-<span id="cb16-332"><a href="#cb16-332"></a></span>
-<span id="cb16-333"><a href="#cb16-333"></a>output <span class="op">=</span> client.image_classification(</span>
-<span id="cb16-334"><a href="#cb16-334"></a>    image<span class="op">=</span>img_path, </span>
-<span id="cb16-335"><a href="#cb16-335"></a>    model<span class="op">=</span>mod_name</span>
-<span id="cb16-336"><a href="#cb16-336"></a>)</span>
-<span id="cb16-337"><a href="#cb16-337"></a><span class="in">```</span></span>
+<span id="cb16-325"><a href="#cb16-325"></a><span class="co"># get token for HF access</span></span>
+<span id="cb16-326"><a href="#cb16-326"></a>load_dotenv()</span>
+<span id="cb16-327"><a href="#cb16-327"></a>token <span class="op">=</span> os.getenv(<span class="st">"HF_TOKEN"</span>)</span>
+<span id="cb16-328"><a href="#cb16-328"></a><span class="cf">if</span> token <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb16-329"><a href="#cb16-329"></a>    <span class="cf">raise</span> <span class="pp">RuntimeError</span>(<span class="st">"HF_TOKEN not found. Check `.env`"</span>)</span>
+<span id="cb16-330"><a href="#cb16-330"></a></span>
+<span id="cb16-331"><a href="#cb16-331"></a>client <span class="op">=</span> InferenceClient(</span>
+<span id="cb16-332"><a href="#cb16-332"></a>    headers<span class="op">=</span>{<span class="st">"Content-Type"</span>: <span class="st">"image/jpeg"</span>},</span>
+<span id="cb16-333"><a href="#cb16-333"></a>    api_key<span class="op">=</span>token,</span>
+<span id="cb16-334"><a href="#cb16-334"></a>)</span>
+<span id="cb16-335"><a href="#cb16-335"></a></span>
+<span id="cb16-336"><a href="#cb16-336"></a>img_path <span class="op">=</span> <span class="st">"images/confused_cat.jpg"</span></span>
+<span id="cb16-337"><a href="#cb16-337"></a>mod_name <span class="op">=</span> <span class="st">"google/vit-base-patch16-224"</span></span>
 <span id="cb16-338"><a href="#cb16-338"></a></span>
-<span id="cb16-341"><a href="#cb16-341"></a><span class="in">```{python}</span></span>
-<span id="cb16-342"><a href="#cb16-342"></a><span class="co">#| label: vis_pred</span></span>
-<span id="cb16-343"><a href="#cb16-343"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb16-344"><a href="#cb16-344"></a><span class="co">#| eval: true</span></span>
-<span id="cb16-345"><a href="#cb16-345"></a><span class="co">#| echo: true</span></span>
-<span id="cb16-346"><a href="#cb16-346"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb16-339"><a href="#cb16-339"></a>output <span class="op">=</span> client.image_classification(</span>
+<span id="cb16-340"><a href="#cb16-340"></a>    image<span class="op">=</span>img_path, </span>
+<span id="cb16-341"><a href="#cb16-341"></a>    model<span class="op">=</span>mod_name</span>
+<span id="cb16-342"><a href="#cb16-342"></a>)</span>
+<span id="cb16-343"><a href="#cb16-343"></a><span class="in">```</span></span>
+<span id="cb16-344"><a href="#cb16-344"></a></span>
+<span id="cb16-345"><a href="#cb16-345"></a></span>
+<span id="cb16-346"><a href="#cb16-346"></a><span class="fu">### HF Pipeline (Local Inference)</span></span>
 <span id="cb16-347"><a href="#cb16-347"></a></span>
-<span id="cb16-348"><a href="#cb16-348"></a><span class="kw">def</span> show_pred(output, img_path):</span>
+<span id="cb16-348"><a href="#cb16-348"></a>Public Hugging Face models can also be used to run inference directly on your local machine (CPU or GPU) using the <span class="in">`transformers`</span> library, this includes pipelines to handle</span>
 <span id="cb16-349"><a href="#cb16-349"></a></span>
-<span id="cb16-350"><a href="#cb16-350"></a>    <span class="co"># Extract scores and (short) labels from output</span></span>
-<span id="cb16-351"><a href="#cb16-351"></a>    labels <span class="op">=</span> [o[<span class="st">'label'</span>] <span class="cf">for</span> o <span class="kw">in</span> output]</span>
-<span id="cb16-352"><a href="#cb16-352"></a>    scores <span class="op">=</span> [o[<span class="st">'score'</span>] <span class="cf">for</span> o <span class="kw">in</span> output]</span>
-<span id="cb16-353"><a href="#cb16-353"></a><span class="co">#    labels = [res.label for res in output]</span></span>
-<span id="cb16-354"><a href="#cb16-354"></a><span class="co">#    scores = [res.score for res in output]</span></span>
-<span id="cb16-355"><a href="#cb16-355"></a>    short_lab <span class="op">=</span> [lbl.split(<span class="st">","</span>)[<span class="dv">0</span>] <span class="cf">for</span> lbl <span class="kw">in</span> labels]</span>
-<span id="cb16-356"><a href="#cb16-356"></a></span>
-<span id="cb16-357"><a href="#cb16-357"></a>    <span class="co"># get image from img_path</span></span>
-<span id="cb16-358"><a href="#cb16-358"></a>    img <span class="op">=</span> Image.<span class="bu">open</span>(img_path)</span>
-<span id="cb16-359"><a href="#cb16-359"></a></span>
-<span id="cb16-360"><a href="#cb16-360"></a>    fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
-<span id="cb16-361"><a href="#cb16-361"></a></span>
-<span id="cb16-362"><a href="#cb16-362"></a>    ax[<span class="dv">0</span>].imshow(img)</span>
-<span id="cb16-363"><a href="#cb16-363"></a>    ax[<span class="dv">0</span>].set_title(img_path)</span>
-<span id="cb16-364"><a href="#cb16-364"></a>    ax[<span class="dv">0</span>].axis(<span class="st">'off'</span>)</span>
-<span id="cb16-365"><a href="#cb16-365"></a></span>
-<span id="cb16-366"><a href="#cb16-366"></a>    ax[<span class="dv">1</span>].barh(short_lab, scores)</span>
-<span id="cb16-367"><a href="#cb16-367"></a>    ax[<span class="dv">1</span>].set_xlabel(<span class="st">"Score"</span>)</span>
-<span id="cb16-368"><a href="#cb16-368"></a>    ax[<span class="dv">1</span>].set_title(<span class="st">"Image classification scores"</span>)</span>
-<span id="cb16-369"><a href="#cb16-369"></a>    ax[<span class="dv">1</span>].invert_yaxis()</span>
-<span id="cb16-370"><a href="#cb16-370"></a>    plt.tight_layout()</span>
-<span id="cb16-371"><a href="#cb16-371"></a>    plt.show()</span>
-<span id="cb16-372"><a href="#cb16-372"></a></span>
-<span id="cb16-373"><a href="#cb16-373"></a>show_pred(output, img_path)</span>
-<span id="cb16-374"><a href="#cb16-374"></a><span class="in">```</span></span>
+<span id="cb16-350"><a href="#cb16-350"></a><span class="ss">- </span>Pre-processing (resizing, normalization) </span>
+<span id="cb16-351"><a href="#cb16-351"></a><span class="ss">- </span>Model forward pass </span>
+<span id="cb16-352"><a href="#cb16-352"></a><span class="ss">- </span>Post-processing (Softmax &amp; label lookup).</span>
+<span id="cb16-353"><a href="#cb16-353"></a></span>
+<span id="cb16-354"><a href="#cb16-354"></a>Below I use Google's <span class="in">`vit-base-patch16-224`</span> (~86M parameters) for illustration, but you can try many different alternatives.</span>
+<span id="cb16-355"><a href="#cb16-355"></a></span>
+<span id="cb16-358"><a href="#cb16-358"></a><span class="in">```{python}</span></span>
+<span id="cb16-359"><a href="#cb16-359"></a><span class="co">#| label: hf_image_class</span></span>
+<span id="cb16-360"><a href="#cb16-360"></a><span class="co">#| eval: true</span></span>
+<span id="cb16-361"><a href="#cb16-361"></a><span class="co">#| warning: false</span></span>
+<span id="cb16-362"><a href="#cb16-362"></a><span class="co">#| message: false</span></span>
+<span id="cb16-363"><a href="#cb16-363"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
+<span id="cb16-364"><a href="#cb16-364"></a></span>
+<span id="cb16-365"><a href="#cb16-365"></a>img_path <span class="op">=</span> <span class="st">"images/confused_cat.jpg"</span></span>
+<span id="cb16-366"><a href="#cb16-366"></a>mod_name <span class="op">=</span> <span class="st">"google/vit-base-patch16-224"</span> </span>
+<span id="cb16-367"><a href="#cb16-367"></a><span class="co"># alts: nvidia/mit-b0, microsoft/resnet-50, deepmind/vision-perceiver-learned...</span></span>
+<span id="cb16-368"><a href="#cb16-368"></a></span>
+<span id="cb16-369"><a href="#cb16-369"></a><span class="co"># Downloads model weights locally </span></span>
+<span id="cb16-370"><a href="#cb16-370"></a><span class="co"># model cached in ~/.cache/huggingface/)</span></span>
+<span id="cb16-371"><a href="#cb16-371"></a>clf <span class="op">=</span> pipeline(</span>
+<span id="cb16-372"><a href="#cb16-372"></a>    task<span class="op">=</span><span class="st">"image-classification"</span>,</span>
+<span id="cb16-373"><a href="#cb16-373"></a>    model<span class="op">=</span>mod_name,</span>
+<span id="cb16-374"><a href="#cb16-374"></a>)</span>
 <span id="cb16-375"><a href="#cb16-375"></a></span>
-<span id="cb16-376"><a href="#cb16-376"></a><span class="fu">### HF Pipeline (local)</span></span>
-<span id="cb16-377"><a href="#cb16-377"></a></span>
-<span id="cb16-378"><a href="#cb16-378"></a><span class="ss">- </span>Pre-processing - Model - Post-Processing</span>
-<span id="cb16-381"><a href="#cb16-381"></a><span class="in">```{python}</span></span>
-<span id="cb16-382"><a href="#cb16-382"></a><span class="co">#| label: hf_image_class</span></span>
-<span id="cb16-383"><a href="#cb16-383"></a><span class="co">#| eval: true</span></span>
-<span id="cb16-384"><a href="#cb16-384"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
-<span id="cb16-385"><a href="#cb16-385"></a></span>
-<span id="cb16-386"><a href="#cb16-386"></a>clf <span class="op">=</span> pipeline(</span>
-<span id="cb16-387"><a href="#cb16-387"></a>    task<span class="op">=</span><span class="st">"image-classification"</span>,</span>
-<span id="cb16-388"><a href="#cb16-388"></a><span class="co">#    model="WinKawaks/vit-tiny-patch16-224",</span></span>
-<span id="cb16-389"><a href="#cb16-389"></a><span class="co">#    model="deepmind/vision-perceiver-learned",</span></span>
-<span id="cb16-390"><a href="#cb16-390"></a><span class="co">#    model="nvidia/mit-b0",</span></span>
-<span id="cb16-391"><a href="#cb16-391"></a>    model<span class="op">=</span><span class="st">"microsoft/resnet-50"</span>,</span>
-<span id="cb16-392"><a href="#cb16-392"></a>)</span>
-<span id="cb16-393"><a href="#cb16-393"></a></span>
-<span id="cb16-394"><a href="#cb16-394"></a>output <span class="op">=</span> clf(img_path)</span>
-<span id="cb16-395"><a href="#cb16-395"></a>show_pred(output, img_path)</span>
-<span id="cb16-396"><a href="#cb16-396"></a><span class="in">```</span></span>
+<span id="cb16-376"><a href="#cb16-376"></a><span class="co"># run locally on CPU/GPU</span></span>
+<span id="cb16-377"><a href="#cb16-377"></a>output <span class="op">=</span> clf(img_path)</span>
+<span id="cb16-378"><a href="#cb16-378"></a><span class="cf">for</span> pred <span class="kw">in</span> output:</span>
+<span id="cb16-379"><a href="#cb16-379"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>pred[<span class="st">'score'</span>]<span class="sc">:6.4f}</span><span class="ss"> : </span><span class="sc">{</span>pred[<span class="st">'label'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb16-380"><a href="#cb16-380"></a><span class="in">```</span></span>
+<span id="cb16-381"><a href="#cb16-381"></a></span>
+<span id="cb16-382"><a href="#cb16-382"></a><span class="fu">#### Visualize Predictions</span></span>
+<span id="cb16-383"><a href="#cb16-383"></a></span>
+<span id="cb16-386"><a href="#cb16-386"></a><span class="in">```{python}</span></span>
+<span id="cb16-387"><a href="#cb16-387"></a><span class="co">#| label: show_pred_helper</span></span>
+<span id="cb16-388"><a href="#cb16-388"></a><span class="co">#| code-summary: Helper Function</span></span>
+<span id="cb16-389"><a href="#cb16-389"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb16-390"><a href="#cb16-390"></a><span class="co">#| eval: true</span></span>
+<span id="cb16-391"><a href="#cb16-391"></a><span class="co">#| echo: true</span></span>
+<span id="cb16-392"><a href="#cb16-392"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb16-393"><a href="#cb16-393"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
+<span id="cb16-394"><a href="#cb16-394"></a></span>
+<span id="cb16-395"><a href="#cb16-395"></a><span class="kw">def</span> show_pred(output, img_path):</span>
+<span id="cb16-396"><a href="#cb16-396"></a>    <span class="co"># print output from classifier next to image</span></span>
 <span id="cb16-397"><a href="#cb16-397"></a></span>
-<span id="cb16-398"><a href="#cb16-398"></a></span>
-<span id="cb16-401"><a href="#cb16-401"></a><span class="in">```{python}</span></span>
-<span id="cb16-402"><a href="#cb16-402"></a><span class="co">#| label: references</span></span>
-<span id="cb16-403"><a href="#cb16-403"></a><span class="co">#| echo: false</span></span>
+<span id="cb16-398"><a href="#cb16-398"></a>    <span class="co"># Extract scores and (short) labels from output</span></span>
+<span id="cb16-399"><a href="#cb16-399"></a>    labels <span class="op">=</span> [o[<span class="st">'label'</span>] <span class="cf">for</span> o <span class="kw">in</span> output]</span>
+<span id="cb16-400"><a href="#cb16-400"></a>    scores <span class="op">=</span> [o[<span class="st">'score'</span>] <span class="cf">for</span> o <span class="kw">in</span> output]</span>
+<span id="cb16-401"><a href="#cb16-401"></a><span class="co">#    labels = [res.label for res in output]</span></span>
+<span id="cb16-402"><a href="#cb16-402"></a><span class="co">#    scores = [res.score for res in output]</span></span>
+<span id="cb16-403"><a href="#cb16-403"></a>    short_lab <span class="op">=</span> [lbl.split(<span class="st">","</span>)[<span class="dv">0</span>] <span class="cf">for</span> lbl <span class="kw">in</span> labels]</span>
 <span id="cb16-404"><a href="#cb16-404"></a></span>
-<span id="cb16-405"><a href="#cb16-405"></a><span class="co">#- Carbon Footprint</span></span>
-<span id="cb16-406"><a href="#cb16-406"></a><span class="co">#    - Calculate [ML CO2 Impact](https://mlco2.github.io/impact/)</span></span>
-<span id="cb16-407"><a href="#cb16-407"></a><span class="co">#    - Track [Code Carbon](https://codecarbon.io/)</span></span>
-<span id="cb16-408"><a href="#cb16-408"></a><span class="in">```</span></span>
+<span id="cb16-405"><a href="#cb16-405"></a>    <span class="co"># get image from img_path</span></span>
+<span id="cb16-406"><a href="#cb16-406"></a>    img <span class="op">=</span> Image.<span class="bu">open</span>(img_path)</span>
+<span id="cb16-407"><a href="#cb16-407"></a></span>
+<span id="cb16-408"><a href="#cb16-408"></a>    fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb16-409"><a href="#cb16-409"></a></span>
+<span id="cb16-410"><a href="#cb16-410"></a>    ax[<span class="dv">0</span>].imshow(img)</span>
+<span id="cb16-411"><a href="#cb16-411"></a>    ax[<span class="dv">0</span>].set_title(img_path)</span>
+<span id="cb16-412"><a href="#cb16-412"></a>    ax[<span class="dv">0</span>].axis(<span class="st">'off'</span>)</span>
+<span id="cb16-413"><a href="#cb16-413"></a></span>
+<span id="cb16-414"><a href="#cb16-414"></a>    ax[<span class="dv">1</span>].barh(short_lab, scores)</span>
+<span id="cb16-415"><a href="#cb16-415"></a>    ax[<span class="dv">1</span>].set_xlabel(<span class="st">"Score"</span>)</span>
+<span id="cb16-416"><a href="#cb16-416"></a>    ax[<span class="dv">1</span>].set_title(<span class="st">"Image classification scores"</span>)</span>
+<span id="cb16-417"><a href="#cb16-417"></a>    ax[<span class="dv">1</span>].invert_yaxis()</span>
+<span id="cb16-418"><a href="#cb16-418"></a>    plt.tight_layout()</span>
+<span id="cb16-419"><a href="#cb16-419"></a>    plt.show()    </span>
+<span id="cb16-420"><a href="#cb16-420"></a><span class="in">```</span></span>
+<span id="cb16-421"><a href="#cb16-421"></a></span>
+<span id="cb16-424"><a href="#cb16-424"></a><span class="in">```{python}</span></span>
+<span id="cb16-425"><a href="#cb16-425"></a><span class="co">#| label: show_pred</span></span>
+<span id="cb16-426"><a href="#cb16-426"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb16-427"><a href="#cb16-427"></a><span class="co">#| eval: true</span></span>
+<span id="cb16-428"><a href="#cb16-428"></a></span>
+<span id="cb16-429"><a href="#cb16-429"></a>show_pred(output, img_path)</span>
+<span id="cb16-430"><a href="#cb16-430"></a><span class="in">```</span></span>
+<span id="cb16-431"><a href="#cb16-431"></a></span>
+<span id="cb16-432"><a href="#cb16-432"></a></span>
+<span id="cb16-435"><a href="#cb16-435"></a><span class="in">```{python}</span></span>
+<span id="cb16-436"><a href="#cb16-436"></a><span class="co">#| label: references</span></span>
+<span id="cb16-437"><a href="#cb16-437"></a><span class="co">#| echo: false</span></span>
+<span id="cb16-438"><a href="#cb16-438"></a></span>
+<span id="cb16-439"><a href="#cb16-439"></a><span class="co">#- Carbon Footprint</span></span>
+<span id="cb16-440"><a href="#cb16-440"></a><span class="co">#    - Calculate [ML CO2 Impact](https://mlco2.github.io/impact/)</span></span>
+<span id="cb16-441"><a href="#cb16-441"></a><span class="co">#    - Track [Code Carbon](https://codecarbon.io/)</span></span>
+<span id="cb16-442"><a href="#cb16-442"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

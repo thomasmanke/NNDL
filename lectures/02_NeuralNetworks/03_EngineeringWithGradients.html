@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Thomas Manke">
-<meta name="dcterms.date" content="2026-05-28">
+<meta name="dcterms.date" content="2026-11-24">
 <meta name="description" content="Improvements beyond simple gradient descent">
 
 <title>Engineering with Gradients – Neural Networks and Deep Learning</title>
@@ -426,7 +426,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 28, 2026</p>
+      <p class="date">November 24, 2026</p>
     </div>
   </div>
   
@@ -711,12 +711,11 @@ Note
 <h2 class="anchored" data-anchor-id="parameter-initialization">Parameter Initialization</h2>
 <ul>
 <li>different initialization can lead to different solutions</li>
-<li>avoid node symmetry: random initialization, not zero</li>
+<li>avoid node symmetry: do not set all weights to zero <span class="math inline">\(\to\)</span> random initialization</li>
 <li>avoid large weights <span class="math inline">\(\to\)</span> vanishing gradients (w/ sigmoid) <span class="math inline">\(\to\)</span> no learning</li>
-<li>avoid small weights <span class="math inline">\(\to\)</span> small activation <span class="math inline">\(\to\)</span> small gradients</li>
 </ul>
 <p><span class="math display">\[
-(\partial L / \partial w_i) = (\partial L / \partial a)   (\partial a / \partial w_i)
+w \propto N(0,\sigma^2)
 \]</span></p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -734,11 +733,11 @@ z &amp;= \sum_i w_i x_i \\
 Var(z) &amp;= n_l Var(w) Var(x)
 \end{aligned}
 \]</span></p>
-<p>We want that Var(output) <span class="math inline">\(\propto\)</span> Var(input)</p>
+<p>We want that Var(output) <span class="math inline">\(\approx\)</span> Var(input)</p>
 <ul>
-<li>Xavier Initialization (for tanh): <span class="math inline">\(Var(w) = 1/n_l\)</span></li>
+<li>Xavier Initialization: <span class="math inline">\(Var(w) = 1/n_l\)</span></li>
 <li>Kaiming Initialization (for ReLU); <span class="math inline">\(Var(w) = 2/n_l\)</span></li>
-<li>many more: e.g.&nbsp;<a href="https://docs.pytorch.org/docs/stable/nn.init.html">torch.nn.init</a></li>
+<li>many more: e.g.&nbsp;<a href="https://docs.pytorch.org/docs/stable/nn.init.html" target="_blank" rel="noopener">torch.nn.init</a></li>
 </ul>
 </div>
 </div>
@@ -1466,70 +1465,68 @@ z &amp;= X &amp;\cdot&amp; W &amp;+ b\\
 <span id="cb5-225"><a href="#cb5-225"></a><span class="fu">## Parameter Initialization</span></span>
 <span id="cb5-226"><a href="#cb5-226"></a></span>
 <span id="cb5-227"><a href="#cb5-227"></a><span class="ss">- </span>different initialization can lead to different solutions</span>
-<span id="cb5-228"><a href="#cb5-228"></a><span class="ss">- </span>avoid node symmetry: random initialization, not zero</span>
+<span id="cb5-228"><a href="#cb5-228"></a><span class="ss">- </span>avoid node symmetry: do not set all weights to zero $\to$ random initialization</span>
 <span id="cb5-229"><a href="#cb5-229"></a><span class="ss">- </span>avoid large weights $\to$ vanishing gradients (w/ sigmoid) $\to$ no learning</span>
-<span id="cb5-230"><a href="#cb5-230"></a><span class="ss">- </span>avoid small weights $\to$ small activation $\to$ small gradients</span>
-<span id="cb5-231"><a href="#cb5-231"></a></span>
-<span id="cb5-232"><a href="#cb5-232"></a></span>
+<span id="cb5-230"><a href="#cb5-230"></a></span>
+<span id="cb5-231"><a href="#cb5-231"></a>$$</span>
+<span id="cb5-232"><a href="#cb5-232"></a>w \propto N(0,\sigma^2)</span>
 <span id="cb5-233"><a href="#cb5-233"></a>$$</span>
-<span id="cb5-234"><a href="#cb5-234"></a>(\partial L / \partial w_i) = (\partial L / \partial a)   (\partial a / \partial w_i)</span>
-<span id="cb5-235"><a href="#cb5-235"></a>$$</span>
-<span id="cb5-236"><a href="#cb5-236"></a></span>
-<span id="cb5-237"><a href="#cb5-237"></a>::: {.callout-note}</span>
-<span id="cb5-238"><a href="#cb5-238"></a><span class="fu">### Different Initializations at different layers:</span></span>
-<span id="cb5-239"><a href="#cb5-239"></a>For layer with $n_l$ nodes</span>
-<span id="cb5-240"><a href="#cb5-240"></a>$$</span>
-<span id="cb5-241"><a href="#cb5-241"></a>\begin{aligned}</span>
-<span id="cb5-242"><a href="#cb5-242"></a>z &amp;= \sum_i w_i x_i <span class="sc">\\</span></span>
-<span id="cb5-243"><a href="#cb5-243"></a>Var(z) &amp;= n_l Var(w) Var(x)</span>
-<span id="cb5-244"><a href="#cb5-244"></a>\end{aligned}</span>
-<span id="cb5-245"><a href="#cb5-245"></a>$$</span>
+<span id="cb5-234"><a href="#cb5-234"></a></span>
+<span id="cb5-235"><a href="#cb5-235"></a>::: {.callout-note}</span>
+<span id="cb5-236"><a href="#cb5-236"></a><span class="fu">### Different Initializations at different layers:</span></span>
+<span id="cb5-237"><a href="#cb5-237"></a>For layer with $n_l$ nodes</span>
+<span id="cb5-238"><a href="#cb5-238"></a>$$</span>
+<span id="cb5-239"><a href="#cb5-239"></a>\begin{aligned}</span>
+<span id="cb5-240"><a href="#cb5-240"></a>z &amp;= \sum_i w_i x_i <span class="sc">\\</span></span>
+<span id="cb5-241"><a href="#cb5-241"></a>Var(z) &amp;= n_l Var(w) Var(x)</span>
+<span id="cb5-242"><a href="#cb5-242"></a>\end{aligned}</span>
+<span id="cb5-243"><a href="#cb5-243"></a>$$</span>
+<span id="cb5-244"><a href="#cb5-244"></a></span>
+<span id="cb5-245"><a href="#cb5-245"></a>We want that Var(output) $\approx$ Var(input)</span>
 <span id="cb5-246"><a href="#cb5-246"></a></span>
-<span id="cb5-247"><a href="#cb5-247"></a>We want that Var(output) $\propto$ Var(input)</span>
-<span id="cb5-248"><a href="#cb5-248"></a></span>
-<span id="cb5-249"><a href="#cb5-249"></a><span class="ss">- </span>Xavier Initialization (for tanh): $Var(w) = 1/n_l$</span>
-<span id="cb5-250"><a href="#cb5-250"></a><span class="ss">- </span>Kaiming Initialization (for ReLU);  $Var(w) = 2/n_l$</span>
-<span id="cb5-251"><a href="#cb5-251"></a><span class="ss">- </span>many more: e.g. <span class="co">[</span><span class="ot">torch.nn.init</span><span class="co">](https://docs.pytorch.org/docs/stable/nn.init.html)</span></span>
-<span id="cb5-252"><a href="#cb5-252"></a>:::</span>
+<span id="cb5-247"><a href="#cb5-247"></a><span class="ss">- </span>Xavier Initialization: $Var(w) = 1/n_l$</span>
+<span id="cb5-248"><a href="#cb5-248"></a><span class="ss">- </span>Kaiming Initialization (for ReLU);  $Var(w) = 2/n_l$</span>
+<span id="cb5-249"><a href="#cb5-249"></a><span class="ss">- </span>many more: e.g. <span class="co">[</span><span class="ot">torch.nn.init</span><span class="co">](https://docs.pytorch.org/docs/stable/nn.init.html)</span>{target="_blank" rel="noopener"}</span>
+<span id="cb5-250"><a href="#cb5-250"></a>:::</span>
+<span id="cb5-251"><a href="#cb5-251"></a></span>
+<span id="cb5-252"><a href="#cb5-252"></a></span>
 <span id="cb5-253"><a href="#cb5-253"></a></span>
-<span id="cb5-254"><a href="#cb5-254"></a></span>
+<span id="cb5-254"><a href="#cb5-254"></a><span class="fu">## Vectorization &amp; GPU</span></span>
 <span id="cb5-255"><a href="#cb5-255"></a></span>
-<span id="cb5-256"><a href="#cb5-256"></a><span class="fu">## Vectorization &amp; GPU</span></span>
-<span id="cb5-257"><a href="#cb5-257"></a></span>
+<span id="cb5-256"><a href="#cb5-256"></a></span>
+<span id="cb5-257"><a href="#cb5-257"></a>**Matrix Multiplication**:</span>
 <span id="cb5-258"><a href="#cb5-258"></a></span>
-<span id="cb5-259"><a href="#cb5-259"></a>**Matrix Multiplication**:</span>
-<span id="cb5-260"><a href="#cb5-260"></a></span>
-<span id="cb5-261"><a href="#cb5-261"></a><span class="ss">- </span>$n$ samples</span>
-<span id="cb5-262"><a href="#cb5-262"></a><span class="ss">- </span>$k$ input features</span>
-<span id="cb5-263"><a href="#cb5-263"></a><span class="ss">- </span>$m$ output features</span>
-<span id="cb5-264"><a href="#cb5-264"></a></span>
-<span id="cb5-265"><a href="#cb5-265"></a>$$</span>
-<span id="cb5-266"><a href="#cb5-266"></a>\begin{aligned}</span>
-<span id="cb5-267"><a href="#cb5-267"></a>z &amp;= X &amp;\cdot&amp; W &amp;+ b<span class="sc">\\</span></span>
-<span id="cb5-268"><a href="#cb5-268"></a><span class="co">[</span><span class="ot">n,m</span><span class="co">]</span> &amp;= <span class="co">[</span><span class="ot">n,k</span><span class="co">]</span> &amp;\cdot&amp; <span class="co">[</span><span class="ot">k,m</span><span class="co">]</span> &amp;+ <span class="co">[</span><span class="ot">m</span><span class="co">]</span></span>
-<span id="cb5-269"><a href="#cb5-269"></a>\end{aligned}</span>
-<span id="cb5-270"><a href="#cb5-270"></a>$$</span>
+<span id="cb5-259"><a href="#cb5-259"></a><span class="ss">- </span>$n$ samples</span>
+<span id="cb5-260"><a href="#cb5-260"></a><span class="ss">- </span>$k$ input features</span>
+<span id="cb5-261"><a href="#cb5-261"></a><span class="ss">- </span>$m$ output features</span>
+<span id="cb5-262"><a href="#cb5-262"></a></span>
+<span id="cb5-263"><a href="#cb5-263"></a>$$</span>
+<span id="cb5-264"><a href="#cb5-264"></a>\begin{aligned}</span>
+<span id="cb5-265"><a href="#cb5-265"></a>z &amp;= X &amp;\cdot&amp; W &amp;+ b<span class="sc">\\</span></span>
+<span id="cb5-266"><a href="#cb5-266"></a><span class="co">[</span><span class="ot">n,m</span><span class="co">]</span> &amp;= <span class="co">[</span><span class="ot">n,k</span><span class="co">]</span> &amp;\cdot&amp; <span class="co">[</span><span class="ot">k,m</span><span class="co">]</span> &amp;+ <span class="co">[</span><span class="ot">m</span><span class="co">]</span></span>
+<span id="cb5-267"><a href="#cb5-267"></a>\end{aligned}</span>
+<span id="cb5-268"><a href="#cb5-268"></a>$$</span>
+<span id="cb5-269"><a href="#cb5-269"></a></span>
+<span id="cb5-270"><a href="#cb5-270"></a>Be aware of conventions and possible matrix transposition.</span>
 <span id="cb5-271"><a href="#cb5-271"></a></span>
-<span id="cb5-272"><a href="#cb5-272"></a>Be aware of conventions and possible matrix transposition.</span>
-<span id="cb5-273"><a href="#cb5-273"></a></span>
-<span id="cb5-274"><a href="#cb5-274"></a>**Using GPU**:</span>
-<span id="cb5-277"><a href="#cb5-277"></a><span class="in">```{python}</span></span>
-<span id="cb5-278"><a href="#cb5-278"></a><span class="co">#| label: using_GPU</span></span>
-<span id="cb5-279"><a href="#cb5-279"></a><span class="co">#| eval: false</span></span>
-<span id="cb5-280"><a href="#cb5-280"></a><span class="co">#| show: true</span></span>
-<span id="cb5-281"><a href="#cb5-281"></a><span class="im">import</span> torch</span>
-<span id="cb5-282"><a href="#cb5-282"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
-<span id="cb5-283"><a href="#cb5-283"></a></span>
-<span id="cb5-284"><a href="#cb5-284"></a><span class="co">#detect GPU</span></span>
-<span id="cb5-285"><a href="#cb5-285"></a>device <span class="op">=</span> torch.device(<span class="st">"cuda"</span> <span class="cf">if</span> torch.cuda.is_available() <span class="cf">else</span> <span class="st">"cpu"</span>)</span>
-<span id="cb5-286"><a href="#cb5-286"></a></span>
-<span id="cb5-287"><a href="#cb5-287"></a>model <span class="op">=</span> nn.Linear(<span class="dv">10</span>, <span class="dv">2</span>).to(device) <span class="co"># model --&gt; Device</span></span>
-<span id="cb5-288"><a href="#cb5-288"></a>x <span class="op">=</span> torch.randn(<span class="dv">16</span>, <span class="dv">10</span>).to(device)  <span class="co"># data --&gt; device</span></span>
-<span id="cb5-289"><a href="#cb5-289"></a>y <span class="op">=</span> model(x)                        <span class="co"># output on device</span></span>
-<span id="cb5-290"><a href="#cb5-290"></a><span class="bu">print</span>(<span class="st">"y.device:"</span>, y.device)        <span class="co"># inspect device</span></span>
-<span id="cb5-291"><a href="#cb5-291"></a>y_cpu <span class="op">=</span> y.cpu()                     <span class="co"># change device</span></span>
-<span id="cb5-292"><a href="#cb5-292"></a><span class="in">```</span></span>
-<span id="cb5-293"><a href="#cb5-293"></a></span>
+<span id="cb5-272"><a href="#cb5-272"></a>**Using GPU**:</span>
+<span id="cb5-275"><a href="#cb5-275"></a><span class="in">```{python}</span></span>
+<span id="cb5-276"><a href="#cb5-276"></a><span class="co">#| label: using_GPU</span></span>
+<span id="cb5-277"><a href="#cb5-277"></a><span class="co">#| eval: false</span></span>
+<span id="cb5-278"><a href="#cb5-278"></a><span class="co">#| show: true</span></span>
+<span id="cb5-279"><a href="#cb5-279"></a><span class="im">import</span> torch</span>
+<span id="cb5-280"><a href="#cb5-280"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
+<span id="cb5-281"><a href="#cb5-281"></a></span>
+<span id="cb5-282"><a href="#cb5-282"></a><span class="co">#detect GPU</span></span>
+<span id="cb5-283"><a href="#cb5-283"></a>device <span class="op">=</span> torch.device(<span class="st">"cuda"</span> <span class="cf">if</span> torch.cuda.is_available() <span class="cf">else</span> <span class="st">"cpu"</span>)</span>
+<span id="cb5-284"><a href="#cb5-284"></a></span>
+<span id="cb5-285"><a href="#cb5-285"></a>model <span class="op">=</span> nn.Linear(<span class="dv">10</span>, <span class="dv">2</span>).to(device) <span class="co"># model --&gt; Device</span></span>
+<span id="cb5-286"><a href="#cb5-286"></a>x <span class="op">=</span> torch.randn(<span class="dv">16</span>, <span class="dv">10</span>).to(device)  <span class="co"># data --&gt; device</span></span>
+<span id="cb5-287"><a href="#cb5-287"></a>y <span class="op">=</span> model(x)                        <span class="co"># output on device</span></span>
+<span id="cb5-288"><a href="#cb5-288"></a><span class="bu">print</span>(<span class="st">"y.device:"</span>, y.device)        <span class="co"># inspect device</span></span>
+<span id="cb5-289"><a href="#cb5-289"></a>y_cpu <span class="op">=</span> y.cpu()                     <span class="co"># change device</span></span>
+<span id="cb5-290"><a href="#cb5-290"></a><span class="in">```</span></span>
+<span id="cb5-291"><a href="#cb5-291"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
